@@ -3,6 +3,7 @@ Cross platform Mobile app for tracking time, managing logs and time analysis wit
 
 # Group S2G1
 - [Abhiraj Shourya](https://github.com/abhirajshourya)
+- [Darshan Nariya](https://github.com/DannyGlade/)
 
 # Data Source
 Single-user input, no signup required. All data originates and stays on-device.
