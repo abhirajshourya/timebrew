@@ -22,3 +22,7 @@ Single-user input, no signup required. All data originates and stays on-device.
 6. Users have an animated splash screen.
 7. Users have an in-app tutorial when opening the app for first time. (with ability to reset tutorial in settings)
 8. Users can change theme of app from settings.
+9. Users can change language of app from settings.
+10. Users can set daily/task goal.
+11. Users can assign task to time logs.
+12. Users can set pomodoro timer.
