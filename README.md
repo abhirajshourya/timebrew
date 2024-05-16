@@ -13,3 +13,7 @@ Single-user input, no signup required. All data originates and stays on-device.
 2. Users can _tag_ time logs and organize _tags_.
 3. Users can visualize and analyse the time logs.
 4. Users can import/export thier data.
+5. Users can control the timer from notification panel.
+6. Users have an animated splash screen.
+7. Users have an in-app tutorial when opening the app for first time. (with ability to reset tutorial in settings)
+8. Users can change theme of app from settings.
