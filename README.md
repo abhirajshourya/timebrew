@@ -24,5 +24,5 @@ Single-user input, no signup required. All data originates and stays on-device.
 8. Users can change theme of app from settings.
 9. Users can change language of app from settings.
 10. Users can set daily/task goal.
-11. Users can assign task to time logs.
+11. Users have daily reminder.
 12. Users can set pomodoro timer.
