@@ -26,3 +26,6 @@ Single-user input, no signup required. All data originates and stays on-device.
 10. Users can set daily/task goal.
 11. Users have daily reminder.
 12. Users can set pomodoro timer.
+
+# Additional Resources
+- [Developer Guide](./DEVELOPER_GUIDE.md)
