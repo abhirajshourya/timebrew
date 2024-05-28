@@ -25,6 +25,7 @@ const useTimeTracker = (): time => {
 
   const stop = () => {
     setDuration(0);
+    setIsRunning(false);
   };
 
   useEffect(() => {
