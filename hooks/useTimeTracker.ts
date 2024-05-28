@@ -4,12 +4,12 @@ type time = {
   duration: number;
   start: () => void;
   stop: () => void;
-  reset: () => void;
+  pause: () => void;
 };
 
 /**
  * A custom hook to track time. It returns the current time in seconds and provides methods to start, stop and reset the timer.
- * @returns {time: number, start: () => void, stop: () => void, reset: () => void}
+ * @returns {time: number, start: () => void, pause: () => void, stop: () => void}
  */
 const useTimeTracker = (): time => {
   const [duration, setDuration] = useState(0);
@@ -19,11 +19,11 @@ const useTimeTracker = (): time => {
     setIsRunning(true);
   };
 
-  const stop = () => {
+  const pause = () => {
     setIsRunning(false);
   };
 
-  const reset = () => {
+  const stop = () => {
     setDuration(0);
   };
 
@@ -41,7 +41,7 @@ const useTimeTracker = (): time => {
     return () => clearInterval(interval);
   }, [isRunning]);
 
-  return { duration, start, stop, reset };
+  return { duration, start, pause, stop };
 };
 
 export default useTimeTracker;
