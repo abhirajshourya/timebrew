@@ -1,4 +1,3 @@
-import ParallaxView from '@/components/ParallaxView';
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, Button, SafeAreaView } from 'react-native';
 import { Image, ScrollView } from 'react-native';
@@ -13,10 +12,10 @@ const Tracker = () => {
 
     return (
         <SafeAreaView>
-            <ScrollView style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.mainTrackerContainer}>
 
-                    <PolygonRings numberOfRings={3} ringSize={250} ringWidth={8} >
+                    <PolygonRings numberOfRings={3} ringSize={295} ringWidth={8} isRunning={isRunning}>
                         <View>
                             <Text>{duration}s</Text>
                         </View>
@@ -39,7 +38,6 @@ const Tracker = () => {
                                 <Ionicons name="play" size={24} color="white" />
                             </CircleButton>
                         )}
-
                         <CircleButton onPress={stop} style={styles.button}>
                             <Ionicons name="stop" size={24} color="white" />
                         </CircleButton>
@@ -58,13 +56,14 @@ const Tracker = () => {
 
 const styles = StyleSheet.create({
     container: {
-        // padding: 20,
         height: '100%',
+        paddingTop: 100
     },
     mainTrackerContainer: {
         // flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        gap: 20,
     },
     mianCircle: {
         width: 100,
