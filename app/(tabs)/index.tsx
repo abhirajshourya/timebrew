@@ -5,9 +5,11 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import useTimeTracker from '@/hooks/useTimeTracker';
+import useDatabase from '@/hooks/useDatabase';
 
 export default function HomeScreen() {
   const { duration, start, stop, pause } = useTimeTracker();
+  const { getData, fillSampleData, clearData } = useDatabase();
 
   return (
     <ParallaxScrollView
@@ -30,6 +32,9 @@ export default function HomeScreen() {
         <Button title="Start" onPress={start} />
         <Button title="Pause" onPress={pause} />
         <Button title="Stop" onPress={stop} />
+        <Button title="Fill Sample Data" onPress={fillSampleData} />
+        <Button title="Get Data" onPress={getData} />
+        <Button title="Clear Data" onPress={clearData} />
       </ThemedView>
     </ParallaxScrollView>
   );
