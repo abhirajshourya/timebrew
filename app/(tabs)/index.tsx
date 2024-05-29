@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform, Button, TextInput } from 'react-native';
+import { Image, StyleSheet, Button, TextInput } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -6,8 +6,9 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import useTimeTracker from '@/hooks/useTimeTracker';
 import useDatabase from '@/hooks/useDatabase';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Task, Timelog } from '@/constants/types';
+import { MMKV } from 'react-native-mmkv';
 
 export default function HomeScreen() {
   const { duration, start, stop, pause, isRunning } = useTimeTracker();
@@ -15,11 +16,19 @@ export default function HomeScreen() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [timelogs, setTimelogs] = useState<Timelog[]>([]);
 
+  const secureStorage = new MMKV();
+
+  useEffect(() => {
+    secureStorage.set('isRunning', isRunning);
+  }, [isRunning]);
+
   function onGetData() {
     getData().then(({ tasks, timelogs }) => {
-      setTasks(tasks.flat());
-      setTimelogs(timelogs.flat());
+      setTasks(tasks);
+      setTimelogs(timelogs);
     });
+
+    console.log('Is Running:', secureStorage.getBoolean('isRunning'));
   }
 
   return (

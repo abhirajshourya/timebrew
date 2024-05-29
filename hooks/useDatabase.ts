@@ -53,8 +53,8 @@ export default function useDatabase() {
 
   const getData = async () => {
     const [timelogs, tasks] = await Promise.all([
-      db.getAllAsync<Timelog[]>('SELECT * FROM timelogs'),
-      db.getAllAsync<Task[]>('SELECT * FROM tasks'),
+      db.getAllAsync<Timelog>('SELECT * FROM timelogs'),
+      db.getAllAsync<Task>('SELECT * FROM tasks'),
     ]);
 
     return {
