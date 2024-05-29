@@ -25,6 +25,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="Tracker"
+        options={{
+          title: 'Tracker',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'stopwatch' : 'stopwatch-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="explore"
         options={{
           title: 'Explore',
