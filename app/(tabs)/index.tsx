@@ -12,7 +12,7 @@ import { MMKV } from 'react-native-mmkv';
 
 export default function HomeScreen() {
   const { duration, start, stop, pause, isRunning } = useTimeTracker();
-  const { getData, fillSampleData, clearData } = useDatabase();
+  const { getData, fillSampleData, clearData, dropDB } = useDatabase();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [timelogs, setTimelogs] = useState<Timelog[]>([]);
 
@@ -54,6 +54,7 @@ export default function HomeScreen() {
         <Button title="Fill Sample Data" onPress={fillSampleData} />
         <Button title="Get Data" onPress={onGetData} />
         <Button title="Clear Data" onPress={clearData} />
+        <Button title="Drop DB" onPress={dropDB} />
       </ThemedView>
       {tasks && (
         <ThemedView style={styles.stepContainer}>
@@ -68,7 +69,7 @@ export default function HomeScreen() {
           <ThemedText type="subtitle">Timelogs</ThemedText>
           {timelogs.map((timelog) => (
             <ThemedText key={timelog.id}>
-              {timelog.start_time} - {timelog.duration}s
+              {timelog.created_at} - {timelog.duration}s
             </ThemedText>
           ))}
         </ThemedView>

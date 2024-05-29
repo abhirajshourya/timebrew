@@ -20,7 +20,7 @@ export default function useDatabase() {
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS timelogs (
         id INTEGER PRIMARY KEY NOT NULL,
-        start_time TEXT NOT NULL,
+        created_at TEXT NOT NULL,
         task_id INTEGER NOT NULL,
         duration INTEGER NOT NULL,
         FOREIGN KEY(task_id) REFERENCES tasks(id)
@@ -36,9 +36,9 @@ export default function useDatabase() {
     `);
 
     await db.execAsync(`
-      INSERT INTO timelogs (start_time, task_id, duration) VALUES ('2021-12-01 09:00:00', 1, 3600);
-      INSERT INTO timelogs (start_time, task_id, duration) VALUES ('2021-12-01 10:00:00', 2, 3600);
-      INSERT INTO timelogs (start_time, task_id, duration) VALUES ('2021-12-01 11:00:00', 3, 3600);
+      INSERT INTO timelogs (created_at, task_id, duration) VALUES ('2021-12-01 09:00:00', 1, 3600);
+      INSERT INTO timelogs (created_at, task_id, duration) VALUES ('2021-12-01 10:00:00', 2, 3600);
+      INSERT INTO timelogs (created_at, task_id, duration) VALUES ('2021-12-01 11:00:00', 3, 3600);
     `);
 
     console.log('Sample data inserted');
@@ -50,6 +50,13 @@ export default function useDatabase() {
 
     console.log('Data cleared');
   };
+
+  const dropDB = async () => {
+    await db.execAsync('DROP TABLE IF EXISTS timelogs');
+    await db.execAsync('DROP TABLE IF EXISTS tasks');
+
+    console.log('Database dropped');
+  }
 
   const getData = async () => {
     const [timelogs, tasks] = await Promise.all([
@@ -67,5 +74,6 @@ export default function useDatabase() {
     getData,
     fillSampleData,
     clearData,
+    dropDB,
   };
 }
