@@ -5,6 +5,7 @@ type time = {
   start: () => void;
   stop: () => void;
   pause: () => void;
+  isRunning: boolean;
 };
 
 /**
@@ -42,7 +43,7 @@ const useTimeTracker = (): time => {
     return () => clearInterval(interval);
   }, [isRunning]);
 
-  return { duration, start, pause, stop };
+  return { duration, start, pause, stop, isRunning };
 };
 
 export default useTimeTracker;

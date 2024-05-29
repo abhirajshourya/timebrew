@@ -6,10 +6,21 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import useTimeTracker from '@/hooks/useTimeTracker';
 import useDatabase from '@/hooks/useDatabase';
+import { useState } from 'react';
+import { Task, Timelog } from '@/constants/types';
 
 export default function HomeScreen() {
-  const { duration, start, stop, pause } = useTimeTracker();
+  const { duration, start, stop, pause, isRunning } = useTimeTracker();
   const { getData, fillSampleData, clearData } = useDatabase();
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [timelogs, setTimelogs] = useState<Timelog[]>([]);
+
+  function onGetData() {
+    getData().then(({ tasks, timelogs }) => {
+      setTasks(tasks.flat());
+      setTimelogs(timelogs.flat());
+    });
+  }
 
   return (
     <ParallaxScrollView
@@ -29,13 +40,30 @@ export default function HomeScreen() {
         <ThemedText type="subtitle">Time Tracker</ThemedText>
         <ThemedText type="subtitle">Time: {duration}s</ThemedText>
         <TextInput placeholder="Enter Task Description" />
-        <Button title="Start" onPress={start} />
-        <Button title="Pause" onPress={pause} />
+        <Button title={isRunning ? 'Pause' : 'Start'} onPress={isRunning ? pause : start} />
         <Button title="Stop" onPress={stop} />
         <Button title="Fill Sample Data" onPress={fillSampleData} />
-        <Button title="Get Data" onPress={getData} />
+        <Button title="Get Data" onPress={onGetData} />
         <Button title="Clear Data" onPress={clearData} />
       </ThemedView>
+      {tasks && (
+        <ThemedView style={styles.stepContainer}>
+          <ThemedText type="subtitle">Tasks</ThemedText>
+          {tasks.map((task) => (
+            <ThemedText key={task.id}>{task.description}</ThemedText>
+          ))}
+        </ThemedView>
+      )}
+      {timelogs && (
+        <ThemedView style={styles.stepContainer}>
+          <ThemedText type="subtitle">Timelogs</ThemedText>
+          {timelogs.map((timelog) => (
+            <ThemedText key={timelog.id}>
+              {timelog.start_time} - {timelog.duration}s
+            </ThemedText>
+          ))}
+        </ThemedView>
+      )}
     </ParallaxScrollView>
   );
 }
