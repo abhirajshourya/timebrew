@@ -6,27 +6,39 @@ type time = {
   stop: () => void;
   pause: () => void;
   isRunning: boolean;
+  advanceTime: (time: number) => void;
+  status: status;
 };
 
+type status = 'running' | 'paused' | 'stopped';
+
 /**
- * A custom hook to track time. It returns the current time in seconds and provides methods to start, stop and reset the timer.
+ * A custom hook to track time. It returns the current time in seconds and provides methods to start, pause and stop the timer.
  * @returns {time: number, start: () => void, pause: () => void, stop: () => void}
  */
 const useTimeTracker = (): time => {
   const [duration, setDuration] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [status, setStatus] = useState<status>('stopped');
 
   const start = () => {
     setIsRunning(true);
+    setStatus('running');
   };
 
   const pause = () => {
     setIsRunning(false);
+    setStatus('paused');
   };
 
   const stop = () => {
     setDuration(0);
     setIsRunning(false);
+    setStatus('stopped');
+  };
+
+  const advanceTime = (time: number) => {
+    setDuration((duration) => duration + time);
   };
 
   useEffect(() => {
@@ -43,7 +55,7 @@ const useTimeTracker = (): time => {
     return () => clearInterval(interval);
   }, [isRunning]);
 
-  return { duration, start, pause, stop, isRunning };
+  return { duration, start, pause, stop, isRunning, advanceTime, status };
 };
 
 export default useTimeTracker;
