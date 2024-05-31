@@ -1,11 +1,12 @@
 export interface Timelog {
-    id: number;
-    created_at: string;
-    task_id: number;
-    duration: number;
+  id: number;
+  start_time: string;
+  end_time: string;
+  task_id: number;
+  duration: number;
 }
 
 export interface Task {
-    id: number;
-    description: string;
+  id: number;
+  description: string;
 }

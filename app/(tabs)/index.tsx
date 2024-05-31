@@ -128,7 +128,7 @@ export default function HomeScreen() {
           <ThemedText type="subtitle">Timelogs</ThemedText>
           {timelogs.map((timelog) => (
             <ThemedText key={timelog.id}>
-              {timelog.created_at} - {timelog.duration}s
+              {timelog.start_time} - {timelog.duration}s
             </ThemedText>
           ))}
         </ThemedView>

@@ -20,7 +20,8 @@ export default function useDatabase() {
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS timelogs (
         id INTEGER PRIMARY KEY NOT NULL,
-        created_at TEXT NOT NULL,
+        start_time TEXT NOT NULL,
+        end_time TEXT NOT NULL,
         task_id INTEGER NOT NULL,
         duration INTEGER NOT NULL,
         FOREIGN KEY(task_id) REFERENCES tasks(id)
@@ -36,9 +37,9 @@ export default function useDatabase() {
     `);
 
     await db.execAsync(`
-      INSERT INTO timelogs (created_at, task_id, duration) VALUES ('2021-12-01 09:00:00', 1, 3600);
-      INSERT INTO timelogs (created_at, task_id, duration) VALUES ('2021-12-01 10:00:00', 2, 3600);
-      INSERT INTO timelogs (created_at, task_id, duration) VALUES ('2021-12-01 11:00:00', 3, 3600);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES ('2021-09-01 10:00:00', '2021-09-01 10:30:00', 1, 1800);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES ('2021-09-01 11:00:00', '2021-09-01 12:00:00', 2, 3600);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES ('2021-09-01 13:00:00', '2021-09-01 14:00:00', 3, 3600);
     `);
 
     console.log('Sample data inserted');
@@ -126,6 +127,76 @@ export default function useDatabase() {
    */
   const deleteTask = async (id: number) => {
     await db.runAsync('DELETE FROM tasks WHERE id = $id', {
+      $id: id,
+    });
+  };
+
+  /**
+   * ****************************************************
+   * 2. Timelog
+   * ****************************************************
+   */
+  /**
+   * Create a new timelog
+   * @param start_time - Start time in ISO format
+   * @param end_time - End time in ISO format
+   * @param task_id - Task id
+   * @param duration - Duration in seconds
+   * @returns - Timelog id
+   */
+  const createTimelog = async (
+    start_time: string,
+    end_time: string,
+    task_id: number,
+    duration: number
+  ) => {
+    const timelog = await db.runAsync(
+      'INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES ($start_time, $end_time, $task_id, $duration)',
+      {
+        $start_time: start_time,
+        $end_time: end_time,
+        $task_id: task_id,
+        $duration: duration,
+      }
+    );
+
+    return timelog.lastInsertRowId;
+  };
+
+  /**
+   * Get a timelog by id
+   * @param id - Timelog id
+   * @returns - Timelog
+   */
+  const getTimelog = async (id: number) => {
+    return await db.getFirstAsync<Timelog>('SELECT * FROM timelogs WHERE id = $id', {
+      $id: id,
+    });
+  };
+
+  /**
+   * Update a timelog
+   * @param timelog - Timelog object
+   */
+  const updateTimelog = async (timelog: Timelog) => {
+    await db.runAsync(
+      'UPDATE timelogs SET start_time = $start_time, end_time = $end_time, task_id = $task_id, duration = $duration WHERE id = $id',
+      {
+        $id: timelog.id,
+        $start_time: timelog.start_time,
+        $end_time: timelog.end_time,
+        $task_id: timelog.task_id,
+        $duration: timelog.duration,
+      }
+    );
+  };
+
+  /**
+   * Delete a timelog by id
+   * @param id - Timelog id
+   */
+  const deleteTimelog = async (id: number) => {
+    await db.runAsync('DELETE FROM timelogs WHERE id = $id', {
       $id: id,
     });
   };
