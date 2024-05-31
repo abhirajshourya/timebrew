@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderColor: 'black',
     borderRadius: 5,
-    margin: 5,
+    marginTop: 15,
     backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
