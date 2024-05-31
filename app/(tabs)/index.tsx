@@ -12,9 +12,19 @@ import { MMKV } from 'react-native-mmkv';
 
 export default function HomeScreen() {
   const { duration, start, stop, pause, isRunning } = useTimeTracker();
-  const { getData, fillSampleData, clearData, dropDB } = useDatabase();
+  const {
+    getData,
+    fillSampleData,
+    clearData,
+    dropDB,
+    createTask,
+    getTask,
+    updateTask,
+    deleteTask,
+  } = useDatabase();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [timelogs, setTimelogs] = useState<Timelog[]>([]);
+  const [task, setTask] = useState<Task>({ description: '', id: 0 });
 
   const secureStorage = new MMKV();
 
@@ -30,6 +40,35 @@ export default function HomeScreen() {
 
     console.log('Is Running:', secureStorage.getBoolean('isRunning'));
   }
+
+  const handleAddTask = async () => {
+    try {
+      const newTaskId = await createTask(task.description);
+      const newTask = await getTask(newTaskId);
+      setTasks([...tasks, newTask!]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUpdateTask = async () => {
+    try {
+      await updateTask(task);
+      const updatedTask = await getTask(task.id);
+      setTasks(tasks.map((t) => (t.id === task.id ? updatedTask! : t)));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDeleteTask = async () => {
+    try {
+      await deleteTask(task.id);
+      setTasks(tasks.filter((t) => t.id !== task.id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <ParallaxScrollView
@@ -48,7 +87,25 @@ export default function HomeScreen() {
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Time Tracker</ThemedText>
         <ThemedText type="subtitle">Time: {duration}s</ThemedText>
-        <TextInput placeholder="Enter Task Description" />
+        <TextInput
+          placeholder="Enter Task Description"
+          onChangeText={(value) => {
+            setTask({ ...task, description: value });
+          }}
+          value={task.description}
+        />
+        <TextInput
+          placeholder="Enter Task ID"
+          onChangeText={(value) => {
+            setTask({ ...task, id: value ? parseInt(value) : 0 });
+            console.log(value);
+          }}
+          value={task.id.toString()}
+        />
+        <Button title="Add Task" onPress={handleAddTask} />
+        <Button title="Get Task" onPress={() => getTask(task.id).then(console.log)} />
+        <Button title="Update Task" onPress={handleUpdateTask} />
+        <Button title="Delete Task" onPress={handleDeleteTask} />
         <Button title={isRunning ? 'Pause' : 'Start'} onPress={isRunning ? pause : start} />
         <Button title="Stop" onPress={stop} />
         <Button title="Fill Sample Data" onPress={fillSampleData} />
@@ -60,7 +117,9 @@ export default function HomeScreen() {
         <ThemedView style={styles.stepContainer}>
           <ThemedText type="subtitle">Tasks</ThemedText>
           {tasks.map((task) => (
-            <ThemedText key={task.id}>{task.description}</ThemedText>
+            <ThemedText key={task.id}>
+              {task.id} - {task.description}
+            </ThemedText>
           ))}
         </ThemedView>
       )}
