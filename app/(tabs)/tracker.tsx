@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
 import { ScrollView } from 'react-native';
 import useTimeTracker from '@/hooks/useTimeTracker';
 import CircleButton from '@/components/CircleButton';
@@ -35,6 +35,20 @@ const Tracker = () => {
               </Text>
             </View>
           </WavyRings>
+          <View>
+            <TextInput
+              placeholder="Enter Task"
+              style={{
+                height: 40,
+                borderColor: '#8d8d8d',
+                borderWidth: 1,
+                borderRadius: 10,
+                width: 200,
+                textAlign: 'center',
+              }}
+              placeholderTextColor={'#8d8d8d'}
+            />
+          </View>
           <View style={styles.controlsContainer}>
             {isRunning ? (
               <CircleButton onPress={pause} style={styles.button}>
@@ -48,27 +62,45 @@ const Tracker = () => {
             <CircleButton onPress={stop} style={styles.button}>
               <Ionicons name="stop" size={24} color="white" />
             </CircleButton>
-            <CircleButton
+            {/* <CircleButton
               onPress={() => {
                 advanceTime(1830);
               }}
               style={styles.button}
             >
               <Ionicons name="play-skip-forward" size={24} color="white" />
-            </CircleButton>
+            </CircleButton> */}
           </View>
         </View>
-        {timelogs && (
-          <View style={styles.logsContainer}>
-            <Text style={{ fontSize: 24, color: '#005c99', textAlign: 'center' }}>Logs</Text>
-            <View style={styles.logsList}>
+        <View style={styles.logsContainer}>
+          <View
+            style={{
+              borderBottomColor: '#d8d8d8',
+              borderBottomWidth: 1,
+              marginBottom: 20,
+            }}
+          />
+          <Text style={{ fontSize: 24, color: '#005c99', textAlign: 'center' }}>Logs</Text>
+          {timelogs && (
+            <View>
               {timelogs.map((timelog) => (
                 <View key={timelog.id} style={{ marginBottom: 10 }}>
                   <TimelogCard timelog={timelog} />
                 </View>
               ))}
             </View>
-          </View>
+          )}
+        </View>
+        {!timelogs.length && (
+          <Text
+            style={{
+              fontSize: 16,
+              color: 'grey',
+              textAlign: 'center',
+            }}
+          >
+            No logs
+          </Text>
         )}
       </ScrollView>
     </SafeAreaView>
@@ -99,7 +131,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    cursor: 'pointer',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -108,9 +139,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 8,
-  },
-  logsList: {
-    paddingTop: 20,
   },
 });
 
