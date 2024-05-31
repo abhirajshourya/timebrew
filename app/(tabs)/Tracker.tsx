@@ -5,6 +5,9 @@ import useTimeTracker from '@/hooks/useTimeTracker';
 import PolygonRings from '@/components/PolygonRings';
 import CircleButton from '@/components/CircleButton';
 import { Ionicons } from '@expo/vector-icons';
+import WavyCircle from '@/components/WavyCircle';
+import WavyRings from '@/components/WavyRings';
+
 
 
 const Tracker = () => {
@@ -14,12 +17,19 @@ const Tracker = () => {
         <SafeAreaView>
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.mainTrackerContainer}>
-
-                    <PolygonRings numberOfRings={3} ringSize={295} ringWidth={8} isRunning={isRunning}>
+                    {/* <WavyCircle /> */}
+                    <WavyRings width={250} rings={3} delay={900} isRunning={isRunning}>
                         <View>
-                            <Text>{duration}s</Text>
+                            <Text style={{ fontSize: 20 }}>{duration}s</Text>
                         </View>
-                    </PolygonRings>
+                    </WavyRings>
+
+                    {/* <PolygonRings numberOfRings={3} ringSize={295} ringWidth={8} isRunning={isRunning}>
+                        <View>
+                            <Text style={{ fontSize: 20 }}>{duration}s</Text>
+                        </View>
+                    </PolygonRings> */}
+
 
                     {/* <View style={styles.mianCircleRing1}>
                         <View style={styles.mianCircleRing2}>
@@ -57,7 +67,7 @@ const Tracker = () => {
 const styles = StyleSheet.create({
     container: {
         height: '100%',
-        paddingTop: 100
+        paddingTop: 150
     },
     mainTrackerContainer: {
         // flexDirection: 'row',
