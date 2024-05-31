@@ -6,9 +6,11 @@ import CircleButton from '@/components/CircleButton';
 import { Ionicons } from '@expo/vector-icons';
 import WavyRings from '@/components/WavyRings';
 import { formatTime } from '@/helpers/time-format';
+import useDatabase from '@/hooks/useDatabase';
 
 const Tracker = () => {
   const { duration, start, stop, pause, isRunning, advanceTime, status } = useTimeTracker();
+  const {} = useDatabase();
 
   return (
     <SafeAreaView>
@@ -49,6 +51,10 @@ const Tracker = () => {
             </CircleButton>
           </View>
         </View>
+        <View style={styles.logsContainer}>
+          <Text style={{ fontSize: 24, color: '#005c99', textAlign: 'center' }}>Logs</Text>
+          <View style={styles.logsList}></View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -57,47 +63,21 @@ const Tracker = () => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    paddingTop: 150,
+    display: 'flex',
+    flexDirection: 'column',
   },
   mainTrackerContainer: {
-    // flexDirection: 'row',
+    paddingTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 20,
   },
-  mianCircle: {
-    width: 100,
-    height: 100,
-    borderRadius: 20,
-    backgroundColor: 'lightblue',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  mianCircleRing1: {
-    borderRadius: 150,
-    width: 300,
-    height: 300,
-    // backgroundColor: 'lightblue',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 5,
-    borderColor: 'blue',
-  },
-  mianCircleRing2: {
-    borderRadius: 150,
-    width: 250,
-    height: 250,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 5,
-    borderColor: 'blue',
-  },
   controlsContainer: {
-    flex: 1,
     flexDirection: 'row',
     gap: 20,
   },
   logsContainer: {
+    flex: 1,
     padding: 20,
   },
   button: {
@@ -115,6 +95,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 8,
+  },
+  logsList: {
+    marginTop: 20,
+    padding: 20,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
   },
 });
 
