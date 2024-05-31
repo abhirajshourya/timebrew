@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, SafeAreaView } from 'react-native';
 import { ScrollView } from 'react-native';
 import useTimeTracker from '@/hooks/useTimeTracker';
@@ -7,10 +7,17 @@ import { Ionicons } from '@expo/vector-icons';
 import WavyRings from '@/components/WavyRings';
 import { formatTime } from '@/helpers/time-format';
 import useDatabase from '@/hooks/useDatabase';
+import { Timelog } from '@/constants/types';
+import TimelogCard from '@/components/TimelogCard';
 
 const Tracker = () => {
   const { duration, start, stop, pause, isRunning, advanceTime, status } = useTimeTracker();
-  const {} = useDatabase();
+  const { getTimeLogs } = useDatabase();
+  const [timelogs, setTimelogs] = useState<Timelog[]>([]);
+
+  useEffect(() => {
+    getTimeLogs().then(setTimelogs);
+  });
 
   return (
     <SafeAreaView>
@@ -51,10 +58,18 @@ const Tracker = () => {
             </CircleButton>
           </View>
         </View>
-        <View style={styles.logsContainer}>
-          <Text style={{ fontSize: 24, color: '#005c99', textAlign: 'center' }}>Logs</Text>
-          <View style={styles.logsList}></View>
-        </View>
+        {timelogs && (
+          <View style={styles.logsContainer}>
+            <Text style={{ fontSize: 24, color: '#005c99', textAlign: 'center' }}>Logs</Text>
+            <View style={styles.logsList}>
+              {timelogs.map((timelog) => (
+                <View key={timelog.id} style={{ marginBottom: 10 }}>
+                  <TimelogCard timelog={timelog} />
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -62,7 +77,6 @@ const Tracker = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -77,7 +91,6 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   logsContainer: {
-    flex: 1,
     padding: 20,
   },
   button: {
@@ -97,10 +110,7 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   logsList: {
-    marginTop: 20,
-    padding: 20,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 10,
+    paddingTop: 20,
   },
 });
 

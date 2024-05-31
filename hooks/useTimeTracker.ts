@@ -8,6 +8,8 @@ type time = {
   isRunning: boolean;
   advanceTime: (time: number) => void;
   status: status;
+  startTime: number;
+  endTime: number;
 };
 
 type status = 'running' | 'paused' | 'stopped';
@@ -20,10 +22,13 @@ const useTimeTracker = (): time => {
   const [duration, setDuration] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [status, setStatus] = useState<status>('stopped');
+  const [startTime, setStartTime] = useState<number>(0);
+  const [endTime, setEndTime] = useState<number>(0);
 
   const start = () => {
     setIsRunning(true);
     setStatus('running');
+    setStartTime(Date.now());
   };
 
   const pause = () => {
@@ -35,6 +40,7 @@ const useTimeTracker = (): time => {
     setDuration(0);
     setIsRunning(false);
     setStatus('stopped');
+    setEndTime(Date.now());
   };
 
   const advanceTime = (time: number) => {
@@ -55,7 +61,7 @@ const useTimeTracker = (): time => {
     return () => clearInterval(interval);
   }, [isRunning]);
 
-  return { duration, start, pause, stop, isRunning, advanceTime, status };
+  return { duration, start, pause, stop, isRunning, advanceTime, status, startTime, endTime };
 };
 
 export default useTimeTracker;
