@@ -31,15 +31,26 @@ export default function useDatabase() {
 
   const fillSampleData = async () => {
     await db.execAsync(`
-      INSERT INTO tasks (description) VALUES ('Task 1');
-      INSERT INTO tasks (description) VALUES ('Task 2');
-      INSERT INTO tasks (description) VALUES ('Task 3');
+      INSERT INTO tasks (description) VALUES ('Reading Book');
+      INSERT INTO tasks (description) VALUES ('Writing Code');
+      INSERT INTO tasks (description) VALUES ('Watching Movie');
+      INSERT INTO tasks (description) VALUES ('Cooking Food');
+      INSERT INTO tasks (description) VALUES ('Playing Games');
+      INSERT INTO tasks (description) VALUES ('Working Out');
+      INSERT INTO tasks (description) VALUES ('Playing Guitar');
+      INSERT INTO tasks (description) VALUES ('Listening to Music');
+      INSERT INTO tasks (description) VALUES ('Cleaning House');
     `);
 
     await db.execAsync(`
       INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 1, 3600);
-      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 2, 3600);
-      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 3, 3600);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 2, 7200);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 3, 1800);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 4, 5400);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 5, 9000);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 6, 2700);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 7, 4500);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 8, 6300);
     `);
 
     console.log('Sample data inserted');
