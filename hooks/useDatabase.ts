@@ -210,5 +210,9 @@ export default function useDatabase() {
     getTask,
     updateTask,
     deleteTask,
+    createTimelog,
+    getTimelog,
+    updateTimelog,
+    deleteTimelog,
   };
 }
