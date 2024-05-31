@@ -20,8 +20,8 @@ export default function useDatabase() {
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS timelogs (
         id INTEGER PRIMARY KEY NOT NULL,
-        start_time TEXT NOT NULL,
-        end_time TEXT NOT NULL,
+        start_time INTEGER NOT NULL,
+        end_time INTEGER NOT NULL,
         task_id INTEGER NOT NULL,
         duration INTEGER NOT NULL,
         FOREIGN KEY(task_id) REFERENCES tasks(id)
@@ -37,9 +37,9 @@ export default function useDatabase() {
     `);
 
     await db.execAsync(`
-      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES ('2021-09-01 10:00:00', '2021-09-01 10:30:00', 1, 1800);
-      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES ('2021-09-01 11:00:00', '2021-09-01 12:00:00', 2, 3600);
-      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES ('2021-09-01 13:00:00', '2021-09-01 14:00:00', 3, 3600);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 1, 3600);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 2, 3600);
+      INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 3, 3600);
     `);
 
     console.log('Sample data inserted');
@@ -175,6 +175,14 @@ export default function useDatabase() {
   };
 
   /**
+   * Get all timelogs
+   * @returns - All timelogs
+   */
+  const getTimeLogs = async () => {
+    return await db.getAllAsync<Timelog>('SELECT * FROM timelogs');
+  };
+
+  /**
    * Update a timelog
    * @param timelog - Timelog object
    */
@@ -212,6 +220,7 @@ export default function useDatabase() {
     deleteTask,
     createTimelog,
     getTimelog,
+    getTimeLogs,
     updateTimelog,
     deleteTimelog,
   };
