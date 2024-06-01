@@ -199,8 +199,8 @@ export default function useDatabase() {
    * @returns - Timelog id
    */
   const createTimelog = async (
-    start_time: string,
-    end_time: string,
+    start_time: number,
+    end_time: number,
     task_id: number,
     duration: number
   ) => {
