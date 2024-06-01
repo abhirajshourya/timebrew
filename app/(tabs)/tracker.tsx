@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, TextInput, Alert } from 'react-native';
 import { ScrollView } from 'react-native';
 import useTimeTracker from '@/hooks/useTimeTracker';
 import CircleButton from '@/components/CircleButton';
@@ -11,13 +11,32 @@ import { Timelog } from '@/constants/types';
 import TimelogCard from '@/components/TimelogCard';
 
 const Tracker = () => {
-  const { duration, start, stop, pause, isRunning, advanceTime, status } = useTimeTracker();
-  const { getTimeLogs } = useDatabase();
+  const { duration, start, stop, pause, isRunning, advanceTime, status, startTime, endTime } =
+    useTimeTracker();
+  const { getTimeLogs, createTimelog } = useDatabase();
   const [timelogs, setTimelogs] = useState<Timelog[]>([]);
 
   useEffect(() => {
     getTimeLogs().then(setTimelogs);
   });
+
+  function handleOnStop() {
+    stop();
+
+    if (!duration) {
+      Alert.alert('Oops!', 'No time to log');
+      return;
+    }
+
+    createTimelog(startTime, endTime, 1, duration)
+      .then(() => {
+        getTimeLogs().then(setTimelogs);
+        Alert.alert('Success', 'Timelog created successfully');
+      })
+      .catch(() => {
+        Alert.alert('Error', 'Failed to create timelog');
+      });
+  }
 
   return (
     <SafeAreaView>
@@ -59,7 +78,7 @@ const Tracker = () => {
                 <Ionicons name="play" size={24} color="white" />
               </CircleButton>
             )}
-            <CircleButton onPress={stop} style={styles.button}>
+            <CircleButton onPress={handleOnStop} style={styles.button}>
               <Ionicons name="stop" size={24} color="white" />
             </CircleButton>
             {/* <CircleButton
@@ -124,6 +143,7 @@ const styles = StyleSheet.create({
   },
   logsContainer: {
     padding: 20,
+    height: '100%',
   },
   button: {
     backgroundColor: '#005c99',
