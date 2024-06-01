@@ -121,6 +121,14 @@ export default function useDatabase() {
   };
 
   /**
+   * Get all tasks
+   * @returns - All tasks
+   */
+  const getTasks = async () => {
+    return await db.getAllAsync<Task>('SELECT * FROM tasks');
+  };
+
+  /**
    * Update a task description
    * @param id - Task id
    * @param description - New task description
@@ -227,6 +235,7 @@ export default function useDatabase() {
     dropDB,
     createTask,
     getTask,
+    getTasks,
     updateTask,
     deleteTask,
     createTimelog,
