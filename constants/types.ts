@@ -10,3 +10,8 @@ export interface Task {
   id: number;
   description: string;
 }
+
+export interface Tag {
+  id: number;
+  name: string;
+}
