@@ -39,49 +39,35 @@ const Tracker = () => {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.mainTrackerContainer}>
-          <WavyRings width={250} rings={3} delay={900} isRunning={isRunning}>
-            <View>
-              <Text
-                style={{
-                  fontSize: 36,
-                  color: '#005c99',
-                }}
-              >
-                {formatTime(duration) || '0s'}
-              </Text>
-            </View>
-          </WavyRings>
+    // <SafeAreaView style={{ flex: 1 }}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.mainTrackerContainer}>
+        <WavyRings width={250} rings={3} delay={900} isRunning={isRunning}>
           <View>
-            <TextInput
-              placeholder="Enter Task"
+            <Text
               style={{
-                height: 40,
-                borderColor: '#8d8d8d',
-                borderWidth: 1,
-                borderRadius: 10,
-                width: 200,
-                textAlign: 'center',
+                fontSize: 36,
+                color: '#005c99',
               }}
-              placeholderTextColor={'#8d8d8d'}
-            />
+            >
+              {formatTime(duration) || '0s'}
+            </Text>
           </View>
-          <View style={styles.controlsContainer}>
-            {isRunning ? (
-              <CircleButton onPress={pause} style={styles.button}>
-                <Ionicons name="pause" size={24} color="white" />
-              </CircleButton>
-            ) : (
-              <CircleButton onPress={start} style={styles.button}>
-                <Ionicons name="play" size={24} color="white" />
-              </CircleButton>
-            )}
-            <CircleButton onPress={handleOnStop} style={styles.button}>
-              <Ionicons name="stop" size={24} color="white" />
+        </WavyRings>
+        <View style={styles.controlsContainer}>
+          {isRunning ? (
+            <CircleButton onPress={pause} style={styles.button}>
+              <Ionicons name="pause" size={24} color="white" />
             </CircleButton>
-            {/* <CircleButton
+          ) : (
+            <CircleButton onPress={start} style={styles.button}>
+              <Ionicons name="play" size={24} color="white" />
+            </CircleButton>
+          )}
+          <CircleButton onPress={handleOnStop} style={styles.button}>
+            <Ionicons name="stop" size={24} color="white" />
+          </CircleButton>
+          {/* <CircleButton
               onPress={() => {
                 advanceTime(1830);
               }}
@@ -89,27 +75,31 @@ const Tracker = () => {
             >
               <Ionicons name="play-skip-forward" size={24} color="white" />
             </CircleButton> */}
-          </View>
         </View>
+      </View>
+      <SafeAreaView>
         <View style={styles.logsContainer}>
-          <View
-            style={{
-              borderBottomColor: '#d8d8d8',
-              borderBottomWidth: 1,
-              marginBottom: 20,
-            }}
-          />
-          <Text style={{ fontSize: 24, color: '#005c99', textAlign: 'center' }}>Logs</Text>
           {timelogs && (
-            <View>
-              {timelogs.map((timelog) => (
-                <View key={timelog.id} style={{ marginBottom: 10 }}>
-                  <TimelogCard timelog={timelog} />
-                </View>
-              ))}
-            </View>
+            <>
+              <View
+                style={{
+                  borderBottomColor: '#d8d8d8',
+                  borderBottomWidth: 1,
+                  marginBottom: 20,
+                }}
+              />
+              <Text style={{ fontSize: 24, color: '#005c99', textAlign: 'center' }}>Logs</Text>
+              <View>
+                {timelogs.map((timelog) => (
+                  <View key={timelog.id} style={{ marginBottom: 10 }}>
+                    <TimelogCard timelog={timelog} />
+                  </View>
+                ))}
+              </View>
+            </>
           )}
         </View>
+
         {!timelogs.length && (
           <Text
             style={{
@@ -121,8 +111,9 @@ const Tracker = () => {
             No logs
           </Text>
         )}
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
+    // </SafeAreaView>
   );
 };
 
@@ -132,7 +123,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   mainTrackerContainer: {
-    paddingTop: 50,
+    paddingTop: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 20,
+    // flex: 1,
+  },
+  mainTracker: {
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 20,
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
   },
   logsContainer: {
     padding: 20,
-    height: '100%',
+    // flex: 0,
   },
   button: {
     backgroundColor: '#005c99',
