@@ -7,8 +7,10 @@ import { ThemedView } from '@/components/ThemedView';
 import useTimeTracker from '@/hooks/useTimeTracker';
 import useDatabase from '@/hooks/useDatabase';
 import { useEffect, useState } from 'react';
-import { Task, Timelog } from '@/constants/types';
+import { Tag, Task, Timelog } from '@/constants/types';
 import { MMKV } from 'react-native-mmkv';
+import { Collapsible } from '@/components/Collapsible';
+
 
 export default function HomeScreen() {
   const { duration, start, stop, pause, isRunning } = useTimeTracker();
@@ -23,6 +25,7 @@ export default function HomeScreen() {
     deleteTask,
   } = useDatabase();
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
   const [timelogs, setTimelogs] = useState<Timelog[]>([]);
   const [task, setTask] = useState<Task>({ description: '', id: 0 });
 
@@ -33,9 +36,10 @@ export default function HomeScreen() {
   }, [isRunning]);
 
   function onGetData() {
-    getData().then(({ tasks, timelogs }) => {
+    getData().then(({ tasks, timelogs, tags }) => {
       setTasks(tasks);
       setTimelogs(timelogs);
+      setTags(tags);
     });
 
     console.log('Is Running:', secureStorage.getBoolean('isRunning'));
@@ -102,16 +106,36 @@ export default function HomeScreen() {
           }}
           value={task.id.toString()}
         />
-        <Button title="Add Task" onPress={handleAddTask} />
-        <Button title="Get Task" onPress={() => getTask(task.id).then(console.log)} />
-        <Button title="Update Task" onPress={handleUpdateTask} />
-        <Button title="Delete Task" onPress={handleDeleteTask} />
-        <Button title={isRunning ? 'Pause' : 'Start'} onPress={isRunning ? pause : start} />
-        <Button title="Stop" onPress={stop} />
-        <Button title="Fill Sample Data" onPress={fillSampleData} />
-        <Button title="Get Data" onPress={onGetData} />
-        <Button title="Clear Data" onPress={clearData} />
-        <Button title="Drop DB" onPress={dropDB} />
+
+        <ThemedText type="subtitle">Actions</ThemedText>
+        <ThemedView style={styles.row}>
+          <Button title={isRunning ? 'Pause' : 'Start'} onPress={isRunning ? pause : start} />
+          <Button title="Stop" onPress={stop} />
+        </ThemedView>
+
+        <ThemedText type="subtitle">Task</ThemedText>
+        <Collapsible title="Task Actions">
+          <Button title="Add Task" onPress={handleAddTask} />
+          <Button title="Get Task" onPress={() => getTask(task.id).then(console.log)} />
+          <Button title="Update Task" onPress={handleUpdateTask} />
+          <Button title="Delete Task" onPress={handleDeleteTask} />
+        </Collapsible>
+
+        <ThemedText type="subtitle">Tags</ThemedText>
+        <Collapsible title="Tag Actions">
+          <Button title="Add Tag" onPress={() => console.log('Add Tag')} />
+          <Button title="Get Tag" onPress={() => console.log('Get Tag')} />
+          <Button title="Update Tag" onPress={() => console.log('Update Tag')} />
+          <Button title="Delete Tag" onPress={() => console.log('Delete Tag')} />
+        </Collapsible>
+
+        <ThemedText type="subtitle">Database</ThemedText>
+        <Collapsible title="Database Actions">
+          <Button title="Fill Sample Data" onPress={fillSampleData} />
+          <Button title="Get Data" onPress={onGetData} />
+          <Button title="Clear Data" onPress={clearData} />
+          <Button title="Drop DB" onPress={dropDB} />
+        </Collapsible>
       </ThemedView>
       {tasks && (
         <ThemedView style={styles.stepContainer}>
@@ -133,6 +157,17 @@ export default function HomeScreen() {
           ))}
         </ThemedView>
       )}
+      {tags && (
+        <ThemedView style={styles.stepContainer}>
+          <ThemedText type="subtitle">Tags</ThemedText>
+          {tags.map((tag) => (
+            <ThemedText key={tag.id}>
+              {tag.id} - {tag.name}
+            </ThemedText>
+          ))}
+        </ThemedView>
+      )}
+
     </ParallaxScrollView>
   );
 }
@@ -153,5 +188,11 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  col: {
+    flexDirection: 'column',
+  },
+  row: {
+    flexDirection: 'row',
   },
 });
