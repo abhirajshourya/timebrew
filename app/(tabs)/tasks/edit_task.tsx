@@ -133,6 +133,7 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
                 justifyContent: 'space-between',
                 backgroundColor: '#fff',
                 borderRadius: 10,
+                marginBottom: 10,
                 padding: 20,
                 shadowColor: '#000',
                 shadowOffset: {
