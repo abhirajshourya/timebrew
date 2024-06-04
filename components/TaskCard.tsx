@@ -1,12 +1,28 @@
 import { Task } from '@/constants/types';
-import React from 'react';
-import { Text, View } from 'react-native';
+import { formatTime } from '@/helpers/time-format';
+import useDatabase from '@/hooks/useDatabase';
+import { Feather } from '@expo/vector-icons';
+import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types';
+import React, { useEffect } from 'react';
+import { Text, TouchableHighlight, View } from 'react-native';
 
 interface TaskProps {
   task: Task;
+  navigation: NativeStackNavigationHelpers;
 }
 
-const TaskCard = ({ task }: TaskProps) => {
+const TaskCard = ({ task, navigation }: TaskProps) => {
+  const { getTotalTimelogForTask } = useDatabase();
+  const [totalTime, setTotalTime] = React.useState(0);
+
+  useEffect(() => {
+    getTotalTimelogForTask(task.id).then(setTotalTime);
+  }, []);
+
+  const handleEdit = () => {
+    navigation.navigate('EditTask', { task });
+  };
+
   return (
     <View
       style={{
@@ -26,14 +42,26 @@ const TaskCard = ({ task }: TaskProps) => {
         elevation: 8,
       }}
     >
-      <Text
+      <View
         style={{
-          fontSize: 16,
-          color: '#005c99',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 2,
         }}
       >
-        {task.description}
-      </Text>
+        <Text
+          style={{
+            fontSize: 16,
+            color: '#005c99',
+          }}
+        >
+          {task.description}
+        </Text>
+        <TouchableHighlight onPress={handleEdit} activeOpacity={0.6} underlayColor={'#e2e2e2'}>
+          <Feather name="edit" size={16} color="#525252" />
+        </TouchableHighlight>
+      </View>
       <View>
         <Text
           style={{
@@ -41,7 +69,7 @@ const TaskCard = ({ task }: TaskProps) => {
             color: 'grey',
           }}
         >
-          {task.id}
+          {formatTime(totalTime) || 'No time logged'}
         </Text>
       </View>
     </View>
