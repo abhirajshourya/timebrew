@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput as TI, TextInputProps } from 'react-native';
 
-type myTextInputProps = TextInputProps & {
+type myTextInputProps = {
+    value: string;
+    setValue: Function;
+} & TextInputProps & {
     /**
      * Style to be applied on focus and blur events
      */
@@ -18,7 +21,7 @@ type myTextInputProps = TextInputProps & {
 }
 
 
-const TextInput = ({ styleOnEvents, onFocus, onBlur, ...rest }: myTextInputProps) => {
+const TextInput = ({ value, setValue, styleOnEvents, onFocus, onBlur, ...rest }: myTextInputProps) => {
 
     const [isFocused, setIsFocused] = useState(false);
 
@@ -37,6 +40,8 @@ const TextInput = ({ styleOnEvents, onFocus, onBlur, ...rest }: myTextInputProps
         <TI {...rest}
             onFocus={onFocusHandler}
             onBlur={onBlurHandler}
+            value={value}
+            onChangeText={(text) => setValue(text)}
             style={[styles.input, isFocused && styles.inputOnFocus, isFocused && styleOnEvents?.focus, !isFocused && styleOnEvents?.blur]}
         />
     );
@@ -49,6 +54,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginBottom: 20,
+        backgroundColor: '#fff',
     },
     inputOnFocus: {
         borderColor: '#005085',
