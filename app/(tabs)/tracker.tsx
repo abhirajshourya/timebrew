@@ -39,7 +39,7 @@ const Tracker = () => {
   }
 
   return (
-    // <SafeAreaView style={{ flex: 1 }}>
+    // <SafeAreaView>
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.mainTrackerContainer}>
         <WavyRings width={250} rings={3} delay={900} isRunning={isRunning}>
@@ -77,41 +77,36 @@ const Tracker = () => {
             </CircleButton> */}
         </View>
       </View>
-      <SafeAreaView>
-        <View style={styles.logsContainer}>
-          {timelogs && (
-            <>
-              <View
-                style={{
-                  borderBottomColor: '#d8d8d8',
-                  borderBottomWidth: 1,
-                  marginBottom: 20,
-                }}
-              />
-              <Text style={{ fontSize: 24, color: '#005c99', textAlign: 'center' }}>Logs</Text>
-              <View>
-                {timelogs.map((timelog) => (
-                  <View key={timelog.id} style={{ marginBottom: 10 }}>
-                    <TimelogCard timelog={timelog} />
-                  </View>
-                ))}
+      <View style={styles.logsContainer}>
+        <View
+          style={{
+            borderBottomColor: '#d8d8d8',
+            borderBottomWidth: 1,
+            marginBottom: 20,
+          }}
+        />
+        <Text style={{ fontSize: 24, color: '#005c99', textAlign: 'center' }}>Logs</Text>
+        {timelogs && (
+          <View>
+            {timelogs.map((timelog) => (
+              <View key={timelog.id} style={{ marginBottom: 10 }}>
+                <TimelogCard timelog={timelog} />
               </View>
-            </>
-          )}
-        </View>
-
-        {!timelogs.length && (
-          <Text
-            style={{
-              fontSize: 16,
-              color: 'grey',
-              textAlign: 'center',
-            }}
-          >
-            No logs
-          </Text>
+            ))}
+          </View>
         )}
-      </SafeAreaView>
+      </View>
+      {!timelogs.length && (
+        <Text
+          style={{
+            fontSize: 16,
+            color: 'grey',
+            textAlign: 'center',
+          }}
+        >
+          No logs
+        </Text>
+      )}
     </ScrollView>
     // </SafeAreaView>
   );
@@ -127,14 +122,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 20,
-    // flex: 1,
-  },
-  mainTracker: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 20,
   },
   controlsContainer: {
     flexDirection: 'row',
@@ -142,7 +129,7 @@ const styles = StyleSheet.create({
   },
   logsContainer: {
     padding: 20,
-    // flex: 0,
+    height: '100%',
   },
   button: {
     backgroundColor: '#005c99',

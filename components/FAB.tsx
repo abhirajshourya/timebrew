@@ -1,0 +1,35 @@
+import React from 'react';
+import { StyleSheet, View, Pressable, PressableProps } from 'react-native';
+import { TabBarIcon } from './navigation/TabBarIcon';
+
+
+const FAB = ({ ...rest }: PressableProps) => {
+    return (
+        <Pressable style={[styles.fab]} {...rest}>
+            <TabBarIcon name="add" color="white" />
+        </Pressable>
+    );
+}
+
+const styles = StyleSheet.create({
+    fab: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        backgroundColor: '#005c99',
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 2,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
+    },
+});
+
+export default FAB;
