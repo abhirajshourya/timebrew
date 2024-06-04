@@ -25,13 +25,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="tasks"
+        options={{
+          title: 'Tasks',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'list' : 'list-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="tags"
         options={{
           title: 'Tags',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused
-              ? 'pricetag'
-              : 'pricetag-outline'} color={color} />
+            <TabBarIcon name={focused ? 'pricetag' : 'pricetag-outline'} color={color} />
           ),
         }}
       />
