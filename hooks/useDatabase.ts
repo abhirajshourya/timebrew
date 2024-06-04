@@ -239,7 +239,7 @@ export default function useDatabase() {
    * @returns - All timelogs
    */
   const getTimeLogs = async () => {
-    return await db.getAllAsync<Timelog>('SELECT * FROM timelogs');
+    return await db.getAllAsync<Timelog>('SELECT * FROM timelogs ORDER BY start_time DESC');
   };
 
   /**
@@ -248,7 +248,7 @@ export default function useDatabase() {
    * @returns - Timelogs
    */
   const getTimelogsForTask = async (taskId: number) => {
-    return await db.getAllAsync<Timelog>('SELECT * FROM timelogs WHERE task_id = $taskId', {
+    return await db.getAllAsync<Timelog>('SELECT * FROM timelogs WHERE task_id = $taskId ORDER BY start_time DESC', {
       $taskId: taskId,
     });
   };
