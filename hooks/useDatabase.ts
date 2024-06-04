@@ -177,12 +177,17 @@ export default function useDatabase() {
   };
 
   /**
-   * Delete a task by id
+   * Delete a task by id and associated timelogs
    * @param id - Task id
    */
   const deleteTask = async (id: number) => {
-    await db.runAsync('DELETE FROM tasks WHERE id = $id', {
-      $id: id,
+    await db.withExclusiveTransactionAsync(async () => {
+      await db.runAsync('DELETE FROM tasks WHERE id = $id', {
+        $id: id,
+      });
+      await db.runAsync('DELETE FROM timelogs WHERE task_id = $id', {
+        $id: id,
+      });
     });
   };
 
@@ -235,6 +240,17 @@ export default function useDatabase() {
    */
   const getTimeLogs = async () => {
     return await db.getAllAsync<Timelog>('SELECT * FROM timelogs');
+  };
+
+  /**
+   * Get all timelogs for a task
+   * @param taskId - Task id
+   * @returns - Timelogs
+   */
+  const getTimelogsForTask = async (taskId: number) => {
+    return await db.getAllAsync<Timelog>('SELECT * FROM timelogs WHERE task_id = $taskId', {
+      $taskId: taskId,
+    });
   };
 
   /**
@@ -356,7 +372,25 @@ export default function useDatabase() {
     );
   };
 
+  /**
+   * ****************************************************
+   * Helper functions
+   * ****************************************************
+   */
+
+  const getTotalTimelogForTask = async (taskId: number) => {
+    const timelogs = await db.getAllAsync<Timelog>(
+      'SELECT * FROM timelogs WHERE task_id = $taskId',
+      {
+        $taskId: taskId,
+      }
+    );
+
+    return timelogs.reduce((acc, curr) => acc + curr.duration, 0);
+  };
+
   return {
+    db,
     getData,
     fillSampleData,
     clearData,
@@ -369,6 +403,7 @@ export default function useDatabase() {
     createTimelog,
     getTimelog,
     getTimeLogs,
+    getTimelogsForTask,
     updateTimelog,
     deleteTimelog,
     createTag,
@@ -378,5 +413,6 @@ export default function useDatabase() {
     deleteTag,
     getTimelogByTag,
     deleteTagFromTimelog,
+    getTotalTimelogForTask,
   };
 }
