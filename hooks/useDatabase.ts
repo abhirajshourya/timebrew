@@ -31,7 +31,8 @@ export default function useDatabase() {
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS tags (
         id INTEGER PRIMARY KEY NOT NULL,
-        name TEXT NOT NULL
+        name TEXT NOT NULL,
+        color TEXT DEFAULT '#000000'
       );
     `);
 
@@ -71,9 +72,9 @@ export default function useDatabase() {
     `);
 
     await db.execAsync(`
-      INSERT INTO tags (name) VALUES ('Tag 1');
-      INSERT INTO tags (name) VALUES ('Tag 2');
-      INSERT INTO tags (name) VALUES ('Tag 3');
+      INSERT INTO tags (name, color) VALUES ('Reading', '#FF0000');
+      INSERT INTO tags (name, color) VALUES ('Coding', '#00FF00');
+      INSERT INTO tags (name, color) VALUES ('Watching', '#0000FF');
     `);
 
     await db.execAsync(`
@@ -272,9 +273,10 @@ export default function useDatabase() {
    * Create a new tag and return the id
    * @param name - Tag name
    */
-  const createTag = async (name: string) => {
-    const tag = await db.runAsync('INSERT INTO tags (name) VALUES ($name)', {
+  const createTag = async (name: string, color: string) => {
+    const tag = await db.runAsync('INSERT INTO tags (name, color) VALUES ($name, $color)', {
       $name: name,
+      $color: color,
     });
 
     return tag.lastInsertRowId;
@@ -306,9 +308,10 @@ export default function useDatabase() {
    * ****************************************************
    */
   const updateTag = async (tag: Tag) => {
-    await db.runAsync('UPDATE tags SET name = $name WHERE id = $id', {
+    await db.runAsync('UPDATE tags SET name = $name, color = $color WHERE id = $id', {
       $id: tag.id,
       $name: tag.name,
+      $color: tag.color,
     });
   };
 
