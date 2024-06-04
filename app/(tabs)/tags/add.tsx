@@ -1,7 +1,7 @@
+import ColorPicker from '@/components/form/ColorPicker';
 import TextInput from '@/components/form/TextInput';
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-
 
 const Add = () => {
     return (
@@ -11,6 +11,7 @@ const Add = () => {
             <View style={styles.form}>
                 <TextInput placeholder="Tag Name" onFocus={() => console.log("focus")} onBlur={() => console.log("blur")} />
                 {/* <TextInput placeholder="Tag Description" /> */}
+                <ColorPicker />
             </View>
 
         </View>
