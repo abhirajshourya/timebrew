@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { StyleSheet, View, Pressable, PressableProps } from 'react-native';
-import { TabBarIcon } from './navigation/TabBarIcon';
+
+type FABProps = PropsWithChildren & PressableProps
 
 
-const FAB = ({ ...rest }: PressableProps) => {
+const FAB = ({ children, ...rest }: FABProps) => {
     return (
         <Pressable style={[styles.fab]} {...rest}>
-            <TabBarIcon name="add" color="white" />
+            {children}
         </Pressable>
     );
 }
