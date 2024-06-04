@@ -288,6 +288,7 @@ export default function useDatabase() {
   /**
    * Create a new tag and return the id
    * @param name - Tag name
+   * @param color - Tag color
    */
   const createTag = async (name: string, color: string) => {
     const tag = await db.runAsync('INSERT INTO tags (name, color) VALUES ($name, $color)', {
