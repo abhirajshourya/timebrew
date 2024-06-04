@@ -13,7 +13,7 @@ export default function StackLayout() {
 
     return (
         <Stack>
-            <Stack.Screen name="index" />
+            <Stack.Screen name="index" options={{headerShown: false, title: 'Tags'}} />
             <Stack.Screen name="add" options={{ headerShown: true, title: 'Create Tag' }} />
         </Stack>
     );
