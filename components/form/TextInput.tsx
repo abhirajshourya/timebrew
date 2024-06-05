@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 5,
         padding: 10,
-        marginBottom: 20,
+        // marginBottom: 20,
         backgroundColor: '#fff',
     },
     inputOnFocus: {
