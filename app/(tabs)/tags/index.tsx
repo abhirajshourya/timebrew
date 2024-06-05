@@ -1,62 +1,67 @@
-import FAB from '@/components/FAB';
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import useDatabase from '@/hooks/useDatabase';
-import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View, Text } from 'react-native';
-import { Tag as TagType } from '@/constants/types';
-import TagCard from '@/components/TagCard';
+import FAB from "@/components/FAB";
+import { TabBarIcon } from "@/components/navigation/TabBarIcon";
+import useDatabase from "@/hooks/useDatabase";
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+} from "react-native";
+import { Tag as TagType } from "@/constants/types";
+import TagCard from "@/components/TagCard";
 
 const Tags = () => {
-    const [tags, setTags] = useState<TagType[]>([]);
-    const { getTags } = useDatabase();
-    const router = useRouter();
+  const [tags, setTags] = useState<TagType[]>([]);
+  const { getTags } = useDatabase();
+  const router = useRouter();
 
-    const handleFABPress = () => {
-        router.push('tags/add');
-    }
+  const handleFABPress = () => {
+    router.push("tags/add");
+  };
 
-    useEffect(() => {
-        getTags().then(setTags);
+  const handleTagPress = (tag: TagType) => {
+    router.push({ pathname: "tags/add", params: { ...tag } });
+  };
 
-        return () => {
-            setTags([]);
-        }
-    }, []);
+  useEffect(() => {
+    getTags().then(setTags);
+  });
 
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.heading}>Tags</Text>
 
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView contentContainerStyle={styles.container}>
-
-                <Text style={styles.heading}>Tags</Text>
-
-                <View>
-                    {tags.map((tag) => (
-                        <TagCard key={tag.id} tag={tag} />
-                    ))}
-                </View>
-
-
-            </ScrollView>
-            <FAB onPress={handleFABPress} >
-                <TabBarIcon name="add" color="white" />
-            </FAB>
-        </SafeAreaView>
-    );
-}
+        <View>
+          {tags.map((tag) => (
+            <Pressable key={tag.id} onPress={() => handleTagPress(tag)}>
+              <TagCard tag={tag} />
+            </Pressable>
+          ))}
+        </View>
+      </ScrollView>
+      <FAB onPress={handleFABPress}>
+        <TabBarIcon name="add" color="white" />
+      </FAB>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        padding: 20,
-    },
-    heading: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-})
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    padding: 20,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+});
 
 export default Tags;
