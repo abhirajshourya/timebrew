@@ -25,6 +25,7 @@ const Tracker = () => {
         pause,
         isRunning,
         advanceTime,
+        reset,
         status,
         startTime,
         endTime,
@@ -79,7 +80,7 @@ const Tracker = () => {
                     <View>
                         {duration > 0 && (
                             <CircleButton
-                                onPress={() => advanceTime(duration * -1)}
+                                onPress={() => reset()}
                                 style={styles.button}
                             >
                                 <Ionicons
