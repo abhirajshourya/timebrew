@@ -1,10 +1,10 @@
-import { Task } from '@/constants/types';
-import { formatTime } from '@/helpers/time-format';
-import useDatabase from '@/hooks/useDatabase';
-import { Feather } from '@expo/vector-icons';
-import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types';
-import React, { useEffect } from 'react';
-import { Text, TouchableHighlight, View } from 'react-native';
+import { Task } from "@/constants/types";
+import { formatTime } from "@/helpers/time-format";
+import useDatabase from "@/hooks/useDatabase";
+import { Feather } from "@expo/vector-icons";
+import { NativeStackNavigationHelpers } from "@react-navigation/native-stack/lib/typescript/src/types";
+import React, { useEffect } from "react";
+import { Text, TouchableHighlight, View } from "react-native";
 
 interface TaskProps {
   task: Task;
@@ -20,45 +20,49 @@ const TaskCard = ({ task, navigation }: TaskProps) => {
   }, []);
 
   const handleEdit = () => {
-    navigation.navigate('EditTask', { task });
+    navigation.navigate("EditTask", { task });
   };
 
   return (
     <View
       style={{
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
         padding: 20,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: "#f9f9f9",
         borderRadius: 10,
         marginBottom: 10,
-        shadowColor: '#000',
+        shadowColor: "#000",
         shadowOffset: {
           width: 0,
           height: 4,
         },
-        shadowOpacity: 0.3,
-        shadowRadius: 4.65,
+        shadowOpacity: 0.12,
+        shadowRadius: 20,
         elevation: 8,
       }}
     >
       <View
         style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
           marginBottom: 2,
         }}
       >
         <Text
           style={{
             fontSize: 16,
-            color: '#005c99',
+            color: "#005c99",
           }}
         >
           {task.description}
         </Text>
-        <TouchableHighlight onPress={handleEdit} activeOpacity={0.6} underlayColor={'#e2e2e2'}>
+        <TouchableHighlight
+          onPress={handleEdit}
+          activeOpacity={0.6}
+          underlayColor={"#e2e2e2"}
+        >
           <Feather name="edit" size={16} color="#525252" />
         </TouchableHighlight>
       </View>
@@ -66,10 +70,10 @@ const TaskCard = ({ task, navigation }: TaskProps) => {
         <Text
           style={{
             fontSize: 14,
-            color: 'grey',
+            color: "grey",
           }}
         >
-          {formatTime(totalTime) || 'No time logged'}
+          {formatTime(totalTime) || "No time logged"}
         </Text>
       </View>
     </View>

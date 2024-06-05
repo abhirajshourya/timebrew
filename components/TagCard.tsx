@@ -29,8 +29,10 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 4,
+            height: 10,
         },
+        shadowOpacity: 0.12,
+        shadowRadius: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
