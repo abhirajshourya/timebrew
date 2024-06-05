@@ -359,16 +359,14 @@ export default function useDatabase() {
   };
 
   /**
-   * Delete tag from timelog
+   * Delete tag from timelog_tags
    * @param tagId - Tag id
-   * @param timelogId - Timelog id
    */
-  const deleteTagFromTimelog = async (tagId: number, timelogId: number) => {
+  const deleteTagFromTimelog = async (tagId: number) => {
     await db.runAsync(
-      'DELETE FROM timelog_tags WHERE tag_id = $tagId AND timelog_id = $timelogId',
+      'DELETE FROM timelog_tags WHERE tag_id = $tagId',
       {
         $tagId: tagId,
-        $timelogId: timelogId,
       }
     );
   };
