@@ -7,6 +7,7 @@ type time = {
   pause: () => void;
   isRunning: boolean;
   advanceTime: (time: number) => void;
+  reset: () => void;
   status: status;
   startTime: number;
   endTime: number;
@@ -16,7 +17,7 @@ type status = 'running' | 'paused' | 'stopped';
 
 /**
  * A custom hook to track time. It returns the current time in seconds and provides methods to start, pause and stop the timer.
- * @returns {time: number, start: () => void, pause: () => void, stop: () => void}
+ * @returns {time: number, start: () => void, stop: () => void, pause: () => void, isRunning: boolean, advanceTime: (time: number) => void, reset: () => void, status: status, startTime: number, endTime: number}
  */
 const useTimeTracker = (): time => {
   const [duration, setDuration] = useState(0);
@@ -47,6 +48,14 @@ const useTimeTracker = (): time => {
     setDuration((duration) => duration + time);
   };
 
+  const reset = () => {
+    setDuration(0);
+    setIsRunning(false);
+    setStatus('stopped');
+    setStartTime(0);
+    setEndTime(0);
+  }
+
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
@@ -61,7 +70,7 @@ const useTimeTracker = (): time => {
     return () => clearInterval(interval);
   }, [isRunning]);
 
-  return { duration, start, pause, stop, isRunning, advanceTime, status, startTime, endTime };
+  return { duration, start, pause, stop, isRunning, advanceTime, reset, status, startTime, endTime };
 };
 
 export default useTimeTracker;
