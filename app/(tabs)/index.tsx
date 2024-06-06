@@ -7,6 +7,8 @@ import {
     TextInput,
     Alert,
     TouchableHighlight,
+    Touchable,
+    TouchableOpacity,
 } from 'react-native'
 import { ScrollView } from 'react-native'
 import useTimeTracker from '@/hooks/useTimeTracker'
@@ -166,7 +168,17 @@ const Tracker = () => {
                         </Text>
                         <Ionicons name="timer-outline" size={24} color="red" />
                     </View> */}
-                    <Ionicons name="settings-outline" size={24} color="black" />
+                    <TouchableOpacity
+                        onPress={() => {
+                            // navigate to settings
+                        }}
+                    >
+                        <Ionicons
+                            name="settings-outline"
+                            size={24}
+                            color="black"
+                        />
+                    </TouchableOpacity>
                 </View>
             </View>
             <ScrollView contentContainerStyle={styles.container}>
