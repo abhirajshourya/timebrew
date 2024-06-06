@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native'
 import { Tag as TagType } from '@/constants/types'
 import { Feather } from '@expo/vector-icons'
+import TagChip from './TagChip'
 
 interface TagCardProps {
     tag: TagType
@@ -19,17 +20,7 @@ const TagCard = ({ tag, handleEdit }: TagCardProps) => {
                     marginBottom: 2,
                 }}
             >
-                <View
-                    style={[
-                        styles.colorTag,
-                        { backgroundColor: tag.color + '2a' },
-                        { borderColor: tag.color },
-                    ]}
-                >
-                    <Text style={[styles.tagName, { color: '#000000d6' }]}>
-                        {tag.name}
-                    </Text>
-                </View>
+                <TagChip tag={tag} />
                 <TouchableHighlight
                     onPress={() => handleEdit(tag)}
                     activeOpacity={0.6}
