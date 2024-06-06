@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { Tag } from '@/constants/types'
 
 type TagChipProps = {
     tag: Tag
-}
-const TagChip = ({ tag }: TagChipProps) => {
+} & PropsWithChildren
+
+const TagChip = ({ children, tag }: TagChipProps) => {
     return (
         <View
             style={[
@@ -17,6 +18,7 @@ const TagChip = ({ tag }: TagChipProps) => {
             <Text style={[styles.tagName, { color: '#000000d6' }]}>
                 {tag.name}
             </Text>
+            {children}
         </View>
     )
 }
@@ -27,8 +29,10 @@ const styles = StyleSheet.create({
         height: 20,
         borderRadius: 25,
         borderWidth: 1,
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        gap: 5,
     },
     tagName: {
         fontSize: 12,
