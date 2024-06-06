@@ -39,7 +39,7 @@ const Tags = () => {
             }}
         >
             <Text style={styles.heading}>Tags</Text>
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView style={styles.container}>
                 <View>
                     {tags.map((tag) => (
                         <Pressable key={tag.id}>
@@ -60,8 +60,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         height: '90%',
-        padding: 20,
-        paddingTop: 25,
     },
     heading: {
         fontSize: 24,

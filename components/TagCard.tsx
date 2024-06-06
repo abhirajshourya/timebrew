@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         padding: 20,
+        marginHorizontal: 20,
         backgroundColor: '#f9f9f9',
         borderRadius: 10,
         marginBottom: 10,

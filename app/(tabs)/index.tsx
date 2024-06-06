@@ -181,7 +181,7 @@ const Tracker = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView style={styles.container}>
                 <View style={styles.mainTrackerContainer}>
                     <WavyRings
                         width={250}
@@ -324,6 +324,7 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
+        height: '90%',
     },
     mainTrackerContainer: {
         paddingTop: 110,
