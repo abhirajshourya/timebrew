@@ -4,11 +4,16 @@ import useDatabase from '@/hooks/useDatabase'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, ScrollView, Text } from 'react-native'
+import {
+    SafeAreaView,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native'
 import EditTask from './edit_task'
-import FAB from '@/components/FAB'
-import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import AddTask from './add_task'
+import { Feather } from '@expo/vector-icons'
 
 interface TasksPageProps {
     navigation: NativeStackNavigationHelpers
@@ -32,22 +37,34 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
                 flexDirection: 'column',
             }}
         >
-            <Text
+            <View
                 style={{
-                    fontSize: 24,
-                    fontWeight: 'bold',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
                     margin: 20,
                 }}
             >
-                All Tasks
-            </Text>
+                <Text
+                    style={{
+                        fontSize: 24,
+                        fontWeight: 'bold',
+                    }}
+                >
+                    All Tasks
+                </Text>
+                <TouchableOpacity onPress={handleFABPress}>
+                    <Feather name="plus" size={24} color="black" />
+                </TouchableOpacity>
+            </View>
             <ScrollView
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
                     height: '90%',
                     padding: 20,
-                    paddingTop: 25,
+                    paddingTop: 15,
                 }}
             >
                 {tasks &&
@@ -59,9 +76,6 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
                         />
                     ))}
             </ScrollView>
-            <FAB onPress={handleFABPress}>
-                <TabBarIcon name="add" color="white" />
-            </FAB>
         </SafeAreaView>
     )
 }
