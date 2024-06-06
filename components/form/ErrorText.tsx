@@ -1,16 +1,14 @@
 import React, { ComponentProps } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 
-type ErrorTextProps = ComponentProps <typeof Text> & {
+type ErrorTextProps = ComponentProps<typeof Text> & {
     error: string | undefined
 }
 
 const ErrorText = ({ error, ...rest }: ErrorTextProps) => {
     return (
         <View style={[styles.error, rest.style]} {...rest}>
-            <Text style={styles.errorText}>
-                {error || ' '}
-                </Text>
+            <Text style={styles.errorText}>{error || ' '}</Text>
         </View>
     )
 }

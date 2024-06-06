@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default PrimaryButton;
+export default PrimaryButton

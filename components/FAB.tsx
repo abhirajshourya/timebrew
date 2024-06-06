@@ -1,15 +1,14 @@
-import React, { PropsWithChildren } from 'react';
-import { StyleSheet, View, Pressable, PressableProps } from 'react-native';
+import React, { PropsWithChildren } from 'react'
+import { StyleSheet, View, Pressable, PressableProps } from 'react-native'
 
 type FABProps = PropsWithChildren & PressableProps
-
 
 const FAB = ({ children, ...rest }: FABProps) => {
     return (
         <Pressable style={[styles.fab]} {...rest}>
             {children}
         </Pressable>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -32,6 +31,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.12,
     },
-});
+})
 
-export default FAB;
+export default FAB

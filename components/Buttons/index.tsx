@@ -1,8 +1,4 @@
-import DangerButton from './Danger';
-import PrimaryButton from './Primary';
+import DangerButton from './Danger'
+import PrimaryButton from './Primary'
 
-
-export {
-    PrimaryButton,
-    DangerButton,
-}
+export { PrimaryButton, DangerButton }

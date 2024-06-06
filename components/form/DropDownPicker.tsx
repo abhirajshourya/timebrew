@@ -41,8 +41,7 @@ const DropDownPicker = ({
                     value={
                         textEnabled
                             ? text
-                            : items.find((item) => item === selectedValue) ||
-                              ''
+                            : items.find((item) => item === selectedValue) || ''
                     }
                     onChangeText={(text) => {
                         setText(text)
