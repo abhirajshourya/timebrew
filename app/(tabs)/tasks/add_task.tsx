@@ -35,48 +35,40 @@ const AddTask = ({ route, navigation }: EditTaskProps) => {
     }
 
     return (
-        <ScrollView
+        <View
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: '90%',
+                margin: 20,
+                backgroundColor: '#fff',
+                borderRadius: 10,
+                padding: 20,
+                shadowColor: '#000',
+                shadowOffset: {
+                    width: 0,
+                    height: 4,
+                },
+                shadowOpacity: 0.3,
+                shadowRadius: 4.65,
+                elevation: 8,
             }}
         >
+            <TextInput
+                value={taskDesc}
+                setValue={handleDescriptionChange}
+                placeholder="Enter Task Name"
+            />
             <View
                 style={{
                     display: 'flex',
-                    flexDirection: 'column',
-                    margin: 20,
-                    backgroundColor: '#fff',
-                    borderRadius: 10,
-                    padding: 20,
-                    shadowColor: '#000',
-                    shadowOffset: {
-                        width: 0,
-                        height: 4,
-                    },
-                    shadowOpacity: 0.3,
-                    shadowRadius: 4.65,
-                    elevation: 8,
+                    flexDirection: 'row',
+                    justifyContent: 'flex-end',
+                    alignContent: 'center',
                 }}
             >
-                <TextInput
-                    value={taskDesc}
-                    setValue={handleDescriptionChange}
-                    placeholder="Enter Task Name"
-                />
-                <View
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'flex-end',
-                        alignContent: 'center',
-                    }}
-                >
-                    <Button title="Save" onPress={handleSave} />
-                </View>
+                <Button title="Save" onPress={handleSave} />
             </View>
-        </ScrollView>
+        </View>
     )
 }
 
