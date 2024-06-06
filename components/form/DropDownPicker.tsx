@@ -48,6 +48,7 @@ const DropDownPicker = ({
                         setValue(text)
                     }}
                     placeholder={placeholder}
+                    placeholderTextColor={'grey'}
                     // onFocus={() => setIsOpen(true)}
                     // onBlur={() => setIsOpen(false)}
                     onPressOut={() => setIsOpen((e) => !e)}
@@ -80,7 +81,7 @@ const DropDownPicker = ({
                                 <Text>{item}</Text>
                             </Pressable>
                         ))}
-                        <Pressable
+                        {/* <Pressable
                             style={styles.dropdownItem}
                             onPress={() => {
                                 setIsOpen(false)
@@ -90,7 +91,7 @@ const DropDownPicker = ({
                         >
                             <Ionicons name="add" size={20} />
                             <Text>Add new</Text>
-                        </Pressable>
+                        </Pressable> */}
                     </ScrollView>
                 )}
             </View>
