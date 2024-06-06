@@ -4,9 +4,11 @@ import React from 'react'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import { Colors } from '@/constants/Colors'
 import { useColorScheme } from '@/hooks/useColorScheme'
+import { Pressable } from 'react-native'
 
 export default function TabLayout() {
     const colorScheme = useColorScheme()
+    const isDev = __DEV__
 
     return (
         <Tabs
@@ -61,6 +63,10 @@ export default function TabLayout() {
                             color={color}
                         />
                     ),
+                    tabBarButton: (props) =>
+                        isDev ? (
+                            <Pressable {...props}>{props.children}</Pressable>
+                        ) : null,
                 }}
             />
         </Tabs>
