@@ -6,11 +6,12 @@ import {
     SafeAreaView,
     TextInput,
     Alert,
+    TouchableHighlight,
 } from 'react-native'
 import { ScrollView } from 'react-native'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import CircleButton from '@/components/CircleButton'
-import { Ionicons } from '@expo/vector-icons'
+import { Feather, Ionicons } from '@expo/vector-icons'
 import WavyRings from '@/components/WavyRings'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
@@ -119,8 +120,55 @@ const Tracker = () => {
     }
 
     return (
-        <>
-            {/* <SafeAreaView> */}
+        <SafeAreaView>
+            <View
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
+            >
+                <Text
+                    style={{
+                        fontSize: 24,
+                        fontWeight: '600',
+                        margin: 20,
+                        fontStyle: 'italic',
+                        color: '#005c99',
+                    }}
+                >
+                    timebrew
+                </Text>
+
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginRight: 20,
+                        gap: 10,
+                    }}
+                >
+                    {/* Pomodoro Activator */}
+                    {/* <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontSize: 12,
+                                color: 'red',
+                            }}
+                        >
+                            P
+                        </Text>
+                        <Ionicons name="timer-outline" size={24} color="red" />
+                    </View> */}
+                    <Ionicons name="settings-outline" size={24} color="black" />
+                </View>
+            </View>
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.mainTrackerContainer}>
                     <WavyRings
@@ -256,8 +304,7 @@ const Tracker = () => {
                     <PrimaryButton onPress={handleSave}>Save</PrimaryButton>
                 </View>
             </TimeLogModal>
-            {/* </SafeAreaView> */}
-        </>
+        </SafeAreaView>
     )
 }
 
@@ -267,7 +314,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     mainTrackerContainer: {
-        paddingTop: 150,
+        paddingTop: 110,
         justifyContent: 'center',
         alignItems: 'center',
         gap: 20,
