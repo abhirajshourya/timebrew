@@ -52,8 +52,8 @@ const useTimeTracker = (): time => {
     setDuration(0);
     setIsRunning(false);
     setStatus('stopped');
-    setStartTime(0);
-    setEndTime(0);
+    setStartTime(Date.now());
+    setEndTime(Date.now());
   }
 
   useEffect(() => {

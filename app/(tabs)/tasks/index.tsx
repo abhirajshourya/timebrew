@@ -40,7 +40,7 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
           flexDirection: 'column',
           height: '90%',
           padding: 20,
-          paddingTop: 2,
+          paddingTop: 25,
         }}
       >
         {tasks &&

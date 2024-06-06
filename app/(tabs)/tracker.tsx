@@ -50,7 +50,7 @@ const Tracker = () => {
 
         if (!isModalVisible) {
             getTasks().then(setTasks)
-            setIsModalVisible(true)
+            setIsModalVisible(duration > 0)
         }
 
         if (!duration) {
@@ -142,7 +142,7 @@ const Tracker = () => {
                     </WavyRings>
                     <View style={styles.controlsContainer}>
                         <View>
-                            {duration > 0 && (
+                            {(status === 'paused' || isRunning) && (
                                 <CircleButton
                                     onPress={() => reset()}
                                     style={styles.button}
@@ -181,7 +181,7 @@ const Tracker = () => {
                             )}
                         </View>
                         <View>
-                            {duration > 0 && (
+                            {(status === 'paused' || isRunning) && (
                                 <CircleButton
                                     onPress={handleOnStop}
                                     style={styles.button}
@@ -209,6 +209,7 @@ const Tracker = () => {
                             fontSize: 24,
                             color: '#005c99',
                             textAlign: 'center',
+                            marginBottom: 15,
                         }}
                     >
                         Logs
