@@ -1,163 +1,371 @@
-import { Image, StyleSheet, Button, TextInput } from 'react-native'
-
-import { HelloWave } from '@/components/HelloWave'
-import ParallaxScrollView from '@/components/ParallaxScrollView'
-import { ThemedText } from '@/components/ThemedText'
-import { ThemedView } from '@/components/ThemedView'
+import React, { useEffect, useState } from 'react'
+import {
+    StyleSheet,
+    View,
+    Text,
+    SafeAreaView,
+    TextInput,
+    Alert,
+    TouchableHighlight,
+} from 'react-native'
+import { ScrollView } from 'react-native'
 import useTimeTracker from '@/hooks/useTimeTracker'
+import CircleButton from '@/components/CircleButton'
+import { Feather, Ionicons } from '@expo/vector-icons'
+import WavyRings from '@/components/WavyRings'
+import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
-import { useEffect, useState } from 'react'
 import { Task, Timelog } from '@/constants/types'
-import { MMKV } from 'react-native-mmkv'
+import TimelogCard from '@/components/TimelogCard'
+import TimeLogModal from '@/components/Modals/TimeLogModal'
+import DropDownPicker from '@/components/form/DropDownPicker'
+import { get } from 'lodash'
+import { PrimaryButton } from '@/components/Buttons'
+import { cleanText } from '@/helpers/text-helpers'
 
-export default function HomeScreen() {
-    const { duration, start, stop, pause, isRunning } = useTimeTracker()
+const Tracker = () => {
     const {
-        getData,
-        fillSampleData,
-        clearData,
-        dropDB,
-        createTask,
-        getTask,
-        updateTask,
-        deleteTask,
-    } = useDatabase()
-    const [tasks, setTasks] = useState<Task[]>([])
+        duration,
+        start,
+        stop,
+        pause,
+        isRunning,
+        advanceTime,
+        reset,
+        status,
+        startTime,
+        endTime,
+    } = useTimeTracker()
+    const { getTimeLogs, createTimelog, getTasks, createTask } = useDatabase()
     const [timelogs, setTimelogs] = useState<Timelog[]>([])
-    const [task, setTask] = useState<Task>({ description: '', id: 0 })
-
-    const secureStorage = new MMKV()
+    const [tasks, setTasks] = useState<Task[]>([])
+    const [selectedTask, setSelectedTask] = useState<string>('')
+    const [isModalVisible, setIsModalVisible] = useState(false)
 
     useEffect(() => {
-        secureStorage.set('isRunning', isRunning)
-    }, [isRunning])
+        getTimeLogs().then(setTimelogs)
+    })
 
-    function onGetData() {
-        getData().then(({ tasks, timelogs }) => {
-            setTasks(tasks)
-            setTimelogs(timelogs)
-        })
+    function handleOnStop() {
+        pause()
 
-        console.log('Is Running:', secureStorage.getBoolean('isRunning'))
+        if (!isModalVisible) {
+            getTasks().then(setTasks)
+            setIsModalVisible(duration > 0)
+        }
+
+        if (!duration) {
+            Alert.alert('Oops!', 'No time to log')
+            return
+        }
+
+        // createTimelog(startTime, endTime, 1, duration)
+        //     .then(() => {
+        //         getTimeLogs().then(setTimelogs)
+        //         Alert.alert('Success', 'Timelog created successfully')
+        //     })
+        //     .catch(() => {
+        //         Alert.alert('Error', 'Failed to create timelog')
+        //     })
     }
 
-    const handleAddTask = async () => {
-        try {
-            const newTaskId = await createTask(task.description)
-            const newTask = await getTask(newTaskId)
-            setTasks([...tasks, newTask!])
-        } catch (error) {
-            console.error(error)
+    const handleSave = () => {
+        if (!cleanText(selectedTask)) {
+            Alert.alert('Oops!', 'Please select a task')
+            return
         }
+
+        let taskId = 0
+
+        if (
+            !tasks.find((task) => task.description === cleanText(selectedTask))
+        ) {
+            createTask(cleanText(selectedTask))
+                .then((id) => {
+                    taskId = id
+
+                    stop()
+                    handleCreateTimelog(startTime, endTime, taskId, duration)
+                })
+                .catch(() => {
+                    Alert.alert('Error', 'Failed to create task')
+                })
+        } else {
+            taskId = tasks.find(
+                (task) => task.description === cleanText(selectedTask)
+            )?.id as number
+
+            stop()
+
+            handleCreateTimelog(startTime, endTime, taskId, duration)
+        }
+
+        setIsModalVisible(false)
     }
 
-    const handleUpdateTask = async () => {
-        try {
-            await updateTask(task)
-            const updatedTask = await getTask(task.id)
-            setTasks(tasks.map((t) => (t.id === task.id ? updatedTask! : t)))
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    const handleDeleteTask = async () => {
-        try {
-            await deleteTask(task.id)
-            setTasks(tasks.filter((t) => t.id !== task.id))
-        } catch (error) {
-            console.error(error)
-        }
+    const handleCreateTimelog = (
+        startTime: number,
+        endTime: number,
+        taskId: number,
+        duration: number
+    ) => {
+        createTimelog(startTime, endTime, taskId, duration)
+            .then(() => {
+                getTimeLogs().then(setTimelogs)
+                Alert.alert('Success', 'Timelog created successfully')
+            })
+            .catch(() => {
+                Alert.alert('Error', 'Failed to create timelog')
+            })
     }
 
     return (
-        <ParallaxScrollView
-            headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-            headerImage={
-                <Image
-                    source={require('@/assets/images/partial-react-logo.png')}
-                    style={styles.reactLogo}
-                />
-            }
-        >
-            <ThemedView style={styles.titleContainer}>
-                <ThemedText type="title">Welcome!</ThemedText>
-                <HelloWave />
-            </ThemedView>
-            <ThemedView style={styles.stepContainer}>
-                <ThemedText type="subtitle">Time Tracker</ThemedText>
-                <ThemedText type="subtitle">Time: {duration}s</ThemedText>
-                <TextInput
-                    placeholder="Enter Task Description"
-                    onChangeText={(value) => {
-                        setTask({ ...task, description: value })
+        <SafeAreaView>
+            <View
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
+            >
+                <Text
+                    style={{
+                        fontSize: 24,
+                        fontWeight: '600',
+                        margin: 20,
+                        fontStyle: 'italic',
+                        color: '#005c99',
                     }}
-                    value={task.description}
-                />
-                <TextInput
-                    placeholder="Enter Task ID"
-                    onChangeText={(value) => {
-                        setTask({ ...task, id: value ? parseInt(value) : 0 })
-                        console.log(value)
+                >
+                    timebrew
+                </Text>
+
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginRight: 20,
+                        gap: 10,
                     }}
-                    value={task.id.toString()}
+                >
+                    {/* Pomodoro Activator */}
+                    {/* <View
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontSize: 12,
+                                color: 'red',
+                            }}
+                        >
+                            P
+                        </Text>
+                        <Ionicons name="timer-outline" size={24} color="red" />
+                    </View> */}
+                    <Ionicons name="settings-outline" size={24} color="black" />
+                </View>
+            </View>
+            <ScrollView contentContainerStyle={styles.container}>
+                <View style={styles.mainTrackerContainer}>
+                    <WavyRings
+                        width={250}
+                        rings={3}
+                        delay={900}
+                        isRunning={isRunning}
+                    >
+                        <View>
+                            <Text
+                                style={{
+                                    fontSize: 36,
+                                    color: '#005c99',
+                                }}
+                            >
+                                {formatTime(duration) || '0s'}
+                            </Text>
+                        </View>
+                    </WavyRings>
+                    <View style={styles.controlsContainer}>
+                        <View>
+                            {(status === 'paused' || isRunning) && (
+                                <CircleButton
+                                    onPress={() => reset()}
+                                    style={styles.button}
+                                >
+                                    <Ionicons
+                                        name="refresh"
+                                        size={24}
+                                        color="white"
+                                    />
+                                </CircleButton>
+                            )}
+                        </View>
+                        <View>
+                            {isRunning ? (
+                                <CircleButton
+                                    onPress={pause}
+                                    style={styles.playPauseButton}
+                                >
+                                    <Ionicons
+                                        name="pause"
+                                        size={35}
+                                        color="white"
+                                    />
+                                </CircleButton>
+                            ) : (
+                                <CircleButton
+                                    onPress={start}
+                                    style={styles.playPauseButton}
+                                >
+                                    <Ionicons
+                                        name="play"
+                                        size={35}
+                                        color="white"
+                                    />
+                                </CircleButton>
+                            )}
+                        </View>
+                        <View>
+                            {(status === 'paused' || isRunning) && (
+                                <CircleButton
+                                    onPress={handleOnStop}
+                                    style={styles.button}
+                                >
+                                    <Ionicons
+                                        name="stop"
+                                        size={24}
+                                        color="white"
+                                    />
+                                </CircleButton>
+                            )}
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.logsContainer}>
+                    <View
+                        style={{
+                            borderBottomColor: '#d8d8d8',
+                            borderBottomWidth: 1,
+                            marginBottom: 20,
+                        }}
+                    />
+                    <Text
+                        style={{
+                            fontSize: 24,
+                            color: '#005c99',
+                            textAlign: 'center',
+                            marginBottom: 15,
+                        }}
+                    >
+                        Logs
+                    </Text>
+                    {timelogs && (
+                        <View>
+                            {timelogs.map((timelog) => (
+                                <View
+                                    key={timelog.id}
+                                    style={{ marginBottom: 10 }}
+                                >
+                                    <TimelogCard timelog={timelog} />
+                                </View>
+                            ))}
+                        </View>
+                    )}
+                </View>
+                {!timelogs.length && (
+                    <Text
+                        style={{
+                            fontSize: 16,
+                            color: 'grey',
+                            textAlign: 'center',
+                        }}
+                    >
+                        No logs
+                    </Text>
+                )}
+            </ScrollView>
+            <TimeLogModal
+                isVisible={isModalVisible}
+                onClose={() => setIsModalVisible(false)}
+                title="Time log"
+            >
+                <Text style={styles.label}>What did you do?</Text>
+                <DropDownPicker
+                    items={tasks.map((task) => task.description)}
+                    selectedValue={selectedTask}
+                    setValue={(value) => setSelectedTask(value)}
+                    placeholder="What did you do?"
                 />
-                <Button title="Add Task" onPress={handleAddTask} />
-                <Button
-                    title="Get Task"
-                    onPress={() => getTask(task.id).then(console.log)}
-                />
-                <Button title="Update Task" onPress={handleUpdateTask} />
-                <Button title="Delete Task" onPress={handleDeleteTask} />
-                <Button
-                    title={isRunning ? 'Pause' : 'Start'}
-                    onPress={isRunning ? pause : start}
-                />
-                <Button title="Stop" onPress={stop} />
-                <Button title="Fill Sample Data" onPress={fillSampleData} />
-                <Button title="Get Data" onPress={onGetData} />
-                <Button title="Clear Data" onPress={clearData} />
-                <Button title="Drop DB" onPress={dropDB} />
-            </ThemedView>
-            {tasks && (
-                <ThemedView style={styles.stepContainer}>
-                    <ThemedText type="subtitle">Tasks</ThemedText>
-                    {tasks.map((task) => (
-                        <ThemedText key={task.id}>
-                            {task.id} - {task.description}
-                        </ThemedText>
-                    ))}
-                </ThemedView>
-            )}
-            {timelogs && (
-                <ThemedView style={styles.stepContainer}>
-                    <ThemedText type="subtitle">Timelogs</ThemedText>
-                    {timelogs.map((timelog) => (
-                        <ThemedText key={timelog.id}>
-                            {timelog.start_time} - {timelog.duration}s
-                        </ThemedText>
-                    ))}
-                </ThemedView>
-            )}
-        </ParallaxScrollView>
+
+                <View style={{ marginBottom: 20 }}>
+                    <PrimaryButton onPress={handleSave}>Save</PrimaryButton>
+                </View>
+            </TimeLogModal>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
-    titleContainer: {
-        flexDirection: 'row',
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    mainTrackerContainer: {
+        paddingTop: 110,
+        justifyContent: 'center',
         alignItems: 'center',
-        gap: 8,
+        gap: 20,
     },
-    stepContainer: {
-        gap: 8,
-        marginBottom: 8,
+    controlsContainer: {
+        flexDirection: 'row',
+        gap: 20,
     },
-    reactLogo: {
-        height: 178,
-        width: 290,
-        bottom: 0,
-        left: 0,
-        position: 'absolute',
+    logsContainer: {
+        padding: 20,
+        height: '100%',
+    },
+    button: {
+        backgroundColor: '#005c99',
+        color: 'white',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        borderRadius: 40,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+        elevation: 8,
+    },
+    playPauseButton: {
+        backgroundColor: '#005c99',
+        color: 'white',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+        elevation: 8,
+    },
+    label: {
+        fontSize: 16,
+        color: 'grey',
+        marginBottom: 10,
     },
 })
+
+export default Tracker

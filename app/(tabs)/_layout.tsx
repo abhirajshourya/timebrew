@@ -16,7 +16,7 @@ export default function TabLayout() {
             }}
         >
             <Tabs.Screen
-                name="tracker"
+                name="index"
                 options={{
                     title: 'Tracker',
                     tabBarIcon: ({ color, focused }) => (
@@ -52,7 +52,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="index"
+                name="devtools"
                 options={{
                     title: 'Dev Tools',
                     tabBarIcon: ({ color, focused }) => (
