@@ -92,7 +92,7 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
       >
         <TextInput
           value={taskDesc}
-          onChangeText={handleDescriptionChange}
+          setValue={handleDescriptionChange}
           placeholder="Enter Task Name"
         />
         <View
