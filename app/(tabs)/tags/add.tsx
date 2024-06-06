@@ -104,7 +104,7 @@ const Add = () => {
     }, [name, selectedColor])
 
     return (
-        <View style={{ flex: 1 }}>
+        <>
             <View style={styles.container}>
                 <Text style={styles.heading}>
                     {params.id ? 'Edit Tag' : 'Create New Tag'}
@@ -146,7 +146,7 @@ const Add = () => {
             <FAB onPress={handleSubmit}>
                 <TabBarIcon name="checkmark" color="white" />
             </FAB>
-        </View>
+        </>
     )
 }
 

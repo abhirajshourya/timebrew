@@ -4,7 +4,7 @@ import useDatabase from '@/hooks/useDatabase'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, ScrollView, Text } from 'react-native'
+import { SafeAreaView, ScrollView, View, Text } from 'react-native'
 import EditTask from './edit_task'
 import FAB from '@/components/FAB'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
@@ -26,43 +26,51 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
         getTasks().then(setTasks)
     })
     return (
-        <SafeAreaView
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            <Text
-                style={{
-                    fontSize: 24,
-                    fontWeight: 'bold',
-                    margin: 20,
-                }}
+        <>
+            <SafeAreaView
+            // style={{
+            //     display: 'flex',
+            //     flexDirection: 'column',
+            // }}
             >
-                All Tasks
-            </Text>
-            <ScrollView
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '90%',
-                    padding: 20,
-                    paddingTop: 25,
-                }}
-            >
-                {tasks &&
-                    tasks.map((task) => (
-                        <TaskCard
-                            key={task.id}
-                            task={task}
-                            navigation={navigation}
-                        />
-                    ))}
-            </ScrollView>
+                <Text
+                    style={{
+                        fontSize: 24,
+                        fontWeight: 'bold',
+                        margin: 20,
+                    }}
+                >
+                    All Tasks
+                </Text>
+                <ScrollView
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '90%',
+                        padding: 20,
+                        paddingTop: 25,
+                    }}
+                >
+                    <View
+                        style={{
+                            marginBottom: 200,
+                        }}
+                    >
+                        {tasks &&
+                            tasks.map((task) => (
+                                <TaskCard
+                                    key={task.id}
+                                    task={task}
+                                    navigation={navigation}
+                                />
+                            ))}
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
             <FAB onPress={handleFABPress}>
                 <TabBarIcon name="add" color="white" />
             </FAB>
-        </SafeAreaView>
+        </>
     )
 }
 

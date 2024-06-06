@@ -32,26 +32,23 @@ const Tags = () => {
     })
 
     return (
-        <SafeAreaView
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            <Text style={styles.heading}>Tags</Text>
-            <ScrollView contentContainerStyle={styles.container}>
-                <View>
-                    {tags.map((tag) => (
-                        <Pressable key={tag.id}>
-                            <TagCard tag={tag} handleEdit={handleEdit} />
-                        </Pressable>
-                    ))}
-                </View>
-            </ScrollView>
+        <>
+            <SafeAreaView>
+                <Text style={styles.heading}>Tags</Text>
+                <ScrollView contentContainerStyle={styles.container}>
+                    <View style={{ marginBottom: 200 }}>
+                        {tags.map((tag) => (
+                            <Pressable key={tag.id}>
+                                <TagCard tag={tag} handleEdit={handleEdit} />
+                            </Pressable>
+                        ))}
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
             <FAB onPress={handleFABPress}>
                 <TabBarIcon name="add" color="white" />
             </FAB>
-        </SafeAreaView>
+        </>
     )
 }
 
@@ -59,7 +56,6 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
-        height: '90%',
         padding: 20,
         paddingTop: 25,
     },
