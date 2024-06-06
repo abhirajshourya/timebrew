@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import { Task, Timelog } from '@/constants/types'
 import { MMKV } from 'react-native-mmkv'
 
-export default function HomeScreen() {
+export default function DevTools() {
     const { duration, start, stop, pause, isRunning } = useTimeTracker()
     const {
         getData,
