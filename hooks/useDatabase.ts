@@ -1,5 +1,6 @@
-import { Tag, Task, Timelog } from '@/constants/types'
+import { Tag, Task, Timelog, TimelogTag, TimelogWithTags } from '@/constants/types'
 import { useSQLiteContext } from 'expo-sqlite'
+import { get } from 'lodash'
 import { useEffect } from 'react'
 
 export default function useDatabase() {
@@ -105,16 +106,18 @@ export default function useDatabase() {
     }
 
     const getData = async () => {
-        const [timelogs, tasks, tags] = await Promise.all([
+        const [timelogs, tasks, tags, timelog_tags] = await Promise.all([
             db.getAllAsync<Timelog>('SELECT * FROM timelogs'),
             db.getAllAsync<Task>('SELECT * FROM tasks'),
             db.getAllAsync<Tag>('SELECT * FROM tags'),
+            db.getAllAsync<TimelogTag>('SELECT * FROM timelog_tags'),
         ])
 
         return {
             timelogs,
             tasks,
             tags,
+            timelog_tags,
         }
     }
 
@@ -271,6 +274,24 @@ export default function useDatabase() {
     }
 
     /**
+     * Get all timelogs with tags
+     * 
+     * @returns - Timelogs with tags
+     */
+    const getTimelogsWithTags = async () => {
+        const timelogs = await getTimeLogs()
+
+        const timelogsWithTags: TimelogWithTags[] = []
+
+        for (const timelog of timelogs) {
+            const tags = await getTagsForTimelog(timelog.id)
+            timelogsWithTags.push({ ...timelog, tags })
+        }
+
+        return timelogsWithTags
+    }
+
+    /**
      * Update a timelog
      * @param timelog - Timelog object
      */
@@ -293,6 +314,10 @@ export default function useDatabase() {
      */
     const deleteTimelog = async (id: number) => {
         await db.runAsync('DELETE FROM timelogs WHERE id = $id', {
+            $id: id,
+        })
+
+        await db.runAsync('DELETE FROM timelog_tags WHERE timelog_id = $id', {
             $id: id,
         })
     }
@@ -339,6 +364,20 @@ export default function useDatabase() {
      */
     const getTags = async () => {
         return await db.getAllAsync<Tag>('SELECT * FROM tags')
+    }
+
+    /**
+     * Get tags for a timelog
+     * @param id - Timelog id
+     * @returns - Tags
+     */
+    const getTagsForTimelog = async (id: number) => {
+        return await db.getAllAsync<Tag>(
+            'SELECT * FROM tags WHERE id IN (SELECT tag_id FROM timelog_tags WHERE timelog_id = $id)',
+            {
+                $id: id,
+            }
+        )
     }
 
     /**
@@ -401,6 +440,22 @@ export default function useDatabase() {
 
     /**
      * ****************************************************
+     * 4. TimelogTag
+     * ****************************************************
+     */
+
+    const createTimelogTag = async (timelogId: number, tagId: number) => {
+        await db.runAsync(
+            'INSERT INTO timelog_tags (timelog_id, tag_id) VALUES ($timelogId, $tagId)',
+            {
+                $timelogId: timelogId,
+                $tagId: tagId,
+            }
+        )
+    }
+
+    /**
+     * ****************************************************
      * Helper functions
      * ****************************************************
      */
@@ -431,15 +486,18 @@ export default function useDatabase() {
         getTimelog,
         getTimeLogs,
         getTimelogsForTask,
+        getTimelogsWithTags,
         updateTimelog,
         deleteTimelog,
         createTag,
         getTag,
         getTags,
+        getTagsForTimelog,
         updateTag,
         deleteTag,
         getTimelogByTag,
         deleteTagFromTimelog,
+        createTimelogTag,
         getTotalTimelogForTask,
     }
 }

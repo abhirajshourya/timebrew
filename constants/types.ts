@@ -6,6 +6,10 @@ export interface Timelog {
     duration: number
 }
 
+export interface TimelogWithTags extends Timelog {
+    tags: Tag[]
+}
+
 export interface Task {
     id: number
     description: string
@@ -15,4 +19,9 @@ export interface Tag {
     id: number
     name: string
     color: string
+}
+
+export interface TimelogTag {
+    timelog_id: number
+    tag_id: number
 }
