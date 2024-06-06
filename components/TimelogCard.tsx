@@ -1,22 +1,31 @@
 import { Task, Timelog } from '@/constants/types'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
+import { Feather } from '@expo/vector-icons'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 interface TimelogCardProps {
     timelog: Timelog
 }
 
 const TimelogCard = ({ timelog }: TimelogCardProps) => {
-    const { getTask } = useDatabase()
+    const { getTask, deleteTimelog } = useDatabase()
 
     const [task, setTask] = useState<Task | null>(null)
 
     useEffect(() => {
         getTask(timelog.task_id).then(setTask)
     }, [])
+
+    const handleDeleteTimelog = async () => {
+        try {
+            await deleteTimelog(timelog.id)
+        } catch (error) {
+            Alert.alert('Error', 'Failed to delete timelog')
+        }
+    }
 
     return (
         <View style={styles.timelogCard}>
@@ -39,10 +48,20 @@ const TimelogCard = ({ timelog }: TimelogCardProps) => {
                     {moment(timelog.start_time).format('h:mm a')}
                 </Text>
             </View>
-            <View>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginTop: 10,
+                }}
+            >
                 <Text style={{ fontSize: 16, color: '#005c99' }}>
                     {task ? task.description : 'Loading...'}
                 </Text>
+                <TouchableOpacity onPress={handleDeleteTimelog}>
+                    <Feather name="x" size={16} color="red" />
+                </TouchableOpacity>
             </View>
             {/* TODO: Add Tags */}
         </View>
