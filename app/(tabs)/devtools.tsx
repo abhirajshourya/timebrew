@@ -7,7 +7,7 @@ import { ThemedView } from '@/components/ThemedView'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import useDatabase from '@/hooks/useDatabase'
 import { useEffect, useState } from 'react'
-import { Task, Timelog } from '@/constants/types'
+import { Tag, Task, Timelog, TimelogTag } from '@/constants/types'
 import { MMKV } from 'react-native-mmkv'
 
 export default function DevTools() {
@@ -21,9 +21,12 @@ export default function DevTools() {
         getTask,
         updateTask,
         deleteTask,
+        getTags,
     } = useDatabase()
     const [tasks, setTasks] = useState<Task[]>([])
     const [timelogs, setTimelogs] = useState<Timelog[]>([])
+    const [tags, setTags] = useState<Tag[]>([])
+    const [timelog_tags, setTimelogTags] = useState<TimelogTag[]>([])
     const [task, setTask] = useState<Task>({ description: '', id: 0 })
 
     const secureStorage = new MMKV()
@@ -33,9 +36,11 @@ export default function DevTools() {
     }, [isRunning])
 
     function onGetData() {
-        getData().then(({ tasks, timelogs }) => {
+        getData().then(({ tasks, timelogs, tags, timelog_tags }) => {
             setTasks(tasks)
             setTimelogs(timelogs)
+            setTags(tags)
+            setTimelogTags(timelog_tags)
         })
 
         console.log('Is Running:', secureStorage.getBoolean('isRunning'))
@@ -135,6 +140,24 @@ export default function DevTools() {
                     {timelogs.map((timelog) => (
                         <ThemedText key={timelog.id}>
                             {timelog.start_time} - {timelog.duration}s
+                        </ThemedText>
+                    ))}
+                </ThemedView>
+            )}
+            {tags && (
+                <ThemedView style={styles.stepContainer}>
+                    <ThemedText type="subtitle">Tags</ThemedText>
+                    {tags.map((tag) => (
+                        <ThemedText key={tag.id}>{tag.name}</ThemedText>
+                    ))}
+                </ThemedView>
+            )}
+            {timelog_tags && (
+                <ThemedView style={styles.stepContainer}>
+                    <ThemedText type="subtitle">Timelog Tags</ThemedText>
+                    {timelog_tags.map((timelog_tag) => (
+                        <ThemedText key={timelog_tag.timelog_id}>
+                            {timelog_tag.timelog_id} - {timelog_tag.tag_id}
                         </ThemedText>
                     ))}
                 </ThemedView>
