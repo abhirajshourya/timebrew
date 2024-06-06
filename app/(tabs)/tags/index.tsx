@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
-        padding: 20,
-        paddingTop: 25,
+        // padding: 20,
+        // paddingTop: 25,
     },
     heading: {
         fontSize: 24,

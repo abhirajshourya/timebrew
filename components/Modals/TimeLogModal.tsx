@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: '100%',
         padding: 20,
-        minHeight: 300,
+        minHeight: 500,
     },
 })
 

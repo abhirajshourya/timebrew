@@ -31,12 +31,7 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
         getTasks().then(setTasks)
     })
     return (
-        <SafeAreaView
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
+        <SafeAreaView>
             <View
                 style={{
                     display: 'flex',
@@ -62,17 +57,22 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    height: '90%',
                 }}
             >
-                {tasks &&
-                    tasks.map((task) => (
-                        <TaskCard
-                            key={task.id}
-                            task={task}
-                            navigation={navigation}
-                        />
-                    ))}
+                <View
+                    style={{
+                        marginBottom: 200,
+                    }}
+                >
+                    {tasks &&
+                        tasks.map((task) => (
+                            <TaskCard
+                                key={task.id}
+                                task={task}
+                                navigation={navigation}
+                            />
+                        ))}
+                </View>
             </ScrollView>
         </SafeAreaView>
     )

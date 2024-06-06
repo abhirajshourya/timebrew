@@ -19,7 +19,17 @@ const TagCard = ({ tag, handleEdit }: TagCardProps) => {
                     marginBottom: 2,
                 }}
             >
-                <Text style={styles.tagName}>{tag.name}</Text>
+                <View
+                    style={[
+                        styles.colorTag,
+                        { backgroundColor: tag.color + '2a' },
+                        { borderColor: tag.color },
+                    ]}
+                >
+                    <Text style={[styles.tagName, { color: '#000000d6' }]}>
+                        {tag.name}
+                    </Text>
+                </View>
                 <TouchableHighlight
                     onPress={() => handleEdit(tag)}
                     activeOpacity={0.6}
@@ -28,13 +38,6 @@ const TagCard = ({ tag, handleEdit }: TagCardProps) => {
                     <Feather name="edit" size={16} color="#525252" />
                 </TouchableHighlight>
             </View>
-            <View
-                style={[
-                    styles.colorTag,
-                    { backgroundColor: tag.color + '80' },
-                    { borderColor: tag.color },
-                ]}
-            />
         </View>
     )
 }
@@ -58,7 +61,8 @@ const styles = StyleSheet.create({
         elevation: 8,
     },
     colorTag: {
-        width: 40,
+        // width: 40,
+        paddingHorizontal: 5,
         height: 20,
         borderRadius: 25,
         borderWidth: 1,
@@ -66,8 +70,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     tagName: {
-        fontSize: 16,
-        color: '#005c99',
+        fontSize: 12,
     },
 })
 
