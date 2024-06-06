@@ -1,56 +1,73 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Tag as TagType } from '@/constants/types';
+import React from 'react'
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native'
+import { Tag as TagType } from '@/constants/types'
+import { Feather } from '@expo/vector-icons'
 
 interface TagCardProps {
-    tag: TagType;
+    tag: TagType
+    handleEdit: (tag: TagType) => void
 }
 
-const TagCard = ({ tag }: TagCardProps) => {
+const TagCard = ({ tag, handleEdit }: TagCardProps) => {
     return (
         <View style={styles.tagCard}>
-            <View>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: 2,
+                }}
+            >
                 <Text style={styles.tagName}>{tag.name}</Text>
+                <TouchableHighlight
+                    onPress={() => handleEdit(tag)}
+                    activeOpacity={0.6}
+                    underlayColor={'#e2e2e2'}
+                >
+                    <Feather name="edit" size={16} color="#525252" />
+                </TouchableHighlight>
             </View>
-            <View style={[styles.colorTag, { backgroundColor: tag.color + '80' }]}>
-                <Text style={styles.colortext}>{tag.color}</Text>
-            </View>
+            <View
+                style={[
+                    styles.colorTag,
+                    { backgroundColor: tag.color + '80' },
+                    { borderColor: tag.color },
+                ]}
+            />
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
     tagCard: {
-        padding: 15,
-        borderColor: 'black',
-        borderRadius: 5,
-        marginTop: 15,
-        backgroundColor: 'white',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: 20,
+        backgroundColor: '#f9f9f9',
+        borderRadius: 10,
+        marginBottom: 10,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 10,
+            height: 4,
         },
         shadowOpacity: 0.12,
         shadowRadius: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        elevation: 8,
     },
     colorTag: {
-        // width: 20,
-        // height: 20,
-        borderRadius: 10,
-        padding: 10,
+        width: 40,
+        height: 20,
+        borderRadius: 25,
+        borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    colortext: {
-        color: 'black',
-    },
     tagName: {
         fontSize: 16,
+        color: '#005c99',
     },
-});
+})
 
-export default TagCard;
+export default TagCard

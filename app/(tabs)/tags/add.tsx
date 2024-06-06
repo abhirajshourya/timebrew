@@ -21,8 +21,6 @@ const Add = () => {
     const [errors, setErrors] = useState({} as Record<string, string>)
 
     useEffect(() => {
-        // console.log(params)
-
         if (params.id) {
             navigation.setOptions({ title: 'Edit Tag' })
 
@@ -102,12 +100,6 @@ const Add = () => {
     }
 
     useEffect(() => {
-        // console.log('Name:', cleanText(name))
-        // console.log('name:', name)
-
-        // console.log('Color:', selectedColor)
-        // console.log('Errors:', errors)
-
         checkErrors()
     }, [name, selectedColor])
 

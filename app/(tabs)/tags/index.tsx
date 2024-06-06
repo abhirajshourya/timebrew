@@ -23,7 +23,7 @@ const Tags = () => {
     router.push("tags/add");
   };
 
-  const handleTagPress = (tag: TagType) => {
+  const handleEdit = (tag: TagType) => {
     router.push({ pathname: "tags/add", params: { ...tag } });
   };
 
@@ -38,8 +38,8 @@ const Tags = () => {
 
         <View>
           {tags.map((tag) => (
-            <Pressable key={tag.id} onPress={() => handleTagPress(tag)}>
-              <TagCard tag={tag} />
+            <Pressable key={tag.id}>
+              <TagCard tag={tag}  handleEdit={handleEdit}/>
             </Pressable>
           ))}
         </View>
