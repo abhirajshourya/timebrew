@@ -1,16 +1,18 @@
-import { Task, Timelog } from '@/constants/types'
+import { Tag, Task, Timelog } from '@/constants/types'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import { Feather } from '@expo/vector-icons'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import TagChip from './TagChip'
 
 interface TimelogCardProps {
     timelog: Timelog
+    tags?: Tag[]
 }
 
-const TimelogCard = ({ timelog }: TimelogCardProps) => {
+const TimelogCard = ({ timelog, tags }: TimelogCardProps) => {
     const { getTask, deleteTimelog } = useDatabase()
 
     const [task, setTask] = useState<Task | null>(null)
@@ -64,6 +66,18 @@ const TimelogCard = ({ timelog }: TimelogCardProps) => {
                 </TouchableOpacity>
             </View>
             {/* TODO: Add Tags */}
+            <View
+                style={{
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    marginTop: 10,
+                    gap: 5,
+                }}
+            >
+                {tags &&
+                    tags.length > 0 &&
+                    tags.map((tag) => <TagChip key={tag.id} tag={tag} />)}
+            </View>
         </View>
     )
 }

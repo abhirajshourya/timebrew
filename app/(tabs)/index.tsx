@@ -7,8 +7,6 @@ import {
     TextInput,
     Alert,
     TouchableHighlight,
-    Touchable,
-    TouchableOpacity,
 } from 'react-native'
 import { ScrollView } from 'react-native'
 import useTimeTracker from '@/hooks/useTimeTracker'
@@ -17,11 +15,12 @@ import { Feather, Ionicons } from '@expo/vector-icons'
 import WavyRings from '@/components/WavyRings'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
-import { Task, Timelog } from '@/constants/types'
+import { Tag, Task, Timelog, TimelogWithTags } from '@/constants/types'
 import TimelogCard from '@/components/TimelogCard'
 import TimeLogModal from '@/components/Modals/TimeLogModal'
 import DropDownPicker from '@/components/form/DropDownPicker'
-import { get } from 'lodash'
+import MultiDropDownPicker from '@/components/form/MultiDropDownTagsPicker'
+import { get, set } from 'lodash'
 import { PrimaryButton } from '@/components/Buttons'
 import { cleanText } from '@/helpers/text-helpers'
 
@@ -38,14 +37,28 @@ const Tracker = () => {
         startTime,
         endTime,
     } = useTimeTracker()
-    const { getTimeLogs, createTimelog, getTasks, createTask } = useDatabase()
+    const {
+        getTimeLogs,
+        createTimelog,
+        getTasks,
+        createTask,
+        getTags,
+        createTimelogTag,
+        getTimelogsWithTags,
+    } = useDatabase()
     const [timelogs, setTimelogs] = useState<Timelog[]>([])
+    const [timelogsWithTags, setTimelogsWithTags] = useState<TimelogWithTags[]>(
+        []
+    )
     const [tasks, setTasks] = useState<Task[]>([])
     const [selectedTask, setSelectedTask] = useState<string>('')
+    const [tags, setTags] = useState<Tag[]>([])
+    const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [isModalVisible, setIsModalVisible] = useState(false)
 
     useEffect(() => {
-        getTimeLogs().then(setTimelogs)
+        // getTimeLogs().then(setTimelogs)
+        getTimelogsWithTags().then(setTimelogsWithTags)
     })
 
     function handleOnStop() {
@@ -53,6 +66,7 @@ const Tracker = () => {
 
         if (!isModalVisible) {
             getTasks().then(setTasks)
+            getTags().then(setTags)
             setIsModalVisible(duration > 0)
         }
 
@@ -112,13 +126,22 @@ const Tracker = () => {
         duration: number
     ) => {
         createTimelog(startTime, endTime, taskId, duration)
-            .then(() => {
+            .then((id) => {
                 getTimeLogs().then(setTimelogs)
+                selectedTags.forEach((tag) => {
+                    handleCreateTimelogTag(id, tag.id)
+                })
                 Alert.alert('Success', 'Timelog created successfully')
             })
             .catch(() => {
                 Alert.alert('Error', 'Failed to create timelog')
             })
+    }
+
+    const handleCreateTimelogTag = (timelogId: number, tagId: number) => {
+        createTimelogTag(timelogId, tagId).catch(() => {
+            Alert.alert('Error', 'Failed to create timelog tag')
+        })
     }
 
     return (
@@ -168,20 +191,10 @@ const Tracker = () => {
                         </Text>
                         <Ionicons name="timer-outline" size={24} color="red" />
                     </View> */}
-                    <TouchableOpacity
-                        onPress={() => {
-                            // navigate to settings
-                        }}
-                    >
-                        <Ionicons
-                            name="settings-outline"
-                            size={24}
-                            color="black"
-                        />
-                    </TouchableOpacity>
+                    <Ionicons name="settings-outline" size={24} color="black" />
                 </View>
             </View>
-            <ScrollView style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.mainTrackerContainer}>
                     <WavyRings
                         width={250}
@@ -274,18 +287,12 @@ const Tracker = () => {
                     >
                         Logs
                     </Text>
-                    {timelogs && (
-                        <View>
-                            {timelogs.map((timelog) => (
-                                <View
-                                    key={timelog.id}
-                                    style={{ marginBottom: 10 }}
-                                >
-                                    <TimelogCard timelog={timelog} />
-                                </View>
-                            ))}
-                        </View>
-                    )}
+                    {timelogsWithTags &&
+                        timelogsWithTags.map((timelog) => (
+                            <View key={timelog.id} style={{ marginBottom: 10 }}>
+                                <TimelogCard timelog={timelog} tags={timelog.tags} />
+                            </View>
+                        ))}
                 </View>
                 {!timelogs.length && (
                     <Text
@@ -312,6 +319,14 @@ const Tracker = () => {
                     placeholder="What did you do?"
                 />
 
+                <Text style={styles.label}>Tags</Text>
+                <MultiDropDownPicker
+                    items={tags}
+                    selectedValues={selectedTags}
+                    setValues={setSelectedTags}
+                    placeholder="Add tags"
+                />
+
                 <View style={{ marginBottom: 20 }}>
                     <PrimaryButton onPress={handleSave}>Save</PrimaryButton>
                 </View>
@@ -324,7 +339,6 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
-        height: '90%',
     },
     mainTrackerContainer: {
         paddingTop: 110,
