@@ -13,7 +13,11 @@ export default function useDatabase() {
     const db = useSQLiteContext()
 
     useEffect(() => {
-        initDb()
+        try {
+            initDb()
+        } catch (error) {
+            console.error('Error initializing database:', error)
+        }
     }, [])
 
     const initDb = async () => {
@@ -269,9 +273,13 @@ export default function useDatabase() {
      * @returns - All timelogs
      */
     const getTimeLogs = async () => {
-        return await db.getAllAsync<Timelog>(
-            'SELECT * FROM timelogs ORDER BY start_time DESC'
-        )
+        try {
+            return await db.getAllAsync<Timelog>(
+                'SELECT * FROM timelogs ORDER BY start_time DESC'
+            )
+        } catch (error) {
+            return []
+        }
     }
 
     /**
@@ -286,24 +294,6 @@ export default function useDatabase() {
                 $taskId: taskId,
             }
         )
-    }
-
-    /**
-     * Get all timelogs with tags
-     *
-     * @returns - Timelogs with tags
-     */
-    const getTimelogsWithTags = async () => {
-        const timelogs = await getTimeLogs()
-
-        const timelogsWithTags: TimelogWithTags[] = []
-
-        for (const timelog of timelogs) {
-            const tags = await getTagsForTimelog(timelog.id)
-            timelogsWithTags.push({ ...timelog, tags })
-        }
-
-        return timelogsWithTags
     }
 
     /**
@@ -469,6 +459,16 @@ export default function useDatabase() {
         )
     }
 
+    const deleteTimelogTag = async (timelogId: number, tagId: number) => {
+        await db.runAsync(
+            'DELETE FROM timelog_tags WHERE timelog_id = $timelogId AND tag_id = $tagId',
+            {
+                $timelogId: timelogId,
+                $tagId: tagId,
+            }
+        )
+    }
+
     /**
      * ****************************************************
      * Helper functions
@@ -501,7 +501,6 @@ export default function useDatabase() {
         getTimelog,
         getTimeLogs,
         getTimelogsForTask,
-        getTimelogsWithTags,
         updateTimelog,
         deleteTimelog,
         createTag,
@@ -513,6 +512,7 @@ export default function useDatabase() {
         getTimelogByTag,
         deleteTagFromTimelog,
         createTimelogTag,
+        deleteTimelogTag,
         getTotalTimelogForTask,
     }
 }

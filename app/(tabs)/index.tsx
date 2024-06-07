@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import {
-    StyleSheet,
-    View,
-    Text,
-    SafeAreaView,
-    TextInput,
-    Alert,
-    TouchableHighlight,
-} from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, Alert } from 'react-native'
 import { ScrollView } from 'react-native'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import CircleButton from '@/components/CircleButton'
-import { Feather, Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import WavyRings from '@/components/WavyRings'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
@@ -20,7 +12,6 @@ import TimelogCard from '@/components/TimelogCard'
 import TimeLogModal from '@/components/Modals/TimeLogModal'
 import DropDownPicker from '@/components/form/DropDownPicker'
 import MultiDropDownPicker from '@/components/form/MultiDropDownTagsPicker'
-import { get, set } from 'lodash'
 import { PrimaryButton } from '@/components/Buttons'
 import { cleanText } from '@/helpers/text-helpers'
 
@@ -44,12 +35,8 @@ const Tracker = () => {
         createTask,
         getTags,
         createTimelogTag,
-        getTimelogsWithTags,
     } = useDatabase()
     const [timelogs, setTimelogs] = useState<Timelog[]>([])
-    const [timelogsWithTags, setTimelogsWithTags] = useState<TimelogWithTags[]>(
-        []
-    )
     const [tasks, setTasks] = useState<Task[]>([])
     const [selectedTask, setSelectedTask] = useState<string>('')
     const [tags, setTags] = useState<Tag[]>([])
@@ -57,8 +44,9 @@ const Tracker = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
 
     useEffect(() => {
-        // getTimeLogs().then(setTimelogs)
-        getTimelogsWithTags().then(setTimelogsWithTags)
+        getTimeLogs().then((timelogs) => {
+            setTimelogs(timelogs)
+        })
     })
 
     function handleOnStop() {
@@ -287,10 +275,10 @@ const Tracker = () => {
                     >
                         Logs
                     </Text>
-                    {timelogsWithTags &&
-                        timelogsWithTags.map((timelog) => (
+                    {timelogs &&
+                        timelogs.map((timelog) => (
                             <View key={timelog.id} style={{ marginBottom: 10 }}>
-                                <TimelogCard timelog={timelog} tags={timelog.tags} />
+                                <TimelogCard timelog={timelog} />
                             </View>
                         ))}
                 </View>
@@ -353,6 +341,7 @@ const styles = StyleSheet.create({
     logsContainer: {
         padding: 20,
         height: '100%',
+        marginBottom: 200,
     },
     button: {
         backgroundColor: '#005c99',

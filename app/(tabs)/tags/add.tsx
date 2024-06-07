@@ -115,8 +115,10 @@ const Add = () => {
                         <Text style={styles.label}>Tag Name</Text>
                         <TextInput
                             value={name}
-                            setValue={setName}
-                            placeholder="E.g. Work, Personal, Study, etc."
+                            setValue={(text: string) =>
+                                setName(text.toLowerCase())
+                            }
+                            placeholder="E.g. work, personal, study, etc."
                             // onFocus={() => console.log('focus')}
                             // onBlur={() => console.log('blur')}
                         />

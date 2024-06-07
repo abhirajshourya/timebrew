@@ -9,16 +9,17 @@ import TagChip from './TagChip'
 
 interface TimelogCardProps {
     timelog: Timelog
-    tags?: Tag[]
 }
 
-const TimelogCard = ({ timelog, tags }: TimelogCardProps) => {
-    const { getTask, deleteTimelog } = useDatabase()
+const TimelogCard = ({ timelog }: TimelogCardProps) => {
+    const { getTask, deleteTimelog, getTagsForTimelog } = useDatabase()
 
     const [task, setTask] = useState<Task | null>(null)
+    const [tags, setTags] = useState<Tag[] | null>(null)
 
     useEffect(() => {
         getTask(timelog.task_id).then(setTask)
+        getTagsForTimelog(timelog.id).then(setTags)
     }, [])
 
     const handleDeleteTimelog = async () => {

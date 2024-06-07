@@ -34,9 +34,9 @@ const MultiDropDownPicker = ({
     const [localSelectedValues, setLocalSelectedValues] =
         useState<Tag[]>(selectedValues)
 
-        useEffect(() => {
-            setValues(localSelectedValues)
-        }, [localSelectedValues])
+    useEffect(() => {
+        setValues(localSelectedValues)
+    }, [localSelectedValues])
 
     const inputRef = useRef<TextInput>(null)
 
@@ -82,20 +82,9 @@ const MultiDropDownPicker = ({
                                 (tag) => tag.id === item.id
                             ) ? null : (
                                 <Pressable
-                                    style={[
-                                        styles.dropdownItem,
-                                        {
-                                            backgroundColor:
-                                                localSelectedValues.length >= 5
-                                                    ? '#a4a4a42a'
-                                                    : item.color + '2a',
-                                        },
-                                    ]}
+                                    style={[styles.dropdownItem]}
                                     key={item.id}
                                     onPress={() => {
-                                        // setIsOpen(false)
-                                        // setText('')
-                                        // setTextEnabled(false)
                                         setLocalSelectedValues((tags) => [
                                             ...tags,
                                             item,
@@ -103,7 +92,15 @@ const MultiDropDownPicker = ({
                                     }}
                                     disabled={localSelectedValues.length >= 5}
                                 >
-                                    <Text>{item.name}</Text>
+                                    <TagChip
+                                        tag={{
+                                            ...item,
+                                            color:
+                                                localSelectedValues.length >= 5
+                                                    ? '#a4a4a4'
+                                                    : item.color,
+                                        }}
+                                    />
                                 </Pressable>
                             )
                         )}
@@ -124,7 +121,11 @@ const MultiDropDownPicker = ({
             </View>
 
             {localSelectedValues.length > 0 && (
-                <View>
+                <View
+                    style={{
+                        paddingTop: 10,
+                    }}
+                >
                     <Text
                         style={{
                             color: 'grey',
