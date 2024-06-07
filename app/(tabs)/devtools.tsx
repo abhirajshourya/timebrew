@@ -17,6 +17,7 @@ export default function DevTools() {
         fillSampleData,
         clearData,
         dropDB,
+        createDb,
         createTask,
         getTask,
         updateTask,
@@ -123,6 +124,7 @@ export default function DevTools() {
                 <Button title="Get Data" onPress={onGetData} />
                 <Button title="Clear Data" onPress={clearData} />
                 <Button title="Drop DB" onPress={dropDB} />
+                <Button title="Create DB" onPress={createDb} />
             </ThemedView>
             {tasks && (
                 <ThemedView style={styles.stepContainer}>
@@ -156,9 +158,7 @@ export default function DevTools() {
                 <ThemedView style={styles.stepContainer}>
                     <ThemedText type="subtitle">Timelog Tags</ThemedText>
                     {timelog_tags.map((timelog_tag) => (
-                        <ThemedText
-                            key={timelog_tag.id}
-                        >
+                        <ThemedText key={timelog_tag.id}>
                             {timelog_tag.timelog_id} - {timelog_tag.tag_id}
                         </ThemedText>
                     ))}

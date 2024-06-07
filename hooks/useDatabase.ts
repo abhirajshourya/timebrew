@@ -107,21 +107,31 @@ export default function useDatabase() {
     }
 
     const clearData = async () => {
-        await db.execAsync('DELETE FROM timelogs')
-        await db.execAsync('DELETE FROM tasks')
-        await db.execAsync('DELETE FROM tags')
-        await db.execAsync('DELETE FROM timelog_tags')
+        try {
+            await db.execAsync('DELETE FROM timelogs')
+            await db.execAsync('DELETE FROM tasks')
+            await db.execAsync('DELETE FROM tags')
+            await db.execAsync('DELETE FROM timelog_tags')
 
-        console.log('Data cleared')
+            console.log('Data cleared')
+        } catch (error) {
+            console.error('Error clearing data: ', error)
+        }
     }
 
     const dropDB = async () => {
+        await clearData()
         await db.execAsync('DROP TABLE IF EXISTS timelogs')
         await db.execAsync('DROP TABLE IF EXISTS tasks')
         await db.execAsync('DROP TABLE IF EXISTS tags')
         await db.execAsync('DROP TABLE IF EXISTS timelog_tags')
 
         console.log('Database dropped')
+    }
+
+    const createDb = async () => {
+        await initDb();
+        console.log('Database created')
     }
 
     const getData = async () => {
@@ -492,6 +502,7 @@ export default function useDatabase() {
         fillSampleData,
         clearData,
         dropDB,
+        createDb,
         createTask,
         getTask,
         getTasks,
