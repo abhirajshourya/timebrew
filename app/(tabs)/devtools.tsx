@@ -156,7 +156,9 @@ export default function DevTools() {
                 <ThemedView style={styles.stepContainer}>
                     <ThemedText type="subtitle">Timelog Tags</ThemedText>
                     {timelog_tags.map((timelog_tag) => (
-                        <ThemedText key={timelog_tag.timelog_id}>
+                        <ThemedText
+                            key={timelog_tag.id}
+                        >
                             {timelog_tag.timelog_id} - {timelog_tag.tag_id}
                         </ThemedText>
                     ))}

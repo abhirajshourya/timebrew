@@ -1,4 +1,10 @@
-import { Tag, Task, Timelog, TimelogTag, TimelogWithTags } from '@/constants/types'
+import {
+    Tag,
+    Task,
+    Timelog,
+    TimelogTag,
+    TimelogWithTags,
+} from '@/constants/types'
 import { useSQLiteContext } from 'expo-sqlite'
 import { get } from 'lodash'
 import { useEffect } from 'react'
@@ -39,9 +45,9 @@ export default function useDatabase() {
 
         await db.execAsync(`
       CREATE TABLE IF NOT EXISTS timelog_tags (
+        id INTEGER PRIMARY KEY NOT NULL,
         timelog_id INTEGER NOT NULL,
         tag_id INTEGER NOT NULL,
-        PRIMARY KEY (timelog_id, tag_id),
         FOREIGN KEY(timelog_id) REFERENCES timelogs(id),
         FOREIGN KEY(tag_id) REFERENCES tags(id)
       );
@@ -73,15 +79,24 @@ export default function useDatabase() {
     `)
 
         await db.execAsync(`
-      INSERT INTO tags (name, color) VALUES ('Reading', '#FF0000');
-      INSERT INTO tags (name, color) VALUES ('Coding', '#00FF00');
-      INSERT INTO tags (name, color) VALUES ('Watching', '#0000FF');
+      INSERT INTO tags (name, color) VALUES ('read', '#FF0000');
+      INSERT INTO tags (name, color) VALUES ('code', '#FFA500');
+      INSERT INTO tags (name, color) VALUES ('watch', '#0000FF');
+      INSERT INTO tags (name, color) VALUES ('work', '#4B0082');
+      INSERT INTO tags (name, color) VALUES ('play', '#008000');
+      INSERT INTO tags (name, color) VALUES ('chore', '#EE82EE');
+      INSERT INTO tags (name, color) VALUES ('self', '#FF0000');
     `)
 
         await db.execAsync(`
-      INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (1, 1);
-      INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (2, 2);
-      INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (3, 3);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (1, 1);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (1, 7);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (2, 2);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (2, 7);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (3, 3);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (3, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (4, 6);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (5, 5);
     `)
 
         console.log('Sample data inserted')
@@ -275,7 +290,7 @@ export default function useDatabase() {
 
     /**
      * Get all timelogs with tags
-     * 
+     *
      * @returns - Timelogs with tags
      */
     const getTimelogsWithTags = async () => {

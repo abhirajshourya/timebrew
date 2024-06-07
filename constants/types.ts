@@ -22,6 +22,7 @@ export interface Tag {
 }
 
 export interface TimelogTag {
+    id: number
     timelog_id: number
     tag_id: number
 }
