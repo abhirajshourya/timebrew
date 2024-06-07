@@ -11,6 +11,7 @@ import { useColorScheme } from '@/hooks/useColorScheme'
 import { SQLiteProvider } from 'expo-sqlite/next'
 import { Text, View } from 'react-native'
 import { useFonts } from 'expo-font'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -32,32 +33,36 @@ export default function RootLayout() {
     }
 
     return (
-        <Suspense
-            fallback={
-                <View
-                    style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Text>Loading Database...</Text>
-                </View>
-            }
-        >
-            <SQLiteProvider useSuspense databaseName="timebrew.db">
-                <ThemeProvider
-                    value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-                >
-                    <Stack>
-                        <Stack.Screen
-                            name="(tabs)"
-                            options={{ headerShown: false }}
-                        />
-                        <Stack.Screen name="+not-found" />
-                    </Stack>
-                </ThemeProvider>
-            </SQLiteProvider>
-        </Suspense>
+        <SafeAreaView style={{ flex: 1 }}>
+            <Suspense
+                fallback={
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text>Loading Database...</Text>
+                    </View>
+                }
+            >
+                <SQLiteProvider useSuspense databaseName="timebrew.db">
+                    <ThemeProvider
+                        value={
+                            colorScheme === 'dark' ? DarkTheme : DefaultTheme
+                        }
+                    >
+                        <Stack>
+                            <Stack.Screen
+                                name="(tabs)"
+                                options={{ headerShown: false }}
+                            />
+                            <Stack.Screen name="+not-found" />
+                        </Stack>
+                    </ThemeProvider>
+                </SQLiteProvider>
+            </Suspense>
+        </SafeAreaView>
     )
 }
