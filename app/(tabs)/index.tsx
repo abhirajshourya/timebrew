@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons'
 import WavyRings from '@/components/WavyRings'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
-import { Tag, Task, Timelog, TimelogWithTags } from '@/constants/types'
+import { Tag, Task, Timelog } from '@/constants/types'
 import TimelogCard from '@/components/TimelogCard'
 import TimeLogModal from '@/components/Modals/TimeLogModal'
 import DropDownPicker from '@/components/form/DropDownPicker'
@@ -62,15 +62,6 @@ const Tracker = () => {
             Alert.alert('Oops!', 'No time to log')
             return
         }
-
-        // createTimelog(startTime, endTime, 1, duration)
-        //     .then(() => {
-        //         getTimeLogs().then(setTimelogs)
-        //         Alert.alert('Success', 'Timelog created successfully')
-        //     })
-        //     .catch(() => {
-        //         Alert.alert('Error', 'Failed to create timelog')
-        //     })
     }
 
     const handleSave = () => {
