@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, Alert } from 'react-native'
-import { ScrollView } from 'react-native'
-import useTimeTracker from '@/hooks/useTimeTracker'
+import { PrimaryButton } from '@/components/Buttons'
 import CircleButton from '@/components/CircleButton'
-import { Ionicons } from '@expo/vector-icons'
-import WavyRings from '@/components/WavyRings'
-import { formatTime } from '@/helpers/time-format'
-import useDatabase from '@/hooks/useDatabase'
-import { Tag, Task, Timelog } from '@/constants/types'
-import TimelogCard from '@/components/TimelogCard'
 import TimeLogModal from '@/components/Modals/TimeLogModal'
+import TimelogCard from '@/components/TimelogCard'
+import WavyRings from '@/components/WavyRings'
 import DropDownPicker from '@/components/form/DropDownPicker'
 import MultiDropDownPicker from '@/components/form/MultiDropDownTagsPicker'
-import { PrimaryButton } from '@/components/Buttons'
+import { Tag, Task, Timelog } from '@/constants/types'
 import { cleanText } from '@/helpers/text-helpers'
+import { formatTime } from '@/helpers/time-format'
+import useDatabase from '@/hooks/useDatabase'
+import useTimeTracker from '@/hooks/useTimeTracker'
+import { Ionicons } from '@expo/vector-icons'
+import React, { useEffect, useState } from 'react'
+import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 
 const Tracker = () => {
     const {
@@ -94,7 +93,8 @@ const Tracker = () => {
 
             handleCreateTimelog(startTime, endTime, taskId, duration)
         }
-
+// Reset the selected task state after saving
+        setSelectedTask('')
         setIsModalVisible(false)
     }
 
@@ -110,6 +110,8 @@ const Tracker = () => {
                 selectedTags.forEach((tag) => {
                     handleCreateTimelogTag(id, tag.id)
                 })
+                // Reset the selected tag state after saving
+                setSelectedTags([])
                 Alert.alert('Success', 'Timelog created successfully')
             })
             .catch(() => {
