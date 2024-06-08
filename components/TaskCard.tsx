@@ -17,7 +17,7 @@ const TaskCard = ({ task, navigation }: TaskProps) => {
 
     useEffect(() => {
         getTotalTimelogForTask(task.id).then(setTotalTime)
-    }, [])
+    })
 
     const handleEdit = () => {
         navigation.navigate('EditTask', { task })
