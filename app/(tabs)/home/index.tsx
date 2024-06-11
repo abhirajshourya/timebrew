@@ -195,7 +195,7 @@ const Tracker = ({}) => {
                             />
                         </View>
                     </TouchableOpacity>
-                    <Ionicons name="settings-outline" size={24} color="black" />
+                    {/* <Ionicons name="settings-outline" size={24} color="black" /> */}
                 </View>
             </View>
             <ScrollView contentContainerStyle={styles.container}>
