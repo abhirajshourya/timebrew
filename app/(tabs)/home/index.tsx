@@ -173,6 +173,21 @@ const Tracker = ({}) => {
                         onPress={() => {
                             router.push('home/pomodoro')
                         }}
+                        style={{
+                            padding: 10,
+                            borderRadius: 50,
+                            backgroundColor: '#fff',
+                            borderWidth: 1,
+                            borderColor: 'red',
+                            shadowColor: '#000',
+                            shadowOffset: {
+                                width: 0,
+                                height: 2,
+                            },
+                            shadowOpacity: 0.5,
+                            shadowRadius: 4.86,
+                            elevation: 10,
+                        }}
                     >
                         <View
                             style={{

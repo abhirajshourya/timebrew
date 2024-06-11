@@ -16,7 +16,12 @@ export default function StackLayout() {
             />
             <Stack.Screen
                 name="pomodoro"
-                options={{ headerShown: true, title: 'Pomodoro' }}
+                options={{
+                    headerShown: true,
+                    title: 'Pomodoro',
+                    headerStyle: { backgroundColor: '#323232' },
+                    headerTintColor: 'white',
+                }}
             />
         </Stack>
     )
