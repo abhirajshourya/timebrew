@@ -11,10 +11,22 @@ import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { useEffect, useState } from 'react'
-import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import {
+    Alert,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native'
+import Pomodoro from './pomodoro'
+import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
+import { useRouter } from 'expo-router'
 
-const Tracker = () => {
+const Tracker = ({}) => {
     const {
         duration,
         start,
@@ -41,6 +53,8 @@ const Tracker = () => {
     const [tags, setTags] = useState<Tag[]>([])
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [isModalVisible, setIsModalVisible] = useState(false)
+
+    const router = useRouter()
 
     useEffect(() => {
         getTimeLogs().then((timelogs) => {
@@ -93,7 +107,7 @@ const Tracker = () => {
 
             handleCreateTimelog(startTime, endTime, taskId, duration)
         }
-// Reset the selected task state after saving
+        // Reset the selected task state after saving
         setSelectedTask('')
         setIsModalVisible(false)
     }
@@ -155,23 +169,32 @@ const Tracker = () => {
                         gap: 10,
                     }}
                 >
-                    {/* Pomodoro Activator */}
-                    {/* <View
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
+                    <TouchableOpacity
+                        onPress={() => {
+                            router.push('home/pomodoro')
                         }}
                     >
-                        <Text
+                        <View
                             style={{
-                                fontSize: 12,
-                                color: 'red',
+                                display: 'flex',
+                                flexDirection: 'row',
                             }}
                         >
-                            P
-                        </Text>
-                        <Ionicons name="timer-outline" size={24} color="red" />
-                    </View> */}
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    color: 'red',
+                                }}
+                            >
+                                P
+                            </Text>
+                            <Ionicons
+                                name="timer-outline"
+                                size={24}
+                                color="red"
+                            />
+                        </View>
+                    </TouchableOpacity>
                     <Ionicons name="settings-outline" size={24} color="black" />
                 </View>
             </View>
