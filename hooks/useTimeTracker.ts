@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 type time = {
     duration: number
-    start: () => void
+    start: (duration?: number) => void
     stop: () => void
     pause: () => void
     isRunning: boolean
@@ -11,13 +11,10 @@ type time = {
     status: status
     startTime: number
     endTime: number
-    POMODORO_DURATION: number
 }
 
 type status = 'running' | 'paused' | 'stopped'
 type timerType = 'pomodoro' | 'timer'
-
-const POMODORO_DURATION = 25 * 60
 
 /**
  * A custom hook to track time. It returns the current time in seconds and provides methods to start, pause and stop the timer.
@@ -33,7 +30,10 @@ const useTimeTracker = (
     const [startTime, setStartTime] = useState<number>(0)
     const [endTime, setEndTime] = useState<number>(0)
 
-    const start = () => {
+    const start = (duration?: number) => {
+        if (duration) {
+            setDuration(() => duration)
+        }
         setIsRunning(true)
         setStatus('running')
         setStartTime(Date.now())
@@ -45,11 +45,7 @@ const useTimeTracker = (
     }
 
     const stop = () => {
-        if (type === 'pomodoro') {
-            setDuration(POMODORO_DURATION)
-        } else {
-            setDuration(0)
-        }
+        setDuration(0)
         setIsRunning(false)
         setStatus('stopped')
         setEndTime(Date.now())
@@ -74,19 +70,13 @@ const useTimeTracker = (
     }
 
     useEffect(() => {
-        if (type === 'pomodoro') {
-            setDuration(POMODORO_DURATION)
-        }
-    }, [])
-
-    useEffect(() => {
         let interval: NodeJS.Timeout
 
         if (isRunning) {
             interval = setInterval(() => {
                 if (type === 'timer') {
                     setDuration((prevTime) => prevTime + 1)
-                } else if (type === 'pomodoro') {
+                } else {
                     setDuration((prevTime) => {
                         if (prevTime === 0) {
                             handleFinish(interval)
@@ -114,7 +104,6 @@ const useTimeTracker = (
         status,
         startTime,
         endTime,
-        POMODORO_DURATION,
     }
 }
 

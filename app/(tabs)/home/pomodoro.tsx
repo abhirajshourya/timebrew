@@ -6,26 +6,47 @@ import React from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import CircularProgress from 'react-native-circular-progress-indicator'
 
+const DEFAULT_POMO_DURATION = 25 * 60
+const DEFAULT_BREAK_DURATION = 5 * 60
+
 const Pomodoro = () => {
     const {
         duration: countDown,
         isRunning,
         start,
         stop,
-        POMODORO_DURATION,
     } = useTimeTracker('pomodoro', onComplete)
     const [progress, setProgress] = React.useState(0)
+    const [pomoDuration, setPomoDuration] = React.useState(0)
+    const [isBreakTime, setIsBreakTime] = React.useState(false)
 
     function onComplete() {
+        setProgress(0)
+        setIsBreakTime(() => !isBreakTime)
         Alert.alert('Pomodoro Completed', 'Time to take a break!', [
             {
                 text: 'OK',
+                onPress: () => {
+                    handleStart()
+                },
             },
         ])
     }
 
+    function handleStart() {
+        const newDuration = isBreakTime
+            ? DEFAULT_BREAK_DURATION
+            : DEFAULT_POMO_DURATION
+        setPomoDuration(newDuration)
+        start(newDuration)
+    }
+
+    function handleStop() {
+        stop()
+    }
+
     React.useEffect(() => {
-        setProgress(((POMODORO_DURATION - countDown) / POMODORO_DURATION) * 100)
+        setProgress(((pomoDuration - countDown) / pomoDuration) * 100)
     }, [countDown, isRunning])
 
     return (
@@ -51,11 +72,17 @@ const Pomodoro = () => {
                 inActiveStrokeColor="#d8d8d8"
             />
             {isRunning ? (
-                <CircleButton onPress={stop} style={styles.playPauseButton}>
+                <CircleButton
+                    onPress={handleStop}
+                    style={styles.playPauseButton}
+                >
                     <Ionicons name="stop" size={35} color="white" />
                 </CircleButton>
             ) : (
-                <CircleButton onPress={start} style={styles.playPauseButton}>
+                <CircleButton
+                    onPress={handleStart}
+                    style={styles.playPauseButton}
+                >
                     <Ionicons name="play" size={35} color="white" />
                 </CircleButton>
             )}
