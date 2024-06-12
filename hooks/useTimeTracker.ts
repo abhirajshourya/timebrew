@@ -30,10 +30,11 @@ const useTimeTracker = (
     const [startTime, setStartTime] = useState<number>(0)
     const [endTime, setEndTime] = useState<number>(0)
 
-    const start = (duration?: number) => {
-        if (duration) {
+    const start = (duration: number = 1500) => {
+        if (type === 'pomodoro') {
             setDuration(() => duration)
         }
+
         setIsRunning(true)
         setStatus('running')
         setStartTime(Date.now())
@@ -46,6 +47,7 @@ const useTimeTracker = (
 
     const stop = () => {
         setDuration(0)
+
         setIsRunning(false)
         setStatus('stopped')
         setEndTime(Date.now())
@@ -57,6 +59,7 @@ const useTimeTracker = (
 
     const reset = () => {
         setDuration(0)
+
         setIsRunning(false)
         setStatus('stopped')
         setStartTime(Date.now())
@@ -76,7 +79,7 @@ const useTimeTracker = (
             interval = setInterval(() => {
                 if (type === 'timer') {
                     setDuration((prevTime) => prevTime + 1)
-                } else {
+                } else if (type === 'pomodoro') {
                     setDuration((prevTime) => {
                         if (prevTime === 0) {
                             handleFinish(interval)

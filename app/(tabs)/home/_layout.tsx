@@ -17,7 +17,7 @@ export default function StackLayout() {
             <Stack.Screen
                 name="pomodoro"
                 options={{
-                    headerShown: true,
+                    headerShown: false,
                     title: 'Pomodoro',
                     headerStyle: { backgroundColor: '#323232' },
                     headerTintColor: 'white',
