@@ -1,4 +1,6 @@
 import DangerButton from './Danger'
 import PrimaryButton from './Primary'
+import RegularButton from './Regular'
 
-export { PrimaryButton, DangerButton }
+export { DangerButton, PrimaryButton, RegularButton }
+
