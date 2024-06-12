@@ -7,8 +7,8 @@ import React from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import CircularProgress from 'react-native-circular-progress-indicator'
 
-const DEFAULT_POMO_DURATION = 10
-const DEFAULT_BREAK_DURATION = 5
+const DEFAULT_POMO_DURATION = 25 * 60 // 25 minutes
+const DEFAULT_BREAK_DURATION = 5 * 60 // 5 minutes
 
 const Pomodoro = () => {
     const {
