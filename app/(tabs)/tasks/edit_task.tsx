@@ -1,8 +1,11 @@
+import { PrimaryButton, RegularButton } from '@/components/Buttons'
 import TextInput from '@/components/form/TextInput'
 import { Timelog } from '@/constants/types'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
+import * as File from 'expo-file-system'
+import * as Sharing from 'expo-sharing'
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, ScrollView, Text, View } from 'react-native'
 
@@ -62,6 +65,32 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
                 },
             ]
         )
+    }
+
+    const handleExport = async () => {
+        try {
+            const data = {
+                task: route.params.task.description,
+                timelogs: timelogs,
+            }
+            const json = JSON.stringify(data)
+            const filePath = File.documentDirectory + `${taskDesc}.json`
+            await File.writeAsStringAsync(filePath, json)
+            sharingFile(filePath);
+
+        } catch (error) {
+            console.error('Error exporting data')
+        }
+    }
+
+    const sharingFile = async (filePath: string) => {
+        try {
+          const result = await Sharing.shareAsync(filePath);
+          return result;
+        } catch (error) {
+          console.error('Error sharing file:', error);
+          throw error; // Or handle the error differently
+        }
     }
 
     return (
@@ -161,6 +190,18 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
                             </Text>
                         </View>
                     ))}
+            </View>
+
+            <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-evenly',
+                        marginBottom: 20,
+                    }}
+                >
+                    <RegularButton onPress={()=>{}}>Import</RegularButton>
+                    <PrimaryButton onPress={handleExport}>Export</PrimaryButton>
             </View>
         </ScrollView>
     )
