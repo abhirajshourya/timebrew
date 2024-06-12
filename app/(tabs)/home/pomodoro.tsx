@@ -31,16 +31,34 @@ const Pomodoro = () => {
             : DEFAULT_POMO_DURATION
         console.log('newDuration', newDuration)
         setPomoDuration(newDuration)
-        setIsBreak(!isBreak)
         setProgress(0)
-        Alert.alert('Pomodoro Completed', 'Time to take a break!', [
-            {
-                text: 'Continue',
-                onPress: () => {
-                    handleStart(newDuration)
+        if (!isBreak) {
+            Alert.alert('Focus Session Completed', 'Time to take a break!', [
+                {
+                    text: 'Continue',
+                    onPress: () => {
+                        handleStart(newDuration)
+                    },
                 },
-            },
-        ])
+            ])
+        } else {
+            Alert.alert('Break Session Completed', 'Time to focus!', [
+                {
+                    text: 'Continue',
+                    onPress: () => {
+                        handleStart(newDuration)
+                    },
+                },
+                {
+                    text: 'End Pomodoro',
+                    onPress: () => {
+                        handleStop()
+                        router.navigate('home')
+                    },
+                },
+            ])
+        }
+        setIsBreak(!isBreak)
     }
 
     function handleStart(newDuration: number = DEFAULT_POMO_DURATION) {
