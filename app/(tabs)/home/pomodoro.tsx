@@ -109,7 +109,7 @@ const Pomodoro = () => {
                         gap: 10,
                     }}
                 >
-                    <Ionicons name="stopwatch" size={30} color="#323232" />
+                    <Ionicons name="timer" size={30} color="#323232" />
                     <View>
                         <Text style={{ fontSize: 20, color: '#323232' }}>
                             {isBreak ? 'Break' : 'Pomodoro'}

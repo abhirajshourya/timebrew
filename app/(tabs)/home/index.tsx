@@ -174,12 +174,12 @@ const Tracker = ({}) => {
                             router.push('home/pomodoro')
                         }}
                         style={{
-                            padding: 10,
+                            padding: 5,
+                            paddingHorizontal: 10,
                             borderRadius: 50,
                             backgroundColor: '#fff',
-                            borderWidth: 1,
                             borderColor: 'red',
-                            shadowColor: '#000',
+                            shadowColor: '#005c99',
                             shadowOffset: {
                                 width: 0,
                                 height: 2,
@@ -189,26 +189,7 @@ const Tracker = ({}) => {
                             elevation: 10,
                         }}
                     >
-                        <View
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    fontSize: 12,
-                                    color: 'red',
-                                }}
-                            >
-                                P
-                            </Text>
-                            <Ionicons
-                                name="timer-outline"
-                                size={24}
-                                color="red"
-                            />
-                        </View>
+                        <Ionicons name="timer" size={30} color="#005c99" />
                     </TouchableOpacity>
                     {/* <Ionicons name="settings-outline" size={24} color="black" /> */}
                 </View>
