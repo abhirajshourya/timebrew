@@ -43,10 +43,15 @@ export const formatTimeToHours = (time: number) => {
 export const formatDateToDayofWeek = (date: number | string) => {
     const dateObj = new Date(date)
 
-    if (isInThisWeek(date)) {
+    if (isToday(date)) {
         return 'Today'
+    } else if (isInThisWeek(date)) {
+        return dateObj.toLocaleDateString('en-US', { weekday: 'short' })
     } else {
-        return dateObj.toLocaleDateString('en-US', { weekday: 'long' })
+        return dateObj.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+        })
     }
     // return dateObj.toLocaleDateString('en-US', { weekday: 'long' })
 }
@@ -64,4 +69,15 @@ export const isInThisWeek = (date: number | string) => {
     const dateWeek = dateObj.getDay()
 
     return todayWeek === dateWeek
+}
+
+export const isToday = (date: number | string) => {
+    const today = new Date()
+    const dateObj = new Date(date)
+
+    return (
+        today.getDate() === dateObj.getDate() &&
+        today.getMonth() === dateObj.getMonth() &&
+        today.getFullYear() === dateObj.getFullYear()
+    )
 }
