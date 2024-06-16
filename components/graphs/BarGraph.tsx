@@ -42,9 +42,6 @@ const BarGraph = ({ dataSet, color, stat, style }: BarGraphProps) => {
         if (data.length !== labels.length) {
             throw new Error('Data and labels should be of the same length')
         }
-
-
-
     }, [dataSet])
 
     const [width, setWidth] = useState(0)
@@ -53,8 +50,6 @@ const BarGraph = ({ dataSet, color, stat, style }: BarGraphProps) => {
     const marginBottom = 20
     const marginLeft = 45
     const marginRight = 0
-
-    
 
     const x = d3
         .scaleBand()

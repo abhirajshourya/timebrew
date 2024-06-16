@@ -12,13 +12,10 @@ type Duration = 'today' | 'week' | 'month' | 'year' | 'all'
 const Index = () => {
     const { getTimeLogs } = useDatabase()
     const [timelogs, setTimelogs] = useState<DataSet>({ data: [], labels: [] })
-    const [selectedDuration, setSelectedDuration] = useState('today' as Duration)
+    const [selectedDuration, setSelectedDuration] = useState('week' as Duration)
 
     useEffect(() => {
-        let timelogs: any[] = []
-
         getTimeLogs({ forThis: selectedDuration }).then((logs) => {
-            // console.log(cleanTimelogsForChart(logs), selectedDuration)
             setTimelogs(cleanTimelogsForChart(logs))
         })
     }, [selectedDuration])
@@ -32,6 +29,9 @@ const Index = () => {
                     contentContainerStyle={styles.scrollView}
                 >
                     <View style={{ marginBottom: 20 }}>
+                        {timelogs.data.length === 0 && (
+                            <Text>No data to show</Text>
+                        )}
                         <BarGraph
                             style={{ zIndex: 1 }}
                             color="#005c99"
