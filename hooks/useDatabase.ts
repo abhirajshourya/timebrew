@@ -82,6 +82,79 @@ export default function useDatabase() {
       INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 8, 6300);
     `)
 
+        // different data of timelogs for charts
+
+        await db.execAsync(`
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().getTime()}, ${new Date().getTime()}, 1, 3600);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().getTime()}, ${new Date().getTime()}, 2, 7200);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().getTime()}, ${new Date().getTime()}, 3, 1800);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().getTime()}, ${new Date().getTime()}, 4, 5400);
+
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        new Date().getDate() - new Date().getDay()
+    )}, ${new Date().setDate(
+            new Date().getDate() - new Date().getDay()
+        )}, 5, 9000);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        new Date().getDate() - new Date().getDay()
+    )}, ${new Date().setDate(
+            new Date().getDate() - new Date().getDay()
+        )}, 6, 2700);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        new Date().getDate() - new Date().getDay()
+    )}, ${new Date().setDate(
+            new Date().getDate() - new Date().getDay()
+        )}, 7, 4500);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        new Date().getDate() - new Date().getDay()
+    )}, ${new Date().setDate(
+            new Date().getDate() - new Date().getDay()
+        )}, 8, 6300);
+
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        1
+    )}, ${new Date().setDate(1)}, 1, 3600);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        1
+    )}, ${new Date().setDate(1)}, 2, 7200);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        1
+    )}, ${new Date().setDate(1)}, 3, 1800);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        1
+    )}, ${new Date().setDate(1)}, 4, 5400);
+
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setMonth(
+        0,
+        1
+    )}, ${new Date().setMonth(0, 1)}, 5, 9000);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setMonth(
+        0,
+        1
+    )}, ${new Date().setMonth(0, 1)}, 6, 2700);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setMonth(
+        0,
+        1
+    )}, ${new Date().setMonth(0, 1)}, 7, 4500);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setMonth(
+        0,
+        1
+    )}, ${new Date().setMonth(0, 1)}, 8, 6300);
+
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setFullYear(
+        2021
+    )}, ${new Date().setFullYear(2021)}, 1, 3600);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setFullYear(
+        2021
+    )}, ${new Date().setFullYear(2021)}, 2, 7200);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setFullYear(
+        2021
+    )}, ${new Date().setFullYear(2021)}, 3, 1800);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setFullYear(
+        2021
+    )}, ${new Date().setFullYear(2021)}, 4, 5400);
+    `)
+
         await db.execAsync(`
       INSERT INTO tags (name, color) VALUES ('read', '#FF0000');
       INSERT INTO tags (name, color) VALUES ('code', '#FFA500');
@@ -130,7 +203,7 @@ export default function useDatabase() {
     }
 
     const createDb = async () => {
-        await initDb();
+        await initDb()
         console.log('Database created')
     }
 
@@ -278,15 +351,59 @@ export default function useDatabase() {
         )
     }
 
+    type TimelogsForThis = 'today' | 'week' | 'month' | 'year' | 'all'
+    type GetTimeLogsProps = {
+        forThis?: TimelogsForThis
+    }
     /**
      * Get all timelogs
      * @returns - All timelogs
      */
-    const getTimeLogs = async () => {
+    const getTimeLogs = async (
+        { forThis }: GetTimeLogsProps = { forThis: 'all' }
+    ) => {
         try {
-            return await db.getAllAsync<Timelog>(
-                'SELECT * FROM timelogs ORDER BY start_time DESC'
-            )
+            let query = 'SELECT * FROM timelogs ORDER BY start_time DESC'
+            switch (forThis) {
+                case 'today':
+                    let today = new Date()
+                    today.setHours(0, 0, 0, 0)
+                    // console.log(today)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${today.getTime()} ORDER BY start_time DESC`
+                    break
+
+                case 'week':
+                    let week = new Date()
+                    week.setDate(week.getDate() - week.getDay())
+                    week.setHours(0, 0, 0, 0)
+                    // console.log(week)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${week.getTime()} ORDER BY start_time DESC`
+                    break
+
+                case 'month':
+                    let month = new Date()
+                    month.setDate(1)
+                    month.setHours(0, 0, 0, 0)
+                    // console.log(month)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${month.getTime()} ORDER BY start_time DESC`
+                    break
+
+                case 'year':
+                    let year = new Date()
+                    year.setMonth(0, 1)
+                    year.setHours(0, 0, 0, 0)
+                    // console.log(year)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${year.getTime()} ORDER BY start_time DESC`
+                    break
+
+                case 'all':
+                    break
+
+                default:
+                    break
+            }
+
+            return await db.getAllAsync<Timelog>(query)
         } catch (error) {
             return []
         }
