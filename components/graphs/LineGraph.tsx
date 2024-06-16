@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, StyleProp, ViewStyle } from 'react-native'
+import Animated from 'react-native-reanimated'
 import * as d3 from 'd3'
 import {
     Svg,
@@ -12,30 +13,61 @@ import {
     Rect,
     Text as SvgText,
 } from 'react-native-svg'
+import {
+    formatDateToDayofWeek,
+    formatTimeToHours,
+    isInThisWeek,
+} from '@/helpers/time-format'
 
 export type LineGraphProps = {
-    data: number[]
-    color: string
-    labels: string[]
+    dataSet: DataSet
+    color?: string
     stat: string
-    style: StyleProp<ViewStyle>
+    style?: StyleProp<ViewStyle>
+}
+
+export type DataSet = {
+    // both should be of the same length
+    data: readonly number[]
+    labels: readonly string[] | readonly number[]
 }
 
 const GRAPH_ASPECT_RATIO = 9 / 16
 
-const LineGraph = ({ data, color, labels, stat, style }: LineGraphProps) => {
+const LineGraph = ({ dataSet, color, stat, style }: LineGraphProps) => {
+    const { data, labels } = dataSet
+
+    useEffect(() => {
+        // console.log(data, labels)
+        if (data.length !== labels.length) {
+            throw new Error('Data and labels should be of the same length')
+        }
+
+
+
+    }, [dataSet])
+
     const [width, setWidth] = useState(0)
     const height = width * GRAPH_ASPECT_RATIO
     const marginTop = 20
     const marginBottom = 20
-    const marginLeft = 40
+    const marginLeft = 45
     const marginRight = 0
+
+    
 
     const x = d3
         .scaleBand()
-        .domain(labels)
+        .domain(
+            d3.groupSort(
+                labels,
+                (a, b) => a - b,
+                (d) => d
+            )
+        )
         .range([marginLeft, width - marginRight])
         .padding(0.1)
+
     const y = d3
         .scaleLinear()
         .domain([0, d3.max(data) || 0])
@@ -73,7 +105,8 @@ const LineGraph = ({ data, color, labels, stat, style }: LineGraphProps) => {
                     />
                 </G>
                 <G fill="black">
-                    {y.ticks().map((d, i) => (
+                    {/* every hour */}
+                    {y.ticks(5).map((d, i) => (
                         <SvgText
                             key={i}
                             x={marginLeft - 5}
@@ -82,7 +115,7 @@ const LineGraph = ({ data, color, labels, stat, style }: LineGraphProps) => {
                             fontSize="12"
                             textAnchor="end"
                         >
-                            {d}
+                            {formatTimeToHours(d)}
                         </SvgText>
                     ))}
                 </G>
@@ -108,7 +141,7 @@ const LineGraph = ({ data, color, labels, stat, style }: LineGraphProps) => {
                             fontSize="12"
                             textAnchor="middle"
                         >
-                            {label}
+                            {formatDateToDayofWeek(label)}
                         </SvgText>
                     ))}
                 </G>
@@ -122,7 +155,10 @@ const LineGraph = ({ data, color, labels, stat, style }: LineGraphProps) => {
                             fontSize="12"
                             textAnchor="middle"
                         >
-                            {d}
+                            {
+                                formatTimeToHours(d)
+                                // d
+                            }
                         </SvgText>
                     ))}
                 </G>
