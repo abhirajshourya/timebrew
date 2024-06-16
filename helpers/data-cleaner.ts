@@ -1,5 +1,5 @@
 import { Timelog } from '@/constants/types'
-import { DataSet } from '@/components/graphs/LineGraph'
+import { DataSet } from '@/components/graphs/BarGraph'
 import { formatDateToDayofWeek } from './time-format'
 
 export function cleanTimelogsForChart(timelogs: Timelog[]): DataSet {
