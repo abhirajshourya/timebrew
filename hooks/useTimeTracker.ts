@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 type time = {
     duration: number
-    start: () => void
+    start: (duration?: number) => void
     stop: () => void
     pause: () => void
     isRunning: boolean
@@ -14,19 +14,27 @@ type time = {
 }
 
 type status = 'running' | 'paused' | 'stopped'
+type timerType = 'pomodoro' | 'timer'
 
 /**
  * A custom hook to track time. It returns the current time in seconds and provides methods to start, pause and stop the timer.
  * @returns {time: number, start: () => void, stop: () => void, pause: () => void, isRunning: boolean, advanceTime: (time: number) => void, reset: () => void, status: status, startTime: number, endTime: number}
  */
-const useTimeTracker = (): time => {
+const useTimeTracker = (
+    type: timerType = 'timer',
+    onComplete?: () => void
+): time => {
     const [duration, setDuration] = useState(0)
     const [isRunning, setIsRunning] = useState(false)
     const [status, setStatus] = useState<status>('stopped')
     const [startTime, setStartTime] = useState<number>(0)
     const [endTime, setEndTime] = useState<number>(0)
 
-    const start = () => {
+    const start = (duration: number = 1500) => {
+        if (type === 'pomodoro') {
+            setDuration(() => duration)
+        }
+
         setIsRunning(true)
         setStatus('running')
         setStartTime(Date.now())
@@ -39,6 +47,7 @@ const useTimeTracker = (): time => {
 
     const stop = () => {
         setDuration(0)
+
         setIsRunning(false)
         setStatus('stopped')
         setEndTime(Date.now())
@@ -50,10 +59,17 @@ const useTimeTracker = (): time => {
 
     const reset = () => {
         setDuration(0)
+
         setIsRunning(false)
         setStatus('stopped')
         setStartTime(Date.now())
         setEndTime(Date.now())
+    }
+
+    const handleFinish = (interval: NodeJS.Timeout) => {
+        clearInterval(interval)
+        stop()
+        onComplete!()
     }
 
     useEffect(() => {
@@ -61,7 +77,17 @@ const useTimeTracker = (): time => {
 
         if (isRunning) {
             interval = setInterval(() => {
-                setDuration((prevTime) => prevTime + 1)
+                if (type === 'timer') {
+                    setDuration((prevTime) => prevTime + 1)
+                } else if (type === 'pomodoro') {
+                    setDuration((prevTime) => {
+                        if (prevTime === 0) {
+                            handleFinish(interval)
+                            return prevTime
+                        }
+                        return prevTime - 1
+                    })
+                }
             }, 1000)
         } else {
             clearInterval(interval!)

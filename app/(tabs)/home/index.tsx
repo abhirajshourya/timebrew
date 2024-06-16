@@ -11,10 +11,22 @@ import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { useEffect, useState } from 'react'
-import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import {
+    Alert,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native'
+import Pomodoro from './pomodoro'
+import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
+import { useRouter } from 'expo-router'
 
-const Tracker = () => {
+const Tracker = ({}) => {
     const {
         duration,
         start,
@@ -41,6 +53,8 @@ const Tracker = () => {
     const [tags, setTags] = useState<Tag[]>([])
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [isModalVisible, setIsModalVisible] = useState(false)
+
+    const router = useRouter()
 
     useEffect(() => {
         getTimeLogs().then((timelogs) => {
@@ -93,7 +107,7 @@ const Tracker = () => {
 
             handleCreateTimelog(startTime, endTime, taskId, duration)
         }
-// Reset the selected task state after saving
+        // Reset the selected task state after saving
         setSelectedTask('')
         setIsModalVisible(false)
     }
@@ -155,24 +169,29 @@ const Tracker = () => {
                         gap: 10,
                     }}
                 >
-                    {/* Pomodoro Activator */}
-                    {/* <View
+                    <TouchableOpacity
+                        onPress={() => {
+                            router.push('home/pomodoro')
+                        }}
                         style={{
-                            display: 'flex',
-                            flexDirection: 'row',
+                            padding: 5,
+                            paddingHorizontal: 10,
+                            borderRadius: 50,
+                            backgroundColor: '#fff',
+                            borderColor: 'red',
+                            shadowColor: '#005c99',
+                            shadowOffset: {
+                                width: 0,
+                                height: 2,
+                            },
+                            shadowOpacity: 0.5,
+                            shadowRadius: 4.86,
+                            elevation: 10,
                         }}
                     >
-                        <Text
-                            style={{
-                                fontSize: 12,
-                                color: 'red',
-                            }}
-                        >
-                            P
-                        </Text>
-                        <Ionicons name="timer-outline" size={24} color="red" />
-                    </View> */}
-                    <Ionicons name="settings-outline" size={24} color="black" />
+                        <Ionicons name="timer" size={30} color="#005c99" />
+                    </TouchableOpacity>
+                    {/* <Ionicons name="settings-outline" size={24} color="black" /> */}
                 </View>
             </View>
             <ScrollView contentContainerStyle={styles.container}>
