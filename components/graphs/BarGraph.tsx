@@ -1,41 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, StyleProp, ViewStyle } from 'react-native'
-import Animated from 'react-native-reanimated'
 import * as d3 from 'd3'
-import {
-    Svg,
-    Path,
-    G,
-    Defs,
-    Stop,
-    LinearGradient,
-    Line,
-    Rect,
-    Text as SvgText,
-} from 'react-native-svg'
-import {
-    formatDateToDayofWeek,
-    formatTimeToHours,
-    isInThisWeek,
-} from '@/helpers/time-format'
+import { Svg, G, Line, Rect, Text as SvgText } from 'react-native-svg'
+import { formatDateToDayofWeek, formatTimeToHours } from '@/helpers/time-format'
+import { Duration } from '@/constants/types'
 
 export type BarGraphProps = {
     dataSet: DataSet
     color?: string
-    stat: string
     style?: StyleProp<ViewStyle>
+    duration?: Duration
 }
 
 export type DataSet = {
     // both should be of the same length
     data: readonly number[]
     labels: readonly string[] | readonly number[]
+    taskIds: readonly number[]
 }
 
 const GRAPH_ASPECT_RATIO = 9 / 16
 
-const BarGraph = ({ dataSet, color, stat, style }: BarGraphProps) => {
-    const { data, labels } = dataSet
+const BarGraph = ({ dataSet, color, style }: BarGraphProps) => {
+    const { data, labels, taskIds } = dataSet
 
     useEffect(() => {
         // console.log(data, labels)
@@ -87,6 +74,24 @@ const BarGraph = ({ dataSet, color, stat, style }: BarGraphProps) => {
                         width={x.bandwidth()}
                     />
                 ))}
+                {/* Bar Labels */}
+                <G fill="black">
+                    {data.map((d, i) => (
+                        <SvgText
+                            key={i}
+                            x={x(labels[i]) + x.bandwidth() / 2}
+                            y={y(d) - 5}
+                            fill="black"
+                            fontSize="10"
+                            textAnchor="middle"
+                        >
+                            {
+                                formatTimeToHours(d)
+                                // d
+                            }
+                        </SvgText>
+                    ))}
+                </G>
 
                 {/* Y Axis */}
                 <G fill={color}>
@@ -138,23 +143,6 @@ const BarGraph = ({ dataSet, color, stat, style }: BarGraphProps) => {
                         >
                             {formatDateToDayofWeek(label)}
                             {/* {label} */}
-                        </SvgText>
-                    ))}
-                </G>
-                <G fill="black">
-                    {data.map((d, i) => (
-                        <SvgText
-                            key={i}
-                            x={x(labels[i]) + x.bandwidth() / 2}
-                            y={y(d) - 5}
-                            fill="black"
-                            fontSize="12"
-                            textAnchor="middle"
-                        >
-                            {
-                                formatTimeToHours(d)
-                                // d
-                            }
                         </SvgText>
                     ))}
                 </G>
