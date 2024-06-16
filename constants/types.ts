@@ -37,3 +37,5 @@ export interface TagDataset {
     totalDuration: number
     timeLogs: Timelog[]
 }
+
+export type Duration = 'today' | 'week' | 'month' | 'year' | 'all'
