@@ -8,7 +8,7 @@ import { Pressable } from 'react-native'
 
 export default function TabLayout() {
     const colorScheme = useColorScheme()
-    const isDev = true
+    const isDev = false
 
     return (
         <Tabs
