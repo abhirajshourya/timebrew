@@ -78,7 +78,6 @@ export const isInThisWeek = (date: number | string) => {
 
     const todayWeek = getWeekNumber(today)
     const dateWeek = getWeekNumber(dateObj)
-    console.log(todayWeek, dateWeek)
 
     return todayWeek === dateWeek
 }
