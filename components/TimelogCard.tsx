@@ -1,5 +1,5 @@
 import { Tag, Task, Timelog } from '@/constants/types'
-import { formatTime } from '@/helpers/time-format'
+import { formatTime, isToday } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import { Feather } from '@expo/vector-icons'
 import moment from 'moment'
@@ -48,7 +48,9 @@ const TimelogCard = ({ timelog }: TimelogCardProps) => {
                         color: 'grey',
                     }}
                 >
-                    {moment(timelog.start_time).format('h:mm a')}
+                    {isToday(timelog.start_time)
+                        ? moment(timelog.start_time).format('h:mm a')
+                        : moment(timelog.start_time).format('MMM D, h:mm a')}
                 </Text>
             </View>
             <View
