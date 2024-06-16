@@ -10,12 +10,12 @@ import { capitalizeFirstLetter } from '@/helpers/text-helpers'
 import useDatabase from '@/hooks/useDatabase'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView, StyleSheet, View, Text, ScrollView } from 'react-native'
+import { Duration } from '@/constants/types'
 
-type Duration = 'today' | 'week' | 'month' | 'year' | 'all'
 
 const Index = () => {
     const { getTimeLogs, getTags, getTimelogByTag } = useDatabase()
-    const [timelogs, setTimelogs] = useState<DataSet>({ data: [], labels: [] })
+    const [timelogs, setTimelogs] = useState<DataSet>({ data: [], labels: [], taskIds: [] })
     const [selectedDuration, setSelectedDuration] = useState('week' as Duration)
     const [tagsStats, setTagsStats] = useState([] as TagDataset[])
 
@@ -53,6 +53,7 @@ const Index = () => {
                                 style={{ zIndex: 1 }}
                                 color="#005c99"
                                 dataSet={timelogs}
+                                duration={selectedDuration}
                                 // dataSet={{
                                 //     data: [
                                 //         12, 5, 9, 30, 20, 51, 20, 10, 10, 20, 15,
@@ -73,7 +74,6 @@ const Index = () => {
                                 //         'Dec',
                                 //     ],
                                 // }}
-                                stat="120k"
                             />
                         </View>
                         <View style={{ marginBottom: 20 }}>
