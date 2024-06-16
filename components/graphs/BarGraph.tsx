@@ -137,6 +137,7 @@ const BarGraph = ({ dataSet, color, stat, style }: BarGraphProps) => {
                             textAnchor="middle"
                         >
                             {formatDateToDayofWeek(label)}
+                            {/* {label} */}
                         </SvgText>
                     ))}
                 </G>
