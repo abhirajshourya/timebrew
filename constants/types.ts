@@ -26,3 +26,14 @@ export interface TimelogTag {
     timelog_id: number
     tag_id: number
 }
+
+export interface TimelogsDataset {
+    data: number[]
+    labels: number[]
+}
+
+export interface TagDataset {
+    tag: Tag
+    totalDuration: number
+    timeLogs: Timelog[]
+}
