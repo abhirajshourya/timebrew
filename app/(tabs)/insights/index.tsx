@@ -1,14 +1,26 @@
 import DropDownPicker from '@/components/form/DropDownPicker'
-import LineGraph from '@/components/graphs/LineGraph'
+import LineGraph, { DataSet } from '@/components/graphs/LineGraph'
+import { cleanTimelogsForChart } from '@/helpers/data-cleaner'
 import { capitalizeFirstLetter } from '@/helpers/text-helpers'
-import React, { useState } from 'react'
+import useDatabase from '@/hooks/useDatabase'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView, StyleSheet, View, Text, ScrollView } from 'react-native'
 
-type Duration = 'today' | 'week' | 'month' | 'year' | 'all' | 'custom'
-
+type Duration = 'today' | 'week' | 'month' | 'year' | 'all'
 
 const Index = () => {
-    const [selectedDuration, setSelectedDuration] = useState('week' as Duration)
+    const { getTimeLogs } = useDatabase()
+    const [timelogs, setTimelogs] = useState<DataSet>({ data: [], labels: [] })
+    const [selectedDuration, setSelectedDuration] = useState('today' as Duration)
+
+    useEffect(() => {
+        let timelogs: any[] = []
+
+        getTimeLogs({ forThis: selectedDuration }).then((logs) => {
+            // console.log(cleanTimelogsForChart(logs), selectedDuration)
+            setTimelogs(cleanTimelogsForChart(logs))
+        })
+    }, [selectedDuration])
 
     return (
         <SafeAreaView>
@@ -21,11 +33,28 @@ const Index = () => {
                     <View style={{ marginBottom: 20 }}>
                         <LineGraph
                             style={{ zIndex: 1 }}
-                            data={[
-                                12, 5, 9, 30, 20, 51, 20, 10, 10, 20, 15, 10,
-                            ]}
                             color="#005c99"
-                            labels={[ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']}
+                            dataSet={timelogs}
+                            // dataSet={{
+                            //     data: [
+                            //         12, 5, 9, 30, 20, 51, 20, 10, 10, 20, 15,
+                            //         10,
+                            //     ],
+                            //     labels: [
+                            //         'Jan',
+                            //         'Feb',
+                            //         'Mar',
+                            //         'Apr',
+                            //         'May',
+                            //         'Jun',
+                            //         'Jul',
+                            //         'Aug',
+                            //         'Sep',
+                            //         'Oct',
+                            //         'Nov',
+                            //         'Dec',
+                            //     ],
+                            // }}
                             stat="120k"
                         />
                     </View>
@@ -46,7 +75,7 @@ const Index = () => {
                             selectedValue={capitalizeFirstLetter(
                                 selectedDuration
                             )}
-                            setValue={setSelectedDuration}
+                            setValue={setSelectedDuration as any}
                             placeholder="Select a duration"
                         />
                     </View>
