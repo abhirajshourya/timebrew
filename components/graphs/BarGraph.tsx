@@ -19,7 +19,7 @@ import {
     isInThisWeek,
 } from '@/helpers/time-format'
 
-export type LineGraphProps = {
+export type BarGraphProps = {
     dataSet: DataSet
     color?: string
     stat: string
@@ -34,7 +34,7 @@ export type DataSet = {
 
 const GRAPH_ASPECT_RATIO = 9 / 16
 
-const LineGraph = ({ dataSet, color, stat, style }: LineGraphProps) => {
+const BarGraph = ({ dataSet, color, stat, style }: BarGraphProps) => {
     const { data, labels } = dataSet
 
     useEffect(() => {
@@ -169,4 +169,4 @@ const LineGraph = ({ dataSet, color, stat, style }: LineGraphProps) => {
 
 const styles = StyleSheet.create({})
 
-export default LineGraph
+export default BarGraph

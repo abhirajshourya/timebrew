@@ -1,5 +1,6 @@
 import DropDownPicker from '@/components/form/DropDownPicker'
-import LineGraph, { DataSet } from '@/components/graphs/LineGraph'
+
+import BarGraph, { DataSet } from '@/components/graphs/BarGraph'
 import { cleanTimelogsForChart } from '@/helpers/data-cleaner'
 import { capitalizeFirstLetter } from '@/helpers/text-helpers'
 import useDatabase from '@/hooks/useDatabase'
@@ -31,7 +32,7 @@ const Index = () => {
                     contentContainerStyle={styles.scrollView}
                 >
                     <View style={{ marginBottom: 20 }}>
-                        <LineGraph
+                        <BarGraph
                             style={{ zIndex: 1 }}
                             color="#005c99"
                             dataSet={timelogs}
