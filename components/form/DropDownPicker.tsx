@@ -17,7 +17,7 @@ type DropDownPickerProps = TextInputProps & {
     selectedValue: string
     setValue: (value: string) => void
     placeholder: string
-    style: StyleProp<ViewStyle>
+    style?: StyleProp<ViewStyle>
 }
 
 const DropDownPicker = ({
