@@ -82,6 +82,79 @@ export default function useDatabase() {
       INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (1717197052520, 1717197052520, 8, 6300);
     `)
 
+        // different data of timelogs for charts
+
+        await db.execAsync(`
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().getTime()}, ${new Date().getTime()}, 1, 3600);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().getTime()}, ${new Date().getTime()}, 2, 7200);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().getTime()}, ${new Date().getTime()}, 3, 1800);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().getTime()}, ${new Date().getTime()}, 4, 5400);
+
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        new Date().getDate() - new Date().getDay()
+    )}, ${new Date().setDate(
+            new Date().getDate() - new Date().getDay()
+        )}, 5, 9000);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        new Date().getDate() - new Date().getDay()
+    )}, ${new Date().setDate(
+            new Date().getDate() - new Date().getDay()
+        )}, 6, 2700);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        new Date().getDate() - new Date().getDay()
+    )}, ${new Date().setDate(
+            new Date().getDate() - new Date().getDay()
+        )}, 7, 4500);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        new Date().getDate() - new Date().getDay()
+    )}, ${new Date().setDate(
+            new Date().getDate() - new Date().getDay()
+        )}, 8, 6300);
+
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        1
+    )}, ${new Date().setDate(1)}, 1, 3600);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        1
+    )}, ${new Date().setDate(1)}, 2, 7200);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        1
+    )}, ${new Date().setDate(1)}, 3, 1800);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setDate(
+        1
+    )}, ${new Date().setDate(1)}, 4, 5400);
+
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setMonth(
+        0,
+        1
+    )}, ${new Date().setMonth(0, 1)}, 5, 9000);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setMonth(
+        0,
+        1
+    )}, ${new Date().setMonth(0, 1)}, 6, 2700);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setMonth(
+        0,
+        1
+    )}, ${new Date().setMonth(0, 1)}, 7, 4500);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setMonth(
+        0,
+        1
+    )}, ${new Date().setMonth(0, 1)}, 8, 6300);
+
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setFullYear(
+        2021
+    )}, ${new Date().setFullYear(2021)}, 1, 3600);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setFullYear(
+        2021
+    )}, ${new Date().setFullYear(2021)}, 2, 7200);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setFullYear(
+        2021
+    )}, ${new Date().setFullYear(2021)}, 3, 1800);
+    INSERT INTO timelogs (start_time, end_time, task_id, duration) VALUES (${new Date().setFullYear(
+        2021
+    )}, ${new Date().setFullYear(2021)}, 4, 5400);
+    `)
+
         await db.execAsync(`
       INSERT INTO tags (name, color) VALUES ('read', '#FF0000');
       INSERT INTO tags (name, color) VALUES ('code', '#FFA500');
@@ -101,6 +174,45 @@ export default function useDatabase() {
         INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (3, 5);
         INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (4, 6);
         INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (5, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (6, 4);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (7, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (8, 6);
+
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (9, 1);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (9, 7);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (10, 2);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (10, 7);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (11, 3);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (11, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (12, 6);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (13, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (14, 4);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (15, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (16, 6);
+
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (17, 1);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (17, 7);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (18, 2);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (18, 7);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (19, 3);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (19, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (20, 6);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (21, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (22, 4);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (23, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (24, 6);
+
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (25, 1);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (25, 7);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (26, 2);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (26, 7);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (27, 3);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (27, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (28, 6);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (29, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (30, 4);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (31, 5);
+        INSERT INTO timelog_tags (timelog_id, tag_id) VALUES (32, 6);
     `)
 
         console.log('Sample data inserted')
@@ -130,7 +242,7 @@ export default function useDatabase() {
     }
 
     const createDb = async () => {
-        await initDb();
+        await initDb()
         console.log('Database created')
     }
 
@@ -278,15 +390,58 @@ export default function useDatabase() {
         )
     }
 
+    type TimelogsForThis = 'today' | 'week' | 'month' | 'year' | 'all'
+    type GetTimeLogsProps = {
+        forThis?: TimelogsForThis
+    }
     /**
      * Get all timelogs
      * @returns - All timelogs
      */
-    const getTimeLogs = async () => {
+    const getTimeLogs = async (
+        { forThis }: GetTimeLogsProps = { forThis: 'all' }
+    ) => {
         try {
-            return await db.getAllAsync<Timelog>(
-                'SELECT * FROM timelogs ORDER BY start_time DESC'
-            )
+            let query = 'SELECT * FROM timelogs ORDER BY start_time DESC'
+            switch (forThis?.toLowerCase()) {
+                case 'today':
+                    let today = new Date()
+                    today.setHours(0, 0, 0, 0)
+                    // console.log(today)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${today.getTime()} ORDER BY start_time DESC`
+                    break
+
+                case 'week':
+                    let week = new Date()
+                    week.setDate(week.getDate() - week.getDay())
+                    week.setHours(0, 0, 0, 0)
+                    // console.log(week)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${week.getTime()} ORDER BY start_time DESC`
+                    break
+
+                case 'month':
+                    let month = new Date()
+                    month.setDate(1)
+                    month.setHours(0, 0, 0, 0)
+                    // console.log(month)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${month.getTime()} ORDER BY start_time DESC`
+                    break
+
+                case 'year':
+                    let year = new Date()
+                    year.setMonth(0, 1)
+                    year.setHours(0, 0, 0, 0)
+                    // console.log(year)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${year.getTime()} ORDER BY start_time DESC`
+                    break
+
+                case 'all':
+                    break
+
+                default:
+                    break
+            }
+            return await db.getAllAsync<Timelog>(query)
         } catch (error) {
             return []
         }
@@ -431,11 +586,54 @@ export default function useDatabase() {
      * @param tagId - Tag id
      * @returns - Timelog
      */
-    const getTimelogByTag = async (tagId: number) => {
-        return await db.getAllAsync<Timelog>(
-            'SELECT * FROM timelogs WHERE id IN (SELECT timelog_id FROM timelog_tags WHERE tag_id = $tagId)',
-            { $tagId: tagId }
-        )
+    const getTimelogByTag = async (
+        tagId: number,
+        { forThis }: GetTimeLogsProps = { forThis: 'all' }
+    ) => {
+        try {
+            let query = `SELECT * FROM timelogs WHERE id IN (SELECT timelog_id FROM timelog_tags WHERE tag_id = ${tagId}) ORDER BY start_time DESC`
+            switch (forThis?.toLowerCase()) {
+                case 'today':
+                    let today = new Date()
+                    today.setHours(0, 0, 0, 0)
+                    // console.log(today)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${today.getTime()} AND id IN (SELECT timelog_id FROM timelog_tags WHERE tag_id = ${tagId}) ORDER BY start_time DESC`
+                    break
+
+                case 'week':
+                    let week = new Date()
+                    week.setDate(week.getDate() - week.getDay())
+                    week.setHours(0, 0, 0, 0)
+                    // console.log(week)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${week.getTime()} AND id IN (SELECT timelog_id FROM timelog_tags WHERE tag_id = ${tagId}) ORDER BY start_time DESC`
+                    break
+
+                case 'month':
+                    let month = new Date()
+                    month.setDate(1)
+                    month.setHours(0, 0, 0, 0)
+                    // console.log(month)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${month.getTime()} AND id IN (SELECT timelog_id FROM timelog_tags WHERE tag_id = ${tagId}) ORDER BY start_time DESC`
+                    break
+
+                case 'year':
+                    let year = new Date()
+                    year.setMonth(0, 1)
+                    year.setHours(0, 0, 0, 0)
+                    // console.log(year)
+                    query = `SELECT * FROM timelogs WHERE start_time >= ${year.getTime()} AND id IN (SELECT timelog_id FROM timelog_tags WHERE tag_id = ${tagId}) ORDER BY start_time DESC`
+                    break
+
+                case 'all':
+                    break
+
+                default:
+                    break
+            }
+            return await db.getAllAsync<Timelog>(query)
+        } catch (error) {
+            return []
+        }
     }
 
     /**
@@ -496,6 +694,22 @@ export default function useDatabase() {
         return timelogs.reduce((acc, curr) => acc + curr.duration, 0)
     }
 
+    /**
+     * Get total timelog for a tag
+     * @param tagId 
+     * @returns 
+     */
+    const getTotalTimelogForTag = async (tagId: number) => {
+        const timelogs = await db.getAllAsync<Timelog>(
+            'SELECT * FROM timelogs WHERE id IN (SELECT timelog_id FROM timelog_tags WHERE tag_id = $tagId)',
+            {
+                $tagId: tagId,
+            }
+        )
+
+        return timelogs.reduce((acc, curr) => acc + curr.duration, 0)
+    }
+
     return {
         db,
         getData,
@@ -525,5 +739,6 @@ export default function useDatabase() {
         createTimelogTag,
         deleteTimelogTag,
         getTotalTimelogForTask,
+        getTotalTimelogForTag,
     }
 }

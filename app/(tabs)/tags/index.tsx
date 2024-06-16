@@ -36,7 +36,7 @@ const Tags = () => {
             <SafeAreaView>
                 <Text style={styles.heading}>Tags</Text>
                 <ScrollView contentContainerStyle={styles.container}>
-                    <View style={{ marginBottom: 200 }}>
+                    <View style={{ marginBottom: 200, marginHorizontal: 20 }}>
                         {tags.map((tag) => (
                             <Pressable key={tag.id}>
                                 <TagCard tag={tag} handleEdit={handleEdit} />

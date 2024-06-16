@@ -311,22 +311,25 @@ const Tracker = ({}) => {
                 onClose={() => setIsModalVisible(false)}
                 title="Time log"
             >
-                <Text style={styles.label}>What did you do?</Text>
-                <DropDownPicker
-                    items={tasks.map((task) => task.description)}
-                    selectedValue={selectedTask}
-                    setValue={(value) => setSelectedTask(value)}
-                    placeholder="What did you do?"
-                />
+                <View>
+                    <Text style={styles.label}>What did you do?</Text>
+                    <DropDownPicker
+                        items={tasks.map((task) => task.description)}
+                        selectedValue={selectedTask}
+                        setValue={(value) => setSelectedTask(value)}
+                        placeholder="What did you do?"
+                    />
+                </View>
 
-                <Text style={styles.label}>Tags</Text>
-                <MultiDropDownPicker
-                    items={tags}
-                    selectedValues={selectedTags}
-                    setValues={setSelectedTags}
-                    placeholder="Add tags"
-                />
-
+                <View>
+                    <Text style={styles.label}>Tags</Text>
+                    <MultiDropDownPicker
+                        items={tags}
+                        selectedValues={selectedTags}
+                        setValues={setSelectedTags}
+                        placeholder="Add tags"
+                    />
+                </View>
                 <View style={{ marginBottom: 20 }}>
                     <PrimaryButton onPress={handleSave}>Save</PrimaryButton>
                 </View>

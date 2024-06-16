@@ -11,3 +11,13 @@ export function cleanText(text: string) {
     // Replace multiple whitespaces with a single whitespace
     return _.chain(text).trim().replace(/\s+/g, ' ').value()
 }
+
+/**
+ * Capitalize the first letter of a text
+ *
+ * @param text
+ * @returns 
+ */
+export function capitalizeFirstLetter(text: string) {
+    return text.charAt(0).toUpperCase() + text.slice(1)
+}

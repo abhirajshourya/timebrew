@@ -4,15 +4,17 @@ import { Tag } from '@/constants/types'
 
 type TagChipProps = {
     tag: Tag
+    size?: 'small' | 'medium' | 'large'
 } & PropsWithChildren
 
-const TagChip = ({ children, tag }: TagChipProps) => {
+const TagChip = ({ children, tag, size = 'medium' }: TagChipProps) => {
     return (
         <View
             style={[
                 styles.colorTag,
                 { backgroundColor: tag.color + '2a' },
                 { borderColor: tag.color },
+                styles[`tag${size}`],
             ]}
         >
             <Text style={[styles.tagName, { color: '#000000d6' }]}>
@@ -36,6 +38,18 @@ const styles = StyleSheet.create({
     },
     tagName: {
         fontSize: 12,
+    },
+    tagsmall: {
+        paddingHorizontal: 5,
+        height: 20,
+    },
+    tagmedium: {
+        paddingHorizontal: 10,
+        height: 30,
+    },
+    taglarge: {
+        paddingHorizontal: 15,
+        height: 40,
     },
 })
 
