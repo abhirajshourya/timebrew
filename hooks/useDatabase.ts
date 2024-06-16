@@ -364,7 +364,7 @@ export default function useDatabase() {
     ) => {
         try {
             let query = 'SELECT * FROM timelogs ORDER BY start_time DESC'
-            switch (forThis) {
+            switch (forThis?.toLowerCase()) {
                 case 'today':
                     let today = new Date()
                     today.setHours(0, 0, 0, 0)
@@ -402,7 +402,6 @@ export default function useDatabase() {
                 default:
                     break
             }
-
             return await db.getAllAsync<Timelog>(query)
         } catch (error) {
             return []
