@@ -3,11 +3,13 @@ import React, { useRef, useState } from 'react'
 import {
     Pressable,
     ScrollView,
+    StyleProp,
     StyleSheet,
     Text,
     TextInput,
     TextInputProps,
     View,
+    ViewStyle,
 } from 'react-native'
 
 type DropDownPickerProps = TextInputProps & {
@@ -15,6 +17,7 @@ type DropDownPickerProps = TextInputProps & {
     selectedValue: string
     setValue: (value: string) => void
     placeholder: string
+    style: StyleProp<ViewStyle>
 }
 
 const DropDownPicker = ({
@@ -22,6 +25,7 @@ const DropDownPicker = ({
     selectedValue,
     setValue,
     placeholder,
+    style,
 }: DropDownPickerProps) => {
     const [textEnabled, setTextEnabled] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
@@ -30,7 +34,7 @@ const DropDownPicker = ({
     const inputRef = useRef<TextInput>(null)
 
     return (
-        <View style={{ position: 'relative', marginBottom: 10 }}>
+        <View style={[{ position: 'relative' }, style]}>
             <Pressable
                 style={styles.inputContainer}
                 onPressOut={() => setIsOpen((e) => !e)}

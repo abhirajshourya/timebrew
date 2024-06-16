@@ -6,6 +6,7 @@ import { SafeAreaView, StyleSheet, View, Text, ScrollView } from 'react-native'
 
 type Duration = 'today' | 'week' | 'month' | 'year' | 'all' | 'custom'
 
+
 const Index = () => {
     const [selectedDuration, setSelectedDuration] = useState('week' as Duration)
 
@@ -13,20 +14,42 @@ const Index = () => {
         <SafeAreaView>
             <View style={styles.container}>
                 <Text style={styles.heading}>Insights</Text>
-                <ScrollView style={styles.scrollView}>
-                    <View style={styles.selectDuration}>
-                        <Text>Duration</Text>
-                        <DropDownPicker items={['Today', 'Week', 'Month', 'Year', 'All']} selectedValue='Week' setValue={(val) => setSelectedDuration(val as Duration)} placeholder='Select a duration' />
+                <ScrollView
+                    style={styles.scrollView}
+                    contentContainerStyle={styles.scrollView}
+                >
+                    <View style={{ marginBottom: 20 }}>
+                        <LineGraph
+                            style={{ zIndex: 1 }}
+                            data={[
+                                12, 5, 9, 30, 20, 51, 20, 10, 10, 20, 15, 10,
+                            ]}
+                            color="#005c99"
+                            labels={[ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']}
+                            stat="120k"
+                        />
                     </View>
-
-                    <LineGraph
-                        data={[
-                            12, 5, 9, 30, 20, 51, 20, -10, 10, 20, 15, 10, 5,
-                        ]}
-                        color="black"
-                        label="Week"
-                        stat="120k"
-                    />
+                    <View>
+                        <View>
+                            <Text
+                                style={[
+                                    { marginBottom: 10 },
+                                    styles.selectDurationTag,
+                                ]}
+                            >
+                                Duration
+                            </Text>
+                        </View>
+                        <DropDownPicker
+                            style={{ minWidth: 100 }}
+                            items={['Today', 'Week', 'Month', 'Year', 'All']}
+                            selectedValue={capitalizeFirstLetter(
+                                selectedDuration
+                            )}
+                            setValue={setSelectedDuration}
+                            placeholder="Select a duration"
+                        />
+                    </View>
                 </ScrollView>
             </View>
         </SafeAreaView>
@@ -47,13 +70,18 @@ const styles = StyleSheet.create({
     scrollView: {
         display: 'flex',
         flexDirection: 'column',
+        minHeight: '100%',
+    },
+    selectDurationTag: {
+        fontSize: 20,
+        // marginBottom: 10
     },
     selectDuration: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        marginBottom: 20,
+        // marginBottom: 20,
     },
 })
 

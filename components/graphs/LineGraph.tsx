@@ -1,64 +1,131 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, StyleProp, ViewStyle } from 'react-native'
 import * as d3 from 'd3'
-import { Svg, Path } from 'react-native-svg'
+import {
+    Svg,
+    Path,
+    G,
+    Defs,
+    Stop,
+    LinearGradient,
+    Line,
+    Rect,
+    Text as SvgText,
+} from 'react-native-svg'
 
 export type LineGraphProps = {
     data: number[]
     color: string
-    label: string
+    labels: string[]
     stat: string
+    style: StyleProp<ViewStyle>
 }
 
 const GRAPH_ASPECT_RATIO = 9 / 16
 
-const LineGraph = ({ data, color, label, stat }: LineGraphProps) => {
+const LineGraph = ({ data, color, labels, stat, style }: LineGraphProps) => {
     const [width, setWidth] = useState(0)
     const height = width * GRAPH_ASPECT_RATIO
+    const marginTop = 20
+    const marginBottom = 20
+    const marginLeft = 40
+    const marginRight = 0
 
-    const min = Math.min(...data)
-    const max = Math.max(...data)
-
-    const yScale = d3.scaleLinear().domain([min, max]).range([height, 0])
-    const xScale = d3
+    const x = d3
+        .scaleBand()
+        .domain(labels)
+        .range([marginLeft, width - marginRight])
+        .padding(0.1)
+    const y = d3
         .scaleLinear()
-        .domain([0, data.length - 1])
-        .range([0, width])
-
-    const LineCurve = d3.curveMonotoneX
-
-    const lineFn = d3
-        .line<number>()
-        .x((d: any, i: any) => xScale(i))
-        .y((d: any) => yScale(d))
-        .curve(LineCurve)
-    const areaFn = d3
-        .area<number>()
-        .x((d: any, i: any) => xScale(i))
-        .y0(height)
-        .y1((d: any) => yScale(d))
-        .curve(LineCurve)
-
-    const zeroLine = yScale(0)
-
-    const svgLine = lineFn(data)
-    const svgArea = areaFn(data)
+        .domain([0, d3.max(data) || 0])
+        .range([height - marginBottom, marginTop])
 
     return (
         <View
             onLayout={(event) => {
                 setWidth(event.nativeEvent.layout.width)
             }}
+            style={style}
         >
             <Svg height={height} width={width}>
-                <Path d={svgLine} fill="none" stroke={color} strokeWidth="2" />
-                <Path
-                    d={`M0 ${zeroLine} H${width}`}
-                    stroke="black"
-                    strokeWidth="1"
-                    strokeDasharray="4"
-                />
-                <Path d={svgArea} fill={color} fillOpacity="0.1" />
+                {data.map((d, i) => (
+                    <Rect
+                        key={i}
+                        fill={color}
+                        fillOpacity={0.5}
+                        x={x(labels[i])}
+                        y={y(d)}
+                        height={y(0) - y(d)}
+                        width={x.bandwidth()}
+                    />
+                ))}
+
+                {/* Y Axis */}
+                <G fill={color}>
+                    <Line
+                        x1={marginLeft}
+                        y1={marginTop}
+                        x2={marginLeft}
+                        y2={height - marginBottom}
+                        stroke="black"
+                        strokeWidth={1}
+                    />
+                </G>
+                <G fill="black">
+                    {y.ticks().map((d, i) => (
+                        <SvgText
+                            key={i}
+                            x={marginLeft - 5}
+                            y={y(d)}
+                            fill="black"
+                            fontSize="12"
+                            textAnchor="end"
+                        >
+                            {d}
+                        </SvgText>
+                    ))}
+                </G>
+
+                {/* X Axis */}
+                <G fill={color}>
+                    <Line
+                        x1={marginLeft}
+                        y1={y(0)}
+                        x2={width - marginRight}
+                        y2={y(0)}
+                        stroke="black"
+                        strokeWidth={1}
+                    />
+                </G>
+                <G fill="black">
+                    {labels.map((label, i) => (
+                        <SvgText
+                            key={i}
+                            x={x(label) + x.bandwidth() / 2}
+                            y={height - marginBottom + 15}
+                            fill="black"
+                            fontSize="12"
+                            textAnchor="middle"
+                        >
+                            {label}
+                        </SvgText>
+                    ))}
+                </G>
+                <G fill="black">
+                    {data.map((d, i) => (
+                        <SvgText
+                            key={i}
+                            x={x(labels[i]) + x.bandwidth() / 2}
+                            y={y(d) - 5}
+                            fill="black"
+                            fontSize="12"
+                            textAnchor="middle"
+                        >
+                            {d}
+                        </SvgText>
+                    ))}
+                </G>
             </Svg>
         </View>
     )
