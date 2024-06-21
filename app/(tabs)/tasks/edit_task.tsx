@@ -20,6 +20,7 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
 
     const [taskDesc, setTaskDesc] = useState(route.params.task.description)
     const [timelogs, setTimelogs] = useState<Timelog[]>([])
+    const taskId = route.params.task.id
 
     useEffect(() => {
         const fetchTimelogs = async () => {
@@ -28,7 +29,7 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
         }
 
         fetchTimelogs()
-    }, [])
+    }, [timelogs])
 
     const handleDescriptionChange = (description: string) => {
         setTaskDesc(description)
@@ -107,21 +108,34 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
                 const data = await File.readAsStringAsync(uri);
                 const { task, timelogs:  timelogsData} = JSON.parse(data);
                 setTaskDesc(task);
-                console.log(data);
-                for (let i = 0; i < timelogsData.length; i++) {
-                    const timelog = timelogs.filter((timelog) => timelog.id === timelogsData[i].id);
-                    if (timelog.length === 0) {
-                        timelogs.push(timelogsData[i]);
-                        setTimelogs([...timelogs]);
-                        await createTimelog(timelogsData[i].start_time, timelogsData[i].end_time, timelogsData[i].task_id, timelogsData[i].duration);
-                    }else {
-                        const index = timelogs.findIndex((timelog) => timelog.id === timelogsData[i].id);
-                        timelogs[index] = timelogsData[i];
-                        setTimelogs([...timelogs]);
-                        await updateTimelog(timelogs[index]);
+
+                if(taskId == timelogsData[0].task_id){
+                    for (let i = 0; i < timelogsData.length; i++) {
+                        const timelog = timelogs.filter((timelog) => timelog.id === timelogsData[i].id);
+                        if (timelog.length === 0) {
+                            timelogs.push(timelogsData[i]);
+                            setTimelogs([...timelogs]);
+                            await createTimelog(timelogsData[i].start_time, timelogsData[i].end_time, timelogsData[i].task_id, timelogsData[i].duration);
+                        }else {
+                            const index = timelogs.findIndex((timelog) => timelog.id === timelogsData[i].id);
+                            timelogs[index] = timelogsData[i];
+                            setTimelogs([...timelogs]);
+                            await updateTimelog(timelogs[index]);
+                        }
                     }
+                }else{
+                    Alert.alert(
+                        'Error',
+                        'The timelogs are not for this task',
+                        [
+                            {
+                                text: 'Ok',
+                                style: 'cancel',
+                            },
+                        ]
+                    )
                 }
-                console.log(timelogs);
+
             }
         } catch (error) {
             console.error('Error importing data');
