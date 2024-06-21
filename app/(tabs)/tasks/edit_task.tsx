@@ -4,10 +4,11 @@ import { Timelog } from '@/constants/types'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
+import * as DocumentPricker from 'expo-document-picker'
 import * as File from 'expo-file-system'
 import * as Sharing from 'expo-sharing'
 import React, { useEffect, useState } from 'react'
-import { Alert, Button, ScrollView, Text, View } from 'react-native'
+import { Alert, Button, Platform, ScrollView, Text, View } from 'react-native'
 
 interface EditTaskProps {
     route: any
@@ -15,7 +16,7 @@ interface EditTaskProps {
 }
 
 const EditTask = ({ route, navigation }: EditTaskProps) => {
-    const { updateTask, deleteTask, getTimelogsForTask } = useDatabase()
+    const { updateTask, deleteTask, getTimelogsForTask, createTimelog, updateTimelog } = useDatabase()
 
     const [taskDesc, setTaskDesc] = useState(route.params.task.description)
     const [timelogs, setTimelogs] = useState<Timelog[]>([])
@@ -74,10 +75,15 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
                 timelogs: timelogs,
             }
             const json = JSON.stringify(data)
-            const filePath = File.documentDirectory + `${taskDesc}.json`
+            var filePath = ''
+            
+            if(Platform.OS === 'ios') {
+                filePath = File.documentDirectory + `${taskDesc}.json`
+            }else if(Platform.OS === 'android'){
+                filePath = File.cacheDirectory + `${taskDesc}.json`
+            }
             await File.writeAsStringAsync(filePath, json)
             sharingFile(filePath);
-
         } catch (error) {
             console.error('Error exporting data')
         }
@@ -91,6 +97,36 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
           console.error('Error sharing file:', error);
           throw error; // Or handle the error differently
         }
+    }
+
+    const handleImport = async () => {
+        try {
+            const file = await DocumentPricker.getDocumentAsync();
+            if (file.canceled === false) {
+                const uri = file.assets[0].uri;
+                const data = await File.readAsStringAsync(uri);
+                const { task, timelogs:  timelogsData} = JSON.parse(data);
+                setTaskDesc(task);
+                console.log(data);
+                for (let i = 0; i < timelogsData.length; i++) {
+                    const timelog = timelogs.filter((timelog) => timelog.id === timelogsData[i].id);
+                    if (timelog.length === 0) {
+                        timelogs.push(timelogsData[i]);
+                        setTimelogs([...timelogs]);
+                        await createTimelog(timelogsData[i].start_time, timelogsData[i].end_time, timelogsData[i].task_id, timelogsData[i].duration);
+                    }else {
+                        const index = timelogs.findIndex((timelog) => timelog.id === timelogsData[i].id);
+                        timelogs[index] = timelogsData[i];
+                        setTimelogs([...timelogs]);
+                        await updateTimelog(timelogs[index]);
+                    }
+                }
+                console.log(timelogs);
+            }
+        } catch (error) {
+            console.error('Error importing data');
+        }
+
     }
 
     return (
@@ -200,7 +236,7 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
                         marginBottom: 20,
                     }}
                 >
-                    <RegularButton onPress={()=>{}}>Import</RegularButton>
+                    <RegularButton onPress={handleImport}>Import</RegularButton>
                     <PrimaryButton onPress={handleExport}>Export</PrimaryButton>
             </View>
         </ScrollView>
