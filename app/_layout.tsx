@@ -56,7 +56,11 @@ export default function RootLayout() {
                         <Stack>
                             <Stack.Screen
                                 name="(tabs)"
-                                options={{ headerShown: false }}
+                                options={{ headerShown: false, title: 'Tracker' }}
+                            />
+                            <Stack.Screen
+                                name='settings'
+                                options={{ title: 'Settings' }}
                             />
                             <Stack.Screen name="+not-found" />
                         </Stack>
