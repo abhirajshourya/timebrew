@@ -1,5 +1,4 @@
 import { Stack } from 'expo-router/stack'
-import Tags from '.'
 
 export default function StackLayout() {
     Stack.defaultProps = {
