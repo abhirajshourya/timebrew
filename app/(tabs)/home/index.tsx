@@ -18,10 +18,11 @@ import {
     SafeAreaView,
     ScrollView,
     StyleSheet,
-    Text,
     TouchableOpacity,
-    View,
+    // Text,
+    // View,
 } from 'react-native'
+import { Separator, Text, View } from 'tamagui'
 import Pomodoro from './pomodoro'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import { useRouter, useSegments } from 'expo-router'
@@ -213,11 +214,7 @@ const Tracker = ({}) => {
                         delay={900}
                         isRunning={isRunning}
                     >
-                        <View
-                            style={{
-                                
-                            }}
-                        >
+                        <View style={{}}>
                             <View>
                                 <Text
                                     style={{
@@ -246,7 +243,7 @@ const Tracker = ({}) => {
                                     shadowOpacity: 0.5,
                                     shadowRadius: 4.86,
                                     elevation: 10,
-                                    position: 'relative'
+                                    position: 'relative',
                                 }}
                             >
                                 <Ionicons
@@ -314,13 +311,7 @@ const Tracker = ({}) => {
                     </View>
                 </View>
                 <View style={styles.logsContainer}>
-                    <View
-                        style={{
-                            borderBottomColor: '#d8d8d8',
-                            borderBottomWidth: 1,
-                            marginBottom: 20,
-                        }}
-                    />
+                    <Separator marginVertical={20} />
                     <Text
                         style={{
                             fontSize: 24,
@@ -409,6 +400,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#000',
+        // width: 'auto',
         borderRadius: 40,
         shadowOffset: {
             width: 0,
