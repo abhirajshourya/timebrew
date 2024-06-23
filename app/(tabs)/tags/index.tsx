@@ -1,7 +1,7 @@
 import FAB from '@/components/FAB'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import useDatabase from '@/hooks/useDatabase'
-import { useRouter } from 'expo-router'
+import { useRouter, useSegments } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import {
     SafeAreaView,
@@ -18,6 +18,7 @@ const Tags = () => {
     const [tags, setTags] = useState<TagType[]>([])
     const { getTags } = useDatabase()
     const router = useRouter()
+    const segment = useSegments()
 
     const handleFABPress = () => {
         router.push('tags/add')
@@ -29,7 +30,7 @@ const Tags = () => {
 
     useEffect(() => {
         getTags().then(setTags)
-    })
+    }, [segment])
 
     return (
         <>

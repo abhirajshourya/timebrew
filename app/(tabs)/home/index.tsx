@@ -24,7 +24,7 @@ import {
 } from 'react-native'
 import Pomodoro from './pomodoro'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
-import { useRouter } from 'expo-router'
+import { useRouter, useSegments } from 'expo-router'
 
 const Tracker = ({}) => {
     const {
@@ -53,14 +53,15 @@ const Tracker = ({}) => {
     const [tags, setTags] = useState<Tag[]>([])
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [isModalVisible, setIsModalVisible] = useState(false)
-
+    
     const router = useRouter()
+    const segments = useSegments()
 
     useEffect(() => {
         getTimeLogs().then((timelogs) => {
             setTimelogs(timelogs)
         })
-    })
+    }, [segments])
 
     function handleOnStop() {
         pause()

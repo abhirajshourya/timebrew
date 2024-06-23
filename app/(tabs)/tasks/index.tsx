@@ -14,6 +14,7 @@ import {
 import EditTask from './edit_task'
 import AddTask from './add_task'
 import { Feather } from '@expo/vector-icons'
+import { useSegments } from 'expo-router'
 
 interface TasksPageProps {
     navigation: NativeStackNavigationHelpers
@@ -22,6 +23,7 @@ interface TasksPageProps {
 const TasksPage = ({ navigation }: TasksPageProps) => {
     const { getTasks } = useDatabase()
     const [tasks, setTasks] = useState<Task[]>([])
+    const segment = useSegments()
 
     const handleFABPress = () => {
         navigation.navigate('AddTask')
@@ -29,7 +31,8 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
 
     useEffect(() => {
         getTasks().then(setTasks)
-    })
+    }, [segment])
+    
     return (
         <SafeAreaView>
             <View

@@ -11,6 +11,7 @@ import useDatabase from '@/hooks/useDatabase'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView, StyleSheet, View, Text, ScrollView } from 'react-native'
 import { Duration } from '@/constants/types'
+import { useSegments } from 'expo-router'
 
 
 const Index = () => {
@@ -18,6 +19,7 @@ const Index = () => {
     const [timelogs, setTimelogs] = useState<DataSet>({ data: [], labels: [], taskIds: [] })
     const [selectedDuration, setSelectedDuration] = useState('week' as Duration)
     const [tagsStats, setTagsStats] = useState([] as TagDataset[])
+    const segment = useSegments()
 
     useEffect(() => {
         getTimeLogs({ forThis: selectedDuration }).then((logs) => {
@@ -37,7 +39,7 @@ const Index = () => {
                 )
             })
         })
-    }, [selectedDuration])
+    }, [selectedDuration, segment])
 
     return (
         <SafeAreaView>
