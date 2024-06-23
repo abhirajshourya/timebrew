@@ -53,7 +53,7 @@ const Tracker = ({}) => {
     const [tags, setTags] = useState<Tag[]>([])
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [isModalVisible, setIsModalVisible] = useState(false)
-    
+
     const router = useRouter()
     const segments = useSegments()
 
@@ -170,7 +170,7 @@ const Tracker = ({}) => {
                         gap: 10,
                     }}
                 >
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={() => {
                             router.push('home/pomodoro')
                         }}
@@ -191,8 +191,18 @@ const Tracker = ({}) => {
                         }}
                     >
                         <Ionicons name="timer" size={30} color="#005c99" />
+                    </TouchableOpacity> */}
+                    <TouchableOpacity
+                        onPress={() => {
+                            router.push({ pathname: 'settings' })
+                        }}
+                    >
+                        <Ionicons
+                            name="settings-outline"
+                            size={24}
+                            color="#005c99"
+                        />
                     </TouchableOpacity>
-                    {/* <Ionicons name="settings-outline" size={24} color="black" /> */}
                 </View>
             </View>
             <ScrollView contentContainerStyle={styles.container}>
@@ -203,15 +213,48 @@ const Tracker = ({}) => {
                         delay={900}
                         isRunning={isRunning}
                     >
-                        <View>
-                            <Text
+                        <View
+                            style={{
+                                
+                            }}
+                        >
+                            <View>
+                                <Text
+                                    style={{
+                                        fontSize: 36,
+                                        color: '#005c99',
+                                    }}
+                                >
+                                    {formatTime(duration) || '0s'}
+                                </Text>
+                            </View>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    router.push('home/pomodoro')
+                                }}
                                 style={{
-                                    fontSize: 36,
-                                    color: '#005c99',
+                                    padding: 5,
+                                    paddingHorizontal: 10,
+                                    borderRadius: 50,
+                                    backgroundColor: '#fff',
+                                    borderColor: 'red',
+                                    shadowColor: '#005c99',
+                                    shadowOffset: {
+                                        width: 0,
+                                        height: 2,
+                                    },
+                                    shadowOpacity: 0.5,
+                                    shadowRadius: 4.86,
+                                    elevation: 10,
+                                    position: 'relative'
                                 }}
                             >
-                                {formatTime(duration) || '0s'}
-                            </Text>
+                                <Ionicons
+                                    name="timer"
+                                    size={30}
+                                    color="#005c99"
+                                />
+                            </TouchableOpacity>
                         </View>
                     </WavyRings>
                     <View style={styles.controlsContainer}>
