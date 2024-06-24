@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
+// import { Cross } from '@tamagui/lucide-icons'
 import React, { PropsWithChildren } from 'react'
 import {
     StyleSheet,
@@ -8,7 +9,7 @@ import {
     ModalProps,
     Pressable,
 } from 'react-native'
-import { Text, View } from 'tamagui'
+import { Text, View, H3, YStack, XStack, Button } from 'tamagui'
 import { Sheet, useSheet } from '@tamagui/sheet'
 
 type TimeLogModalProps = PropsWithChildren<ModalProps> & {
@@ -45,38 +46,36 @@ const TimeLogModal = ({
         //         <View style={styles.modalBody}>{children}</View>
         //     </View>
         // </Modal>
-        <Sheet
-            forceRemoveScrollEnabled={true}
-            modal={true}
-            open={isVisible}
-            onOpenChange={onClose}
-            dismissOnSnapToBottom={true}
-            position={position}
-            onPositionChange={setPosition}
-            zIndex={100_000}
-            animation="medium"
-        >
-            <Sheet.Overlay
-                animation={'lazy'}
-                enterStyle={{ opacity: 0 }}
-                exitStyle={{ opacity: 0 }}
-            />
-            <Sheet.Handle />
-            <Sheet.Frame style={styles.modal}>
-                <View style={styles.modalContent}>
-                    <View style={styles.modalHeader}>
-                        <Text style={styles.modalHeaderText}>
-                            {title || 'Time Log'}
-                        </Text>
+        <View>
+            <Sheet
+                forceRemoveScrollEnabled={true}
+                modal={true}
+                open={isVisible}
+                onOpenChange={onClose}
+                dismissOnSnapToBottom={true}
+                position={position}
+                onPositionChange={setPosition}
+                zIndex={100_000}
+                animation="medium"
+            >
+                <Sheet.Overlay
+                    animation={'lazy'}
+                    enterStyle={{ opacity: 0 }}
+                    exitStyle={{ opacity: 0 }}
+                />
+                <Sheet.Handle themeInverse />
+                <Sheet.Frame>
+                    <YStack padding={20} gap={20}>
+                        <XStack alignItems='center' justifyContent='space-between'>
+                            <H3>{title || 'Time Log'}</H3>
 
-                        <Pressable onPress={onClose}>
-                            <Ionicons name="close" size={24} />
-                        </Pressable>
-                    </View>
-                    <View style={styles.modalBody}>{children}</View>
-                </View>
-            </Sheet.Frame>
-        </Sheet>
+                            <Button onPress={onClose} chromeless icon={<Ionicons name="close" size={30} />} />
+                        </XStack>
+                        <YStack gap={12}>{children}</YStack>
+                    </YStack>
+                </Sheet.Frame>
+            </Sheet>
+        </View>
     )
 }
 
@@ -93,25 +92,25 @@ const styles = StyleSheet.create({
         // backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 20,
-        backgroundColor: 'white',
-        width: '100%',
-        // borderTopWidth: 1,
-        borderTopColor: 'grey',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        // flexDirection: 'row',
+        // justifyContent: 'space-between',
+        // padding: 20,
+        // backgroundColor: 'white',
+        // width: '100%',
+        // // borderTopWidth: 1,
+        // borderTopColor: 'grey',
+        // borderTopLeftRadius: 30,
+        // borderTopRightRadius: 30,
     },
     modalHeaderText: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        // fontSize: 18,
+        // fontWeight: 'bold',
     },
     modalBody: {
-        backgroundColor: 'white',
-        width: '100%',
-        padding: 20,
-        minHeight: 500,
+        // backgroundColor: 'white',
+        // width: '100%',
+        // padding: 20,
+        // minHeight: 500,
     },
 })
 
