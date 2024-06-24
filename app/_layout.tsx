@@ -14,7 +14,7 @@ import { useFonts } from 'expo-font'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TamaguiProvider, createTamagui } from '@tamagui/core' // or 'tamagui'
 import { config } from '@tamagui/config/v3'
-import { PortalProvider } from 'tamagui'
+import { PortalProvider, Theme } from 'tamagui'
 
 const tamaguiConfig = createTamagui(config)
 
@@ -45,29 +45,28 @@ export default function RootLayout() {
     }
 
     return (
-        <TamaguiProvider config={tamaguiConfig}>
-            <PortalProvider>
-                <SafeAreaView style={{ flex: 1 }}>
-                    <Suspense
-                        fallback={
-                            <View
-                                style={{
-                                    flex: 1,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <Text>Loading Database...</Text>
-                            </View>
-                        }
-                    >
-                        <SQLiteProvider useSuspense databaseName="timebrew.db">
-                            <ThemeProvider
-                                value={
-                                    colorScheme === 'dark'
-                                        ? DarkTheme
-                                        : DefaultTheme
-                                }
+        <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme!}>
+            <ThemeProvider
+                value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+            >
+                <PortalProvider>
+                    <SafeAreaView style={{ flex: 1 }}>
+                        <Suspense
+                            fallback={
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <Text>Loading Database...</Text>
+                                </View>
+                            }
+                        >
+                            <SQLiteProvider
+                                useSuspense
+                                databaseName="timebrew.db"
                             >
                                 <Stack>
                                     <Stack.Screen
@@ -79,15 +78,17 @@ export default function RootLayout() {
                                     />
                                     <Stack.Screen
                                         name="settings"
-                                        options={{ title: 'Settings' }}
+                                        options={{
+                                            title: 'Settings',
+                                        }}
                                     />
                                     <Stack.Screen name="+not-found" />
                                 </Stack>
-                            </ThemeProvider>
-                        </SQLiteProvider>
-                    </Suspense>
-                </SafeAreaView>
-            </PortalProvider>
+                            </SQLiteProvider>
+                        </Suspense>
+                    </SafeAreaView>
+                </PortalProvider>
+            </ThemeProvider>
         </TamaguiProvider>
     )
 }
