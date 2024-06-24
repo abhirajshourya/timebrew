@@ -104,7 +104,7 @@ const DropDownPicker = ({
                 )}
             </View> */}
 
-            <Select value={selectedValue} onValueChange={setValue}>
+            <Select value={selectedValue} onValueChange={setValue} disablePreventBodyScroll>
                 <Select.Trigger
                     iconAfter={<Ionicons name="caret-down" size={24} />}
                 >
