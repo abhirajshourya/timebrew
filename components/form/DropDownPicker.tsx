@@ -5,13 +5,11 @@ import {
     ScrollView,
     StyleProp,
     StyleSheet,
-    Text,
     TextInput,
     TextInputProps,
-    View,
     ViewStyle,
 } from 'react-native'
-import { Adapt, Select, Sheet, YStack } from 'tamagui'
+import { Adapt, Select, Sheet, YStack, Text, View } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
 type DropDownPickerProps = TextInputProps & {

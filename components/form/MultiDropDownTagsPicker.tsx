@@ -6,13 +6,11 @@ import {
     Pressable,
     ScrollView,
     StyleSheet,
-    Text,
     TextInput,
     TextInputProps,
-    View,
 } from 'react-native'
 import TagChip from '../TagChip'
-import { Adapt, Select, Sheet } from 'tamagui'
+import { Adapt, Select, Sheet, Text, View } from 'tamagui'
 
 type MultiDropDownTagsPickerProps = TextInputProps & {
     items: Tag[]
