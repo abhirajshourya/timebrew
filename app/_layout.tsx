@@ -14,13 +14,13 @@ import { useFonts } from 'expo-font'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TamaguiProvider, createTamagui } from '@tamagui/core' // or 'tamagui'
 import { config } from '@tamagui/config/v3'
-
+import { PortalProvider } from 'tamagui'
 
 const tamaguiConfig = createTamagui(config)
 
 // make TypeScript type everything based on your config
 type Conf = typeof tamaguiConfig
-declare module '@tamagui/core' {
+declare module 'tamagui' {
     // or 'tamagui'
     interface TamaguiCustomConfig extends Conf {}
 }
@@ -46,46 +46,48 @@ export default function RootLayout() {
 
     return (
         <TamaguiProvider config={tamaguiConfig}>
-            <SafeAreaView style={{ flex: 1 }}>
-                <Suspense
-                    fallback={
-                        <View
-                            style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Text>Loading Database...</Text>
-                        </View>
-                    }
-                >
-                    <SQLiteProvider useSuspense databaseName="timebrew.db">
-                        <ThemeProvider
-                            value={
-                                colorScheme === 'dark'
-                                    ? DarkTheme
-                                    : DefaultTheme
-                            }
-                        >
-                            <Stack>
-                                <Stack.Screen
-                                    name="(tabs)"
-                                    options={{
-                                        headerShown: false,
-                                        title: 'Tracker',
-                                    }}
-                                />
-                                <Stack.Screen
-                                    name="settings"
-                                    options={{ title: 'Settings' }}
-                                />
-                                <Stack.Screen name="+not-found" />
-                            </Stack>
-                        </ThemeProvider>
-                    </SQLiteProvider>
-                </Suspense>
-            </SafeAreaView>
+            <PortalProvider>
+                <SafeAreaView style={{ flex: 1 }}>
+                    <Suspense
+                        fallback={
+                            <View
+                                style={{
+                                    flex: 1,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Text>Loading Database...</Text>
+                            </View>
+                        }
+                    >
+                        <SQLiteProvider useSuspense databaseName="timebrew.db">
+                            <ThemeProvider
+                                value={
+                                    colorScheme === 'dark'
+                                        ? DarkTheme
+                                        : DefaultTheme
+                                }
+                            >
+                                <Stack>
+                                    <Stack.Screen
+                                        name="(tabs)"
+                                        options={{
+                                            headerShown: false,
+                                            title: 'Tracker',
+                                        }}
+                                    />
+                                    <Stack.Screen
+                                        name="settings"
+                                        options={{ title: 'Settings' }}
+                                    />
+                                    <Stack.Screen name="+not-found" />
+                                </Stack>
+                            </ThemeProvider>
+                        </SQLiteProvider>
+                    </Suspense>
+                </SafeAreaView>
+            </PortalProvider>
         </TamaguiProvider>
     )
 }
