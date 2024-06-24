@@ -14,6 +14,11 @@ export default function StackLayout() {
                 name="index"
                 options={{ headerShown: false, title: 'Settings' }}
             />
+            <Stack.Screen
+                name="themes"
+                options={{ headerShown: true, title: 'Themes', }}
+                
+            />
         </Stack>
     )
 }

@@ -1,18 +1,54 @@
+import { Ionicons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router'
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
+import {
+    View,
+    Text,
+    H1,
+    ScrollView,
+    YGroup,
+    Separator,
+    ListItem,
+} from 'tamagui'
 
 const Settings = () => {
+    const router = useRouter()
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.heading}>Settings</Text>
-
-            <View style={styles.section}>
-                <Text style={styles.sectionHeading}>General</Text>
-
-
-                <Text>Theme</Text>
-            </View>
-        </View>
+        <ScrollView margin={20}>
+            <YGroup>
+                {/* <YGroup.Item>
+                    <ListItem
+                        title="Account"
+                        pressTheme
+                        icon={<Ionicons name="person" size={24} />}
+                        iconAfter={<Ionicons name="chevron-forward" size={24} />}
+                    />
+                </YGroup.Item>
+                <YGroup.Item>
+                    <ListItem
+                        title="Notifications"
+                        pressTheme
+                        icon={<Ionicons name="notifications" size={24} />}
+                        iconAfter={<Ionicons name="chevron-forward" size={24} />}
+                    />
+                </YGroup.Item> */}
+                <YGroup.Item>
+                    <ListItem
+                        title="Themes"
+                        pressTheme
+                        icon={<Ionicons name="color-palette" size={24} />}
+                        iconAfter={
+                            <Ionicons name="chevron-forward" size={24} />
+                        }
+                        onPress={() => {
+                            router.push('settings/themes')
+                        }}
+                    />
+                </YGroup.Item>
+            </YGroup>
+        </ScrollView>
     )
 }
 
