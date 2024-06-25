@@ -222,7 +222,7 @@ const Tracker = ({}) => {
                                 alignItems="center"
                                 justifyContent="space-between"
                             >
-                                <Spacer />
+                                {/* <Spacer /> */}
                                 <H1>{formatTime(duration) || '0s'}</H1>
                                 {/* <TouchableOpacity
                                     onPress={() => {
