@@ -17,6 +17,7 @@ import { config } from '@tamagui/config/v3'
 import { PortalProvider } from 'tamagui'
 import { useMMKVString } from 'react-native-mmkv'
 import { type Theme } from '@/constants/types'
+import { StatusBar } from 'expo-status-bar'
 
 const tamaguiConfig = createTamagui(config)
 
@@ -69,6 +70,7 @@ export default function RootLayout() {
             config={tamaguiConfig}
             defaultTheme={theme.system ? colorScheme : 'dark'}
         >
+            {/* <StatusBar style={theme.system ? colorScheme : 'dark'} /> */}
             <ThemeProvider
                 value={
                     theme.system && colorScheme === 'light'
