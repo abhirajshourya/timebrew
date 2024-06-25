@@ -48,7 +48,7 @@ const Index = () => {
         <ScrollView>
             <YStack margin={20} gap={20}>
                 <YGroup>
-                    <H4>Sytem Theme</H4>
+                    <H4>System Theme</H4>
                 </YGroup>
                 <YGroup>
                     <YGroup.Item>
@@ -81,8 +81,8 @@ const Index = () => {
                     <H4>Custom Themes</H4>
                 </YGroup>
                 <YGroup>
-                    {Themes.map((theme) => (
-                        <YGroup.Item>
+                    {Themes.map((theme, i) => (
+                        <YGroup.Item key={i}>
                             <ListItem
                                 key={theme.id}
                                 pressTheme
@@ -96,7 +96,7 @@ const Index = () => {
                                         <Ionicons name="checkmark" size={24} />
                                     ) : null
                                 }
-                                onPress={() => setSelectedTheme(theme.name)}
+                                onPress={() => setSelectedTheme(theme.name.toLowerCase())}
                             />
                         </YGroup.Item>
                     ))}
