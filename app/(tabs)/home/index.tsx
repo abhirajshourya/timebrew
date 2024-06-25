@@ -31,6 +31,8 @@ import {
     XStack,
     YStack,
     ScrollView,
+    Button,
+    Spacer,
 } from 'tamagui'
 import Pomodoro from './pomodoro'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
@@ -154,6 +156,8 @@ const Tracker = ({}) => {
         <SafeAreaView>
             <YStack>
                 <XStack
+                    paddingTop={20}
+                    paddingBottom={10}
                     marginHorizontal={20}
                     alignItems="center"
                     justifyContent="space-between"
@@ -214,18 +218,13 @@ const Tracker = ({}) => {
                             delay={900}
                             isRunning={isRunning}
                         >
-                            <View style={{}}>
-                                <View>
-                                    <Text
-                                        style={{
-                                            fontSize: 36,
-                                            color: '#005c99',
-                                        }}
-                                    >
-                                        {formatTime(duration) || '0s'}
-                                    </Text>
-                                </View>
-                                <TouchableOpacity
+                            <YStack
+                                alignItems="center"
+                                justifyContent="space-between"
+                            >
+                                <Spacer />
+                                <H1>{formatTime(duration) || '0s'}</H1>
+                                {/* <TouchableOpacity
                                     onPress={() => {
                                         router.push('home/pomodoro')
                                     }}
@@ -251,8 +250,18 @@ const Tracker = ({}) => {
                                         size={30}
                                         color="#005c99"
                                     />
-                                </TouchableOpacity>
-                            </View>
+                                </TouchableOpacity> */}
+                                <Button
+                                    scale={0.7}
+                                    borderRadius={50}
+                                    variant="outlined"
+                                    borderColor={'$borderColor'}
+                                    onPress={() => router.push('home/pomodoro')}
+                                    icon={<Ionicons name="timer" size={30} />}
+                                >
+                                    Pomodoro
+                                </Button>
+                            </YStack>
                         </WavyRings>
                         <View style={styles.controlsContainer}>
                             <View>
