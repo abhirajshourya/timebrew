@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Tag } from '@/constants/types'
+import { View, Text, Card } from 'tamagui'
 
 type TagChipProps = {
     tag: Tag
@@ -9,19 +10,10 @@ type TagChipProps = {
 
 const TagChip = ({ children, tag, size = 'medium' }: TagChipProps) => {
     return (
-        <View
-            style={[
-                styles.colorTag,
-                { backgroundColor: tag.color + '2a' },
-                { borderColor: tag.color },
-                styles[`tag${size}`],
-            ]}
-        >
-            <Text style={[styles.tagName, { color: '#000000d6' }]}>
-                {tag.name}
-            </Text>
+        <Card backgroundColor={`${tag.color}70`} padding={5} borderRadius={100}>
+            <Text>{tag.name}</Text>
             {children}
-        </View>
+        </Card>
     )
 }
 
