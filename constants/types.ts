@@ -39,3 +39,13 @@ export interface TagDataset {
 }
 
 export type Duration = 'today' | 'week' | 'month' | 'year' | 'all'
+
+export type Settings = {
+    tutorial: boolean
+    themes: Theme
+}
+
+export type Theme = {
+    system: boolean
+    custom: string | null
+}

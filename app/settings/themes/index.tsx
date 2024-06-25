@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, useColorScheme } from 'react-native'
 import {
     View,
@@ -16,24 +16,47 @@ import {
     ScrollView,
 } from 'tamagui'
 import { Themes } from '@/constants/Themes'
+import { Theme } from '@/constants/types'
 import { Ionicons } from '@expo/vector-icons'
+import { useMMKVString } from 'react-native-mmkv'
 
 const Index = () => {
+    const [themeSettings, setThemeSettings] = useMMKVString('settings.themes')
+    const [theme, setTheme] = useState<Theme>(JSON.parse(themeSettings || '{}'))
+
+    useEffect(() => {
+        setThemeSettings(JSON.stringify(theme))
+    }, [theme])
+
     const colorScheme = useColorScheme()
 
-    const [systemTheme, setSystemTheme] = React.useState(false)
+    const [systemTheme, setSystemTheme] = React.useState(theme.system)
 
-    const [selectedTheme, setSelectedTheme] = React.useState('Default')
+    const [selectedTheme, setSelectedTheme] = React.useState(
+        theme.custom || Themes[0].name
+    )
+
+    useEffect(() => {
+        setTheme({
+            ...theme,
+            system: systemTheme,
+            custom: selectedTheme,
+        })
+    }, [selectedTheme, systemTheme])
 
     return (
         <ScrollView>
             <YStack margin={20} gap={20}>
-                <YGroup gap={10}>
+                <YGroup>
+                    <H4>Sytem Theme</H4>
+                </YGroup>
+                <YGroup>
                     <YGroup.Item>
-                        <ListItemTitle>System Theme</ListItemTitle>
                         <ListItem
                             pressTheme
-                            title={colorScheme === 'dark' ? 'Dark' : 'Light'}
+                            title={`${
+                                colorScheme === 'dark' ? 'Dark' : 'Light'
+                            } Mode`}
                         >
                             <XStack
                                 gap={10}
@@ -52,15 +75,22 @@ const Index = () => {
                             </XStack>
                         </ListItem>
                     </YGroup.Item>
-                    <Separator />
-                    <YGroup.Item>
-                        <ListItemTitle>Custom Themes</ListItemTitle>
-                        {Themes.map((theme) => (
+                </YGroup>
+                <Separator />
+                <YGroup>
+                    <H4>Custom Themes</H4>
+                </YGroup>
+                <YGroup>
+                    {Themes.map((theme) => (
+                        <YGroup.Item>
                             <ListItem
                                 key={theme.id}
                                 pressTheme
                                 title={theme.name}
                                 disabled={systemTheme}
+                                icon={
+                                    <Ionicons name="color-palette" size={24} />
+                                }
                                 iconAfter={
                                     selectedTheme === theme.name ? (
                                         <Ionicons name="checkmark" size={24} />
@@ -68,11 +98,10 @@ const Index = () => {
                                 }
                                 onPress={() => setSelectedTheme(theme.name)}
                             />
-                        ))}
-                        <ListItem
-                            disabled
-                            title={Themes.length + ' Themes'}
-                        ></ListItem>
+                        </YGroup.Item>
+                    ))}
+                    <YGroup.Item>
+                        <ListItem disabled title={Themes.length + ' Themes'} />
                     </YGroup.Item>
                 </YGroup>
             </YStack>
