@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import Animated, {
     useAnimatedStyle,
     useSharedValue,
@@ -8,6 +8,7 @@ import Animated, {
     withTiming,
     interpolate,
 } from 'react-native-reanimated'
+import { View, YStack } from 'tamagui'
 
 type WavyRingsProps = PropsWithChildren<{
     rings: number
@@ -25,13 +26,19 @@ const WavyRings = ({
 }: WavyRingsProps) => {
     return (
         <>
-            <View style={styles.container}>
+            <YStack justifyContent="center" alignItems="center">
                 <View
-                    style={[
-                        styles.circle,
-                        { width: width, height: width },
-                        styles.noOverlap,
-                    ]}
+                    backgroundColor={'$accentBackground'}
+                    width={width}
+                    height={width}
+                    zIndex={1}
+                    borderRadius={999}
+                    borderWidth={3}
+                    borderColor={'#005c99'}
+                    shadowColor={'#000'}
+                    shadowOffset={{ width: 0, height: 4 }}
+                    shadowOpacity={0.3}
+                    shadowRadius={4.65}
                 ></View>
 
                 {Array.from({ length: rings }).map((_, i) => (
@@ -44,10 +51,10 @@ const WavyRings = ({
                 ))}
                 {/* <Animated.View style={[styles.circle, { width: width, height: width, position: "absolute" }, circleStyle]} /> */}
 
-                <View style={{ position: 'absolute', zIndex: 2 }}>
+                <YStack position="absolute" zIndex={2}>
                     {children}
-                </View>
-            </View>
+                </YStack>
+            </YStack>
         </>
     )
 }
@@ -124,7 +131,7 @@ const styles = StyleSheet.create({
     },
     ring: {
         borderRadius: 999,
-        borderColor: '#99d6ff',
+        borderColor: '$accentBackground',
         borderWidth: 50,
         justifyContent: 'center',
         alignItems: 'center',
