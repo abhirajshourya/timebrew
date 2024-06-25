@@ -21,7 +21,17 @@ import {
     // Text,
     // View,
 } from 'react-native'
-import { Separator, Text, View, H1, H2, H3, XStack, YStack, ScrollView } from 'tamagui'
+import {
+    Separator,
+    Text,
+    View,
+    H1,
+    H2,
+    H3,
+    XStack,
+    YStack,
+    ScrollView,
+} from 'tamagui'
 import Pomodoro from './pomodoro'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import { useRouter, useSegments } from 'expo-router'
@@ -143,7 +153,11 @@ const Tracker = ({}) => {
     return (
         <SafeAreaView>
             <YStack>
-                <XStack marginHorizontal={20} alignItems="center" justifyContent="space-between">
+                <XStack
+                    marginHorizontal={20}
+                    alignItems="center"
+                    justifyContent="space-between"
+                >
                     <H2
                         style={{
                             // fontSize: 24,
@@ -156,14 +170,7 @@ const Tracker = ({}) => {
                         timebrew
                     </H2>
 
-                    <View
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            marginRight: 20,
-                            gap: 10,
-                        }}
-                    >
+                    <View>
                         {/* <TouchableOpacity
                         onPress={() => {
                             router.push('home/pomodoro')
@@ -305,16 +312,13 @@ const Tracker = ({}) => {
                     </View>
                     <View style={styles.logsContainer}>
                         <Separator marginVertical={20} />
-                        <Text
-                            style={{
-                                fontSize: 24,
-                                color: '#005c99',
-                                textAlign: 'center',
-                                marginBottom: 15,
-                            }}
+                        <H2
+                            alignSelf="center"
+                            color={'$accentColor'}
+                            marginBottom={20}
                         >
                             Logs
-                        </Text>
+                        </H2>
                         {timelogs &&
                             timelogs.map((timelog) => (
                                 <View
