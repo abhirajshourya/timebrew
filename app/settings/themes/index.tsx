@@ -92,11 +92,14 @@ const Index = () => {
                                     <Ionicons name="color-palette" size={24} />
                                 }
                                 iconAfter={
-                                    selectedTheme === theme.name ? (
+                                    selectedTheme ===
+                                    theme.name.toLowerCase() ? (
                                         <Ionicons name="checkmark" size={24} />
                                     ) : null
                                 }
-                                onPress={() => setSelectedTheme(theme.name.toLowerCase())}
+                                onPress={() =>
+                                    setSelectedTheme(theme.name.toLowerCase())
+                                }
                             />
                         </YGroup.Item>
                     ))}
