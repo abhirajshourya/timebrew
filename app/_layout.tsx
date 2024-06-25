@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import 'react-native-reanimated'
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { SQLiteProvider } from 'expo-sqlite/next'
@@ -14,7 +14,9 @@ import { useFonts } from 'expo-font'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TamaguiProvider, createTamagui } from '@tamagui/core' // or 'tamagui'
 import { config } from '@tamagui/config/v3'
-import { PortalProvider, Theme } from 'tamagui'
+import { PortalProvider } from 'tamagui'
+import { useMMKVString } from 'react-native-mmkv'
+import { type Theme } from '@/constants/types'
 
 const tamaguiConfig = createTamagui(config)
 
@@ -29,6 +31,13 @@ declare module 'tamagui' {
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
+    const [themeSettings, setThemeSettings] = useMMKVString('settings.themes')
+    const [theme, setTheme] = useState<Theme>(JSON.parse(themeSettings || '{}'))
+
+    useEffect(() => {
+        setTheme(JSON.parse(themeSettings || '{}'))
+    }, [themeSettings])
+
     const colorScheme = useColorScheme()
     const [loaded] = useFonts({
         SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -44,10 +53,28 @@ export default function RootLayout() {
         return null
     }
 
+    const returnTheme = (givenTheme) => {
+        switch (givenTheme) {
+            case 'light':
+                return DefaultTheme
+            case 'dark':
+                return DarkTheme
+            default:
+                return theme.system ? colorScheme : theme
+        }
+    }
+
     return (
-        <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme!}>
+        <TamaguiProvider
+            config={tamaguiConfig}
+            defaultTheme={theme.system ? colorScheme : 'dark'}
+        >
             <ThemeProvider
-                value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+                value={
+                    theme.system && colorScheme === 'light'
+                        ? DefaultTheme
+                        : DarkTheme
+                }
             >
                 <PortalProvider>
                     <SafeAreaView style={{ flex: 1 }}>
@@ -68,7 +95,7 @@ export default function RootLayout() {
                                 useSuspense
                                 databaseName="timebrew.db"
                             >
-                                <Stack>
+                                <Stack initialRouteName="Tracker">
                                     <Stack.Screen
                                         name="(tabs)"
                                         options={{
@@ -79,6 +106,7 @@ export default function RootLayout() {
                                     <Stack.Screen
                                         name="settings"
                                         options={{
+                                            headerShown: true,
                                             title: 'Settings',
                                         }}
                                     />
