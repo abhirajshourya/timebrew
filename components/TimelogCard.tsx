@@ -32,7 +32,7 @@ const TimelogCard = ({ timelog }: TimelogCardProps) => {
     }
 
     return (
-        <Card padding={20}>
+        <Card padding={20} shadowColor={'$shadowColor'} shadowOpacity={0.12} shadowRadius={20} elevation={8} borderRadius={10} backgroundColor={'$backgroundColor'}>
             <YStack>
                 <XStack alignItems="center" justifyContent="space-between">
                     <H3 style={styles.timelogText}>
