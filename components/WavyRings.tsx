@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     },
     ring: {
         borderRadius: 999,
-        borderColor: '$accentBackground',
+        borderColor: '#borderColor',
         borderWidth: 50,
         justifyContent: 'center',
         alignItems: 'center',
