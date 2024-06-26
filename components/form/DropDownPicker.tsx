@@ -102,11 +102,15 @@ const DropDownPicker = ({
                 )}
             </View> */}
 
-            <Select value={selectedValue} onValueChange={setValue} disablePreventBodyScroll>
+            <Select
+                value={selectedValue}
+                onValueChange={setValue}
+                disablePreventBodyScroll
+            >
                 <Select.Trigger
                     iconAfter={<Ionicons name="caret-down" size={24} />}
                 >
-                    <Select.Value placeholder={placeholder} >
+                    <Select.Value placeholder={placeholder}>
                         {selectedValue}
                     </Select.Value>
                 </Select.Trigger>
@@ -140,7 +144,9 @@ const DropDownPicker = ({
                     <Select.ScrollUpButton />
                     <Select.Viewport animation={'quick'}>
                         <Select.Group>
-                            <Select.Label>{placeholder}</Select.Label>
+                            <Select.Label backgroundColor={'$accentBackground'}>
+                                {placeholder}
+                            </Select.Label>
                             {useMemo(
                                 () =>
                                     items.map((item, i) => (

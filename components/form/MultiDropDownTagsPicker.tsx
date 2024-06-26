@@ -179,7 +179,7 @@ const MultiDropDownPicker = ({
                     <Select.ScrollUpButton />
                     <Select.Viewport animation={'quick'}>
                         <Select.Group>
-                            <Select.Label>{placeholder}</Select.Label>
+                            <Select.Label backgroundColor={'$accentBackground'}>{placeholder}</Select.Label>
                             {items.map((item, i) => (
                                 <Select.Item
                                     index={i}
