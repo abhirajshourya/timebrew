@@ -323,7 +323,7 @@ const Tracker = ({}) => {
                         <Separator marginVertical={20} />
                         <H2
                             alignSelf="center"
-                            color={'$accentColor'}
+                            // color={'$accentBackground'}
                             marginBottom={20}
                         >
                             Logs
@@ -404,8 +404,8 @@ const styles = StyleSheet.create({
         marginBottom: 200,
     },
     button: {
-        backgroundColor: '#005c99',
-        color: 'white',
+        // backgroundColor: '#005c99',
+        // color: 'white',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -421,8 +421,8 @@ const styles = StyleSheet.create({
         elevation: 8,
     },
     playPauseButton: {
-        backgroundColor: '#005c99',
-        color: 'white',
+        // backgroundColor: '#005c99',
+        // color: 'white',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

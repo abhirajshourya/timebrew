@@ -11,7 +11,7 @@ type Props = PropsWithChildren<{
 
 const CircleButton = ({ children, onPress, style, size, ...rest }: Props) => {
     return (
-        <Button onPress={onPress} style={[styles.btn, style]} {...rest}>
+        <Button backgroundColor={'$accentColor'} onPress={onPress} style={[styles.btn, style]} {...rest}>
             <Circle size={100}>{children}</Circle>
         </Button>
     )
