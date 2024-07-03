@@ -28,13 +28,13 @@ const WavyRings = ({
         <>
             <YStack justifyContent="center" alignItems="center">
                 <View
-                    backgroundColor={'$accentBackground'}
+                    backgroundColor={'$background'}
                     width={width}
                     height={width}
                     zIndex={1}
                     borderRadius={999}
                     borderWidth={3}
-                    borderColor={'#005c99'}
+                    borderColor={'$accentColor'}
                     shadowColor={'#000'}
                     shadowOffset={{ width: 0, height: 4 }}
                     shadowOpacity={0.3}
@@ -64,6 +64,8 @@ type RingProps = {
     width: number
     isRunning: boolean
 }
+
+const AnimatedView = Animated.createAnimatedComponent(View)
 
 const Ring = ({ delay, width, isRunning }: RingProps) => {
     const circle = useSharedValue(0)
@@ -95,7 +97,8 @@ const Ring = ({ delay, width, isRunning }: RingProps) => {
     }, [isRunning])
 
     return (
-        <Animated.View
+        <AnimatedView
+        borderColor={'$borderColor'}
             style={[
                 styles.ring,
                 { width: width, height: width, position: 'absolute' },
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     },
     ring: {
         borderRadius: 999,
-        borderColor: '#borderColor',
+        borderColor: '$accentBorder',
         borderWidth: 50,
         justifyContent: 'center',
         alignItems: 'center',
