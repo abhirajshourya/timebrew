@@ -10,7 +10,7 @@ import {
     TextInputProps,
 } from 'react-native'
 import TagChip from '../TagChip'
-import { Adapt, Select, Sheet, Text, View } from 'tamagui'
+import { Adapt, Select, Sheet, Text, View, XStack } from 'tamagui'
 
 type MultiDropDownTagsPickerProps = TextInputProps & {
     items: Tag[]
@@ -179,7 +179,9 @@ const MultiDropDownPicker = ({
                     <Select.ScrollUpButton />
                     <Select.Viewport animation={'quick'}>
                         <Select.Group>
-                            <Select.Label backgroundColor={'$accentBackground'}>{placeholder}</Select.Label>
+                            <Select.Label backgroundColor={'$accentBackground'}>
+                                {placeholder}
+                            </Select.Label>
                             {items.map((item, i) => (
                                 <Select.Item
                                     index={i}
@@ -219,13 +221,7 @@ const MultiDropDownPicker = ({
                     >
                         Selected Tags:
                     </Text>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            gap: 5,
-                        }}
-                    >
+                    <XStack gap={5}>
                         {localSelectedValues.map((tag) => (
                             <Pressable
                                 key={tag.id}
@@ -240,7 +236,7 @@ const MultiDropDownPicker = ({
                                 </TagChip>
                             </Pressable>
                         ))}
-                    </View>
+                    </XStack>
                 </View>
             )}
         </View>

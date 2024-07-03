@@ -18,7 +18,6 @@ import { PortalProvider } from 'tamagui'
 import { useMMKVString } from 'react-native-mmkv'
 import { type Theme } from '@/constants/types'
 import { StatusBar } from 'expo-status-bar'
-import CustomThemes from '@/constants/Themes'
 
 // Override the default Tamagui config with your custom config
 // config.themes = {

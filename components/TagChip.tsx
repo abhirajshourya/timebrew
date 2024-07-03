@@ -10,7 +10,7 @@ type TagChipProps = {
 
 const TagChip = ({ children, tag, size = 'medium' }: TagChipProps) => {
     return (
-        <Card backgroundColor={`${tag.color}70`} padding={5} borderRadius={100}>
+        <Card backgroundColor={`${tag.color}70`} padding={5} borderRadius={100} flexDirection='row' alignItems='center' justifyContent='center'>
             <Text>{tag.name}</Text>
             {children}
         </Card>
