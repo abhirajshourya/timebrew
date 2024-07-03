@@ -1,34 +1,41 @@
 import React, { ComponentProps } from 'react'
-import { StyleSheet, View, Text, Pressable, PressableProps } from 'react-native'
+import { StyleSheet, View, Pressable, PressableProps } from 'react-native'
+import { Button, ButtonProps, Text } from 'tamagui'
 
-type PrimaryButtonProps = PressableProps &
+type PrimaryButtonProps = ButtonProps &
     ComponentProps<typeof View> & {
         varient?: 'regular' | 'outline'
-        size?: 'small' | 'medium' | 'large'
         disabled?: boolean
     }
 
 const PrimaryButton = ({
     children,
     varient = 'regular',
-    size = 'medium',
     ...rest
 }: PrimaryButtonProps) => {
     return (
-        <Pressable
-            style={[styles.button, styles[varient], styles[size]]}
+        // <Pressable
+        //     style={[styles.button, styles[varient], styles[size]]}
+        //     {...rest}
+        // >
+        //     <Text
+        //         style={[
+        //             styles.text,
+        //             styles[`${varient}Text`],
+        //             styles[`${size}Text`],
+        //         ]}
+        //     >
+        //         {children}
+        //     </Text>
+        // </Pressable>
+        <Button
+            backgroundColor={'$accentColor'}
+            color={'$background'}
+            // variant='outlined'
             {...rest}
         >
-            <Text
-                style={[
-                    styles.text,
-                    styles[`${varient}Text`],
-                    styles[`${size}Text`],
-                ]}
-            >
-                {children}
-            </Text>
-        </Pressable>
+            {children}
+        </Button>
     )
 }
 
