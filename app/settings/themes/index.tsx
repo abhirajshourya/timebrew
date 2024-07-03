@@ -14,11 +14,13 @@ import {
     H4,
     ListItemTitle,
     ScrollView,
+    Square,
 } from 'tamagui'
-import { Themes } from '@/constants/Themes'
 import { Theme } from '@/constants/types'
 import { Ionicons } from '@expo/vector-icons'
 import { useMMKVString } from 'react-native-mmkv'
+import { ThemesColors } from '@/constants/Themes'
+import { capitalizeFirstLetter } from '@/helpers/text-helpers'
 
 const Index = () => {
     const [themeSettings, setThemeSettings] = useMMKVString('settings.themes')
@@ -32,17 +34,21 @@ const Index = () => {
 
     const [systemTheme, setSystemTheme] = React.useState(theme.system)
 
-    const [selectedTheme, setSelectedTheme] = React.useState(
-        theme.custom || Themes[0].name
+    // const [selectedTheme, setSelectedTheme] = React.useState(
+    //     theme.custom || ThemesColors[0].toLowerCase()
+    // )
+    const [selectedColor, setSelectedColor] = React.useState(
+        theme.color || ThemesColors[0].toLowerCase()
     )
 
     useEffect(() => {
         setTheme({
             ...theme,
             system: systemTheme,
-            custom: selectedTheme,
+            // custom: selectedTheme,
+            color: selectedColor,
         })
-    }, [selectedTheme, systemTheme])
+    }, [systemTheme, selectedColor])
 
     return (
         <ScrollView>
@@ -77,10 +83,10 @@ const Index = () => {
                     </YGroup.Item>
                 </YGroup>
                 <Separator />
-                <YGroup>
-                    <H4>Custom Themes</H4>
-                </YGroup>
-                <YGroup>
+                {/* <YGroup>
+                    <H4>Custom Color</H4>
+                </YGroup> */}
+                {/* <YGroup>
                     {Themes.map((theme, i) => (
                         <YGroup.Item key={i}>
                             <ListItem
@@ -106,6 +112,32 @@ const Index = () => {
                     <YGroup.Item>
                         <ListItem disabled title={Themes.length + ' Themes'} />
                     </YGroup.Item>
+                </YGroup> */}
+                <YGroup>
+                    <H4>Colors</H4>
+                </YGroup>
+                <YGroup>
+                    {ThemesColors.map((color,i)=>(
+                        <YGroup.Item key={i} >
+                            <ListItem
+                                key={`${color}-${i}`}
+                                pressTheme
+                                title={capitalizeFirstLetter(color)}
+                                icon={
+                                    <Square size={24} backgroundColor={color} borderRadius={5} borderColor={'#00000038'} borderWidth={1} />
+                                }
+                                iconAfter={
+                                    selectedColor ===
+                                    color.toLowerCase() ? (
+                                        <Ionicons name="checkmark" size={24} />
+                                    ) : null
+                                }
+                                onPress={() =>
+                                    setSelectedColor(color.toLowerCase())
+                                }
+                            />
+                        </YGroup.Item>
+                    ))}
                 </YGroup>
             </YStack>
         </ScrollView>

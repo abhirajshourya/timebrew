@@ -48,4 +48,5 @@ export type Settings = {
 export type Theme = {
     system: boolean
     custom: string | null
+    color: string
 }

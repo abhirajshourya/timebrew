@@ -18,6 +18,13 @@ import { PortalProvider } from 'tamagui'
 import { useMMKVString } from 'react-native-mmkv'
 import { type Theme } from '@/constants/types'
 import { StatusBar } from 'expo-status-bar'
+import CustomThemes from '@/constants/Themes'
+
+// Override the default Tamagui config with your custom config
+// config.themes = {
+//     ...config.themes,
+//     // ...CustomThemes,
+// }
 
 const tamaguiConfig = createTamagui(config)
 
@@ -54,21 +61,11 @@ export default function RootLayout() {
         return null
     }
 
-    const returnTheme = (givenTheme) => {
-        switch (givenTheme) {
-            case 'light':
-                return DefaultTheme
-            case 'dark':
-                return DarkTheme
-            default:
-                return theme.system ? colorScheme : theme
-        }
-    }
-
     return (
         <TamaguiProvider
             config={tamaguiConfig}
-            defaultTheme={theme.system ? colorScheme : 'dark'}
+            defaultTheme={`${theme.system && colorScheme === 'light' ? 'light' : 'dark'}_${theme.color}`}
+            // defaultTheme={theme.system ? colorScheme : 'dark'}
         >
             {/* <StatusBar style={theme.system ? colorScheme : 'dark'} /> */}
             <ThemeProvider
