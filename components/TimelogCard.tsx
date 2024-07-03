@@ -55,7 +55,7 @@ const TimelogCard = ({ timelog }: TimelogCardProps) => {
                     </H4>
                 </XStack>
                 <XStack alignItems="center" justifyContent="space-between">
-                    <Text color={'$accentColor'}>
+                    <Text>
                         {task ? task.description : 'Loading...'}
                     </Text>
                     {/* <TouchableOpacity onPress={handleDeleteTimelog}>
