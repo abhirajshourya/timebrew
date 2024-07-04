@@ -55,9 +55,9 @@ const Tags = () => {
                         marginHorizontal={20}
                     >
                         {tags.map((tag) => (
-                            <Pressable key={tag.id}>
+                            <View key={tag.id}>
                                 <TagCard tag={tag} handleEdit={handleEdit} />
-                            </Pressable>
+                            </View>
                         ))}
                     </YStack>
                 </ScrollView>
