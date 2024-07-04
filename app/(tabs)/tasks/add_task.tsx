@@ -4,7 +4,17 @@ import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import React, { useEffect, useState } from 'react'
-import { Alert, Button, ScrollView, Text, View } from 'react-native'
+import { Alert } from 'react-native'
+import {
+    Text,
+    View,
+    Button,
+    ScrollView,
+    Input,
+    YStack,
+    Label,
+    YGroup,
+} from 'tamagui'
 
 interface EditTaskProps {
     route: any
@@ -35,40 +45,22 @@ const AddTask = ({ route, navigation }: EditTaskProps) => {
     }
 
     return (
-        <View
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                margin: 20,
-                backgroundColor: '#fff',
-                borderRadius: 10,
-                padding: 20,
-                shadowColor: '#000',
-                shadowOffset: {
-                    width: 0,
-                    height: 4,
-                },
-                shadowOpacity: 0.3,
-                shadowRadius: 4.65,
-                elevation: 8,
-            }}
-        >
-            <TextInput
-                value={taskDesc}
-                setValue={handleDescriptionChange}
-                placeholder="Enter Task Name"
-            />
-            <View
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                    alignContent: 'center',
-                }}
-            >
-                <Button title="Save" onPress={handleSave} />
+        <YStack margin={20} gap={20}>
+            <YGroup>
+                <Label>Task Name</Label>
+                <Input
+                    placeholder="Enter Task Name"
+                    value={taskDesc}
+                    onChangeText={setTaskDesc}
+                    placeholderTextColor={'$color'}
+                />
+            </YGroup>
+            <View>
+                <Button onPress={handleSave} backgroundColor={'$borderColor'}>
+                    <Text>Save</Text>
+                </Button>
             </View>
-        </View>
+        </YStack>
     )
 }
 

@@ -4,17 +4,13 @@ import useDatabase from '@/hooks/useDatabase'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import React, { useEffect, useState } from 'react'
-import {
-    SafeAreaView,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
-} from 'react-native'
+import { SafeAreaView, TouchableOpacity } from 'react-native'
+import { Button, Text, View, ScrollView, YStack } from 'tamagui'
 import EditTask from './edit_task'
 import AddTask from './add_task'
 import { Feather } from '@expo/vector-icons'
 import { useSegments } from 'expo-router'
+import { Plus } from '@tamagui/lucide-icons'
 
 interface TasksPageProps {
     navigation: NativeStackNavigationHelpers
@@ -32,7 +28,7 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
     useEffect(() => {
         getTasks().then(setTasks)
     }, [segment])
-    
+
     return (
         <SafeAreaView>
             <View
@@ -41,7 +37,8 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    margin: 20,
+                    // margin: 20,
+                    padding: 20,
                 }}
             >
                 <Text
@@ -52,9 +49,13 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
                 >
                     All Tasks
                 </Text>
-                <TouchableOpacity onPress={handleFABPress}>
-                    <Feather name="plus" size={24} color="black" />
-                </TouchableOpacity>
+                <Button
+                    onPress={handleFABPress}
+                    chromeless
+                    marginEnd={-20}
+                    icon={<Plus size={24} />}
+                />
+                {/* <Feather name="plus" size={24} color="black" /> */}
             </View>
             <ScrollView
                 style={{
@@ -62,10 +63,12 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
                     flexDirection: 'column',
                 }}
             >
-                <View
+                <YStack
                     style={{
                         marginBottom: 200,
                     }}
+                    gap={10}
+                    marginHorizontal={20}
                 >
                     {tasks &&
                         tasks.map((task) => (
@@ -75,7 +78,7 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
                                 navigation={navigation}
                             />
                         ))}
-                </View>
+                </YStack>
             </ScrollView>
         </SafeAreaView>
     )
