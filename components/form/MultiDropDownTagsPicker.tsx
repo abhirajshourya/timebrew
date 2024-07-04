@@ -10,7 +10,8 @@ import {
     TextInputProps,
 } from 'react-native'
 import TagChip from '../TagChip'
-import { Adapt, Select, Sheet, Text, View, XStack } from 'tamagui'
+import { Adapt, Button, Select, Sheet, Text, View, XStack } from 'tamagui'
+import { Check, X } from '@tamagui/lucide-icons'
 
 type MultiDropDownTagsPickerProps = TextInputProps & {
     items: Tag[]
@@ -140,14 +141,17 @@ const MultiDropDownPicker = ({
                 <Select.Trigger
                     iconAfter={<Ionicons name="caret-down" size={24} />}
                 >
-                    <Select.Value placeholder={placeholder}>
-                        {/* {localSelectedValues.length > 0
-                            ? localSelectedValues
-                                  .map((tag) => tag.name)
-                                  .join(', ')
-                            : placeholder} */}
+                    {/* {val ? (
+                        <Select.Value placeholder={placeholder}>
+                            {val}
+                        </Select.Value>
+                    ) : (
+                        <Text>{placeholder}</Text>
+                    )} */}
+                    <Text>{placeholder}</Text>
+                    {/* <Select.Value placeholder={placeholder}>
                         {placeholder}
-                    </Select.Value>
+                    </Select.Value> */}
                 </Select.Trigger>
 
                 <Adapt when={'sm'} platform="touch">
@@ -188,16 +192,12 @@ const MultiDropDownPicker = ({
                                     key={item.id}
                                     value={item.name}
                                 >
-                                    {item.name}
-                                    {localSelectedValues.find(
-                                        (tag) => tag.name === item.name
-                                    ) ? (
-                                        <Ionicons
-                                            name="checkmark"
-                                            size={20}
-                                            color="green"
-                                        />
-                                    ) : null}
+                                    <XStack gap={10}>
+                                        <Text>{item.name}</Text>
+                                        {localSelectedValues.find(
+                                            (tag) => tag.name === item.name
+                                        ) && <Check size={20} />}
+                                    </XStack>
                                 </Select.Item>
                             ))}
                         </Select.Group>
@@ -232,7 +232,7 @@ const MultiDropDownPicker = ({
                                 }}
                             >
                                 <TagChip tag={tag}>
-                                    <Ionicons name="close" size={12} />
+                                    <X size={10} />
                                 </TagChip>
                             </Pressable>
                         ))}
