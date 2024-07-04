@@ -37,6 +37,7 @@ import {
 import Pomodoro from './pomodoro'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import { useRouter, useSegments } from 'expo-router'
+import { TimerReset } from '@tamagui/lucide-icons'
 
 const Tracker = ({}) => {
     const {
@@ -257,9 +258,9 @@ const Tracker = ({}) => {
                                     variant="outlined"
                                     borderColor={'$borderColor'}
                                     onPress={() => router.push('home/pomodoro')}
-                                    icon={<Ionicons name="timer" size={30} />}
+                                    icon={<TimerReset size={24} />}
                                 >
-                                    Pomodoro
+                                    <Text fontSize={'$6'}>Pomodoro</Text>
                                 </Button>
                             </YStack>
                         </WavyRings>
@@ -350,6 +351,7 @@ const Tracker = ({}) => {
                         </Text>
                     )}
                 </ScrollView>
+
                 <TimeLogModal
                     isVisible={isModalVisible}
                     onClose={() => setIsModalVisible(false)}
@@ -368,14 +370,16 @@ const Tracker = ({}) => {
                     <View>
                         <Text style={styles.label}>Tags</Text>
                         <MultiDropDownPicker
-                            items={tags}
-                            selectedValues={selectedTags}
-                            setValues={setSelectedTags}
-                            placeholder="Add tags"
-                        />
+                                items={tags}
+                                selectedValues={selectedTags}
+                                setValues={(values) => setSelectedTags(values)}
+                                placeholder="Add tags"
+                            />
                     </View>
                     <View style={{ marginBottom: 20 }}>
-                        <PrimaryButton onPress={handleSave}>Save</PrimaryButton>
+                        <PrimaryButton onPress={handleSave}>
+                            <Text>Save</Text>
+                        </PrimaryButton>
                     </View>
                 </TimeLogModal>
             </YStack>
