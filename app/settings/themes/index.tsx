@@ -32,12 +32,12 @@ const Index = () => {
 
     const colorScheme = useColorScheme()
 
-    const [systemTheme, setSystemTheme] = React.useState(theme.system)
+    const [systemTheme, setSystemTheme] = useState(theme.system)
 
     // const [selectedTheme, setSelectedTheme] = React.useState(
     //     theme.custom || ThemesColors[0].toLowerCase()
     // )
-    const [selectedColor, setSelectedColor] = React.useState(
+    const [selectedColor, setSelectedColor] = useState(
         theme.color || ThemesColors[0].toLowerCase()
     )
 
