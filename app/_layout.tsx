@@ -14,9 +14,10 @@ import { useFonts } from 'expo-font'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TamaguiProvider, createTamagui } from '@tamagui/core' // or 'tamagui'
 import { config } from '@tamagui/config/v3'
-import { PortalProvider } from 'tamagui'
+import { PortalProvider, useTheme } from 'tamagui'
 import { useMMKVString } from 'react-native-mmkv'
 import { type Theme } from '@/constants/types'
+import { Theme as NavigationThemeType } from '@react-navigation/native/src/types'
 import { StatusBar } from 'expo-status-bar'
 
 // Override the default Tamagui config with your custom config
@@ -40,12 +41,39 @@ SplashScreen.preventAutoHideAsync()
 export default function RootLayout() {
     const [themeSettings, setThemeSettings] = useMMKVString('settings.themes')
     const [theme, setTheme] = useState<Theme>(JSON.parse(themeSettings || '{}'))
+    const [NavigationTheme, setNavigationTheme] =
+        useState<NavigationThemeType>(DefaultTheme)
+
+    const colorScheme = useColorScheme()
+    // const usedTheme = useTheme()
+
+    // const NavigationTheme: NavigationThemeType = {
+    //     dark: theme.system && colorScheme === 'light' ? false : true,
+    //     colors: {
+    //         primary: usedTheme.accentColor.get(),
+    //         background: usedTheme.background.get(),
+    //         card: usedTheme.background.get(),
+    //         text: usedTheme.color.get(),
+    //         border: usedTheme.borderColor.get(),
+    //         notification: usedTheme.accentColor.get(),
+    //     },
+    // }
 
     useEffect(() => {
         setTheme(JSON.parse(themeSettings || '{}'))
+        // setNavigationTheme({
+        //     dark: theme.system && colorScheme === 'light' ? false : true,
+        //     colors: {
+        //         primary: usedTheme.accentColor.val ?? DefaultTheme.colors.primary,
+        //         background: usedTheme.background.val ?? DefaultTheme.colors.background,
+        //         card: usedTheme.background.val ?? DefaultTheme.colors.card,
+        //         text: usedTheme.color.val ?? DefaultTheme.colors.text,
+        //         border: usedTheme.borderColor.val ?? DefaultTheme.colors.border,
+        //         notification: usedTheme.accentColor.val ?? DefaultTheme.colors.notification,
+        //     },
+        // })
     }, [themeSettings])
 
-    const colorScheme = useColorScheme()
     const [loaded] = useFonts({
         SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     })
@@ -60,10 +88,20 @@ export default function RootLayout() {
         return null
     }
 
+    // console.log(
+    //     'themeSettings',
+    //     `${theme.system && colorScheme === 'light' ? 'light' : 'dark'}_${
+    //         theme.color
+    //     }`,
+    //     usedTheme
+    // )
     return (
         <TamaguiProvider
             config={tamaguiConfig}
-            defaultTheme={`${theme.system && colorScheme === 'light' ? 'light' : 'dark'}_${theme.color}`}
+            defaultTheme={`${
+                theme.system && colorScheme === 'light' ? 'light' : 'dark'
+            }_${theme.color}`}
+            // defaultTheme={`${theme.system && colorScheme === 'light' ? 'light' : 'dark'}_${theme.color}`}
             // defaultTheme={theme.system ? colorScheme : 'dark'}
         >
             {/* <StatusBar style={theme.system ? colorScheme : 'dark'} /> */}
@@ -73,6 +111,7 @@ export default function RootLayout() {
                         ? DefaultTheme
                         : DarkTheme
                 }
+                // value={NavigationTheme}
             >
                 <PortalProvider>
                     <SafeAreaView style={{ flex: 1 }}>
