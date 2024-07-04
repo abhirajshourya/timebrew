@@ -370,16 +370,22 @@ const Tracker = ({}) => {
                     <View>
                         <Text style={styles.label}>Tags</Text>
                         <MultiDropDownPicker
-                                items={tags}
-                                selectedValues={selectedTags}
-                                setValues={(values) => setSelectedTags(values)}
-                                placeholder="Add tags"
-                            />
+                            items={tags}
+                            selectedValues={selectedTags}
+                            setValues={(values) => setSelectedTags(values)}
+                            placeholder="Add tags"
+                        />
                     </View>
                     <View style={{ marginBottom: 20 }}>
-                        <PrimaryButton onPress={handleSave}>
+                        <Button
+                            onPress={handleSave}
+                            backgroundColor={'$borderColor'}
+                        >
                             <Text>Save</Text>
-                        </PrimaryButton>
+                        </Button>
+                        {/* <PrimaryButton onPress={handleSave}>
+                            <Text>Save</Text>
+                        </PrimaryButton> */}
                     </View>
                 </TimeLogModal>
             </YStack>
