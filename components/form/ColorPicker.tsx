@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Pressable } from 'react-native'
+import { StyleSheet, Pressable } from 'react-native'
 import { TabBarIcon } from '../navigation/TabBarIcon'
+import { Circle, View } from 'tamagui'
 
 const ColorPicker = ({
     selectedColor,
@@ -25,7 +26,7 @@ const ColorPicker = ({
         <View style={styles.container}>
             <View style={styles.colorContainer}>
                 {colors.map((color) => (
-                    <Pressable
+                    <Circle
                         key={color}
                         style={[
                             styles.color,
@@ -37,7 +38,7 @@ const ColorPicker = ({
                         {selectedColor === color && (
                             <TabBarIcon name="checkmark" color="black" />
                         )}
-                    </Pressable>
+                    </Circle>
                 ))}
             </View>
         </View>
