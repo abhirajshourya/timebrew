@@ -5,11 +5,12 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import useDatabase from '@/hooks/useDatabase'
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, Text, Pressable, Alert } from 'react-native'
+import { StyleSheet, Pressable, Alert } from 'react-native'
 import { Tag } from '@/constants/types'
 import ErrorText from '@/components/form/ErrorText'
 import { cleanText } from '@/helpers/text-helpers'
 import { DangerButton, PrimaryButton } from '@/components/Buttons'
+import { Button, Input, Label, Text, View, YGroup, YStack } from 'tamagui'
 
 const Add = () => {
     const router = useRouter()
@@ -31,7 +32,7 @@ const Add = () => {
 
     const handleSubmit = () => {
         if (checkErrors()) {
-            console.log('Errors found', errors)
+            // console.error('Errors found', errors)
             return
         }
 
@@ -104,51 +105,59 @@ const Add = () => {
     }, [name, selectedColor])
 
     return (
-        <>
-            <View style={styles.container}>
-                <Text style={styles.heading}>
+        <YStack margin={20} gap={20}>
+            {/* <Text style={styles.heading}>
                     {params.id ? 'Edit Tag' : 'Create New Tag'}
-                </Text>
+                </Text> */}
 
-                <View style={styles.form}>
-                    <View>
-                        <Text style={styles.label}>Tag Name</Text>
-                        <TextInput
-                            value={name}
-                            setValue={(text: string) =>
-                                setName(text.toLowerCase())
-                            }
-                            placeholder="E.g. work, personal, study, etc."
-                            // onFocus={() => console.log('focus')}
-                            // onBlur={() => console.log('blur')}
-                        />
-                        <ErrorText error={errors.name} />
-                        {/* <TextInput placeholder="Tag Description" /> */}
-                    </View>
+            <YGroup>
+                <Label>Tag Name</Label>
+                <Input
+                    value={name}
+                    onChangeText={setName}
+                    placeholder="E.g. work, personal, study, etc."
+                    placeholderTextColor={'$color'}
+                />
+                {/* <TextInput
+                        value={name}
+                        setValue={(text: string) => setName(text.toLowerCase())}
+                        placeholder="E.g. work, personal, study, etc."
+                        // onFocus={() => console.log('focus')}
+                        // onBlur={() => console.log('blur')}
+                    /> */}
+                {/* <ErrorText error={errors.name} /> */}
+                {/* <TextInput placeholder="Tag Description" /> */}
+            </YGroup>
 
-                    <View>
-                        <Text style={styles.label}>Tag Color</Text>
+            <YGroup>
+                <Label>Tag Color</Label>
 
-                        <ColorPicker
-                            selectedColor={selectedColor}
-                            setSelectedColor={setSelectedColor}
-                        />
-                        <ErrorText error={errors.color} />
-                    </View>
+                <ColorPicker
+                    selectedColor={selectedColor}
+                    setSelectedColor={setSelectedColor}
+                />
+                {/* <ErrorText error={errors.color} /> */}
+            </YGroup>
 
-                    {params.id && (
-                        <View style={styles.formActions}>
-                            <DangerButton onPress={handleDelete}>
-                                Delete Tag
-                            </DangerButton>
-                        </View>
-                    )}
+            <YStack gap={10}>
+                <Button onPress={handleSubmit} backgroundColor={'$borderColor'}>
+                    <Text>Save</Text>
+                </Button>
+                {params.id && (
+                    <Button onPress={handleDelete} variant="outlined">
+                        <Text color={'red'}>Delete</Text>
+                    </Button>
+                )}
+            </YStack>
+
+            {/* {params.id && (
+                <View style={styles.formActions}>
+                    <DangerButton onPress={handleDelete}>
+                        Delete Tag
+                    </DangerButton>
                 </View>
-            </View>
-            <FAB onPress={handleSubmit}>
-                <TabBarIcon name="checkmark" color="white" />
-            </FAB>
-        </>
+            )} */}
+        </YStack>
     )
 }
 
