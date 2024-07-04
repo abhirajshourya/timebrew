@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
+import { Check, X } from '@tamagui/lucide-icons'
 import React, { useMemo, useRef, useState } from 'react'
 import {
     Pressable,
@@ -9,8 +10,7 @@ import {
     TextInputProps,
     ViewStyle,
 } from 'react-native'
-import { Adapt, Select, Sheet, YStack, Text, View } from 'tamagui'
-import { LinearGradient } from 'tamagui/linear-gradient'
+import { Adapt, Select, Sheet, YStack, Text, View, XStack } from 'tamagui'
 
 type DropDownPickerProps = TextInputProps & {
     items: string[]
@@ -104,15 +104,22 @@ const DropDownPicker = ({
 
             <Select
                 value={selectedValue}
-                onValueChange={setValue}
+                onValueChange={(value) => setValue(value)}
                 disablePreventBodyScroll
             >
                 <Select.Trigger
                     iconAfter={<Ionicons name="caret-down" size={24} />}
                 >
-                    <Select.Value placeholder={placeholder}>
+                    {selectedValue ? (
+                        <Select.Value placeholder={placeholder}>
+                            {selectedValue}
+                        </Select.Value>
+                    ) : (
+                        <Text>{placeholder}</Text>
+                    )}
+                    {/* <Select.Value placeholder={placeholder}>
                         {selectedValue}
-                    </Select.Value>
+                    </Select.Value> */}
                 </Select.Trigger>
 
                 <Adapt when={'sm'} platform="touch">
@@ -144,7 +151,7 @@ const DropDownPicker = ({
                     <Select.ScrollUpButton />
                     <Select.Viewport animation={'quick'}>
                         <Select.Group>
-                            <Select.Label backgroundColor={'$accentBackground'}>
+                            <Select.Label themeInverse>
                                 {placeholder}
                             </Select.Label>
                             {useMemo(
@@ -155,7 +162,12 @@ const DropDownPicker = ({
                                             key={item}
                                             value={item}
                                         >
-                                            {item}
+                                            <XStack gap={10}>
+                                                <Text>{item}</Text>
+                                                {item === selectedValue && (
+                                                    <Check size={20} />
+                                                )}
+                                            </XStack>
                                         </Select.Item>
                                     )),
                                 [items]
