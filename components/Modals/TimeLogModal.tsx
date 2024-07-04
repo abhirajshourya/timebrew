@@ -69,7 +69,7 @@ const TimeLogModal = ({
                         <XStack alignItems='center' justifyContent='space-between'>
                             <H3>{title || 'Time Log'}</H3>
 
-                            <Button onPress={onClose} chromeless icon={<Ionicons name="close" size={30} />} />
+                            <Button onPress={onClose} chromeless padding={0} icon={<Ionicons name="close" size={30} />} />
                         </XStack>
                         <YStack gap={12}>{children}</YStack>
                     </YStack>
