@@ -100,7 +100,7 @@ export default function RootLayout() {
             config={tamaguiConfig}
             defaultTheme={`${
                 theme.system && colorScheme === 'light' ? 'light' : 'dark'
-            }_${theme.color}`}
+            }_${theme.color || 'blue'}`}
             // defaultTheme={`${theme.system && colorScheme === 'light' ? 'light' : 'dark'}_${theme.color}`}
             // defaultTheme={theme.system ? colorScheme : 'dark'}
         >
