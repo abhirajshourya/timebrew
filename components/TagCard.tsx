@@ -32,7 +32,7 @@ const TagCard = ({ tag, handleEdit }: TagCardProps) => {
             >
                 <YStack gap={4}>
                     <XStack>
-                        <TagChip tag={tag} />
+                        <TagChip tag={tag} cardProps={{ padding: '$2' }} />
                     </XStack>
                     <Text>{formatTime(totalTime) || 'No time logged'}</Text>
                 </YStack>
