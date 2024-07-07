@@ -9,20 +9,21 @@ import { Button, Text, View, ScrollView, YStack } from 'tamagui'
 import EditTask from './edit_task'
 import AddTask from './add_task'
 import { Feather } from '@expo/vector-icons'
-import { useSegments } from 'expo-router'
+import { useRouter, useSegments } from 'expo-router'
 import { Plus } from '@tamagui/lucide-icons'
 
-interface TasksPageProps {
-    navigation: NativeStackNavigationHelpers
-}
 
-const TasksPage = ({ navigation }: TasksPageProps) => {
+
+const TasksPage = () => {
+    const router = useRouter()
     const { getTasks } = useDatabase()
     const [tasks, setTasks] = useState<Task[]>([])
     const segment = useSegments()
 
     const handleFABPress = () => {
-        navigation.navigate('AddTask')
+        // navigation.navigate('AddTask')
+        router.push('tasks/add_task')
+
     }
 
     useEffect(() => {
@@ -75,7 +76,6 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
                             <TaskCard
                                 key={task.id}
                                 task={task}
-                                navigation={navigation}
                             />
                         ))}
                 </YStack>
@@ -84,41 +84,41 @@ const TasksPage = ({ navigation }: TasksPageProps) => {
     )
 }
 
-const Tasks = () => {
-    const TasksStack = createNativeStackNavigator()
+// const Tasks = () => {
+//     const TasksStack = createNativeStackNavigator()
 
-    return (
-        <TasksStack.Navigator
-            initialRouteName="TaskPage"
-            screenOptions={{
-                headerShown: true,
-            }}
-        >
-            <TasksStack.Screen
-                name="TasksPage"
-                component={TasksPage}
-                options={{
-                    headerShown: false,
-                }}
-            />
-            <TasksStack.Screen
-                name="EditTask"
-                component={EditTask}
-                options={{
-                    title: 'Edit Task',
-                    headerBackTitle: 'All Tasks',
-                }}
-            />
-            <TasksStack.Screen
-                name="AddTask"
-                component={AddTask}
-                options={{
-                    title: 'Add Task',
-                    headerBackTitle: 'All Tasks',
-                }}
-            />
-        </TasksStack.Navigator>
-    )
-}
+//     return (
+//         <TasksStack.Navigator
+//             initialRouteName="TaskPage"
+//             screenOptions={{
+//                 headerShown: true,
+//             }}
+//         >
+//             <TasksStack.Screen
+//                 name="TasksPage"
+//                 component={TasksPage}
+//                 options={{
+//                     headerShown: false,
+//                 }}
+//             />
+//             <TasksStack.Screen
+//                 name="EditTask"
+//                 component={EditTask}
+//                 options={{
+//                     title: 'Edit Task',
+//                     headerBackTitle: 'All Tasks',
+//                 }}
+//             />
+//             <TasksStack.Screen
+//                 name="AddTask"
+//                 component={AddTask}
+//                 options={{
+//                     title: 'Add Task',
+//                     headerBackTitle: 'All Tasks',
+//                 }}
+//             />
+//         </TasksStack.Navigator>
+//     )
+// }
 
-export default Tasks
+export default TasksPage

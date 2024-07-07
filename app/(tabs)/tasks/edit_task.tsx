@@ -1,12 +1,13 @@
 import { PrimaryButton, RegularButton } from '@/components/Buttons'
 import TextInput from '@/components/form/TextInput'
-import { Timelog } from '@/constants/types'
+import { Task, Timelog } from '@/constants/types'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import { X } from '@tamagui/lucide-icons'
 import * as DocumentPricker from 'expo-document-picker'
 import * as File from 'expo-file-system'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import * as Sharing from 'expo-sharing'
 import React, { useEffect, useState } from 'react'
 import { Alert, Platform } from 'react-native'
@@ -27,12 +28,7 @@ import {
     XGroup,
 } from 'tamagui'
 
-interface EditTaskProps {
-    route: any
-    navigation: NativeStackNavigationHelpers
-}
-
-const EditTask = ({ route, navigation }: EditTaskProps) => {
+const EditTask = () => {
     const {
         updateTask,
         deleteTask,
@@ -40,14 +36,15 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
         createTimelog,
         updateTimelog,
     } = useDatabase()
-
-    const [taskDesc, setTaskDesc] = useState(route.params.task.description)
+    const router = useRouter()
+    const params = useLocalSearchParams() as unknown as Task
+    const [taskDesc, setTaskDesc] = useState(params.description)
     const [timelogs, setTimelogs] = useState<Timelog[]>([])
-    const taskId = route.params.task.id
+    const taskId = params.id
 
     useEffect(() => {
         const fetchTimelogs = async () => {
-            const timelogs = await getTimelogsForTask(route.params.task.id)
+            const timelogs = await getTimelogsForTask(params.id)
             setTimelogs(timelogs)
         }
 
@@ -60,8 +57,8 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
 
     const handleSave = async () => {
         try {
-            await updateTask({ ...route.params.task, description: taskDesc })
-            navigation.goBack()
+            await updateTask({ id: params.id, description: taskDesc })
+            router.dismiss()
         } catch (error) {
             console.error('Error updating task')
         }
@@ -80,8 +77,8 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
                     text: 'Delete',
                     onPress: async () => {
                         try {
-                            await deleteTask(route.params.task.id)
-                            navigation.goBack()
+                            await deleteTask(params.id)
+                            router.dismiss()
                         } catch (error) {
                             console.error('Error deleting task')
                         }
@@ -95,7 +92,7 @@ const EditTask = ({ route, navigation }: EditTaskProps) => {
     const handleExport = async () => {
         try {
             const data = {
-                task: route.params.task.description,
+                task: taskDesc,
                 timelogs: timelogs,
             }
             const json = JSON.stringify(data)
