@@ -31,7 +31,6 @@ const Index = () => {
     }, [theme])
 
     const colorScheme = useColorScheme()
-
     const [systemTheme, setSystemTheme] = useState(theme.system)
 
     // const [selectedTheme, setSelectedTheme] = React.useState(
@@ -82,7 +81,7 @@ const Index = () => {
                         </ListItem>
                     </YGroup.Item>
                 </YGroup>
-                <Separator />
+                {/* <Separator /> */}
                 {/* <YGroup>
                     <H4>Custom Color</H4>
                 </YGroup> */}
@@ -117,18 +116,23 @@ const Index = () => {
                     <H4>Colors</H4>
                 </YGroup>
                 <YGroup>
-                    {ThemesColors.map((color,i)=>(
-                        <YGroup.Item key={i} >
+                    {ThemesColors.map((color, i) => (
+                        <YGroup.Item key={i}>
                             <ListItem
                                 key={`${color}-${i}`}
                                 pressTheme
                                 title={capitalizeFirstLetter(color)}
                                 icon={
-                                    <Square size={24} backgroundColor={color} borderRadius={5} borderColor={'#00000038'} borderWidth={1} />
+                                    <Square
+                                        size={24}
+                                        backgroundColor={color}
+                                        borderRadius={5}
+                                        borderColor={'#00000038'}
+                                        borderWidth={1}
+                                    />
                                 }
                                 iconAfter={
-                                    selectedColor ===
-                                    color.toLowerCase() ? (
+                                    selectedColor === color.toLowerCase() ? (
                                         <Ionicons name="checkmark" size={24} />
                                     ) : null
                                 }
