@@ -9,7 +9,7 @@ import { Suspense, useEffect, useState } from 'react'
 import 'react-native-reanimated'
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { SQLiteProvider } from 'expo-sqlite/next'
-import { Text, View } from 'react-native'
+import { Text, View, LogBox } from 'react-native'
 import { useFonts } from 'expo-font'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TamaguiProvider, createTamagui } from '@tamagui/core' // or 'tamagui'
@@ -43,6 +43,11 @@ export default function RootLayout() {
     const [theme, setTheme] = useState<Theme>(JSON.parse(themeSettings || '{}'))
     const [NavigationTheme, setNavigationTheme] =
         useState<NavigationThemeType>(DefaultTheme)
+
+    // this is a workaround for a bug in react-native-reanimated specifically on iOS
+    LogBox.ignoreLogs([
+        'Sending `onAnimatedValueUpdate` with no listeners registered.',
+    ])
 
     const colorScheme = useColorScheme()
     // const usedTheme = useTheme()
