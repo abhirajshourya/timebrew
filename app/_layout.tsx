@@ -48,6 +48,8 @@ export default function RootLayout() {
     LogBox.ignoreLogs([
         'Sending `onAnimatedValueUpdate` with no listeners registered.',
     ])
+    // this is a workaround for a error which appears only once when changing the theme
+    LogBox.ignoreLogs(['Warning: Cannot update a component'])
 
     const colorScheme = useColorScheme()
     // const usedTheme = useTheme()
