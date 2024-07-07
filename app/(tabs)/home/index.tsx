@@ -18,6 +18,7 @@ import {
     SafeAreaView,
     StyleSheet,
     TouchableOpacity,
+    Vibration,
     // Text,
     // View,
 } from 'react-native'
@@ -37,7 +38,8 @@ import {
 import Pomodoro from './pomodoro'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import { useRouter, useSegments } from 'expo-router'
-import { TimerReset } from '@tamagui/lucide-icons'
+import { Settings, Settings2, TimerReset } from '@tamagui/lucide-icons'
+import { set } from 'lodash'
 
 const Tracker = ({}) => {
     const {
@@ -66,6 +68,7 @@ const Tracker = ({}) => {
     const [tags, setTags] = useState<Tag[]>([])
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [isModalVisible, setIsModalVisible] = useState(false)
+    const [reload, setReload] = useState(false)
 
     const router = useRouter()
     const segments = useSegments()
@@ -73,8 +76,9 @@ const Tracker = ({}) => {
     useEffect(() => {
         getTimeLogs().then((timelogs) => {
             setTimelogs(timelogs)
+            setReload(false)
         })
-    }, [segments])
+    }, [segments, reload])
 
     function handleOnStop() {
         pause()
@@ -168,8 +172,6 @@ const Tracker = ({}) => {
                             // fontSize: 24,
                             fontWeight: '600',
                             margin: 20,
-                            fontStyle: 'italic',
-                            color: '#005c99',
                         }}
                     >
                         timebrew
@@ -198,17 +200,15 @@ const Tracker = ({}) => {
                     >
                         <Ionicons name="timer" size={30} color="#005c99" />
                     </TouchableOpacity> */}
-                        <TouchableOpacity
+                        <Button
                             onPress={() => {
                                 router.push({ pathname: 'settings' })
                             }}
+                            chromeless
+                            marginEnd={-20}
                         >
-                            <Ionicons
-                                name="settings-outline"
-                                size={24}
-                                color="#005c99"
-                            />
-                        </TouchableOpacity>
+                            <Settings size={24} />
+                        </Button>
                     </View>
                 </XStack>
                 <ScrollView contentContainerStyle={styles.container}>
@@ -335,7 +335,7 @@ const Tracker = ({}) => {
                                     key={timelog.id}
                                     style={{ marginBottom: 10 }}
                                 >
-                                    <TimelogCard timelog={timelog} />
+                                    <TimelogCard timelog={timelog} setReload={setReload} />
                                 </View>
                             ))}
                     </View>

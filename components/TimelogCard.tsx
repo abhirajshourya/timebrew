@@ -7,13 +7,16 @@ import React, { useEffect, useState } from 'react'
 import { Alert, StyleSheet, TouchableOpacity } from 'react-native'
 import TagChip from './TagChip'
 import { View, Text, Card, H3, H4, H5, XStack, YStack, Button } from 'tamagui'
+import { useSegments } from 'expo-router'
 
 interface TimelogCardProps {
-    timelog: Timelog
+    timelog: Timelog,
+    setReload: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const TimelogCard = ({ timelog }: TimelogCardProps) => {
+const TimelogCard = ({ timelog, setReload }: TimelogCardProps) => {
     const { getTask, deleteTimelog, getTagsForTimelog } = useDatabase()
+    const segment = useSegments()
 
     const [task, setTask] = useState<Task | null>(null)
     const [tags, setTags] = useState<Tag[] | null>(null)
@@ -26,6 +29,8 @@ const TimelogCard = ({ timelog }: TimelogCardProps) => {
     const handleDeleteTimelog = async () => {
         try {
             await deleteTimelog(timelog.id)
+            setReload(true)
+            Alert.alert('Success', 'Timelog deleted successfully')
         } catch (error) {
             Alert.alert('Error', 'Failed to delete timelog')
         }
