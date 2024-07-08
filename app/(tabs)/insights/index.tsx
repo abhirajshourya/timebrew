@@ -8,7 +8,7 @@ import {
 } from '@/helpers/data-cleaner'
 import { capitalizeFirstLetter } from '@/helpers/text-helpers'
 import useDatabase from '@/hooks/useDatabase'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { Duration } from '@/constants/types'
 import { useSegments } from 'expo-router'
@@ -23,6 +23,7 @@ const Index = () => {
     })
     const [selectedDuration, setSelectedDuration] = useState('week' as Duration)
     const [tagsStats, setTagsStats] = useState([] as TagDataset[])
+    const memoTagsStats = useMemo(() => tagsStats, [tagsStats])
     const segment = useSegments()
 
     useEffect(() => {
@@ -143,7 +144,7 @@ const Index = () => {
                                 <Text>No data to show</Text>
                             )}
                             {timelogs.data.length > 0 &&
-                                tagsStats.map(
+                                memoTagsStats.map(
                                     (tagStat, i) =>
                                         tagStat.timeLogs.length > 0 && (
                                             <TagStat

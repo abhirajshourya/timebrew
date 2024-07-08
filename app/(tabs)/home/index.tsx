@@ -12,7 +12,7 @@ import useDatabase from '@/hooks/useDatabase'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import {
     Alert,
     SafeAreaView,
@@ -63,6 +63,7 @@ const Tracker = ({}) => {
         createTimelogTag,
     } = useDatabase()
     const [timelogs, setTimelogs] = useState<Timelog[]>([])
+    const memoTimelogs = useMemo(() => timelogs, [timelogs])
     const [tasks, setTasks] = useState<Task[]>([])
     const [selectedTask, setSelectedTask] = useState<string>('')
     const [tags, setTags] = useState<Tag[]>([])
@@ -330,15 +331,14 @@ const Tracker = ({}) => {
                         >
                             Logs
                         </H2>
-                        {timelogs &&
-                            timelogs.map((timelog) => (
-                                <View
-                                    key={timelog.id}
-                                    style={{ marginBottom: 10 }}
-                                >
-                                    <TimelogCard timelog={timelog} setReload={setReload} />
-                                </View>
-                            ))}
+                        {memoTimelogs.map((timelog) => (
+                            <View key={timelog.id} style={{ marginBottom: 10 }}>
+                                <TimelogCard
+                                    timelog={timelog}
+                                    setReload={setReload}
+                                />
+                            </View>
+                        ))}
                     </View>
                     {!timelogs.length && (
                         <Text

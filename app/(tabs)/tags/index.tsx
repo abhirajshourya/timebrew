@@ -2,7 +2,7 @@ import FAB from '@/components/FAB'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import useDatabase from '@/hooks/useDatabase'
 import { useRouter, useSegments } from 'expo-router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { SafeAreaView, StyleSheet, Pressable } from 'react-native'
 import { Tag as TagType } from '@/constants/types'
 import TagCard from '@/components/TagCard'
@@ -11,6 +11,7 @@ import { Plus } from '@tamagui/lucide-icons'
 
 const Tags = () => {
     const [tags, setTags] = useState<TagType[]>([])
+    const memoTags = useMemo(() => tags, [tags])
     const { getTags } = useDatabase()
     const router = useRouter()
     const segment = useSegments()
@@ -51,10 +52,10 @@ const Tags = () => {
                 <ScrollView contentContainerStyle={styles.container}>
                     <YStack
                         style={{ marginBottom: 200 }}
-                        gap={20}
+                        gap={10}
                         marginHorizontal={20}
                     >
-                        {tags.map((tag) => (
+                        {memoTags.map((tag) => (
                             <View key={tag.id}>
                                 <TagCard tag={tag} handleEdit={handleEdit} />
                             </View>

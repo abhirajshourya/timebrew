@@ -3,7 +3,7 @@ import { Task } from '@/constants/types'
 import useDatabase from '@/hooks/useDatabase'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { SafeAreaView, TouchableOpacity } from 'react-native'
 import { Button, Text, View, ScrollView, YStack } from 'tamagui'
 import EditTask from './edit_task'
@@ -12,18 +12,16 @@ import { Feather } from '@expo/vector-icons'
 import { useRouter, useSegments } from 'expo-router'
 import { Plus } from '@tamagui/lucide-icons'
 
-
-
 const TasksPage = () => {
     const router = useRouter()
     const { getTasks } = useDatabase()
     const [tasks, setTasks] = useState<Task[]>([])
+    const memoTasks = useMemo(() => tasks, [tasks])
     const segment = useSegments()
 
     const handleFABPress = () => {
         // navigation.navigate('AddTask')
         router.push('tasks/add_task')
-
     }
 
     useEffect(() => {
@@ -71,13 +69,19 @@ const TasksPage = () => {
                     gap={10}
                     marginHorizontal={20}
                 >
-                    {tasks &&
+                    {/* {tasks &&
                         tasks.map((task) => (
                             <TaskCard
                                 key={task.id}
                                 task={task}
                             />
-                        ))}
+                        ))} */}
+                    {memoTasks.map((task) => (
+                        <TaskCard
+                            key={task.id}
+                            task={task}
+                        />
+                    ))}
                 </YStack>
             </ScrollView>
         </SafeAreaView>
