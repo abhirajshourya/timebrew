@@ -34,7 +34,7 @@ const WavyRings = ({
                     zIndex={1}
                     borderRadius={999}
                     borderWidth={3}
-                    borderColor={'$accentColor'}
+                    borderColor={'$color10'}
                     shadowColor={'#000'}
                     shadowOffset={{ width: 0, height: 4 }}
                     shadowOpacity={0.3}
@@ -98,7 +98,7 @@ const Ring = ({ delay, width, isRunning }: RingProps) => {
 
     return (
         <AnimatedView
-        borderColor={'$borderColor'}
+        borderColor={'$color11'}
             style={[
                 styles.ring,
                 { width: width, height: width, position: 'absolute' },

@@ -173,6 +173,7 @@ const Tracker = ({}) => {
                             fontWeight: '600',
                             margin: 20,
                         }}
+                        color={'$color10'}
                     >
                         timebrew
                     </H2>
