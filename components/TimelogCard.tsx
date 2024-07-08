@@ -42,7 +42,7 @@ const TimelogCard = ({ timelog, setReload }: TimelogCardProps) => {
                             deleteTimelog(timelog.id)
                             setReload(true)
                             Alert.alert('Success', 'Timelog deleted')
-                        }
+                        },
                     },
                 ]
             )
@@ -62,36 +62,35 @@ const TimelogCard = ({ timelog, setReload }: TimelogCardProps) => {
             borderRadius={10}
             backgroundColor={'$backgroundColor'}
         >
-            <YStack>
-                <XStack alignItems="center" justifyContent="space-between">
+            <XStack justifyContent="space-between">
+                <YStack justifyContent="space-between">
                     <H3 style={styles.timelogText}>
                         {formatTime(timelog.duration)}
                     </H3>
-                    <H4>
+                    <Text>{task ? task.description : 'Loading...'}</Text>
+                    <XStack marginTop={10} gap={10}>
+                        {tags &&
+                            tags.length > 0 &&
+                            tags.map((tag) => (
+                                <TagChip key={tag.id} tag={tag} />
+                            ))}
+                    </XStack>
+                </YStack>
+                <YStack alignItems="flex-end" justifyContent="space-between">
+                    <Text fontSize={'$5'}>
                         {isToday(timelog.start_time)
                             ? moment(timelog.start_time).format('h:mm a')
                             : moment(timelog.start_time).format(
                                   'MMM D, h:mm a'
                               )}
-                    </H4>
-                </XStack>
-                <XStack alignItems="center" justifyContent="space-between">
-                    <Text>{task ? task.description : 'Loading...'}</Text>
-                    {/* <TouchableOpacity onPress={handleDeleteTimelog}>
-                        <Feather name="x" size={16} color="red" />
-                    </TouchableOpacity> */}
+                    </Text>
                     <Button
                         onPress={handleDeleteTimelog}
                         chromeless
                         icon={<Ionicons name="trash" size={24} />}
                     />
-                </XStack>
-                <XStack gap={10}>
-                    {tags &&
-                        tags.length > 0 &&
-                        tags.map((tag) => <TagChip key={tag.id} tag={tag} />)}
-                </XStack>
-            </YStack>
+                </YStack>
+            </XStack>
         </Card>
     )
 }
