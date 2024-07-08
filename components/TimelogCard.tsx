@@ -10,7 +10,7 @@ import { View, Text, Card, H3, H4, H5, XStack, YStack, Button } from 'tamagui'
 import { useSegments } from 'expo-router'
 
 interface TimelogCardProps {
-    timelog: Timelog,
+    timelog: Timelog
     setReload: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -28,9 +28,25 @@ const TimelogCard = ({ timelog, setReload }: TimelogCardProps) => {
 
     const handleDeleteTimelog = async () => {
         try {
-            await deleteTimelog(timelog.id)
-            setReload(true)
-            Alert.alert('Success', 'Timelog deleted successfully')
+            Alert.alert(
+                'Delete Timelog',
+                'Are you sure you want to delete this timelog?',
+                [
+                    {
+                        text: 'Cancel',
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'Delete',
+                        onPress: () => {
+                            deleteTimelog(timelog.id)
+                            setReload(true)
+                            Alert.alert('Success', 'Timelog deleted')
+                        }
+                    },
+                ]
+            )
+            // await deleteTimelog(timelog.id)
         } catch (error) {
             Alert.alert('Error', 'Failed to delete timelog')
         }
@@ -60,9 +76,7 @@ const TimelogCard = ({ timelog, setReload }: TimelogCardProps) => {
                     </H4>
                 </XStack>
                 <XStack alignItems="center" justifyContent="space-between">
-                    <Text>
-                        {task ? task.description : 'Loading...'}
-                    </Text>
+                    <Text>{task ? task.description : 'Loading...'}</Text>
                     {/* <TouchableOpacity onPress={handleDeleteTimelog}>
                         <Feather name="x" size={16} color="red" />
                     </TouchableOpacity> */}
