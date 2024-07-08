@@ -3,6 +3,7 @@ import { Timelog } from '@/constants/types'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
+import { useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { Alert } from 'react-native'
 import {
@@ -16,13 +17,10 @@ import {
     YGroup,
 } from 'tamagui'
 
-interface EditTaskProps {
-    route: any
-    navigation: NativeStackNavigationHelpers
-}
-
-const AddTask = ({ route, navigation }: EditTaskProps) => {
+const AddTask = () => {
     const { createTask } = useDatabase()
+
+    const router = useRouter()
 
     const [taskDesc, setTaskDesc] = useState('')
 
@@ -38,7 +36,7 @@ const AddTask = ({ route, navigation }: EditTaskProps) => {
 
         try {
             await createTask(taskDesc)
-            navigation.goBack()
+            router.dismiss()
         } catch (error) {
             console.error('Error updating task')
         }
