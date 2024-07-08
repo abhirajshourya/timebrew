@@ -183,7 +183,7 @@ const MultiDropDownPicker = ({
                     <Select.ScrollUpButton />
                     <Select.Viewport animation={'quick'}>
                         <Select.Group>
-                            <Select.Label backgroundColor={'$accentBackground'}>
+                            <Select.Label themeInverse>
                                 {placeholder}
                             </Select.Label>
                             {items.map((item, i) => (
