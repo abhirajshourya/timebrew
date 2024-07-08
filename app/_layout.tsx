@@ -106,17 +106,16 @@ export default function RootLayout() {
         <TamaguiProvider
             config={tamaguiConfig}
             defaultTheme={`${
-                theme.system && colorScheme === 'light' ? 'light' : 'dark'
+                theme.system ? 'dark' : 'light'
             }_${theme.color || 'blue'}`}
             // defaultTheme={`${theme.system && colorScheme === 'light' ? 'light' : 'dark'}_${theme.color}`}
             // defaultTheme={theme.system ? colorScheme : 'dark'}
         >
             {/* <StatusBar style={theme.system ? colorScheme : 'dark'} /> */}
+            <StatusBar style="auto" />
             <ThemeProvider
                 value={
-                    theme.system && colorScheme === 'light'
-                        ? DefaultTheme
-                        : DarkTheme
+                    theme.system ? DarkTheme : DefaultTheme
                 }
                 // value={NavigationTheme}
             >

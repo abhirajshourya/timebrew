@@ -59,9 +59,7 @@ const Index = () => {
                     <YGroup.Item>
                         <ListItem
                             pressTheme
-                            title={`${
-                                colorScheme === 'dark' ? 'Dark' : 'Light'
-                            } Mode`}
+                            title={`Dark Mode`}
                         >
                             <XStack
                                 gap={10}

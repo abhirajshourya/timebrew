@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
+import { ChevronRight, Palette } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { StyleSheet } from 'react-native'
@@ -38,10 +39,8 @@ const Settings = () => {
                     <ListItem
                         title="Themes"
                         pressTheme
-                        icon={<Ionicons name="color-palette" size={24} />}
-                        iconAfter={
-                            <Ionicons name="chevron-forward" size={24} />
-                        }
+                        icon={<Palette size={24} />}
+                        iconAfter={<ChevronRight size={24} />}
                         onPress={() => {
                             router.push('settings/themes')
                         }}
