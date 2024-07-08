@@ -193,7 +193,8 @@ const Pomodoro = () => {
                     inActiveStrokeOpacity={0.5}
                     activeStrokeWidth={15}
                     inActiveStrokeWidth={20}
-                    activeStrokeSecondaryColor={`${theme.accentColor.get()}`}
+                    activeStrokeColor={`${theme.color10.get()}`}
+                    activeStrokeSecondaryColor={`${theme.color.get()}`}
                     inActiveStrokeColor={`${theme.accentBackground.get()}`}
                 />
                 {isRunning ? (
