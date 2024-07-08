@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Pressable } from 'react-native'
+import { StyleSheet, Pressable } from 'react-native'
 import { TabBarIcon } from '../navigation/TabBarIcon'
+import { Circle, View } from 'tamagui'
+import { Check } from '@tamagui/lucide-icons'
 
 const ColorPicker = ({
     selectedColor,
@@ -25,19 +27,17 @@ const ColorPicker = ({
         <View style={styles.container}>
             <View style={styles.colorContainer}>
                 {colors.map((color) => (
-                    <Pressable
+                    <Circle
                         key={color}
                         style={[
                             styles.color,
                             { backgroundColor: color + '80' },
-                            { borderColor: color },
                         ]}
                         onPress={() => setSelectedColor(color)}
+                        borderColor={'$color8'}
                     >
-                        {selectedColor === color && (
-                            <TabBarIcon name="checkmark" color="black" />
-                        )}
-                    </Pressable>
+                        {selectedColor === color && <Check size={20} />}
+                    </Circle>
                 ))}
             </View>
         </View>

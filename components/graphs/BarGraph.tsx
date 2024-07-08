@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, Text, StyleProp, ViewStyle } from 'react-native'
+import { StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import * as d3 from 'd3'
 import { Svg, G, Line, Rect, Text as SvgText } from 'react-native-svg'
 import { formatDateToDayofWeek, formatTimeToHours } from '@/helpers/time-format'
 import { Duration } from '@/constants/types'
+import { View, Text, styled, useTheme } from 'tamagui'
+
+const StyledSvg = styled(Svg, {
+    width: '100%',
+    height: '100%',
+})
 
 export type BarGraphProps = {
     dataSet: DataSet
@@ -23,6 +29,7 @@ const GRAPH_ASPECT_RATIO = 9 / 16
 
 const BarGraph = ({ dataSet, color, style }: BarGraphProps) => {
     const { data, labels, taskIds } = dataSet
+    const theme = useTheme()
 
     useEffect(() => {
         // console.log(data, labels)
@@ -62,26 +69,31 @@ const BarGraph = ({ dataSet, color, style }: BarGraphProps) => {
             }}
             style={style}
         >
-            <Svg height={height} width={width}>
+            <StyledSvg
+                height={height}
+                width={width}
+            >
                 {data.map((d, i) => (
                     <Rect
                         key={i}
-                        fill={color}
+                        fill={theme.borderColorPress.val}
                         fillOpacity={0.5}
                         x={x(labels[i])}
                         y={y(d)}
                         height={y(0) - y(d)}
                         width={x.bandwidth()}
+                        stroke={theme.borderColorHover.val}
+                        strokeWidth={2}
                     />
                 ))}
                 {/* Bar Labels */}
-                <G fill="black">
+                <G>
                     {data.map((d, i) => (
                         <SvgText
                             key={i}
                             x={x(labels[i]) + x.bandwidth() / 2}
                             y={y(d) - 5}
-                            fill="black"
+                            fill={theme.color.val}
                             fontSize="10"
                             textAnchor="middle"
                         >
@@ -100,7 +112,7 @@ const BarGraph = ({ dataSet, color, style }: BarGraphProps) => {
                         y1={marginTop}
                         x2={marginLeft}
                         y2={height - marginBottom}
-                        stroke="black"
+                        stroke={theme.color.val}
                         strokeWidth={1}
                     />
                 </G>
@@ -111,7 +123,7 @@ const BarGraph = ({ dataSet, color, style }: BarGraphProps) => {
                             key={i}
                             x={marginLeft - 5}
                             y={y(d)}
-                            fill="black"
+                            fill={theme.color.val}
                             fontSize="12"
                             textAnchor="end"
                         >
@@ -127,7 +139,7 @@ const BarGraph = ({ dataSet, color, style }: BarGraphProps) => {
                         y1={y(0)}
                         x2={width - marginRight}
                         y2={y(0)}
-                        stroke="black"
+                        stroke={theme.color.val}
                         strokeWidth={1}
                     />
                 </G>
@@ -137,7 +149,7 @@ const BarGraph = ({ dataSet, color, style }: BarGraphProps) => {
                             key={i}
                             x={x(label) + x.bandwidth() / 2}
                             y={height - marginBottom + 15}
-                            fill="black"
+                            fill={theme.color.val}
                             fontSize="12"
                             textAnchor="middle"
                         >
@@ -146,7 +158,7 @@ const BarGraph = ({ dataSet, color, style }: BarGraphProps) => {
                         </SvgText>
                     ))}
                 </G>
-            </Svg>
+            </StyledSvg>
         </View>
     )
 }

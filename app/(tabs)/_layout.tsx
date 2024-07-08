@@ -5,28 +5,45 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import { Colors } from '@/constants/Colors'
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { Pressable } from 'react-native'
+import { BarChartBig, List, Tags, Timer } from '@tamagui/lucide-icons'
+import { Button, useTheme } from 'tamagui'
 
 export default function TabLayout() {
     const colorScheme = useColorScheme()
     const isDev = false
+    const theme = useTheme()
 
     return (
         <Tabs
             initialRouteName="home"
             screenOptions={{
-                tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+                tabBarActiveTintColor: theme.color10.get(),
+                tabBarInactiveTintColor: theme.color.get(),
+                tabBarActiveBackgroundColor: theme.background.get(),
+                tabBarInactiveBackgroundColor: theme.background025.get(),
+                // tabBarShowLabel: false,
+                tabBarStyle: {
+                    shadowColor: 'transparent',
+                    elevation: 0,
+                    paddingBottom: 10,
+                    paddingTop: 10,
+                    minHeight: 60,
+                },
+                tabBarHideOnKeyboard: true,
                 headerShown: false,
             }}
+            safeAreaInsets={{ top: 0, bottom: 0 }}
         >
             <Tabs.Screen
                 name="home"
                 options={{
                     title: 'Tracker',
                     tabBarIcon: ({ color, focused }) => (
-                        <TabBarIcon
-                            name={focused ? 'stopwatch' : 'stopwatch-outline'}
-                            color={color}
-                        />
+                        <Timer color={color} />
+                        // <TabBarIcon
+                        //     name={focused ? 'stopwatch' : 'stopwatch-outline'}
+                        //     color={color}
+                        // />
                     ),
                 }}
             />
@@ -35,10 +52,11 @@ export default function TabLayout() {
                 options={{
                     title: 'Tasks',
                     tabBarIcon: ({ color, focused }) => (
-                        <TabBarIcon
-                            name={focused ? 'list' : 'list-outline'}
-                            color={color}
-                        />
+                        <List color={color} />
+                        // <TabBarIcon
+                        //     name={focused ? 'list' : 'list-outline'}
+                        //     color={color}
+                        // />
                     ),
                 }}
             />
@@ -47,10 +65,11 @@ export default function TabLayout() {
                 options={{
                     title: 'Tags',
                     tabBarIcon: ({ color, focused }) => (
-                        <TabBarIcon
-                            name={focused ? 'pricetag' : 'pricetag-outline'}
-                            color={color}
-                        />
+                        <Tags color={color} />
+                        // <TabBarIcon
+                        //     name={focused ? 'pricetag' : 'pricetag-outline'}
+                        //     color={color}
+                        // />
                     ),
                 }}
             />
@@ -59,10 +78,11 @@ export default function TabLayout() {
                 options={{
                     title: 'Insights',
                     tabBarIcon: ({ color, focused }) => (
-                        <TabBarIcon
-                            name={focused ? 'bar-chart' : 'bar-chart-outline'}
-                            color={color}
-                        />
+                        <BarChartBig color={color} />
+                        // <TabBarIcon
+                        //     name={focused ? 'bar-chart' : 'bar-chart-outline'}
+                        //     color={color}
+                        // />
                     ),
                 }}
             />

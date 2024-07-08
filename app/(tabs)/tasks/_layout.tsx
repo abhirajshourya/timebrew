@@ -8,8 +8,8 @@ export default function StackLayout() {
     return (
         <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="add_task" />
-            <Stack.Screen name="edit_task" />
+            <Stack.Screen name="add_task" options={{ title: 'Add Task' }} />
+            <Stack.Screen name="edit_task" options={{ title: 'Edit Task' }} />
         </Stack>
     )
 }

@@ -1,8 +1,9 @@
 import { TagDataset } from '@/constants/types'
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
 import TagChip from '../TagChip'
 import { formatTime, formatTimeToHours } from '@/helpers/time-format'
+import { View, Text, Card, XStack, YStack } from 'tamagui'
 
 type TagStatProps = {
     tagStat: TagDataset
@@ -10,30 +11,34 @@ type TagStatProps = {
 
 const TagStat = ({ tagStat }: TagStatProps) => {
     return (
-        <View style={styles.tagCard}>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: 2,
-                }}
+        <Card shadowOpacity={0.12} shadowRadius={4}>
+            <XStack
+                padding={24}
+                justifyContent="space-between"
+                alignItems="center"
             >
-                <TagChip tag={tagStat.tag} />
+                <YStack>
+                    <TagChip tag={tagStat.tag} cardProps={{ padding: '$2' }} />
+                </YStack>
 
-                <View style={{ flexDirection: 'column',
-                    justifyContent: 'flex-end',
-                    alignItems: 'flex-end',
-                 }}>
-                    <Text>Total time: {formatTimeToHours(tagStat.totalDuration)}</Text>
+                <XStack
+                    style={{
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
+                        alignItems: 'flex-end',
+                    }}
+                >
+                    <Text fontSize={'$5'}>
+                        Total time: {formatTimeToHours(tagStat.totalDuration)}
+                    </Text>
                     {/* <Text>{formatTime(tagStat.totalDuration)}</Text> */}
                     <Text>
                         {tagStat.timeLogs.length}{' '}
                         {tagStat.timeLogs.length > 1 ? 'logs' : 'log'}
                     </Text>
-                </View>
-            </View>
-        </View>
+                </XStack>
+            </XStack>
+        </Card>
     )
 }
 

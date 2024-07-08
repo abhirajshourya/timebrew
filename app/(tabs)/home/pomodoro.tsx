@@ -4,13 +4,21 @@ import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import React from 'react'
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native'
 import CircularProgress from 'react-native-circular-progress-indicator'
+import { View, Text, Button, styled, useTheme } from 'tamagui'
+import { X, TimerReset } from '@tamagui/lucide-icons'
 
 const DEFAULT_POMO_DURATION = 25 * 60 // 25 minutes
 const DEFAULT_BREAK_DURATION = 5 * 60 // 5 minutes
 
+const StyledCircularProgress = styled(CircularProgress, {
+    name: 'StyledCircularProgress',
+})
+
 const Pomodoro = () => {
+    const theme = useTheme()
+    
     const {
         duration: countDown,
         isRunning,
@@ -85,7 +93,7 @@ const Pomodoro = () => {
                     justifyContent: 'flex-end',
                 }}
             >
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     onPress={() => {
                         if (isRunning) {
                             Alert.alert(
@@ -115,7 +123,35 @@ const Pomodoro = () => {
                         color="#323232"
                         style={{ margin: 20 }}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <Button
+                    marginRight={20}
+                    marginTop={20}
+                    onPress={() => {
+                        if (isRunning) {
+                            Alert.alert(
+                                'Leave Pomodoro?',
+                                'This will stop the pomodoro timer.',
+                                [
+                                    {
+                                        text: 'Yes',
+                                        onPress: () => {
+                                            handleStop()
+                                            router.navigate('home')
+                                        },
+                                    },
+                                    {
+                                        text: 'No',
+                                    },
+                                ]
+                            )
+                            return
+                        }
+                        router.navigate('home')
+                    }}
+                    icon={<X scale={2} />}
+                    chromeless
+                />
             </View>
             <View>
                 <View
@@ -127,12 +163,13 @@ const Pomodoro = () => {
                         gap: 10,
                     }}
                 >
-                    <Ionicons name="timer" size={30} color="#323232" />
+                    <TimerReset size={30} />
+                    {/* <Ionicons name="timer" size={30}/> */}
                     <View>
-                        <Text style={{ fontSize: 20, color: '#323232' }}>
+                        <Text style={{ fontSize: 20 }}>
                             {isBreak ? 'Break' : 'Pomodoro'}
                         </Text>
-                        <Text style={{ fontSize: 12, color: '#323232' }}>
+                        <Text style={{ fontSize: 12 }}>
                             {formatTime(pomoDuration)}
                         </Text>
                     </View>
@@ -146,18 +183,19 @@ const Pomodoro = () => {
                     gap: 50,
                 }}
             >
-                <CircularProgress
+                <StyledCircularProgress
                     value={progress}
                     showProgressValue={false}
                     title={formatTime(countDown || pomoDuration)}
-                    titleColor="#323232"
+                    titleColor={theme.color.get()}
                     titleStyle={{ fontWeight: '300' }}
                     radius={120}
                     inActiveStrokeOpacity={0.5}
                     activeStrokeWidth={15}
                     inActiveStrokeWidth={20}
-                    activeStrokeSecondaryColor="#00aeff"
-                    inActiveStrokeColor="#d8d8d8"
+                    activeStrokeColor={`${theme.color10.get()}`}
+                    activeStrokeSecondaryColor={`${theme.color.get()}`}
+                    inActiveStrokeColor={`${theme.accentBackground.get()}`}
                 />
                 {isRunning ? (
                     <CircleButton
@@ -181,8 +219,8 @@ const Pomodoro = () => {
 
 const styles = StyleSheet.create({
     playPauseButton: {
-        backgroundColor: '#005c99',
-        color: 'white',
+        // backgroundColor: '#005c99',
+        // color: 'white',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

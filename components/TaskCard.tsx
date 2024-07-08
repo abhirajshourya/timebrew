@@ -3,81 +3,49 @@ import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import { Feather } from '@expo/vector-icons'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
+import { Edit3 } from '@tamagui/lucide-icons'
+import { useRouter, useSegments } from 'expo-router'
 import React, { useEffect } from 'react'
-import { Text, TouchableHighlight, View } from 'react-native'
+import { TouchableHighlight } from 'react-native'
+import { Button, Card, H4, H5, H6, Text, View, XStack, YStack } from 'tamagui'
 
 interface TaskProps {
     task: Task
-    navigation: NativeStackNavigationHelpers
 }
 
-const TaskCard = ({ task, navigation }: TaskProps) => {
+const TaskCard = ({ task }: TaskProps) => {
+    const router = useRouter()
     const { getTotalTimelogForTask } = useDatabase()
     const [totalTime, setTotalTime] = React.useState(0)
+    const segment = useSegments()
 
     useEffect(() => {
         getTotalTimelogForTask(task.id).then(setTotalTime)
-    })
+    }, [segment])
 
     const handleEdit = () => {
-        navigation.navigate('EditTask', { task })
+        // navigation.navigate('EditTask', { task })
+        router.push({ pathname: 'tasks/edit_task', params: { ...task } })
     }
 
     return (
-        <View
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                padding: 20,
-                marginHorizontal: 20,
-                backgroundColor: '#f9f9f9',
-                borderRadius: 10,
-                marginBottom: 10,
-                shadowColor: '#000',
-                shadowOffset: {
-                    width: 0,
-                    height: 4,
-                },
-                shadowOpacity: 0.12,
-                shadowRadius: 20,
-                elevation: 8,
-            }}
-        >
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: 2,
-                }}
-            >
-                <Text
-                    style={{
-                        fontSize: 16,
-                        color: '#005c99',
-                    }}
-                >
-                    {task.description}
-                </Text>
-                <TouchableHighlight
+        <Card shadowOpacity={0.12} shadowRadius={4}>
+            <XStack padding={24}>
+                <YStack flex={1} gap={4}>
+                    <Text fontSize={16}>{task.description}</Text>
+
+                    {/* <Feather name="edit" size={16} color="#525252" /> */}
+                    <View>
+                        <Text>{formatTime(totalTime) || 'No time logged'}</Text>
+                    </View>
+                </YStack>
+                <Button
                     onPress={handleEdit}
-                    activeOpacity={0.6}
-                    underlayColor={'#e2e2e2'}
-                >
-                    <Feather name="edit" size={16} color="#525252" />
-                </TouchableHighlight>
-            </View>
-            <View>
-                <Text
-                    style={{
-                        fontSize: 14,
-                        color: 'grey',
-                    }}
-                >
-                    {formatTime(totalTime) || 'No time logged'}
-                </Text>
-            </View>
-        </View>
+                    chromeless
+                    icon={<Edit3 size={16} />}
+                />
+            </XStack>
+        </Card>
     )
 }
 

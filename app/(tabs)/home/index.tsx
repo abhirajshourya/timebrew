@@ -12,19 +12,34 @@ import useDatabase from '@/hooks/useDatabase'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import {
     Alert,
     SafeAreaView,
-    ScrollView,
     StyleSheet,
-    Text,
     TouchableOpacity,
-    View,
+    Vibration,
+    // Text,
+    // View,
 } from 'react-native'
+import {
+    Separator,
+    Text,
+    View,
+    H1,
+    H2,
+    H3,
+    XStack,
+    YStack,
+    ScrollView,
+    Button,
+    Spacer,
+} from 'tamagui'
 import Pomodoro from './pomodoro'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
-import { useRouter } from 'expo-router'
+import { useRouter, useSegments } from 'expo-router'
+import { Settings, Settings2, TimerReset } from '@tamagui/lucide-icons'
+import { set } from 'lodash'
 
 const Tracker = ({}) => {
     const {
@@ -48,19 +63,23 @@ const Tracker = ({}) => {
         createTimelogTag,
     } = useDatabase()
     const [timelogs, setTimelogs] = useState<Timelog[]>([])
+    const memoTimelogs = useMemo(() => timelogs, [timelogs])
     const [tasks, setTasks] = useState<Task[]>([])
     const [selectedTask, setSelectedTask] = useState<string>('')
     const [tags, setTags] = useState<Tag[]>([])
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [isModalVisible, setIsModalVisible] = useState(false)
+    const [reload, setReload] = useState(false)
 
     const router = useRouter()
+    const segments = useSegments()
 
     useEffect(() => {
         getTimeLogs().then((timelogs) => {
             setTimelogs(timelogs)
+            setReload(false)
         })
-    })
+    }, [segments, reload])
 
     function handleOnStop() {
         pause()
@@ -141,35 +160,27 @@ const Tracker = ({}) => {
 
     return (
         <SafeAreaView>
-            <View
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
-            >
-                <Text
-                    style={{
-                        fontSize: 24,
-                        fontWeight: '600',
-                        margin: 20,
-                        fontStyle: 'italic',
-                        color: '#005c99',
-                    }}
+            <YStack>
+                <XStack
+                    paddingTop={20}
+                    paddingBottom={10}
+                    marginHorizontal={20}
+                    alignItems="center"
+                    justifyContent="space-between"
                 >
-                    timebrew
-                </Text>
+                    <H2
+                        style={{
+                            // fontSize: 24,
+                            fontWeight: '600',
+                            margin: 20,
+                        }}
+                        color={'$color10'}
+                    >
+                        timebrew
+                    </H2>
 
-                <View
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        marginRight: 20,
-                        gap: 10,
-                    }}
-                >
-                    <TouchableOpacity
+                    <View>
+                        {/* <TouchableOpacity
                         onPress={() => {
                             router.push('home/pomodoro')
                         }}
@@ -190,150 +201,195 @@ const Tracker = ({}) => {
                         }}
                     >
                         <Ionicons name="timer" size={30} color="#005c99" />
-                    </TouchableOpacity>
-                    {/* <Ionicons name="settings-outline" size={24} color="black" /> */}
-                </View>
-            </View>
-            <ScrollView contentContainerStyle={styles.container}>
-                <View style={styles.mainTrackerContainer}>
-                    <WavyRings
-                        width={250}
-                        rings={3}
-                        delay={900}
-                        isRunning={isRunning}
-                    >
-                        <View>
-                            <Text
-                                style={{
-                                    fontSize: 36,
-                                    color: '#005c99',
-                                }}
+                    </TouchableOpacity> */}
+                        <Button
+                            onPress={() => {
+                                router.push({ pathname: 'settings' })
+                            }}
+                            chromeless
+                            marginEnd={-20}
+                        >
+                            <Settings size={24} />
+                        </Button>
+                    </View>
+                </XStack>
+                <ScrollView contentContainerStyle={styles.container}>
+                    <View style={styles.mainTrackerContainer}>
+                        <WavyRings
+                            width={250}
+                            rings={3}
+                            delay={900}
+                            isRunning={isRunning}
+                        >
+                            <YStack
+                                alignItems="center"
+                                justifyContent="space-between"
                             >
-                                {formatTime(duration) || '0s'}
-                            </Text>
-                        </View>
-                    </WavyRings>
-                    <View style={styles.controlsContainer}>
-                        <View>
-                            {(status === 'paused' || isRunning) && (
-                                <CircleButton
-                                    onPress={() => reset()}
-                                    style={styles.button}
+                                {/* <Spacer /> */}
+                                <H1>{formatTime(duration) || '0s'}</H1>
+                                {/* <TouchableOpacity
+                                    onPress={() => {
+                                        router.push('home/pomodoro')
+                                    }}
+                                    style={{
+                                        padding: 5,
+                                        paddingHorizontal: 10,
+                                        borderRadius: 50,
+                                        backgroundColor: '#fff',
+                                        borderColor: 'red',
+                                        shadowColor: '#005c99',
+                                        shadowOffset: {
+                                            width: 0,
+                                            height: 2,
+                                        },
+                                        shadowOpacity: 0.5,
+                                        shadowRadius: 4.86,
+                                        elevation: 10,
+                                        position: 'relative',
+                                    }}
                                 >
                                     <Ionicons
-                                        name="refresh"
-                                        size={24}
-                                        color="white"
+                                        name="timer"
+                                        size={30}
+                                        color="#005c99"
                                     />
-                                </CircleButton>
-                            )}
-                        </View>
-                        <View>
-                            {isRunning ? (
-                                <CircleButton
-                                    onPress={pause}
-                                    style={styles.playPauseButton}
+                                </TouchableOpacity> */}
+                                <Button
+                                    scale={0.7}
+                                    borderRadius={50}
+                                    variant="outlined"
+                                    borderColor={'$borderColor'}
+                                    onPress={() => router.push('home/pomodoro')}
+                                    icon={<TimerReset size={24} />}
                                 >
-                                    <Ionicons
-                                        name="pause"
-                                        size={35}
-                                        color="white"
-                                    />
-                                </CircleButton>
-                            ) : (
-                                <CircleButton
-                                    onPress={start}
-                                    style={styles.playPauseButton}
-                                >
-                                    <Ionicons
-                                        name="play"
-                                        size={35}
-                                        color="white"
-                                    />
-                                </CircleButton>
-                            )}
-                        </View>
-                        <View>
-                            {(status === 'paused' || isRunning) && (
-                                <CircleButton
-                                    onPress={handleOnStop}
-                                    style={styles.button}
-                                >
-                                    <Ionicons
-                                        name="stop"
-                                        size={24}
-                                        color="white"
-                                    />
-                                </CircleButton>
-                            )}
+                                    <Text fontSize={'$6'}>Pomodoro</Text>
+                                </Button>
+                            </YStack>
+                        </WavyRings>
+                        <View style={styles.controlsContainer}>
+                            <View>
+                                {(status === 'paused' || isRunning) && (
+                                    <CircleButton
+                                        onPress={() => reset()}
+                                        style={styles.button}
+                                    >
+                                        <Ionicons
+                                            name="refresh"
+                                            size={24}
+                                            color="white"
+                                        />
+                                    </CircleButton>
+                                )}
+                            </View>
+                            <View>
+                                {isRunning ? (
+                                    <CircleButton
+                                        onPress={pause}
+                                        style={styles.playPauseButton}
+                                    >
+                                        <Ionicons
+                                            name="pause"
+                                            size={35}
+                                            color="white"
+                                        />
+                                    </CircleButton>
+                                ) : (
+                                    <CircleButton
+                                        onPress={start}
+                                        style={styles.playPauseButton}
+                                    >
+                                        <Ionicons
+                                            name="play"
+                                            size={35}
+                                            color="white"
+                                        />
+                                    </CircleButton>
+                                )}
+                            </View>
+                            <View>
+                                {(status === 'paused' || isRunning) && (
+                                    <CircleButton
+                                        onPress={handleOnStop}
+                                        style={styles.button}
+                                    >
+                                        <Ionicons
+                                            name="stop"
+                                            size={24}
+                                            color="white"
+                                        />
+                                    </CircleButton>
+                                )}
+                            </View>
                         </View>
                     </View>
-                </View>
-                <View style={styles.logsContainer}>
-                    <View
-                        style={{
-                            borderBottomColor: '#d8d8d8',
-                            borderBottomWidth: 1,
-                            marginBottom: 20,
-                        }}
-                    />
-                    <Text
-                        style={{
-                            fontSize: 24,
-                            color: '#005c99',
-                            textAlign: 'center',
-                            marginBottom: 15,
-                        }}
-                    >
-                        Logs
-                    </Text>
-                    {timelogs &&
-                        timelogs.map((timelog) => (
+                    <View style={styles.logsContainer}>
+                        <Separator marginVertical={20} />
+                        <H2
+                            alignSelf="center"
+                            // color={'$accentBackground'}
+                            marginBottom={20}
+                        >
+                            Logs
+                        </H2>
+                        {memoTimelogs.map((timelog) => (
                             <View key={timelog.id} style={{ marginBottom: 10 }}>
-                                <TimelogCard timelog={timelog} />
+                                <TimelogCard
+                                    timelog={timelog}
+                                    setReload={setReload}
+                                />
                             </View>
                         ))}
-                </View>
-                {!timelogs.length && (
-                    <Text
-                        style={{
-                            fontSize: 16,
-                            color: 'grey',
-                            textAlign: 'center',
-                        }}
-                    >
-                        No logs
-                    </Text>
-                )}
-            </ScrollView>
-            <TimeLogModal
-                isVisible={isModalVisible}
-                onClose={() => setIsModalVisible(false)}
-                title="Time log"
-            >
-                <View>
-                    <Text style={styles.label}>What did you do?</Text>
-                    <DropDownPicker
-                        items={tasks.map((task) => task.description)}
-                        selectedValue={selectedTask}
-                        setValue={(value) => setSelectedTask(value)}
-                        placeholder="What did you do?"
-                    />
-                </View>
+                    </View>
+                    {!timelogs.length && (
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                color: 'grey',
+                                textAlign: 'center',
+                            }}
+                        >
+                            No logs
+                        </Text>
+                    )}
+                </ScrollView>
 
-                <View>
-                    <Text style={styles.label}>Tags</Text>
-                    <MultiDropDownPicker
-                        items={tags}
-                        selectedValues={selectedTags}
-                        setValues={setSelectedTags}
-                        placeholder="Add tags"
-                    />
-                </View>
-                <View style={{ marginBottom: 20 }}>
-                    <PrimaryButton onPress={handleSave}>Save</PrimaryButton>
-                </View>
-            </TimeLogModal>
+                <TimeLogModal
+                    isVisible={isModalVisible}
+                    onClose={() => setIsModalVisible(false)}
+                    title="Time log"
+                >
+                    <View>
+                        <Text style={styles.label}>What did you do?</Text>
+                        <DropDownPicker
+                            items={tasks.map((task) => task.description)}
+                            selectedValue={selectedTask}
+                            setValue={(value) => setSelectedTask(value)}
+                            placeholder="What did you do?"
+                        />
+                    </View>
+
+                    <View>
+                        <Text style={styles.label}>Tags</Text>
+                        <MultiDropDownPicker
+                            items={tags}
+                            selectedValues={selectedTags}
+                            setValues={(values) => setSelectedTags(values)}
+                            placeholder="Add tags"
+                        />
+                    </View>
+                    <View style={{ marginBottom: 20 }}>
+                        <Button
+                            onPress={handleSave}
+                            backgroundColor={'$borderColor'}
+                        >
+                            <Text>Save</Text>
+                        </Button>
+                        {/* <PrimaryButton onPress={handleSave}>
+                            <Text>Save</Text>
+                        </PrimaryButton> */}
+                    </View>
+                </TimeLogModal>
+            </YStack>
         </SafeAreaView>
     )
 }
@@ -359,12 +415,13 @@ const styles = StyleSheet.create({
         marginBottom: 200,
     },
     button: {
-        backgroundColor: '#005c99',
-        color: 'white',
+        // backgroundColor: '#005c99',
+        // color: 'white',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#000',
+        // width: 'auto',
         borderRadius: 40,
         shadowOffset: {
             width: 0,
@@ -375,8 +432,8 @@ const styles = StyleSheet.create({
         elevation: 8,
     },
     playPauseButton: {
-        backgroundColor: '#005c99',
-        color: 'white',
+        // backgroundColor: '#005c99',
+        // color: 'white',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

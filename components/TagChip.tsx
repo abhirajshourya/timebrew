@@ -1,27 +1,29 @@
 import React, { PropsWithChildren } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Tag } from '@/constants/types'
+import { View, Text, Card, CardProps } from 'tamagui'
 
 type TagChipProps = {
     tag: Tag
-    size?: 'small' | 'medium' | 'large'
-} & PropsWithChildren
+    // size?: 'small' | 'medium' | 'large'
+    cardProps?: CardProps
+} & PropsWithChildren 
 
-const TagChip = ({ children, tag, size = 'medium' }: TagChipProps) => {
+const TagChip = ({ children, tag, cardProps }: TagChipProps) => {
     return (
-        <View
-            style={[
-                styles.colorTag,
-                { backgroundColor: tag.color + '2a' },
-                { borderColor: tag.color },
-                styles[`tag${size}`],
-            ]}
+        <Card
+            backgroundColor={`${tag.color}70`}
+            padding={5}
+            borderRadius={100}
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
+            gap={5}
+            {...cardProps}
         >
-            <Text style={[styles.tagName, { color: '#000000d6' }]}>
-                {tag.name}
-            </Text>
+            <Text>{tag.name}</Text>
             {children}
-        </View>
+        </Card>
     )
 }
 

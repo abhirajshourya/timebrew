@@ -12,11 +12,11 @@ export default function StackLayout() {
         <Stack>
             <Stack.Screen
                 name="index"
-                options={{ headerShown: false, title: 'All Tags' }}
+                options={{ headerShown: false, title: 'Settings'}}
             />
             <Stack.Screen
-                name="add"
-                options={{ headerShown: true, title: 'Create Tag' }}
+                name="themes"
+                options={{ headerShown: true, title: 'Themes' }}
             />
         </Stack>
     )

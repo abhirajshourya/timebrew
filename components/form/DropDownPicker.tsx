@@ -1,16 +1,16 @@
 import { Ionicons } from '@expo/vector-icons'
-import React, { useRef, useState } from 'react'
+import { Check, X } from '@tamagui/lucide-icons'
+import React, { useMemo, useRef, useState } from 'react'
 import {
     Pressable,
     ScrollView,
     StyleProp,
     StyleSheet,
-    Text,
     TextInput,
     TextInputProps,
-    View,
     ViewStyle,
 } from 'react-native'
+import { Adapt, Select, Sheet, YStack, Text, View, XStack } from 'tamagui'
 
 type DropDownPickerProps = TextInputProps & {
     items: string[]
@@ -31,11 +31,13 @@ const DropDownPicker = ({
     const [isOpen, setIsOpen] = useState(false)
     const [text, setText] = useState('')
 
+    const [tmpState, setTmpState] = useState<string>('Apple')
+
     const inputRef = useRef<TextInput>(null)
 
     return (
         <View style={[{ position: 'relative' }, style]}>
-            <Pressable
+            {/* <Pressable
                 style={styles.inputContainer}
                 onPressOut={() => setIsOpen((e) => !e)}
             >
@@ -85,7 +87,7 @@ const DropDownPicker = ({
                                 <Text>{item}</Text>
                             </Pressable>
                         ))}
-                        {/* <Pressable
+                        <Pressable
                             style={styles.dropdownItem}
                             onPress={() => {
                                 setIsOpen(false)
@@ -95,10 +97,86 @@ const DropDownPicker = ({
                         >
                             <Ionicons name="add" size={20} />
                             <Text>Add new</Text>
-                        </Pressable> */}
+                        </Pressable>
                     </ScrollView>
                 )}
-            </View>
+            </View> */}
+
+            <Select
+                value={selectedValue}
+                onValueChange={(value) => setValue(value)}
+                disablePreventBodyScroll
+            >
+                <Select.Trigger
+                    iconAfter={<Ionicons name="caret-down" size={24} />}
+                >
+                    {selectedValue ? (
+                        <Select.Value placeholder={placeholder}>
+                            {selectedValue}
+                        </Select.Value>
+                    ) : (
+                        <Text>{placeholder}</Text>
+                    )}
+                    {/* <Select.Value placeholder={placeholder}>
+                        {selectedValue}
+                    </Select.Value> */}
+                </Select.Trigger>
+
+                <Adapt when={'sm'} platform="touch">
+                    <Sheet
+                        native={true}
+                        modal
+                        dismissOnSnapToBottom
+                        animationConfig={{
+                            type: 'spring',
+                            damping: 20,
+                            mass: 0.5,
+                            stiffness: 100,
+                        }}
+                    >
+                        <Sheet.Frame>
+                            <Sheet.ScrollView>
+                                <Adapt.Contents />
+                            </Sheet.ScrollView>
+                        </Sheet.Frame>
+                        <Sheet.Overlay
+                            animation={'lazy'}
+                            enterStyle={{ opacity: 0 }}
+                            exitStyle={{ opacity: 0 }}
+                        />
+                    </Sheet>
+                </Adapt>
+
+                <Select.Content zIndex={200000}>
+                    <Select.ScrollUpButton />
+                    <Select.Viewport animation={'quick'}>
+                        <Select.Group>
+                            <Select.Label themeInverse>
+                                {placeholder}
+                            </Select.Label>
+                            {useMemo(
+                                () =>
+                                    items.map((item, i) => (
+                                        <Select.Item
+                                            index={i}
+                                            key={item}
+                                            value={item}
+                                        >
+                                            <XStack gap={10}>
+                                                <Text>{item}</Text>
+                                                {item === selectedValue && (
+                                                    <Check size={20} />
+                                                )}
+                                            </XStack>
+                                        </Select.Item>
+                                    )),
+                                [items]
+                            )}
+                        </Select.Group>
+                    </Select.Viewport>
+                    <Select.ScrollDownButton />
+                </Select.Content>
+            </Select>
         </View>
     )
 }

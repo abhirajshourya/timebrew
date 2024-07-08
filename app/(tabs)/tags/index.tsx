@@ -1,23 +1,20 @@
 import FAB from '@/components/FAB'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import useDatabase from '@/hooks/useDatabase'
-import { useRouter } from 'expo-router'
-import React, { useEffect, useState } from 'react'
-import {
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    View,
-    Text,
-    Pressable,
-} from 'react-native'
+import { useRouter, useSegments } from 'expo-router'
+import React, { useEffect, useMemo, useState } from 'react'
+import { SafeAreaView, StyleSheet, Pressable } from 'react-native'
 import { Tag as TagType } from '@/constants/types'
 import TagCard from '@/components/TagCard'
+import { View, Text, ScrollView, XStack, Button, YStack } from 'tamagui'
+import { Plus } from '@tamagui/lucide-icons'
 
 const Tags = () => {
     const [tags, setTags] = useState<TagType[]>([])
+    const memoTags = useMemo(() => tags, [tags])
     const { getTags } = useDatabase()
     const router = useRouter()
+    const segment = useSegments()
 
     const handleFABPress = () => {
         router.push('tags/add')
@@ -29,25 +26,46 @@ const Tags = () => {
 
     useEffect(() => {
         getTags().then(setTags)
-    })
+    }, [segment])
 
     return (
         <>
             <SafeAreaView>
-                <Text style={styles.heading}>Tags</Text>
+                <View
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        // margin: 20,
+                        padding: 20,
+                    }}
+                >
+                    <Text style={styles.heading}>All Tags</Text>
+                    <Button
+                        onPress={handleFABPress}
+                        chromeless
+                        marginEnd={-20}
+                        icon={<Plus size={24} />}
+                    />
+                </View>
                 <ScrollView contentContainerStyle={styles.container}>
-                    <View style={{ marginBottom: 200, marginHorizontal: 20 }}>
-                        {tags.map((tag) => (
-                            <Pressable key={tag.id}>
+                    <YStack
+                        style={{ marginBottom: 200 }}
+                        gap={10}
+                        marginHorizontal={20}
+                    >
+                        {memoTags.map((tag) => (
+                            <View key={tag.id}>
                                 <TagCard tag={tag} handleEdit={handleEdit} />
-                            </Pressable>
+                            </View>
                         ))}
-                    </View>
+                    </YStack>
                 </ScrollView>
             </SafeAreaView>
-            <FAB onPress={handleFABPress}>
+            {/* <FAB onPress={handleFABPress}>
                 <TabBarIcon name="add" color="white" />
-            </FAB>
+            </FAB> */}
         </>
     )
 }
@@ -62,7 +80,6 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 24,
         fontWeight: 'bold',
-        margin: 20,
     },
 })
 
