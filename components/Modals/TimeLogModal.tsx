@@ -1,16 +1,8 @@
-import { Ionicons } from '@expo/vector-icons'
-// import { Cross } from '@tamagui/lucide-icons'
 import React, { PropsWithChildren } from 'react'
-import {
-    StyleSheet,
-    // View,
-    // Text,
-    Modal,
-    ModalProps,
-    Pressable,
-} from 'react-native'
-import { Text, View, H3, YStack, XStack, Button } from 'tamagui'
-import { Sheet, useSheet } from '@tamagui/sheet'
+import { StyleSheet, ModalProps } from 'react-native'
+import { View, H3, YStack, XStack, Button } from 'tamagui'
+import { Sheet } from '@tamagui/sheet'
+import { X } from '@tamagui/lucide-icons'
 
 type TimeLogModalProps = PropsWithChildren<ModalProps> & {
     isVisible: boolean
@@ -66,10 +58,18 @@ const TimeLogModal = ({
                 <Sheet.Handle themeInverse />
                 <Sheet.Frame>
                     <YStack padding={20} gap={20}>
-                        <XStack alignItems='center' justifyContent='space-between'>
+                        <XStack
+                            alignItems="center"
+                            justifyContent="space-between"
+                        >
                             <H3>{title || 'Time Log'}</H3>
 
-                            <Button onPress={onClose} chromeless padding={0} icon={<Ionicons name="close" size={30} />} />
+                            <Button
+                                onPress={onClose}
+                                chromeless
+                                padding={0}
+                                icon={<X size={30} />}
+                            />
                         </XStack>
                         <YStack gap={12}>{children}</YStack>
                     </YStack>
