@@ -39,6 +39,10 @@ const MultiDropDownPicker = ({
         setValues(localSelectedValues)
     }, [localSelectedValues])
 
+    useEffect(() => {
+        setLocalSelectedValues(selectedValues)
+    }, [selectedValues])
+
     const inputRef = useRef<TextInput>(null)
 
     return (
