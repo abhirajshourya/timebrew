@@ -33,6 +33,14 @@ const Add = () => {
     const handleSubmit = () => {
         if (checkErrors()) {
             // console.error('Errors found', errors)
+            if (errors.name && errors.color) {
+                Alert.alert('Error', 'Name and Color are required')
+            } else if (errors.name) {
+                Alert.alert('Error', 'Name is required')
+            } else if (errors.color) {
+                Alert.alert('Error', 'Color is required')
+            }
+
             return
         }
 
