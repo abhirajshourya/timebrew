@@ -92,14 +92,20 @@ const Tracker = ({}) => {
         }
 
         if (!duration) {
-            Alert.alert(i18n.t('tracker_screen.index.oops_alert'), i18n.t('tracker_screen.index.no_time'))
+            Alert.alert(
+                i18n.t('tracker_screen.index.oops_alert'),
+                i18n.t('tracker_screen.index.no_time')
+            )
             return
         }
     }
 
     const handleSave = () => {
         if (!cleanText(selectedTask)) {
-            Alert.alert(i18n.t('tracker_screen.index.oops_alert'), i18n.t('tracker_screen.index.no_task'))
+            Alert.alert(
+                i18n.t('tracker_screen.index.oops_alert'),
+                i18n.t('tracker_screen.index.no_task')
+            )
             return
         }
 
@@ -116,7 +122,10 @@ const Tracker = ({}) => {
                     handleCreateTimelog(startTime, endTime, taskId, duration)
                 })
                 .catch(() => {
-                    Alert.alert(i18n.t('tracker_screen.index.error_alert'), i18n.t('tracker_screen.index.task_create_failed'))
+                    Alert.alert(
+                        i18n.t('tracker_screen.index.error_alert'),
+                        i18n.t('tracker_screen.index.task_create_failed')
+                    )
                 })
         } else {
             taskId = tasks.find(
@@ -146,16 +155,25 @@ const Tracker = ({}) => {
                 })
                 // Reset the selected tag state after saving
                 setSelectedTags([])
-                Alert.alert(i18n.t('tracker_screen.index.success_alert'), i18n.t('tracker_screen.index.log_create_success'))
+                Alert.alert(
+                    i18n.t('tracker_screen.index.success_alert'),
+                    i18n.t('tracker_screen.index.log_create_success')
+                )
             })
             .catch(() => {
-                Alert.alert(i18n.t('tracker_screen.index.error_alert'), i18n.t('tracker_screen.index.log_create_failed'))
+                Alert.alert(
+                    i18n.t('tracker_screen.index.error_alert'),
+                    i18n.t('tracker_screen.index.log_create_failed')
+                )
             })
     }
 
     const handleCreateTimelogTag = (timelogId: number, tagId: number) => {
         createTimelogTag(timelogId, tagId).catch(() => {
-            Alert.alert(i18n.t('tracker_screen.index.error_alert'), i18n.t('tracker_screen.index.tag_create_failed'))
+            Alert.alert(
+                i18n.t('tracker_screen.index.error_alert'),
+                i18n.t('tracker_screen.index.tag_create_failed')
+            )
         })
     }
 
@@ -330,7 +348,7 @@ const Tracker = ({}) => {
                             // color={'$accentBackground'}
                             marginBottom={20}
                         >
-                            Logs
+                            {i18n.t('tracker_screen.index.title')}
                         </H2>
                         {memoTimelogs.map((timelog) => (
                             <View key={timelog.id} style={{ marginBottom: 10 }}>
@@ -360,17 +378,23 @@ const Tracker = ({}) => {
                     title={i18n.t('tracker_screen.index.time_log')}
                 >
                     <View>
-                        <Text style={styles.label}>{i18n.t('tracker_screen.index.questions')}</Text>
+                        <Text style={styles.label}>
+                            {i18n.t('tracker_screen.index.questions')}
+                        </Text>
                         <DropDownPicker
                             items={tasks.map((task) => task.description)}
                             selectedValue={selectedTask}
                             setValue={(value) => setSelectedTask(value)}
-                            placeholder={i18n.t('tracker_screen.index.questions')}
+                            placeholder={i18n.t(
+                                'tracker_screen.index.questions'
+                            )}
                         />
                     </View>
 
                     <View>
-                        <Text style={styles.label}>{i18n.t('tracker_screen.index.tags')}</Text>
+                        <Text style={styles.label}>
+                            {i18n.t('tracker_screen.index.tags')}
+                        </Text>
                         <MultiDropDownPicker
                             items={tags}
                             selectedValues={selectedTags}
@@ -383,7 +407,9 @@ const Tracker = ({}) => {
                             onPress={handleSave}
                             backgroundColor={'$borderColor'}
                         >
-                            <Text>{i18n.t('tracker_screen.index.save_btn')}</Text>
+                            <Text>
+                                {i18n.t('tracker_screen.index.save_btn')}
+                            </Text>
                         </Button>
                         {/* <PrimaryButton onPress={handleSave}>
                             <Text>{i18n.t('tracker_screen.index.save</Text>
