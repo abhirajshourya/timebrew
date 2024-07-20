@@ -1,3 +1,4 @@
+import i18n from '@/constants/translations'
 import { Stack } from 'expo-router/stack'
 
 export default function StackLayout() {
@@ -7,9 +8,12 @@ export default function StackLayout() {
 
     return (
         <Stack>
-            <Stack.Screen name="index" options={{ title: 'All Task',headerShown: false }} />
-            <Stack.Screen name="add_task" options={{ title: 'Add Task' }} />
-            <Stack.Screen name="edit_task" options={{ title: 'Edit Task' }} />
+            <Stack.Screen
+                name="index"
+                options={{ title: i18n.t('task_screen.index.all_tasks'), headerShown: false }}
+            />
+            <Stack.Screen name="add_task" options={{ title: i18n.t('task_screen.index.add') }} />
+            <Stack.Screen name="edit_task" options={{ title: i18n.t('task_screen.index.edit') }} />
         </Stack>
     )
 }

@@ -1,3 +1,4 @@
+import i18n from '@/constants/translations'
 import {
     DarkTheme,
     DefaultTheme,
@@ -141,7 +142,7 @@ export default function RootLayout() {
                                         name="(tabs)"
                                         options={{
                                             headerShown: false,
-                                            title: 'Tracker',
+                                            title: i18n.t('tracker_screen.layout.tracker'),
                                         }}
                                     />
                                     <Stack.Screen
