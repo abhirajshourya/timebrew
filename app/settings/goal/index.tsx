@@ -8,10 +8,8 @@ import {
     XStack,
     H4,
     ScrollView,
-    Label,
     Input,
     Button,
-    Text,
 } from 'tamagui'
 import { formatTime, formatTimeToSeconds } from '@/helpers/time-format'
 import { mmkv_storage } from '@/app/_layout'
@@ -90,6 +88,14 @@ const Index = () => {
                                     Set
                                 </Button>
                             </ListItem>
+                        )}
+                        {dailyGoal && (
+                            <ListItem
+                                pressTheme
+                                title={`Previous Goal: ${formatTime(
+                                    dailyGoalTime
+                                )}`}
+                            />
                         )}
                     </YGroup.Item>
                 </YGroup>
