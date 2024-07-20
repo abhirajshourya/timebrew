@@ -144,6 +144,7 @@ const en = {
     settings:{
         title: 'Settings',
         themes: 'Themes',
+        goals: 'Goals',
     },
 
     components:{
@@ -169,6 +170,22 @@ const en = {
     },
 
     loading_db: 'Loading Database...',
+
+    goals_screen: {
+        title: 'Goals are made to achieve!',
+        dailyGoalTitile: 'Daily Time Goal',
+        on: 'On',
+        off: 'Off',
+        inputPlaceholder: 'Enter Time Goal, e.g. 1h 30m',
+        setBtn: 'Set',
+        prevGoalTime: 'Previous Goal: ',
+    },
+
+    alert: {
+        goalSet: 'Goal Set',
+        goalSetMessage: 'Your goal has been successfully set!',
+        ok: 'OK',
+    }
 }
 
 const vi = {
@@ -314,6 +331,7 @@ const vi = {
     settings:{
         title: 'Cài Đặt',
         themes: 'Chủ Đề',
+        goals: "Mục tiêu",
     },
 
     components:{
@@ -339,6 +357,22 @@ const vi = {
     },
 
     loading_db: 'Đang tải cơ sở dữ liệu...',
+
+    goals_screen: {
+        title: 'Mục tiêu được tạo ra để đạt được!',
+        dailyGoalTitile: 'Mục tiêu thời gian hàng ngày',
+        on: 'Bật',
+        off: 'Tắt',
+        inputPlaceholder: 'Nhập Mục tiêu thời gian, ví dụ: 1h 30m',
+        setBtn: 'Đặt',
+        prevGoalTime: 'Mục tiêu trước: ',
+  },
+
+  alert: {
+    goalSet: 'Mục tiêu đã đặt', // Alert Title
+    goalSetMessage: 'Mục tiêu của bạn đã được đặt thành công!', // Alert Message
+    ok: 'OK' // Alert Button
+  }
 
 }
 
@@ -485,6 +519,7 @@ const fr = {
     settings:{
         title: 'Paramètres',
         themes: 'Thèmes',
+        goals: "Objectifs",
     },
 
     components:{
@@ -511,6 +546,21 @@ const fr = {
 
     loading_db: 'Chargement de la base de données...',
 
+    goals_screen: {
+        title: 'Les objectifs sont faits pour être atteints!',
+        dailyGoalTitile: 'Objectif de temps quotidien',
+        on: 'Allumé',
+        off: 'Éteint',
+        inputPlaceholder: 'Entrez l\'objectif de temps, par ex. 1h 30m',
+        setBtn: 'Définir',
+        prevGoalTime: 'Objectif précédent: ',
+      },
+
+      alert: {
+        goalSet: 'Objectif défini', // Alert Title
+        goalSetMessage: 'Votre objectif a été défini avec succès!', // Alert Message
+        ok: 'OK' // Alert Button
+      }
 }
 
 const hi = {
@@ -656,6 +706,7 @@ const hi = {
     settings:{
         title: 'सेटिंग्स',
         themes: 'थीम्स',
+        goals: 'लक्ष्य',
     },
 
     components:{
@@ -681,6 +732,22 @@ const hi = {
     },
 
     loading_db: 'डेटाबेस लोड हो रहा है...',
+
+    goals_screen: {
+        title: 'लक्ष्य प्राप्त करने के लिए बनाए गए हैं!',
+        dailyGoalTitile: 'दैनिक समय लक्ष्य',
+        on: 'चालू',
+        off: 'बंद',
+        inputPlaceholder: 'समय लक्ष्य दर्ज करें, जैसे 1h 30m',
+        setBtn: 'सेट करें',
+        prevGoalTime: 'पिछला लक्ष्य: ',
+      },
+    
+      alert: {
+        goalSet: 'लक्ष्य सेट किया गया', // Alert Title
+        goalSetMessage: 'आपका लक्ष्य सफलतापूर्वक सेट कर दिया गया है!', // Alert Message
+        ok: 'ठीक है' // Alert Button
+      }
 
 }
 
@@ -827,6 +894,7 @@ const es = {
     settings:{
         title: 'Configuraciones',
         themes: 'Temas',
+        goals: 'Metas',
     },
 
     components:{
@@ -852,6 +920,22 @@ const es = {
     },
 
     loading_db: 'Cargando base de datos...',
+
+    goals_screen: {
+        title: '¡Las metas están hechas para lograrse!',
+        dailyGoalTitile: 'Meta de tiempo diaria',
+        on: 'Encendido',
+        off: 'Apagado',
+        inputPlaceholder: 'Ingrese el objetivo de tiempo, ej. 1h 30m',
+        setBtn: 'Establecer',
+        prevGoalTime: 'Meta anterior: ',
+    },
+
+    alert: {
+        goalSet: 'Meta establecida', // Alert Title
+        goalSetMessage: '¡Su meta ha sido establecida con éxito!', // Alert Message
+        ok: 'OK' // Alert Button
+      }
 }
 
 const zh = {
@@ -997,6 +1081,7 @@ const zh = {
     settings:{
         title: '设置',
         themes: '主题',
+        goals: '目标',
     },
 
     components:{
@@ -1022,6 +1107,22 @@ const zh = {
     },
 
     loading_db: '加载数据库...',
+
+    goals_screen: {
+        title: '目标是为了实现!',
+        dailyGoalTitile: '每日时间目标',
+        on: '开',
+        off: '关',
+        inputPlaceholder: '输入时间目标，例如 1小时 30分钟',
+        setBtn: '设置',
+        prevGoalTime: '上一个目标: ',
+      },
+
+      alert: {
+        goalSet: '目标已设置', // Alert Title
+        goalSetMessage: '您的目标已成功设置!', // Alert Message
+        ok: 'OK' // Alert Button
+      }
 }
 
 const ko = {
@@ -1167,6 +1268,7 @@ const ko = {
     settings:{
         title: '설정',
         themes: '테마',
+        goals: '목표',
     },
 
     components:{
@@ -1192,6 +1294,22 @@ const ko = {
     },
 
     loading_db: '데이터베이스 로드 중...',
+
+    goals_screen: {
+        title: '목표는 달성하기 위해서입니다!',
+        dailyGoalTitile: '일일 시간 목표',
+        on: '켜짐',
+        off: '꺼짐',
+        inputPlaceholder: '시간 목표 입력, 예: 1시간 30분',
+        setBtn: '설정',
+        prevGoalTime: '이전 목표: ',
+      },
+
+      alert: {
+        goalSet: '목표 설정됨', // Alert Title
+        goalSetMessage: '목표가 성공적으로 설정되었습니다!', // Alert Message
+        ok: 'OK' // Alert Button
+      }
 }
 
 const ja = {
@@ -1337,6 +1455,7 @@ const ja = {
     settings:{
         title: '設定',
         themes: 'テーマ',
+        goals: '目標',
     },
 
     components:{
@@ -1362,6 +1481,22 @@ const ja = {
     },
 
     loading_db: 'データベースをロードしています...',
+
+    goals_screen: {
+        title: '目標は達成するために作られています！',
+        dailyGoalTitile: '毎日の目標時間',
+        on: 'オン',
+        off: 'オフ',
+        inputPlaceholder: '目標時間を入力してください, 例: 1時間 30分',
+        setBtn: '設定',
+        prevGoalTime: '前の目標: ',
+      },
+
+      alert: {
+        goalSet: '目標設定', // Alert Title
+        goalSetMessage: '目標が正常に設定されました!', // Alert Message
+        ok: 'OK' // Alert Button
+      }
 }
 
 const de = {
@@ -1507,6 +1642,7 @@ const de = {
     settings:{
         title: 'Einstellungen',
         themes: 'Themen',
+        goals: 'Ziele',
     },
 
     components:{
@@ -1532,6 +1668,22 @@ const de = {
     },
 
     loading_db: 'Datenbank wird geladen...',
+
+    goals_screen: {
+        title: 'Ziele sind da, um erreicht zu werden!',
+        dailyGoalTitile: 'Tägliches Zeit-Ziel',
+        on: 'Ein',
+        off: 'Aus',
+        inputPlaceholder: 'Zeit-Ziel eingeben, z.B. 1h 30m',
+        setBtn: 'Setzen',
+        prevGoalTime: 'Vorheriges Ziel: ',
+      },
+
+      alert: {
+        goalSet: 'Ziel gesetzt', // Alert Title
+        goalSetMessage: 'Ihr Ziel wurde erfolgreich gesetzt!', // Alert Message
+        ok: 'OK' // Alert Button
+      }
 }
 
 const ru = {
@@ -1677,6 +1829,7 @@ const ru = {
     settings:{
         title: 'Настройки',
         themes: 'Темы',
+        goals: 'Цели',
     },
 
     components:{
@@ -1702,6 +1855,22 @@ const ru = {
     },
 
     loading_db: 'Загрузка базы данных...',
+
+    goals_screen: {
+        title: 'Цели созданы для достижения!',
+        dailyGoalTitile: 'Ежедневная цель по времени',
+        on: 'Вкл',
+        off: 'Выкл',
+        inputPlaceholder: 'Введите цель по времени, напр. 1ч 30м',
+        setBtn: 'Установить',
+        prevGoalTime: 'Предыдущая цель: ',
+      },
+
+      alert: {
+        goalSet: 'Цель установлена', // Alert Title
+        goalSetMessage: 'Ваша цель успешно установлена!', // Alert Message
+        ok: 'OK' // Alert Button
+      }
 }
 
 
