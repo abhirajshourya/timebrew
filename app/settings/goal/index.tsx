@@ -71,32 +71,44 @@ const Index = () => {
                                 </Switch>
                             </XStack>
                         </ListItem>
-                        {dailyGoal && (
+                    </YGroup.Item>
+                    {dailyGoal && (
+                        <YGroup.Item>
                             <ListItem pressTheme>
-                                <Input
-                                    placeholder="Enter Time Goal, e.g. 1h 30m"
-                                    keyboardType="number-pad"
-                                    enterKeyHint="done"
-                                    onChangeText={(text) => {
-                                        setDailyGoalTime(
-                                            formatTimeToSeconds(text)
-                                        )
-                                    }}
-                                />
-                                <Button onPress={onSetDailyGoalTimeHandler}>
-                                    Set
-                                </Button>
+                                <XStack
+                                    gap={10}
+                                    justifyContent="space-between"
+                                    width={'100%'}
+                                >
+                                    <Input
+                                        placeholder="Enter Time Goal, e.g. 1h 30m"
+                                        keyboardType="number-pad"
+                                        enterKeyHint="done"
+                                        onChangeText={(text) => {
+                                            setDailyGoalTime(
+                                                formatTimeToSeconds(text)
+                                            )
+                                        }}
+                                        width={'80%'}
+                                    />
+                                    <Button onPress={onSetDailyGoalTimeHandler}>
+                                        Set
+                                    </Button>
+                                </XStack>
                             </ListItem>
-                        )}
-                        {dailyGoal && (
+                        </YGroup.Item>
+                    )}
+                    {dailyGoal && (
+                        <YGroup.Item>
                             <ListItem
                                 pressTheme
                                 title={`Previous Goal: ${formatTime(
-                                    dailyGoalTime
+                                    mmkv_storage.getNumber('goal.dailytime') ||
+                                        dailyGoalTime
                                 )}`}
                             />
-                        )}
-                    </YGroup.Item>
+                        </YGroup.Item>
+                    )}
                 </YGroup>
             </YStack>
         </ScrollView>
