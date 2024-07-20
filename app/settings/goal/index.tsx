@@ -40,7 +40,6 @@ const Index = () => {
         if (goal_daily) {
             const goal_dailytime = mmkv_storage.getNumber('goal.dailytime')
             setDailyGoalTime(goal_dailytime || 0)
-            console.log('goal_dailytime', goal_dailytime)
         }
     }, [])
 
