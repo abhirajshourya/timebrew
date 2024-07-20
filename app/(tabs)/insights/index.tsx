@@ -1,16 +1,15 @@
 import DropDownPicker from '@/components/form/DropDownPicker'
 import BarGraph, { DataSet } from '@/components/graphs/BarGraph'
 import TagStat from '@/components/graphs/TagStat'
-import { TagDataset } from '@/constants/types'
+import i18n from '@/constants/translations'
+import { Duration, TagDataset } from '@/constants/types'
 import {
     cleanTagsTimelogs,
     cleanTimelogsForChart,
 } from '@/helpers/data-cleaner'
-import { capitalizeFirstLetter } from '@/helpers/text-helpers'
 import useDatabase from '@/hooks/useDatabase'
 import React, { useEffect, useMemo, useState } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
-import { Duration } from '@/constants/types'
 import { useSegments } from 'expo-router'
 import { Text, ScrollView, View, Label, YStack, Button } from 'tamagui'
 
@@ -64,7 +63,7 @@ const Index = () => {
                         fontWeight: 'bold',
                     }}
                 >
-                    Insights
+                    {i18n.t('insights_screen.layout.title')}
                 </Text>
                 <Button chromeless marginEnd={-20} disabled />
             </View>
@@ -76,7 +75,9 @@ const Index = () => {
                 >
                     <View style={{ marginBottom: 20 }}>
                         {timelogs.data.length === 0 && (
-                            <Text>No data to show</Text>
+                            <Text>
+                                {i18n.t('insights_screen.index.no_data')}
+                            </Text>
                         )}
                         <BarGraph
                             style={{ zIndex: 1 }}
@@ -113,38 +114,88 @@ const Index = () => {
                             //     styles.selectDurationLabel,
                             // ]}
                             >
-                                Duration
+                                {i18n.t('insights_screen.index.duration')}
                             </Label>
                         </View>
                         <DropDownPicker
                             style={{ minWidth: 100 }}
-                            items={['Today', 'Week', 'Month', 'Year', 'All']}
-                            selectedValue={capitalizeFirstLetter(
-                                selectedDuration
+                            items={[
+                                i18n.t('insights_screen.index.daily'),
+                                i18n.t('insights_screen.index.weekly'),
+                                i18n.t('insights_screen.index.monthly'),
+                                i18n.t('insights_screen.index.yearly'),
+                                i18n.t('insights_screen.index.all'),
+                            ]}
+                            selectedValue={
+                                selectedDuration === 'today'
+                                    ? i18n.t('insights_screen.index.daily')
+                                    : selectedDuration === 'week'
+                                    ? i18n.t('insights_screen.index.weekly')
+                                    : selectedDuration === 'month'
+                                    ? i18n.t('insights_screen.index.monthly')
+                                    : selectedDuration === 'year'
+                                    ? i18n.t('insights_screen.index.yearly')
+                                    : selectedDuration === 'all'
+                                    ? i18n.t('insights_screen.index.all')
+                                    : ''
+                            }
+                            setValue={(value: string) => {
+                                if (
+                                    value ==
+                                    i18n.t('insights_screen.index.daily')
+                                ) {
+                                    setSelectedDuration('today' as Duration)
+                                } else if (
+                                    value ==
+                                    i18n.t('insights_screen.index.weekly')
+                                ) {
+                                    setSelectedDuration('week' as Duration)
+                                } else if (
+                                    value ==
+                                    i18n.t('insights_screen.index.monthly')
+                                ) {
+                                    setSelectedDuration('month' as Duration)
+                                } else if (
+                                    value ==
+                                    i18n.t('insights_screen.index.yearly')
+                                ) {
+                                    setSelectedDuration('year' as Duration)
+                                } else if (
+                                    value == i18n.t('insights_screen.index.all')
+                                ) {
+                                    setSelectedDuration('all' as Duration)
+                                }
+                            }}
+                            placeholder={i18n.t(
+                                'insights_screen.index.select_duration'
                             )}
-                            setValue={setSelectedDuration as any}
-                            placeholder="Select a duration"
                         />
                     </View>
                     <View>
                         <Text style={styles.insightLabel}>
                             {selectedDuration.toLowerCase() === 'today'
-                                ? 'Today'
+                                ? i18n.t('insights_screen.index.daily')
                                 : selectedDuration.toLowerCase() === 'week' ||
                                   selectedDuration.toLowerCase() === 'month' ||
                                   selectedDuration.toLowerCase() === 'year'
-                                ? 'This ' + selectedDuration
+                                ? i18n.t(
+                                      'insights_screen.index.' +
+                                          selectedDuration.toLowerCase() +
+                                          'ly'
+                                  )
                                 : selectedDuration.toLowerCase() === 'all'
-                                ? 'All time'
+                                ? i18n.t('insights_screen.index.all')
                                 : ''}
                         </Text>
 
                         <YStack gap={10}>
                             {timelogs.data.length === 0 && (
-                                <Text>No data to show</Text>
+                                <Text>
+                                    {i18n.t('insights_screen.index.no_data')}
+                                </Text>
                             )}
                             {timelogs.data.length > 0 &&
-                                memoTagsStats.map(
+                                tagsStats.map(
                                     (tagStat, i) =>
                                         tagStat.timeLogs.length > 0 && (
                                             <TagStat

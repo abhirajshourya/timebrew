@@ -1,20 +1,16 @@
-import TextInput from '@/components/form/TextInput'
-import { Timelog } from '@/constants/types'
-import { formatTime } from '@/helpers/time-format'
+import i18n from '@/constants/translations'
 import useDatabase from '@/hooks/useDatabase'
-import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import { useRouter } from 'expo-router'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Alert } from 'react-native'
 import {
+    Button,
+    Input,
+    Label,
     Text,
     View,
-    Button,
-    ScrollView,
-    Input,
-    YStack,
-    Label,
     YGroup,
+    YStack
 } from 'tamagui'
 
 const AddTask = () => {
@@ -30,7 +26,7 @@ const AddTask = () => {
 
     const handleSave = async () => {
         if (!taskDesc) {
-            Alert.alert('Task Description is required')
+            Alert.alert(i18n.t('task_screen.add.desc_alert'))
             return
         }
 
@@ -38,16 +34,15 @@ const AddTask = () => {
             await createTask(taskDesc)
             router.dismiss()
         } catch (error) {
-            console.error('Error updating task')
         }
     }
 
     return (
         <YStack margin={20} gap={20}>
             <YGroup>
-                <Label>Task Name</Label>
+                <Label>{i18n.t('task_screen.add.label')}</Label>
                 <Input
-                    placeholder="Enter Task Name"
+                    placeholder={i18n.t('task_screen.add.name_placeholder')}
                     value={taskDesc}
                     onChangeText={setTaskDesc}
                     placeholderTextColor={'$color'}
@@ -55,7 +50,7 @@ const AddTask = () => {
             </YGroup>
             <View>
                 <Button onPress={handleSave} backgroundColor={'$borderColor'}>
-                    <Text>Save</Text>
+                    <Text>{i18n.t('task_screen.add.save')}</Text>
                 </Button>
             </View>
         </YStack>

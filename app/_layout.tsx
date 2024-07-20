@@ -1,24 +1,25 @@
+import i18n from '@/constants/translations'
+import { type Theme } from '@/constants/types'
+import { useColorScheme } from '@/hooks/useColorScheme'
 import {
     DarkTheme,
     DefaultTheme,
     ThemeProvider,
 } from '@react-navigation/native'
+import { Theme as NavigationThemeType } from '@react-navigation/native/src/types'
+import { config } from '@tamagui/config/v3'
+import { TamaguiProvider, createTamagui } from '@tamagui/core'; // or 'tamagui'
+import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
-import { Suspense, useEffect, useState } from 'react'
-import 'react-native-reanimated'
-import { useColorScheme } from '@/hooks/useColorScheme'
 import { SQLiteProvider } from 'expo-sqlite/next'
-import { Text, View, LogBox } from 'react-native'
-import { useFonts } from 'expo-font'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { TamaguiProvider, createTamagui } from '@tamagui/core' // or 'tamagui'
-import { config } from '@tamagui/config/v3'
-import { PortalProvider, useTheme } from 'tamagui'
-import { useMMKVString } from 'react-native-mmkv'
-import { type Theme } from '@/constants/types'
-import { Theme as NavigationThemeType } from '@react-navigation/native/src/types'
 import { StatusBar } from 'expo-status-bar'
+import { Suspense, useEffect, useState } from 'react'
+import { LogBox, Text, View } from 'react-native'
+import { useMMKVString } from 'react-native-mmkv'
+import 'react-native-reanimated'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { PortalProvider } from 'tamagui'
 
 // Override the default Tamagui config with your custom config
 // config.themes = {
@@ -128,7 +129,7 @@ export default function RootLayout() {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <Text>Loading Database...</Text>
+                                    <Text>{i18n.t('loading_db')}</Text>
                                 </View>
                             }
                         >
@@ -141,14 +142,14 @@ export default function RootLayout() {
                                         name="(tabs)"
                                         options={{
                                             headerShown: false,
-                                            title: 'Tracker',
+                                            title: i18n.t('tracker_screen.layout.tracker'),
                                         }}
                                     />
                                     <Stack.Screen
                                         name="settings"
                                         options={{
                                             headerShown: true,
-                                            title: 'Settings',
+                                            title: i18n.t('settings.title'),
                                         }}
                                     />
                                     <Stack.Screen name="+not-found" />

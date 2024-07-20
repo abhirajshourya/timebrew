@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, TouchableHighlight } from 'react-native'
+import i18n from '@/constants/translations'
 import { Tag as TagType } from '@/constants/types'
-import { Feather } from '@expo/vector-icons'
-import TagChip from './TagChip'
-import { Button, Card, XStack, YStack, Text } from 'tamagui'
-import { Edit3 } from '@tamagui/lucide-icons'
-import useDatabase from '@/hooks/useDatabase'
-import { useSegments } from 'expo-router'
 import { formatTime } from '@/helpers/time-format'
+import useDatabase from '@/hooks/useDatabase'
+import { Edit3 } from '@tamagui/lucide-icons'
+import { useSegments } from 'expo-router'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet } from 'react-native'
+import { Button, Card, Text, XStack, YStack } from 'tamagui'
+import TagChip from './TagChip'
 
 interface TagCardProps {
     tag: TagType
@@ -34,7 +34,7 @@ const TagCard = ({ tag, handleEdit }: TagCardProps) => {
                     <XStack>
                         <TagChip tag={tag} cardProps={{ padding: '$2' }} />
                     </XStack>
-                    <Text>{formatTime(totalTime) || 'No time logged'}</Text>
+                    <Text>{formatTime(totalTime) || i18n.t('tag_screen.add.no_time')}</Text>
                 </YStack>
                 <Button
                     onPress={() => handleEdit(tag)}

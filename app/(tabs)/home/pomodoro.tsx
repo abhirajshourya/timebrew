@@ -1,4 +1,5 @@
 import CircleButton from '@/components/CircleButton'
+import i18n from '@/constants/translations'
 import { formatTime } from '@/helpers/time-format'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
@@ -37,28 +38,27 @@ const Pomodoro = () => {
         const newDuration = isBreakTime
             ? DEFAULT_BREAK_DURATION
             : DEFAULT_POMO_DURATION
-        console.log('newDuration', newDuration)
         setPomoDuration(newDuration)
         setProgress(0)
         if (!isBreak) {
-            Alert.alert('Focus Session Completed', 'Time to take a break!', [
+            Alert.alert(i18n.t('tracker_screen.poromodo.break_title') , i18n.t('tracker_screen.poromodo.break_msg'), [
                 {
-                    text: 'Continue',
+                    text: i18n.t('tracker_screen.poromodo.continue'),
                     onPress: () => {
                         handleStart(newDuration)
                     },
                 },
             ])
         } else {
-            Alert.alert('Break Session Completed', 'Time to focus!', [
+            Alert.alert(i18n.t('tracker_screen.poromodo.end_pomodoro'), i18n.t('tracker_screen.poromodo.stop_pomodoro_msg'), [
                 {
-                    text: 'Continue',
+                    text: i18n.t('tracker_screen.poromodo.no'),
                     onPress: () => {
                         handleStart(newDuration)
                     },
                 },
                 {
-                    text: 'End Pomodoro',
+                    text: i18n.t('tracker_screen.poromodo.yes'),
                     onPress: () => {
                         handleStop()
                         router.navigate('home')
@@ -97,8 +97,8 @@ const Pomodoro = () => {
                     onPress={() => {
                         if (isRunning) {
                             Alert.alert(
-                                'Leave Pomodoro?',
-                                'This will stop the pomodoro timer.',
+                                i18n.t('tracker_screen.poromodo.break_title'),
+                                i18n.t('tracker_screen.poromodo.break_title'),
                                 [
                                     {
                                         text: 'Yes',
@@ -167,7 +167,7 @@ const Pomodoro = () => {
                     {/* <Ionicons name="timer" size={30}/> */}
                     <View>
                         <Text style={{ fontSize: 20 }}>
-                            {isBreak ? 'Break' : 'Pomodoro'}
+                            {isBreak ? i18n.t('tracker_screen.poromodo.break') : 'Pomodoro'}
                         </Text>
                         <Text style={{ fontSize: 12 }}>
                             {formatTime(pomoDuration)}

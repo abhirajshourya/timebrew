@@ -1,10 +1,7 @@
-import { PrimaryButton, RegularButton } from '@/components/Buttons'
-import TextInput from '@/components/form/TextInput'
+import i18n from '@/constants/translations'
 import { Task, Timelog } from '@/constants/types'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
-import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
-import { X } from '@tamagui/lucide-icons'
 import * as DocumentPricker from 'expo-document-picker'
 import * as File from 'expo-file-system'
 import { useLocalSearchParams, useRouter } from 'expo-router'
@@ -12,20 +9,18 @@ import * as Sharing from 'expo-sharing'
 import React, { useEffect, useState } from 'react'
 import { Alert, Platform } from 'react-native'
 import {
+    Button,
+    H3,
+    Input,
+    Label,
+    ScrollView,
+    Separator,
     Text,
     View,
-    ScrollView,
-    Button,
-    Input,
-    YStack,
-    Label,
-    YGroup,
-    H2,
-    H3,
-    XStack,
-    Separator,
-    Group,
     XGroup,
+    XStack,
+    YGroup,
+    YStack
 } from 'tamagui'
 
 const EditTask = () => {
@@ -60,21 +55,20 @@ const EditTask = () => {
             await updateTask({ id: params.id, description: taskDesc })
             router.dismiss()
         } catch (error) {
-            console.error('Error updating task')
         }
     }
 
     const handleDelete = async () => {
         Alert.alert(
-            'Delete Task',
-            'This will delete associated Timelogs, are you sure you want to delete this task?',
+            i18n.t('task_screen.add.delete_alert_title'),
+            i18n.t('task_screen.add.delete_alert_msg'),
             [
                 {
-                    text: 'Cancel',
+                    text: i18n.t('task_screen.add.cancel'),
                     style: 'cancel',
                 },
                 {
-                    text: 'Delete',
+                    text: i18n.t('task_screen.add.delete'),
                     onPress: async () => {
                         try {
                             await deleteTask(params.id)
@@ -152,13 +146,17 @@ const EditTask = () => {
                             await updateTimelog(timelogs[index])
                         }
                     }
-                } else {
-                    Alert.alert('Error', 'The timelogs are not for this task', [
-                        {
-                            text: 'Ok',
-                            style: 'cancel',
-                        },
-                    ])
+                }else{
+                    Alert.alert(
+                        i18n.t('task_screen.edit.error'),
+                        i18n.t('task_screen.edit.error_msg'),
+                        [
+                            {
+                                text: i18n.t('task_screen.edit.ok'),
+                                style: 'cancel',
+                            },
+                        ]
+                    )
                 }
             }
         } catch (error) {
@@ -177,9 +175,11 @@ const EditTask = () => {
         >
             <YStack gap={20} margin={20}>
                 <YGroup>
-                    <Label>Task Name</Label>
+                    <Label>
+                        {i18n.t('task_screen.edit.label')}
+                    </Label>
                     <Input
-                        placeholder="Enter Task Name"
+                        placeholder={i18n.t('task_screen.add.name_placeholder')}
                         value={taskDesc}
                         onChangeText={setTaskDesc}
                         placeholderTextColor={'$color'}
@@ -190,17 +190,17 @@ const EditTask = () => {
                         onPress={handleSave}
                         backgroundColor={'$borderColor'}
                     >
-                        <Text>Save</Text>
+                        <Text>{i18n.t('task_screen.edit.save')}</Text>
                     </Button>
                     <Button onPress={handleDelete} variant="outlined">
-                        <Text color={'red'}>Delete</Text>
+                        <Text color={'red'}>{i18n.t('task_screen.edit.delete')}</Text>
                     </Button>
                 </YStack>
             </YStack>
 
             <YStack gap={20} margin={20}>
                 <H3>
-                    Total Time Spent:{' '}
+                { i18n.t('task_screen.edit.total_time') }{' '}
                     {formatTime(
                         timelogs.reduce(
                             (acc, timelog) => acc + timelog.duration,
@@ -244,7 +244,7 @@ const EditTask = () => {
                             borderColor={'$borderColor'}
                             backgroundColor={'$background0'}
                         >
-                            <Text>Import</Text>
+                            <Text>{i18n.t('task_screen.edit.import')}</Text>
                         </Button>
                     </XGroup.Item>
                     {/* <Separator vertical /> */}
@@ -256,7 +256,7 @@ const EditTask = () => {
                             backgroundColor={'$background0'}
                             
                         >
-                            <Text>Export</Text>
+                            <Text>{i18n.t('task_screen.edit.export')}</Text>
                         </Button>
                     </XGroup.Item>
                 </XGroup>

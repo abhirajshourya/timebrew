@@ -1,3 +1,5 @@
+import i18n from "@/constants/translations"
+
 /**
  * Format time in seconds to a human readable format
  * @param time - Time in seconds
@@ -44,12 +46,37 @@ export const formatDateToDayofWeek = (date: number | string) => {
     const dateObj = new Date(date)
 
     if (isToday(date)) {
-        return 'Today'
+        return i18n.t('components.time_format.today')
     } else if (isInThisWeek(date)) {
-        return dateObj.toLocaleDateString('en-US', { weekday: 'short' })
+        switch (dateObj.toLocaleDateString('en-US', { weekday: 'short' })) {
+            case 'Mon':
+                return i18n.t('components.time_format.monday')
+            case 'Tue':
+                return i18n.t('components.time_format.tuesday')
+            case 'Wed':
+                return i18n.t('components.time_format.wednesday')
+            case 'Thu':
+                return i18n.t('components.time_format.thursday')
+            case 'Fri':
+                return i18n.t('components.time_format.friday')
+            case 'Sat':
+                return i18n.t('components.time_format.saturday')
+            case 'Sun':
+                return i18n.t('components.time_format.sunday')
+            default:
+                return dateObj.toLocaleDateString('en-US', { weekday: 'short' })
+        }
     } else {
+
+        // console.log(dateObj.toLocaleDateString('en-US', {
+        //     month: 'short',
+        //     day: 'numeric',
+        // }));
+
+        // switch (dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })) {
+
         return dateObj.toLocaleDateString('en-US', {
-            month: 'short',
+            month: 'numeric',
             day: 'numeric',
         })
     }

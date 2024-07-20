@@ -1,3 +1,4 @@
+import i18n from '@/constants/translations'
 import { TagDataset } from '@/constants/types'
 import React from 'react'
 import { StyleSheet } from 'react-native'
@@ -29,12 +30,15 @@ const TagStat = ({ tagStat }: TagStatProps) => {
                     }}
                 >
                     <Text fontSize={'$5'}>
-                        Total time: {formatTimeToHours(tagStat.totalDuration)}
+                        {i18n.t('components.tag_stat.total_time')}{' '}
+                        {formatTimeToHours(tagStat.totalDuration)}
                     </Text>
                     {/* <Text>{formatTime(tagStat.totalDuration)}</Text> */}
                     <Text>
                         {tagStat.timeLogs.length}{' '}
-                        {tagStat.timeLogs.length > 1 ? 'logs' : 'log'}
+                        {tagStat.timeLogs.length > 1
+                            ? i18n.t('components.tag_stat.logs')
+                            : i18n.t('components.tag_stat.log')}
                     </Text>
                 </XStack>
             </XStack>

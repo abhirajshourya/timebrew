@@ -1,3 +1,4 @@
+import i18n from '@/constants/translations'
 import { Stack } from 'expo-router/stack'
 
 export default function StackLayout() {
@@ -12,11 +13,11 @@ export default function StackLayout() {
         <Stack>
             <Stack.Screen
                 name="index"
-                options={{ headerShown: false, title: 'Settings'}}
+                options={{ headerShown: false, title: i18n.t('settings.title') }}
             />
             <Stack.Screen
                 name="themes"
-                options={{ headerShown: true, title: 'Themes' }}
+                options={{ headerShown: true, title: i18n.t('settings.themes') }}
             />
         </Stack>
     )

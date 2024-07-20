@@ -1,3 +1,4 @@
+import i18n from '@/constants/translations'
 import { Task } from '@/constants/types'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
@@ -36,7 +37,7 @@ const TaskCard = ({ task }: TaskProps) => {
 
                     {/* <Feather name="edit" size={16} color="#525252" /> */}
                     <View>
-                        <Text>{formatTime(totalTime) || 'No time logged'}</Text>
+                        <Text>{formatTime(totalTime) || i18n.t('components.task_card.no_time')}</Text>
                     </View>
                 </YStack>
                 <Button
