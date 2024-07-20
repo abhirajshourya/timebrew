@@ -13,6 +13,7 @@ import {
 } from 'tamagui'
 import { formatTime, formatTimeToSeconds } from '@/helpers/time-format'
 import { mmkv_storage } from '@/app/_layout'
+import i18n from '@/constants/translations'
 
 const Index = () => {
     const [dailyGoal, setDailyGoal] = useState(true)
@@ -21,16 +22,12 @@ const Index = () => {
 
     function onSetDailyGoalTimeHandler() {
         mmkv_storage.set('goal.dailytime', dailyGoalTime)
-        Alert.alert(
-            'Goal Set', // Alert Title
-            'Your goal has been successfully set!', // Alert Message
-            [
-                {
-                    text: 'OK',
-                    style: 'default',
-                },
-            ]
-        )
+        Alert.alert(i18n.t('alert.goalSet'), i18n.t('alert.goalSetMessage'), [
+            {
+                text: i18n.t('alert.ok'),
+                style: 'default',
+            },
+        ])
     }
 
     useEffect(() => {
@@ -47,17 +44,24 @@ const Index = () => {
         <ScrollView>
             <YStack margin={20} gap={20}>
                 <YGroup>
-                    <H4>Goals are made to achieve!</H4>
+                    <H4>{i18n.t('goals_screen.title')}</H4>
                 </YGroup>
                 <YGroup>
                     <YGroup.Item>
-                        <ListItem pressTheme title={`Daily Time Goal`}>
+                        <ListItem
+                            pressTheme
+                            title={i18n.t('goals_screen.dailyGoalTitile')}
+                        >
                             <XStack
                                 gap={10}
                                 alignItems="center"
                                 justifyContent="space-between"
                             >
-                                <H4>{dailyGoal ? 'On' : 'Off'}</H4>
+                                <H4>
+                                    {dailyGoal
+                                        ? i18n.t('goals_screen.on')
+                                        : i18n.t('goals_screen.off')}
+                                </H4>
                                 <Switch
                                     size={'$3'}
                                     checked={dailyGoal}
@@ -81,7 +85,9 @@ const Index = () => {
                                     width={'100%'}
                                 >
                                     <Input
-                                        placeholder="Enter Time Goal, e.g. 1h 30m"
+                                        placeholder={i18n.t(
+                                            'goals_screen.inputPlaceholder'
+                                        )}
                                         keyboardType="number-pad"
                                         enterKeyHint="done"
                                         onChangeText={(text) => {
@@ -89,10 +95,10 @@ const Index = () => {
                                                 formatTimeToSeconds(text)
                                             )
                                         }}
-                                        width={'80%'}
+                                        width={'70%'}
                                     />
                                     <Button onPress={onSetDailyGoalTimeHandler}>
-                                        Set
+                                        {i18n.t('goals_screen.setBtn')}
                                     </Button>
                                 </XStack>
                             </ListItem>
@@ -102,7 +108,9 @@ const Index = () => {
                         <YGroup.Item>
                             <ListItem
                                 pressTheme
-                                title={`Previous Goal: ${formatTime(
+                                title={`${i18n.t(
+                                    'goals_screen.prevGoalTime'
+                                )}: ${formatTime(
                                     mmkv_storage.getNumber('goal.dailytime') ||
                                         dailyGoalTime
                                 )}`}

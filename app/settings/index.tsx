@@ -3,11 +3,7 @@ import i18n from '@/constants/translations'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import {
-    ListItem,
-    ScrollView,
-    YGroup
-} from 'tamagui'
+import { ListItem, ScrollView, YGroup } from 'tamagui'
 
 const Settings = () => {
     const router = useRouter()
@@ -44,7 +40,7 @@ const Settings = () => {
                 </YGroup.Item>
                 <YGroup.Item>
                     <ListItem
-                        title="Goals"
+                        title={i18n.t('settings.goals')}
                         pressTheme
                         icon={<Goal size={24} />}
                         iconAfter={<ChevronRight size={24} />}
