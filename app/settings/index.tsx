@@ -41,6 +41,8 @@ const Settings = () => {
                             router.push('settings/themes')
                         }}
                     />
+                </YGroup.Item>
+                <YGroup.Item>
                     <ListItem
                         title="Goals"
                         pressTheme
