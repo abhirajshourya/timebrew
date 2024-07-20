@@ -68,10 +68,10 @@ export const formatDateToDayofWeek = (date: number | string) => {
         }
     } else {
 
-        console.log(dateObj.toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-        }));
+        // console.log(dateObj.toLocaleDateString('en-US', {
+        //     month: 'short',
+        //     day: 'numeric',
+        // }));
 
         // switch (dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })) {
 
