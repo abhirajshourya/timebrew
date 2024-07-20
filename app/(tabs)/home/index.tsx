@@ -5,6 +5,7 @@ import TimelogCard from '@/components/TimelogCard'
 import WavyRings from '@/components/WavyRings'
 import DropDownPicker from '@/components/form/DropDownPicker'
 import MultiDropDownPicker from '@/components/form/MultiDropDownTagsPicker'
+import i18n from '@/constants/translations'
 import { Tag, Task, Timelog } from '@/constants/types'
 import { cleanText } from '@/helpers/text-helpers'
 import { formatTime } from '@/helpers/time-format'
@@ -91,14 +92,14 @@ const Tracker = ({}) => {
         }
 
         if (!duration) {
-            Alert.alert('Oops!', 'No time to log')
+            Alert.alert(i18n.t('tracker_screen.index.oops_alert'), i18n.t('tracker_screen.index.no_time'))
             return
         }
     }
 
     const handleSave = () => {
         if (!cleanText(selectedTask)) {
-            Alert.alert('Oops!', 'Please select a task')
+            Alert.alert(i18n.t('tracker_screen.index.oops_alert'), i18n.t('tracker_screen.index.no_task'))
             return
         }
 
@@ -115,7 +116,7 @@ const Tracker = ({}) => {
                     handleCreateTimelog(startTime, endTime, taskId, duration)
                 })
                 .catch(() => {
-                    Alert.alert('Error', 'Failed to create task')
+                    Alert.alert(i18n.t('tracker_screen.index.error_alert'), i18n.t('tracker_screen.index.task_create_failed'))
                 })
         } else {
             taskId = tasks.find(
@@ -145,16 +146,16 @@ const Tracker = ({}) => {
                 })
                 // Reset the selected tag state after saving
                 setSelectedTags([])
-                Alert.alert('Success', 'Timelog created successfully')
+                Alert.alert(i18n.t('tracker_screen.index.success_alert'), i18n.t('tracker_screen.index.log_create_success'))
             })
             .catch(() => {
-                Alert.alert('Error', 'Failed to create timelog')
+                Alert.alert(i18n.t('tracker_screen.index.error_alert'), i18n.t('tracker_screen.index.log_create_failed'))
             })
     }
 
     const handleCreateTimelogTag = (timelogId: number, tagId: number) => {
         createTimelogTag(timelogId, tagId).catch(() => {
-            Alert.alert('Error', 'Failed to create timelog tag')
+            Alert.alert(i18n.t('tracker_screen.index.error_alert'), i18n.t('tracker_screen.index.tag_create_failed'))
         })
     }
 
@@ -348,7 +349,7 @@ const Tracker = ({}) => {
                                 textAlign: 'center',
                             }}
                         >
-                            No logs
+                            {i18n.t('tracker_screen.index.no_logs')}
                         </Text>
                     )}
                 </ScrollView>
@@ -356,25 +357,25 @@ const Tracker = ({}) => {
                 <TimeLogModal
                     isVisible={isModalVisible}
                     onClose={() => setIsModalVisible(false)}
-                    title="Time log"
+                    title={i18n.t('tracker_screen.index.time_log')}
                 >
                     <View>
-                        <Text style={styles.label}>What did you do?</Text>
+                        <Text style={styles.label}>{i18n.t('tracker_screen.index.questions')}</Text>
                         <DropDownPicker
                             items={tasks.map((task) => task.description)}
                             selectedValue={selectedTask}
                             setValue={(value) => setSelectedTask(value)}
-                            placeholder="What did you do?"
+                            placeholder={i18n.t('tracker_screen.index.questions')}
                         />
                     </View>
 
                     <View>
-                        <Text style={styles.label}>Tags</Text>
+                        <Text style={styles.label}>{i18n.t('tracker_screen.index.tags')}</Text>
                         <MultiDropDownPicker
                             items={tags}
                             selectedValues={selectedTags}
                             setValues={(values) => setSelectedTags(values)}
-                            placeholder="Add tags"
+                            placeholder={i18n.t('tracker_screen.index.add_tag')}
                         />
                     </View>
                     <View style={{ marginBottom: 20 }}>
@@ -382,11 +383,11 @@ const Tracker = ({}) => {
                             onPress={handleSave}
                             backgroundColor={'$borderColor'}
                         >
-                            <Text>Save</Text>
+                            <Text>{i18n.t('tracker_screen.index.save_btn')}</Text>
                         </Button>
                         {/* <PrimaryButton onPress={handleSave}>
-                            <Text>Save</Text>
-                        </PrimaryButton> */}
+                            <Text>{i18n.t('tracker_screen.index.save</Text>
+                        _btn')}</PrimaryButton> */}
                     </View>
                 </TimeLogModal>
             </YStack>

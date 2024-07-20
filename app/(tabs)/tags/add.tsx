@@ -1,13 +1,14 @@
 import FAB from '@/components/FAB'
 import ColorPicker from '@/components/form/ColorPicker'
+import ErrorText from '@/components/form/ErrorText'
 import TextInput from '@/components/form/TextInput'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
+import i18n from '@/constants/translations'
 import useDatabase from '@/hooks/useDatabase'
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Pressable, Alert } from 'react-native'
 import { Tag } from '@/constants/types'
-import ErrorText from '@/components/form/ErrorText'
 import { cleanText } from '@/helpers/text-helpers'
 import { DangerButton, PrimaryButton } from '@/components/Buttons'
 import { Button, Input, Label, Text, View, YGroup, YStack } from 'tamagui'
@@ -23,7 +24,7 @@ const Add = () => {
 
     useEffect(() => {
         if (params.id) {
-            navigation.setOptions({ title: 'Edit Tag' })
+            navigation.setOptions({ title: i18n.t('tag_screen.add.edit_tag') })
 
             setName(params.name)
             setSelectedColor(params.color)
@@ -36,9 +37,9 @@ const Add = () => {
             if (errors.name && errors.color) {
                 Alert.alert('Error', 'Name and Color are required')
             } else if (errors.name) {
-                Alert.alert('Error', 'Name is required')
+                Alert.alert('Error', i18n.t('tag_screen.add.name_required'))
             } else if (errors.color) {
-                Alert.alert('Error', 'Color is required')
+                Alert.alert('Error', i18n.t('tag_screen.add.color_required'))
             }
 
             return
@@ -50,14 +51,12 @@ const Add = () => {
                 name: cleanText(name),
                 color: selectedColor,
             }).catch((e) => {
-                console.log('Failed to update tag', e)
             })
 
             router.dismiss()
             return
         } else {
             createTag(cleanText(name), selectedColor).catch((e) => {
-                console.log('Failed to create tag', e)
             })
 
             router.dismiss()
@@ -66,16 +65,15 @@ const Add = () => {
     }
 
     const handleDelete = () => {
-        Alert.alert('Delete Tag', 'Are you sure you want to delete this tag?', [
+        Alert.alert(i18n.t('tag_screen.add.delete_alert'), i18n.t('tag_screen.add.delete_alert_msg'), [
             {
-                text: 'Cancel',
+                text: i18n.t('tag_screen.add.cancel'),
                 style: 'cancel',
             },
             {
-                text: 'Delete',
+                text: i18n.t('tag_screen.add.delete_btn'),
                 onPress: () => {
                     deleteTag(params.id).catch((e) => {
-                        console.log('Failed to delete tag', e)
                     })
 
                     router.dismiss()
@@ -92,7 +90,7 @@ const Add = () => {
         if (!(name && cleanText(name))) {
             setErrors((errors) => ({
                 ...errors,
-                name: 'Name is required',
+                name: i18n.t('tag_screen.add.name_required'),
             }))
             returnVal = true
         }
@@ -100,7 +98,7 @@ const Add = () => {
         if (!selectedColor) {
             setErrors((errors) => ({
                 ...errors,
-                color: 'Color is required',
+                color: i18n.t('tag_screen.add.color_required'),
             }))
             returnVal = true
         }
@@ -115,15 +113,15 @@ const Add = () => {
     return (
         <YStack margin={20} gap={20}>
             {/* <Text style={styles.heading}>
-                    {params.id ? 'Edit Tag' : 'Create New Tag'}
+                    {params.id ? i18n.t('tag_screen.add.edit_tag') : i18n.t('tag_screen.add.create_tag')}
                 </Text> */}
 
             <YGroup>
-                <Label>Tag Name</Label>
+                <Label>{i18n.t('tag_screen.add.tag_name')}</Label>
                 <Input
                     value={name}
                     onChangeText={setName}
-                    placeholder="E.g. work, personal, study, etc."
+                    placeholder={i18n.t('tag_screen.add.place_holder')}
                     placeholderTextColor={'$color'}
                 />
                 {/* <TextInput
@@ -138,7 +136,7 @@ const Add = () => {
             </YGroup>
 
             <YGroup>
-                <Label>Tag Color</Label>
+                <Label>{i18n.t('tag_screen.add.tag_color')}</Label>
 
                 <ColorPicker
                     selectedColor={selectedColor}
@@ -149,11 +147,11 @@ const Add = () => {
 
             <YStack gap={10}>
                 <Button onPress={handleSubmit} backgroundColor={'$borderColor'}>
-                    <Text>Save</Text>
+                    <Text>{i18n.t('tag_screen.add.save_btn')}</Text>
                 </Button>
                 {params.id && (
                     <Button onPress={handleDelete} variant="outlined">
-                        <Text color={'red'}>Delete</Text>
+                        <Text color={'red'}>{i18n.t('tag_screen.add.delete_btn')}</Text>
                     </Button>
                 )}
             </YStack>

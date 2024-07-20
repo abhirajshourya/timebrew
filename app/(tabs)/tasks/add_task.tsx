@@ -1,6 +1,5 @@
 import TextInput from '@/components/form/TextInput'
-import { Timelog } from '@/constants/types'
-import { formatTime } from '@/helpers/time-format'
+import i18n from '@/constants/translations'
 import useDatabase from '@/hooks/useDatabase'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import { useRouter } from 'expo-router'
@@ -30,7 +29,7 @@ const AddTask = () => {
 
     const handleSave = async () => {
         if (!taskDesc) {
-            Alert.alert('Task Description is required')
+            Alert.alert(i18n.t('task_screen.add.desc_alert'))
             return
         }
 
@@ -38,7 +37,6 @@ const AddTask = () => {
             await createTask(taskDesc)
             router.dismiss()
         } catch (error) {
-            console.error('Error updating task')
         }
     }
 
@@ -47,7 +45,7 @@ const AddTask = () => {
             <YGroup>
                 <Label>Task Name</Label>
                 <Input
-                    placeholder="Enter Task Name"
+                    placeholder={i18n.t('task_screen.add.name_placeholder')}
                     value={taskDesc}
                     onChangeText={setTaskDesc}
                     placeholderTextColor={'$color'}
@@ -55,7 +53,7 @@ const AddTask = () => {
             </YGroup>
             <View>
                 <Button onPress={handleSave} backgroundColor={'$borderColor'}>
-                    <Text>Save</Text>
+                    <Text>{i18n.t('task_screen.add.save')}</Text>
                 </Button>
             </View>
         </YStack>

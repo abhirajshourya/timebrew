@@ -1,6 +1,8 @@
 import TaskCard from '@/components/TaskCard'
+import i18n from '@/constants/translations'
 import { Task } from '@/constants/types'
 import useDatabase from '@/hooks/useDatabase'
+import { Feather } from '@expo/vector-icons'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -8,7 +10,6 @@ import { SafeAreaView, TouchableOpacity } from 'react-native'
 import { Button, Text, View, ScrollView, YStack } from 'tamagui'
 import EditTask from './edit_task'
 import AddTask from './add_task'
-import { Feather } from '@expo/vector-icons'
 import { useRouter, useSegments } from 'expo-router'
 import { Plus } from '@tamagui/lucide-icons'
 
@@ -46,7 +47,7 @@ const TasksPage = () => {
                         fontWeight: 'bold',
                     }}
                 >
-                    All Tasks
+                    {i18n.t('task_screen.index.all_tasks')}
                 </Text>
                 <Button
                     onPress={handleFABPress}
@@ -109,7 +110,7 @@ const TasksPage = () => {
 //                 name="EditTask"
 //                 component={EditTask}
 //                 options={{
-//                     title: 'Edit Task',
+//                     title: i18n.t('task_screen.index.edit'),
 //                     headerBackTitle: 'All Tasks',
 //                 }}
 //             />
@@ -117,8 +118,8 @@ const TasksPage = () => {
 //                 name="AddTask"
 //                 component={AddTask}
 //                 options={{
-//                     title: 'Add Task',
-//                     headerBackTitle: 'All Tasks',
+//                     title: i18n.t('task_screen.index.add'),
+//                     headerBackTitle: i18n.t('task_screen.index.all_tasks'),
 //                 }}
 //             />
 //         </TasksStack.Navigator>
