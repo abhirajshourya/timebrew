@@ -7,8 +7,6 @@ import useDatabase from '@/hooks/useDatabase'
 import { useRouter, useSegments } from 'expo-router'
 import React, { useEffect, useMemo, useState } from 'react'
 import { SafeAreaView, StyleSheet, Pressable } from 'react-native'
-import { Tag as TagType } from '@/constants/types'
-import TagCard from '@/components/TagCard'
 import { View, Text, ScrollView, XStack, Button, YStack } from 'tamagui'
 import { Plus } from '@tamagui/lucide-icons'
 
