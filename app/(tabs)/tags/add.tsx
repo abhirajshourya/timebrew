@@ -1,17 +1,12 @@
-import FAB from '@/components/FAB'
 import ColorPicker from '@/components/form/ColorPicker'
-import ErrorText from '@/components/form/ErrorText'
-import TextInput from '@/components/form/TextInput'
-import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import i18n from '@/constants/translations'
+import { Tag } from '@/constants/types'
+import { cleanText } from '@/helpers/text-helpers'
 import useDatabase from '@/hooks/useDatabase'
 import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Pressable, Alert } from 'react-native'
-import { Tag } from '@/constants/types'
-import { cleanText } from '@/helpers/text-helpers'
-import { DangerButton, PrimaryButton } from '@/components/Buttons'
-import { Button, Input, Label, Text, View, YGroup, YStack } from 'tamagui'
+import { Alert, StyleSheet } from 'react-native'
+import { Button, Input, Label, Text, YGroup, YStack } from 'tamagui'
 
 const Add = () => {
     const router = useRouter()
@@ -35,12 +30,11 @@ const Add = () => {
         if (checkErrors()) {
             // console.error('Errors found', errors)
             if (errors.name && errors.color) {
-                /* TODO: i18n */
-                Alert.alert('Error', 'Name and Color are required')
+                Alert.alert(i18n.t('tag_screen.add.error'), i18n.t('tag_screen.add.requires'))
             } else if (errors.name) {
-                Alert.alert('Error', i18n.t('tag_screen.add.name_required'))
+                Alert.alert(i18n.t('tag_screen.add.error'), i18n.t('tag_screen.add.name_required'))
             } else if (errors.color) {
-                Alert.alert('Error', i18n.t('tag_screen.add.color_required'))
+                Alert.alert(i18n.t('tag_screen.add.error'), i18n.t('tag_screen.add.color_required'))
             }
 
             return

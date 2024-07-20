@@ -72,6 +72,9 @@ const en = {
             tag_delete_failed: 'Failed to delete tag',
             tag_delete_success: 'Tag deleted successfully',
             place_holder: 'E.g. work, personal, study, etc.',
+            error: 'Error',
+            requires: 'Name and Color are required',
+            no_time: 'No time logged',
         }
     },
 
@@ -86,8 +89,10 @@ const en = {
             desc_alert: 'Task description is required',
             name_placeholder: 'Enter Task Name',
             save: 'Save',
+            label: 'Task Name',
         },
         edit:{
+            label: 'Task Name',
             delete_alert_title: 'Delete Task',
             delete_alert_msg: 'This will delete all related time records. Are you sure you want to delete this task?',
             cancel: 'Cancel',
@@ -120,6 +125,27 @@ const en = {
             all_time: 'All time',
         },
     },
+
+    themes:{
+        title: 'System Theme',
+        dark_mode: 'Dark Mode',
+        on: 'On',
+        off: 'Off',
+        colors: 'Colors',
+        orange: 'Orange',
+        yellow: 'Yellow',
+        green: 'Green',
+        blue: 'Blue',
+        purple: 'Purple',
+        pink: 'Pink',
+        red: 'Red',
+    },
+
+    settings:{
+        title: 'Settings',
+        themes: 'Themes',
+    },
+
     components:{
         task_card:{
             no_time: 'No time logged',
@@ -140,62 +166,52 @@ const en = {
             saturday: 'Sat',
             sunday: 'Sun',
         }
-    }
+    },
+
+    loading_db: 'Loading Database...',
 }
 
 const vi = {
     tracker_screen:{
         layout:{
-            tracker: 'Bộ Theo Dõi',
-            tasks: 'Nhiệm vụ',
+            tracker: 'Theo dõi',
+            tasks: 'Công Việc',
             tags: 'Thẻ',
-            insights: 'Biểu đồ',
-        },        
+            insights: 'Thông Tin Chi Tiết',
+            home: 'Trang Chủ',
+        },
         index:{
-            title: 'Nhật ký',
+            title: 'Nhật Ký',
             no_logs: 'Không tìm thấy nhật ký',
-            questions: 'Bạn đã làm gì?',
-            tags: 'Nhãn',
-            add_tag: 'Thêm nhãn',
+            questions:'Bạn đã làm gì?',
+            tags: 'Thẻ',
+            add_tag: 'Thêm thẻ',
             save_btn: 'Lưu',
-            oops_alert: 'Ôh!',
+            oops_alert: 'Ối!',
             error_alert: 'Lỗi',
             success_alert: 'Thành công',
             no_time: 'Không có thời gian để ghi nhật ký',
-            no_task: 'Vui lòng chọn một nhiệm vụ',
-            task_create_failed: 'Tạo nhiệm vụ thất bại',
-            log_create_failed: 'Tạo nhật ký thời gian thất bại',
+            no_task: 'Vui lòng chọn một công việc',
+            task_create_failed: 'Không tạo được công việc',
+            log_create_failed: 'Không tạo được nhật ký thời gian',
             log_create_success: 'Tạo nhật ký thời gian thành công',
-            tag_create_failed: 'Tạo thẻ nhật ký thời gian thất bại',
-            time_log: 'Nhật ký thời gian',
+            tag_create_failed: 'Không tạo được thẻ nhật ký thời gian',
+            time_log: 'Nhật Ký Thời Gian',
         },
         poromodo:{
-            break_title: 'Thời gian Tập Trung Kết Thúc',
+            break_title: 'Hoàn Thành Phiên Tập Trung',
             break_msg: 'Đã đến lúc nghỉ ngơi!',
-            break_complete: 'Thời Gian Nghỉ Ngơi Kết Thúc',
+            break_complete: 'Hoàn Thành Phiên Nghỉ Ngơi',
             break_complete_msg: 'Đã đến lúc tập trung!',
-            continue: 'Tiếp tục',
-            end_pomodoro: 'Kết thúc Pomodoro',
-            stop_pomodoro_msg: 'Dừng và kết thúc đếm thời gian pomodoro.',
+            continue: 'Tiếp Tục',
+            end_pomodoro: 'Kết Thúc Pomodoro',
+            stop_pomodoro: 'Rời Khỏi Pomodoro',
+            stop_pomodoro_msg: 'Điều này sẽ dừng bộ đếm pomodoro.',
             yes: 'Có',
             no: 'Không',
-            break: 'Nghỉ',
-            pause: 'Tạm dừng',
+            break: 'Nghỉ Ngơi',
+            pause: 'Tạm Dừng',
         },
-        tags:{
-            title: 'Quản lý thẻ',
-            no_tags: 'Không tìm thấy thẻ',
-            add_tag: 'Thêm thẻ',
-            tag_name: 'Tên thẻ',
-            tag_color: 'Màu sắc',
-            save_btn: 'Lưu',
-            tag_create_failed: 'Tạo thẻ thất bại',
-            tag_create_success: 'Tạo thẻ thành công',
-            tag_update_failed: 'Cập nhật thẻ thất bại',
-            tag_update_success: 'Cập nhật thẻ thành công',
-            tag_delete_failed: 'Xóa thẻ thất bại',
-            tag_delete_success: 'Xóa thẻ thành công',
-        }
     },
     tag_screen:{
         layout:{
@@ -211,47 +227,99 @@ const vi = {
             create_tag: 'Tạo Thẻ Mới',
             tag_name: 'Tên Thẻ',
             tag_color: 'Màu Thẻ',
-            name_required: 'Tên là bắt buộc',
-            color_required: 'Màu là bắt buộc',
+            name_required: 'Cần có tên',
+            color_required: 'Cần có màu',
             save_btn: 'Lưu',
             delete_btn: 'Xóa',
             delete_alert: 'Xóa Thẻ',
             delete_alert_msg: 'Bạn có chắc chắn muốn xóa thẻ này không?',
             cancel: 'Hủy',
             delete: 'Xóa Thẻ',
-            tag_create_failed: 'Tạo thẻ thất bại',
+            tag_create_failed: 'Không tạo được thẻ',
             tag_create_success: 'Tạo thẻ thành công',
-            tag_update_failed: 'Cập nhật thẻ thất bại',
+            tag_update_failed: 'Không cập nhật được thẻ',
             tag_update_success: 'Cập nhật thẻ thành công',
-            tag_delete_failed: 'Xóa thẻ thất bại',
+            tag_delete_failed: 'Không xóa được thẻ',
             tag_delete_success: 'Xóa thẻ thành công',
             place_holder: 'Ví dụ: công việc, cá nhân, học tập, v.v.',
+            error: 'Lỗi',
+            requires: 'Cần có tên và màu',
+            no_time: 'Không có thời gian được ghi nhận',
         }
     },
+
     task_screen:{
-        
+        index:{
+            title: 'Công Việc',
+            all_tasks: 'Tất Cả Công Việc',
+            edit: 'Chỉnh Sửa Công Việc',
+            add: 'Thêm Công Việc',
+        },
+        add:{
+            desc_alert: 'Cần mô tả công việc',
+            name_placeholder: 'Nhập Tên Công Việc',
+            save: 'Lưu',
+            label: 'Tên Công Việc',
+        },
+        edit:{
+            label: 'Tên Công Việc',
+            delete_alert_title: 'Xóa Công Việc',
+            delete_alert_msg: 'Điều này sẽ xóa tất cả các ghi chép thời gian liên quan. Bạn có chắc chắn muốn xóa công việc này không?',
+            cancel: 'Hủy',
+            delete: 'Xóa',
+            error: 'Lỗi',
+            error_msg: 'Những ghi chép thời gian này không thuộc về công việc này',
+            ok: 'OK',
+            name_placeholder: 'Nhập Tên Công Việc',
+            save: 'Lưu',
+            total_time: 'Tổng Thời Gian Sử Dụng:',
+            import: 'Nhập Dữ Liệu',
+            export: 'Xuất Dữ Liệu',
+        }
     },
+    
     insights_screen:{
         layout:{
-            title: 'Thông tin chi tiết',
+            title: 'Thông Tin Chi Tiết',
         },
         index:{
             no_data: 'Không có dữ liệu để hiển thị',
-            duration: 'Thời gian',
-            select_duration: 'Chọn thời gian để xem thông tin chi tiết',
-            select_duration_label: 'Chọn thời gian để xem thông tin chi tiết',
-            daily: 'Hôm nay',
-            weekly: 'Hàng tuần',
-            monthly: 'Hàng tháng',
-            yearly: 'Hàng năm',
-            all: 'Tất cả',
-            all_time: 'Toàn thời gian',
+            duration: 'Thời Lượng',
+            select_duration: 'Chọn thời lượng để xem thông tin chi tiết',
+            select_duration_label: 'Chọn thời lượng để xem thông tin chi tiết',
+            daily: 'Hôm Nay',
+            weekly: 'Hàng Tuần',
+            monthly: 'Hàng Tháng',
+            yearly: 'Hàng Năm',
+            all: 'Tất Cả',
+            all_time: 'Mọi Thời Gian',
         },
     },
+
+    themes:{
+        title: 'Chủ Đề Hệ Thống',
+        dark_mode: 'Chế Độ Tối',
+        on: 'Bật',
+        off: 'Tắt',
+        colors: 'Màu Sắc',
+        orange: 'Cam',
+        yellow: 'Vàng',
+        green: 'Xanh Lá',
+        blue: 'Xanh Dương',
+        purple: 'Tím',
+        pink: 'Hồng',
+        red: 'Đỏ',
+    },
+
+    settings:{
+        title: 'Cài Đặt',
+        themes: 'Chủ Đề',
+    },
+
     components:{
         task_card:{
-            no_time: 'Không có thời gian ghi nhật ký',
-            edit: 'Chỉnh sửa',
+            no_time: 'Không có thời gian được ghi nhận',
+            edit: 'Chỉnh Sửa',
         },
         tag_stat:{
             total_time: 'Tổng thời gian: ',
@@ -259,7 +327,7 @@ const vi = {
             log: 'nhật ký',
         },
         time_format:{
-            today: 'Hôm nay',
+            today: 'Hôm Nay',
             monday: 'Thứ Hai',
             tuesday: 'Thứ Ba',
             wednesday: 'Thứ Tư',
@@ -268,34 +336,37 @@ const vi = {
             saturday: 'Thứ Bảy',
             sunday: 'Chủ Nhật',
         }
-    }
+    },
+
+    loading_db: 'Đang tải cơ sở dữ liệu...',
+
 }
 
 const fr = {
     tracker_screen:{
         layout:{
-            tracker: 'Tracker',
+            tracker: 'Suivi',
             tasks: 'Tâches',
-            tags: 'Tags',
+            tags: 'Étiquettes',
             insights: 'Aperçus',
             home: 'Accueil',
         },
         index:{
             title: 'Journaux',
             no_logs: 'Aucun journal trouvé',
-            questions: 'Qu\'avez-vous fait?',
-            tags: 'Tags',
-            add_tag: 'Ajouter un tag',
+            questions:'Qu\'avez-vous fait?',
+            tags: 'Étiquettes',
+            add_tag: 'Ajouter une étiquette',
             save_btn: 'Enregistrer',
             oops_alert: 'Oups!',
             error_alert: 'Erreur',
             success_alert: 'Succès',
-            no_time: 'Pas de temps à enregistrer',
+            no_time: 'Aucun temps à enregistrer',
             no_task: 'Veuillez sélectionner une tâche',
             task_create_failed: 'Échec de la création de la tâche',
             log_create_failed: 'Échec de la création du journal de temps',
             log_create_success: 'Journal de temps créé avec succès',
-            tag_create_failed: 'Échec de la création du tag du journal de temps',
+            tag_create_failed: 'Échec de la création de l\'étiquette de journal de temps',
             time_log: 'Journal de Temps',
         },
         poromodo:{
@@ -306,7 +377,7 @@ const fr = {
             continue: 'Continuer',
             end_pomodoro: 'Terminer Pomodoro',
             stop_pomodoro: 'Quitter Pomodoro',
-            stop_pomodoro_msg: 'Cela arrêtera le minuteur Pomodoro.',
+            stop_pomodoro_msg: 'Cela arrêtera le minuteur pomodoro.',
             yes: 'Oui',
             no: 'Non',
             break: 'Pause',
@@ -315,35 +386,39 @@ const fr = {
     },
     tag_screen:{
         layout:{
-            title: 'Tags',
-            add_tags: 'Ajouter un Tag'
+            title: 'Étiquettes',
+            add_tags: 'Ajouter une étiquette'
         },
         index: {
-            title: 'Tags',
+            title: 'Étiquettes',
         },
         add:{
-            title: 'Ajouter un Tag',
-            edit_tag: 'Modifier le Tag',
-            create_tag: 'Créer un Nouveau Tag',
-            tag_name: 'Nom du Tag',
-            tag_color: 'Couleur du Tag',
+            title: 'Ajouter une Étiquette',
+            edit_tag: 'Modifier l\'Étiquette',
+            create_tag: 'Créer une Nouvelle Étiquette',
+            tag_name: 'Nom de l\'Étiquette',
+            tag_color: 'Couleur de l\'Étiquette',
             name_required: 'Le nom est requis',
             color_required: 'La couleur est requise',
             save_btn: 'Enregistrer',
             delete_btn: 'Supprimer',
-            delete_alert: 'Supprimer le Tag',
-            delete_alert_msg: 'Êtes-vous sûr de vouloir supprimer ce tag?',
+            delete_alert: 'Supprimer l\'Étiquette',
+            delete_alert_msg: 'Êtes-vous sûr de vouloir supprimer cette étiquette?',
             cancel: 'Annuler',
-            delete: 'Supprimer le Tag',
-            tag_create_failed: 'Échec de la création du tag',
-            tag_create_success: 'Tag créé avec succès',
-            tag_update_failed: 'Échec de la mise à jour du tag',
-            tag_update_success: 'Tag mis à jour avec succès',
-            tag_delete_failed: 'Échec de la suppression du tag',
-            tag_delete_success: 'Tag supprimé avec succès',
-            place_holder: 'Ex. travail, personnel, étude, etc.',
+            delete: 'Supprimer l\'Étiquette',
+            tag_create_failed: 'Échec de la création de l\'étiquette',
+            tag_create_success: 'Étiquette créée avec succès',
+            tag_update_failed: 'Échec de la mise à jour de l\'étiquette',
+            tag_update_success: 'Étiquette mise à jour avec succès',
+            tag_delete_failed: 'Échec de la suppression de l\'étiquette',
+            tag_delete_success: 'Étiquette supprimée avec succès',
+            place_holder: 'Par exemple: travail, personnel, étude, etc.',
+            error: 'Erreur',
+            requires: 'Le nom et la couleur sont requis',
+            no_time: 'Aucun temps enregistré',
         }
     },
+
     task_screen:{
         index:{
             title: 'Tâches',
@@ -353,24 +428,27 @@ const fr = {
         },
         add:{
             desc_alert: 'La description de la tâche est requise',
-            name_placeholder: 'Entrer le Nom de la Tâche',
+            name_placeholder: 'Entrez le nom de la tâche',
             save: 'Enregistrer',
+            label: 'Nom de la Tâche',
         },
         edit:{
+            label: 'Nom de la Tâche',
             delete_alert_title: 'Supprimer la Tâche',
-            delete_alert_msg: 'Cela supprimera les journaux de temps associés. Êtes-vous sûr de vouloir supprimer cette tâche?',
+            delete_alert_msg: 'Cela supprimera tous les enregistrements de temps associés. Êtes-vous sûr de vouloir supprimer cette tâche?',
             cancel: 'Annuler',
             delete: 'Supprimer',
             error: 'Erreur',
-            error_msg: 'Les journaux de temps ne sont pas pour cette tâche',
-            ok: 'Ok',
-            name_placeholder: 'Entrer le Nom de la Tâche',
+            error_msg: 'Ces enregistrements de temps n\'appartiennent pas à cette tâche',
+            ok: 'OK',
+            name_placeholder: 'Entrez le nom de la tâche',
             save: 'Enregistrer',
             total_time: 'Temps Total Utilisé:',
             import: 'Importer des Données',
             export: 'Exporter des Données',
         }
     },
+    
     insights_screen:{
         layout:{
             title: 'Aperçus',
@@ -378,16 +456,37 @@ const fr = {
         index:{
             no_data: 'Aucune donnée à afficher',
             duration: 'Durée',
-            select_duration: 'Sélectionner la durée pour voir les aperçus',
-            select_duration_label: 'Sélectionner la durée pour voir les aperçus',
+            select_duration: 'Sélectionnez la durée pour voir les aperçus',
+            select_duration_label: 'Sélectionnez la durée pour voir les aperçus',
             daily: 'Aujourd\'hui',
             weekly: 'Hebdomadaire',
             monthly: 'Mensuel',
             yearly: 'Annuel',
-            all: 'Tous',
-            all_time: 'Tout le temps',
+            all: 'Tout',
+            all_time: 'Tous les temps',
         },
     },
+
+    themes:{
+        title: 'Thème du Système',
+        dark_mode: 'Mode Sombre',
+        on: 'Activé',
+        off: 'Désactivé',
+        colors: 'Couleurs',
+        orange: 'Orange',
+        yellow: 'Jaune',
+        green: 'Vert',
+        blue: 'Bleu',
+        purple: 'Violet',
+        pink: 'Rose',
+        red: 'Rouge',
+    },
+
+    settings:{
+        title: 'Paramètres',
+        themes: 'Thèmes',
+    },
+
     components:{
         task_card:{
             no_time: 'Aucun temps enregistré',
@@ -408,7 +507,10 @@ const fr = {
             saturday: 'Sam',
             sunday: 'Dim',
         }
-    }
+    },
+
+    loading_db: 'Chargement de la base de données...',
+
 }
 
 const hi = {
@@ -416,15 +518,15 @@ const hi = {
         layout:{
             tracker: 'ट्रैकर',
             tasks: 'कार्य',
-            tags: 'टैग्स',
-            insights: 'अवलोकन',
-            home: 'होम',
+            tags: 'टैग',
+            insights: 'जानकारियाँ',
+            home: 'मुख्य पृष्ठ',
         },
         index:{
             title: 'लॉग्स',
             no_logs: 'कोई लॉग नहीं मिला',
-            questions: 'आपने क्या किया?',
-            tags: 'टैग्स',
+            questions:'आपने क्या किया?',
+            tags: 'टैग',
             add_tag: 'टैग जोड़ें',
             save_btn: 'सहेजें',
             oops_alert: 'उफ़!',
@@ -433,24 +535,24 @@ const hi = {
             no_time: 'लॉग करने का समय नहीं',
             no_task: 'कृपया एक कार्य चुनें',
             task_create_failed: 'कार्य बनाने में विफल',
-            log_create_failed: 'समय लॉग बनाने में विफल',
-            log_create_success: 'समय लॉग सफलतापूर्वक बनाया गया',
-            tag_create_failed: 'समय लॉग टैग बनाने में विफल',
+            log_create_failed: 'टाइमलॉग बनाने में विफल',
+            log_create_success: 'टाइमलॉग सफलतापूर्वक बनाया गया',
+            tag_create_failed: 'टाइमलॉग टैग बनाने में विफल',
             time_log: 'समय लॉग',
         },
         poromodo:{
             break_title: 'फोकस सत्र पूरा हुआ',
-            break_msg: 'ब्रेक लेने का समय!',
+            break_msg: 'आराम करने का समय!',
             break_complete: 'ब्रेक सत्र पूरा हुआ',
             break_complete_msg: 'फोकस करने का समय!',
             continue: 'जारी रखें',
-            end_pomodoro: 'पोमोडोरो समाप्त करें',
-            stop_pomodoro: 'पोमोडोरो छोड़ें',
-            stop_pomodoro_msg: 'यह पोमोडोरो टाइमर को रोक देगा।',
-            yes: 'हाँ',
+            end_pomodoro: 'पॉमोडोरो समाप्त करें',
+            stop_pomodoro: 'पॉमोडोरो छोड़ें',
+            stop_pomodoro_msg: 'यह पॉमोडोरो टाइमर को रोक देगा।',
+            yes: 'हां',
             no: 'नहीं',
-            break: 'ब्रेक',
-            pause: 'विराम',
+            break: 'विराम',
+            pause: 'रोकें',
         },
     },
     tag_screen:{
@@ -465,14 +567,14 @@ const hi = {
             title: 'टैग जोड़ें',
             edit_tag: 'टैग संपादित करें',
             create_tag: 'नया टैग बनाएं',
-            tag_name: 'टैग का नाम',
-            tag_color: 'टैग का रंग',
+            tag_name: 'टैग नाम',
+            tag_color: 'टैग रंग',
             name_required: 'नाम आवश्यक है',
             color_required: 'रंग आवश्यक है',
             save_btn: 'सहेजें',
             delete_btn: 'हटाएं',
             delete_alert: 'टैग हटाएं',
-            delete_alert_msg: 'क्या आप इस टैग को हटाना चाहते हैं?',
+            delete_alert_msg: 'क्या आप वाकई इस टैग को हटाना चाहते हैं?',
             cancel: 'रद्द करें',
             delete: 'टैग हटाएं',
             tag_create_failed: 'टैग बनाने में विफल',
@@ -481,9 +583,13 @@ const hi = {
             tag_update_success: 'टैग सफलतापूर्वक अपडेट किया गया',
             tag_delete_failed: 'टैग हटाने में विफल',
             tag_delete_success: 'टैग सफलतापूर्वक हटाया गया',
-            place_holder: 'जैसे काम, व्यक्तिगत, अध्ययन, आदि।',
+            place_holder: 'उदाहरण: काम, व्यक्तिगत, अध्ययन, आदि।',
+            error: 'त्रुटि',
+            requires: 'नाम और रंग आवश्यक हैं',
+            no_time: 'कोई समय लॉग नहीं किया गया',
         }
     },
+
     task_screen:{
         index:{
             title: 'कार्य',
@@ -495,31 +601,34 @@ const hi = {
             desc_alert: 'कार्य विवरण आवश्यक है',
             name_placeholder: 'कार्य का नाम दर्ज करें',
             save: 'सहेजें',
+            label: 'कार्य का नाम',
         },
         edit:{
+            label: 'कार्य का नाम',
             delete_alert_title: 'कार्य हटाएं',
-            delete_alert_msg: 'यह संबंधित समय लॉग्स को हटा देगा, क्या आप वाकई इस कार्य को हटाना चाहते हैं?',
+            delete_alert_msg: 'यह सभी संबंधित समय रिकॉर्ड्स को हटा देगा। क्या आप इस कार्य को हटाना चाहते हैं?',
             cancel: 'रद्द करें',
             delete: 'हटाएं',
             error: 'त्रुटि',
-            error_msg: 'समय लॉग्स इस कार्य के लिए नहीं हैं',
+            error_msg: 'ये समय रिकॉर्ड इस कार्य से संबंधित नहीं हैं',
             ok: 'ठीक है',
             name_placeholder: 'कार्य का नाम दर्ज करें',
             save: 'सहेजें',
-            total_time: 'कुल उपयोग का समय:',
+            total_time: 'कुल उपयोग समय:',
             import: 'डेटा आयात करें',
             export: 'डेटा निर्यात करें',
         }
     },
+    
     insights_screen:{
         layout:{
-            title: 'अवलोकन',
+            title: 'जानकारियाँ',
         },
         index:{
             no_data: 'दिखाने के लिए कोई डेटा नहीं है',
             duration: 'अवधि',
-            select_duration: 'अवलोकन देखने के लिए अवधि चुनें',
-            select_duration_label: 'अवलोकन देखने के लिए अवधि चुनें',
+            select_duration: 'जानकारियाँ देखने के लिए अवधि चुनें',
+            select_duration_label: 'जानकारियाँ देखने के लिए अवधि चुनें',
             daily: 'आज',
             weekly: 'साप्ताहिक',
             monthly: 'मासिक',
@@ -528,6 +637,27 @@ const hi = {
             all_time: 'सभी समय',
         },
     },
+
+    themes:{
+        title: 'सिस्टम थीम',
+        dark_mode: 'डार्क मोड',
+        on: 'चालू',
+        off: 'बंद',
+        colors: 'रंग',
+        orange: 'नारंगी',
+        yellow: 'पीला',
+        green: 'हरा',
+        blue: 'नीला',
+        purple: 'बैंगनी',
+        pink: 'गुलाबी',
+        red: 'लाल',
+    },
+
+    settings:{
+        title: 'सेटिंग्स',
+        themes: 'थीम्स',
+    },
+
     components:{
         task_card:{
             no_time: 'कोई समय लॉग नहीं किया गया',
@@ -548,7 +678,10 @@ const hi = {
             saturday: 'शनि',
             sunday: 'रवि',
         }
-    }
+    },
+
+    loading_db: 'डेटाबेस लोड हो रहा है...',
+
 }
 
 const es = {
@@ -563,7 +696,7 @@ const es = {
         index:{
             title: 'Registros',
             no_logs: 'No se encontraron registros',
-            questions: '¿Qué hiciste?',
+            questions:'¿Qué hiciste?',
             tags: 'Etiquetas',
             add_tag: 'Añadir etiqueta',
             save_btn: 'Guardar',
@@ -571,21 +704,21 @@ const es = {
             error_alert: 'Error',
             success_alert: 'Éxito',
             no_time: 'No hay tiempo para registrar',
-            no_task: 'Por favor selecciona una tarea',
-            task_create_failed: 'No se pudo crear la tarea',
-            log_create_failed: 'No se pudo crear el registro de tiempo',
+            no_task: 'Por favor seleccione una tarea',
+            task_create_failed: 'Fallo al crear la tarea',
+            log_create_failed: 'Fallo al crear el registro de tiempo',
             log_create_success: 'Registro de tiempo creado con éxito',
-            tag_create_failed: 'No se pudo crear la etiqueta del registro de tiempo',
-            time_log: 'Registro de Tiempo',
+            tag_create_failed: 'Fallo al crear la etiqueta de registro de tiempo',
+            time_log: 'Registro de tiempo',
         },
         poromodo:{
-            break_title: 'Sesión de Enfoque Completada',
-            break_msg: '¡Hora de tomar un descanso!',
-            break_complete: 'Sesión de Descanso Completada',
-            break_complete_msg: '¡Hora de enfocarse!',
+            break_title: 'Sesión de enfoque completada',
+            break_msg: '¡Es hora de tomar un descanso!',
+            break_complete: 'Sesión de descanso completada',
+            break_complete_msg: '¡Es hora de enfocarse!',
             continue: 'Continuar',
             end_pomodoro: 'Terminar Pomodoro',
-            stop_pomodoro: 'Salir de Pomodoro',
+            stop_pomodoro: 'Dejar Pomodoro',
             stop_pomodoro_msg: 'Esto detendrá el temporizador Pomodoro.',
             yes: 'Sí',
             no: 'No',
@@ -596,61 +729,68 @@ const es = {
     tag_screen:{
         layout:{
             title: 'Etiquetas',
-            add_tags: 'Añadir Etiqueta'
+            add_tags: 'Añadir etiqueta'
         },
         index: {
             title: 'Etiquetas',
         },
         add:{
-            title: 'Añadir Etiqueta',
-            edit_tag: 'Editar Etiqueta',
-            create_tag: 'Crear Nueva Etiqueta',
-            tag_name: 'Nombre de la Etiqueta',
-            tag_color: 'Color de la Etiqueta',
+            title: 'Añadir etiqueta',
+            edit_tag: 'Editar etiqueta',
+            create_tag: 'Crear nueva etiqueta',
+            tag_name: 'Nombre de la etiqueta',
+            tag_color: 'Color de la etiqueta',
             name_required: 'El nombre es obligatorio',
             color_required: 'El color es obligatorio',
             save_btn: 'Guardar',
             delete_btn: 'Eliminar',
-            delete_alert: 'Eliminar Etiqueta',
-            delete_alert_msg: '¿Estás seguro de que deseas eliminar esta etiqueta?',
+            delete_alert: 'Eliminar etiqueta',
+            delete_alert_msg: '¿Estás seguro de que quieres eliminar esta etiqueta?',
             cancel: 'Cancelar',
-            delete: 'Eliminar Etiqueta',
-            tag_create_failed: 'No se pudo crear la etiqueta',
+            delete: 'Eliminar etiqueta',
+            tag_create_failed: 'Fallo al crear la etiqueta',
             tag_create_success: 'Etiqueta creada con éxito',
-            tag_update_failed: 'No se pudo actualizar la etiqueta',
+            tag_update_failed: 'Fallo al actualizar la etiqueta',
             tag_update_success: 'Etiqueta actualizada con éxito',
-            tag_delete_failed: 'No se pudo eliminar la etiqueta',
+            tag_delete_failed: 'Fallo al eliminar la etiqueta',
             tag_delete_success: 'Etiqueta eliminada con éxito',
-            place_holder: 'Por ejemplo: trabajo, personal, estudio, etc.',
+            place_holder: 'Ej.: trabajo, personal, estudio, etc.',
+            error: 'Error',
+            requires: 'El nombre y el color son obligatorios',
+            no_time: 'No hay tiempo registrado',
         }
     },
+
     task_screen:{
         index:{
             title: 'Tareas',
-            all_tasks: 'Todas las Tareas',
-            edit: 'Editar Tarea',
-            add: 'Añadir Tarea',
+            all_tasks: 'Todas las tareas',
+            edit: 'Editar tarea',
+            add: 'Añadir tarea',
         },
         add:{
             desc_alert: 'La descripción de la tarea es obligatoria',
-            name_placeholder: 'Introducir Nombre de la Tarea',
+            name_placeholder: 'Ingrese el nombre de la tarea',
             save: 'Guardar',
+            label: 'Nombre de la tarea',
         },
         edit:{
-            delete_alert_title: 'Eliminar Tarea',
-            delete_alert_msg: 'Esto eliminará los registros de tiempo asociados. ¿Estás seguro de que deseas eliminar esta tarea?',
+            label: 'Nombre de la tarea',
+            delete_alert_title: 'Eliminar tarea',
+            delete_alert_msg: 'Esto eliminará todos los registros de tiempo relacionados. ¿Estás seguro de que quieres eliminar esta tarea?',
             cancel: 'Cancelar',
             delete: 'Eliminar',
             error: 'Error',
-            error_msg: 'Los registros de tiempo no son para esta tarea',
-            ok: 'Ok',
-            name_placeholder: 'Introducir Nombre de la Tarea',
+            error_msg: 'Estos registros de tiempo no pertenecen a esta tarea',
+            ok: 'OK',
+            name_placeholder: 'Ingrese el nombre de la tarea',
             save: 'Guardar',
-            total_time: 'Tiempo Total Utilizado:',
-            import: 'Importar Datos',
-            export: 'Exportar Datos',
+            total_time: 'Tiempo total utilizado:',
+            import: 'Importar datos',
+            export: 'Exportar datos',
         }
     },
+    
     insights_screen:{
         layout:{
             title: 'Perspectivas',
@@ -658,8 +798,8 @@ const es = {
         index:{
             no_data: 'No hay datos para mostrar',
             duration: 'Duración',
-            select_duration: 'Seleccionar duración para ver perspectivas',
-            select_duration_label: 'Seleccionar duración para ver perspectivas',
+            select_duration: 'Seleccione la duración para ver las perspectivas',
+            select_duration_label: 'Seleccione la duración para ver las perspectivas',
             daily: 'Hoy',
             weekly: 'Semanal',
             monthly: 'Mensual',
@@ -668,6 +808,27 @@ const es = {
             all_time: 'Todo el tiempo',
         },
     },
+
+    themes:{
+        title: 'Tema del sistema',
+        dark_mode: 'Modo oscuro',
+        on: 'Encendido',
+        off: 'Apagado',
+        colors: 'Colores',
+        orange: 'Naranja',
+        yellow: 'Amarillo',
+        green: 'Verde',
+        blue: 'Azul',
+        purple: 'Púrpura',
+        pink: 'Rosa',
+        red: 'Rojo',
+    },
+
+    settings:{
+        title: 'Configuraciones',
+        themes: 'Temas',
+    },
+
     components:{
         task_card:{
             no_time: 'No hay tiempo registrado',
@@ -688,13 +849,15 @@ const es = {
             saturday: 'Sáb',
             sunday: 'Dom',
         }
-    }
+    },
+
+    loading_db: 'Cargando base de datos...',
 }
 
 const zh = {
     tracker_screen:{
         layout:{
-            tracker: '跟踪器',
+            tracker: '追踪器',
             tasks: '任务',
             tags: '标签',
             insights: '洞察',
@@ -702,12 +865,12 @@ const zh = {
         },
         index:{
             title: '日志',
-            no_logs: '未找到日志',
-            questions: '你做了什么？',
+            no_logs: '没有找到日志',
+            questions:'你做了什么?',
             tags: '标签',
             add_tag: '添加标签',
             save_btn: '保存',
-            oops_alert: '哎呀！',
+            oops_alert: '哎呀!',
             error_alert: '错误',
             success_alert: '成功',
             no_time: '没有时间记录',
@@ -715,14 +878,14 @@ const zh = {
             task_create_failed: '创建任务失败',
             log_create_failed: '创建时间日志失败',
             log_create_success: '时间日志创建成功',
-            tag_create_failed: '创建标签失败',
+            tag_create_failed: '创建时间日志标签失败',
             time_log: '时间日志',
         },
         poromodo:{
-            break_title: '专注时间已完成',
-            break_msg: '该休息一下了！',
-            break_complete: '休息时间已完成',
-            break_complete_msg: '该继续专注了！',
+            break_title: '专注会话完成',
+            break_msg: '是时候休息了!',
+            break_complete: '休息会话完成',
+            break_complete_msg: '是时候专注了!',
             continue: '继续',
             end_pomodoro: '结束番茄钟',
             stop_pomodoro: '离开番茄钟',
@@ -752,7 +915,7 @@ const zh = {
             save_btn: '保存',
             delete_btn: '删除',
             delete_alert: '删除标签',
-            delete_alert_msg: '您确定要删除此标签吗？',
+            delete_alert_msg: '你确定要删除这个标签吗?',
             cancel: '取消',
             delete: '删除标签',
             tag_create_failed: '创建标签失败',
@@ -761,9 +924,13 @@ const zh = {
             tag_update_success: '标签更新成功',
             tag_delete_failed: '删除标签失败',
             tag_delete_success: '标签删除成功',
-            place_holder: '例如：工作、个人、学习等。',
+            place_holder: '例如：工作，个人，学习等。',
+            error: '错误',
+            requires: '名称和颜色是必需的',
+            no_time: '没有时间记录',
         }
     },
+
     task_screen:{
         index:{
             title: '任务',
@@ -775,28 +942,31 @@ const zh = {
             desc_alert: '任务描述是必需的',
             name_placeholder: '输入任务名称',
             save: '保存',
+            label: '任务名称',
         },
         edit:{
+            label: '任务名称',
             delete_alert_title: '删除任务',
-            delete_alert_msg: '这将删除相关的时间记录，您确定要删除此任务吗？',
+            delete_alert_msg: '这将删除所有相关的时间记录。你确定要删除这个任务吗?',
             cancel: '取消',
             delete: '删除',
             error: '错误',
-            error_msg: '这些时间记录不属于此任务',
-            ok: '确定',
+            error_msg: '这些时间记录不属于这个任务',
+            ok: '好的',
             name_placeholder: '输入任务名称',
             save: '保存',
-            total_time: '总使用时间：',
+            total_time: '使用的总时间:',
             import: '导入数据',
             export: '导出数据',
         }
     },
+    
     insights_screen:{
         layout:{
             title: '洞察',
         },
         index:{
-            no_data: '没有数据展示',
+            no_data: '没有数据显示',
             duration: '持续时间',
             select_duration: '选择持续时间以查看洞察',
             select_duration_label: '选择持续时间以查看洞察',
@@ -808,13 +978,34 @@ const zh = {
             all_time: '所有时间',
         },
     },
+
+    themes:{
+        title: '系统主题',
+        dark_mode: '黑暗模式',
+        on: '开启',
+        off: '关闭',
+        colors: '颜色',
+        orange: '橙色',
+        yellow: '黄色',
+        green: '绿色',
+        blue: '蓝色',
+        purple: '紫色',
+        pink: '粉色',
+        red: '红色',
+    },
+
+    settings:{
+        title: '设置',
+        themes: '主题',
+    },
+
     components:{
         task_card:{
-            no_time: '没有记录时间',
+            no_time: '没有时间记录',
             edit: '编辑',
         },
         tag_stat:{
-            total_time: '总时间：',
+            total_time: '总时间: ',
             logs: '日志',
             log: '日志',
         },
@@ -828,7 +1019,9 @@ const zh = {
             saturday: '周六',
             sunday: '周日',
         }
-    }
+    },
+
+    loading_db: '加载数据库...',
 }
 
 const ko = {
@@ -837,40 +1030,40 @@ const ko = {
             tracker: '트래커',
             tasks: '작업',
             tags: '태그',
-            insights: '통찰',
+            insights: '인사이트',
             home: '홈',
         },
         index:{
             title: '로그',
             no_logs: '로그가 없습니다',
-            questions: '무엇을 했나요?',
+            questions:'무엇을 하셨나요?',
             tags: '태그',
             add_tag: '태그 추가',
             save_btn: '저장',
-            oops_alert: '앗!',
+            oops_alert: '이런!',
             error_alert: '오류',
             success_alert: '성공',
-            no_time: '로그할 시간이 없습니다',
-            no_task: '작업을 선택해 주세요',
+            no_time: '기록할 시간이 없습니다',
+            no_task: '작업을 선택해주세요',
             task_create_failed: '작업 생성 실패',
-            log_create_failed: '타임 로그 생성 실패',
-            log_create_success: '타임 로그 생성 성공',
-            tag_create_failed: '태그 생성 실패',
-            time_log: '타임 로그',
+            log_create_failed: '타임로그 생성 실패',
+            log_create_success: '타임로그가 성공적으로 생성되었습니다',
+            tag_create_failed: '타임로그 태그 생성 실패',
+            time_log: '시간 기록',
         },
         poromodo:{
-            break_title: '집중 세션 완료',
-            break_msg: '잠시 쉬는 시간입니다!',
-            break_complete: '휴식 세션 완료',
+            break_title: '포커스 세션 완료',
+            break_msg: '쉬는 시간이 되었습니다!',
+            break_complete: '쉬는 세션 완료',
             break_complete_msg: '집중할 시간입니다!',
             continue: '계속',
             end_pomodoro: '포모도로 종료',
-            stop_pomodoro: '포모도로 종료',
+            stop_pomodoro: '포모도로 나가기',
             stop_pomodoro_msg: '이 작업은 포모도로 타이머를 중지합니다.',
             yes: '예',
             no: '아니요',
             break: '휴식',
-            pause: '일시 중지',
+            pause: '일시정지',
         },
     },
     tag_screen:{
@@ -884,11 +1077,11 @@ const ko = {
         add:{
             title: '태그 추가',
             edit_tag: '태그 편집',
-            create_tag: '새 태그 만들기',
+            create_tag: '새 태그 생성',
             tag_name: '태그 이름',
             tag_color: '태그 색상',
-            name_required: '이름이 필요합니다',
-            color_required: '색상이 필요합니다',
+            name_required: '이름은 필수입니다',
+            color_required: '색상은 필수입니다',
             save_btn: '저장',
             delete_btn: '삭제',
             delete_alert: '태그 삭제',
@@ -896,14 +1089,18 @@ const ko = {
             cancel: '취소',
             delete: '태그 삭제',
             tag_create_failed: '태그 생성 실패',
-            tag_create_success: '태그 생성 성공',
+            tag_create_success: '태그가 성공적으로 생성되었습니다',
             tag_update_failed: '태그 업데이트 실패',
-            tag_update_success: '태그 업데이트 성공',
+            tag_update_success: '태그가 성공적으로 업데이트되었습니다',
             tag_delete_failed: '태그 삭제 실패',
-            tag_delete_success: '태그 삭제 성공',
-            place_holder: '예: 업무, 개인, 학습 등',
+            tag_delete_success: '태그가 성공적으로 삭제되었습니다',
+            place_holder: '예: 작업, 개인, 공부 등',
+            error: '오류',
+            requires: '이름과 색상은 필수입니다',
+            no_time: '기록된 시간이 없습니다',
         }
     },
+
     task_screen:{
         index:{
             title: '작업',
@@ -912,45 +1109,69 @@ const ko = {
             add: '작업 추가',
         },
         add:{
-            desc_alert: '작업 설명이 필요합니다',
-            name_placeholder: '작업 이름 입력',
+            desc_alert: '작업 설명은 필수입니다',
+            name_placeholder: '작업 이름을 입력하세요',
             save: '저장',
+            label: '작업 이름',
         },
         edit:{
+            label: '작업 이름',
             delete_alert_title: '작업 삭제',
-            delete_alert_msg: '이 작업과 관련된 시간 기록이 삭제됩니다. 이 작업을 삭제하시겠습니까?',
+            delete_alert_msg: '이 작업을 삭제하면 모든 관련 시간 기록이 삭제됩니다. 이 작업을 삭제하시겠습니까?',
             cancel: '취소',
             delete: '삭제',
             error: '오류',
-            error_msg: '이 시간 기록은 이 작업과 관련이 없습니다',
+            error_msg: '이 시간 기록은 이 작업에 속하지 않습니다',
             ok: '확인',
-            name_placeholder: '작업 이름 입력',
+            name_placeholder: '작업 이름을 입력하세요',
             save: '저장',
             total_time: '총 사용 시간:',
             import: '데이터 가져오기',
             export: '데이터 내보내기',
         }
     },
+    
     insights_screen:{
         layout:{
-            title: '통찰',
+            title: '인사이트',
         },
         index:{
-            no_data: '보여줄 데이터가 없습니다',
-            duration: '지속 시간',
-            select_duration: '통찰을 보려면 기간 선택',
-            select_duration_label: '통찰을 보려면 기간 선택',
+            no_data: '표시할 데이터가 없습니다',
+            duration: '기간',
+            select_duration: '인사이트를 보려면 기간을 선택하세요',
+            select_duration_label: '인사이트를 보려면 기간을 선택하세요',
             daily: '오늘',
             weekly: '주간',
             monthly: '월간',
             yearly: '연간',
             all: '전체',
-            all_time: '모든 시간',
+            all_time: '전체 시간',
         },
     },
+
+    themes:{
+        title: '시스템 테마',
+        dark_mode: '다크 모드',
+        on: '켜짐',
+        off: '꺼짐',
+        colors: '색상',
+        orange: '주황색',
+        yellow: '노란색',
+        green: '녹색',
+        blue: '파란색',
+        purple: '보라색',
+        pink: '분홍색',
+        red: '빨간색',
+    },
+
+    settings:{
+        title: '설정',
+        themes: '테마',
+    },
+
     components:{
         task_card:{
-            no_time: '로그된 시간이 없습니다',
+            no_time: '기록된 시간이 없습니다',
             edit: '편집',
         },
         tag_stat:{
@@ -960,15 +1181,17 @@ const ko = {
         },
         time_format:{
             today: '오늘',
-            monday: '월요일',
-            tuesday: '화요일',
-            wednesday: '수요일',
-            thursday: '목요일',
-            friday: '금요일',
-            saturday: '토요일',
-            sunday: '일요일',
+            monday: '월',
+            tuesday: '화',
+            wednesday: '수',
+            thursday: '목',
+            friday: '금',
+            saturday: '토',
+            sunday: '일',
         }
-    }
+    },
+
+    loading_db: '데이터베이스 로드 중...',
 }
 
 const ja = {
@@ -983,28 +1206,28 @@ const ja = {
         index:{
             title: 'ログ',
             no_logs: 'ログが見つかりません',
-            questions: '何をしましたか？',
+            questions:'何をしましたか?',
             tags: 'タグ',
             add_tag: 'タグを追加',
             save_btn: '保存',
-            oops_alert: 'おっと！',
+            oops_alert: 'おっと!',
             error_alert: 'エラー',
             success_alert: '成功',
-            no_time: 'ログを記録する時間がありません',
+            no_time: 'ログする時間がありません',
             no_task: 'タスクを選択してください',
             task_create_failed: 'タスクの作成に失敗しました',
             log_create_failed: 'タイムログの作成に失敗しました',
             log_create_success: 'タイムログが正常に作成されました',
-            tag_create_failed: 'タグの作成に失敗しました',
+            tag_create_failed: 'タイムログタグの作成に失敗しました',
             time_log: 'タイムログ',
         },
         poromodo:{
             break_title: 'フォーカスセッション完了',
             break_msg: '休憩の時間です！',
             break_complete: '休憩セッション完了',
-            break_complete_msg: 'フォーカスする時間です！',
+            break_complete_msg: '集中する時間です！',
             continue: '続ける',
-            end_pomodoro: 'ポモドーロを終了',
+            end_pomodoro: 'ポモドーロ終了',
             stop_pomodoro: 'ポモドーロを終了',
             stop_pomodoro_msg: 'これによりポモドーロタイマーが停止します。',
             yes: 'はい',
@@ -1026,9 +1249,9 @@ const ja = {
             edit_tag: 'タグを編集',
             create_tag: '新しいタグを作成',
             tag_name: 'タグ名',
-            tag_color: 'タグの色',
+            tag_color: 'タグカラー',
             name_required: '名前は必須です',
-            color_required: '色は必須です',
+            color_required: 'カラーは必須です',
             save_btn: '保存',
             delete_btn: '削除',
             delete_alert: 'タグを削除',
@@ -1041,9 +1264,13 @@ const ja = {
             tag_update_success: 'タグが正常に更新されました',
             tag_delete_failed: 'タグの削除に失敗しました',
             tag_delete_success: 'タグが正常に削除されました',
-            place_holder: '例: 仕事、個人、勉強など。',
+            place_holder: '例：仕事、個人、勉強など。',
+            error: 'エラー',
+            requires: '名前とカラーは必須です',
+            no_time: 'ログされた時間がありません',
         }
     },
+
     task_screen:{
         index:{
             title: 'タスク',
@@ -1053,24 +1280,27 @@ const ja = {
         },
         add:{
             desc_alert: 'タスクの説明は必須です',
-            name_placeholder: 'タスク名を入力',
+            name_placeholder: 'タスク名を入力してください',
             save: '保存',
+            label: 'タスク名',
         },
         edit:{
+            label: 'タスク名',
             delete_alert_title: 'タスクを削除',
-            delete_alert_msg: 'これにより関連するタイムレコードが削除されます。このタスクを削除してもよろしいですか？',
+            delete_alert_msg: 'これによりすべての関連する時間記録が削除されます。このタスクを削除してもよろしいですか？',
             cancel: 'キャンセル',
             delete: '削除',
             error: 'エラー',
-            error_msg: 'これらのタイムレコードはこのタスクに関連付けられていません',
+            error_msg: 'これらの時間記録はこのタスクに属していません',
             ok: 'OK',
-            name_placeholder: 'タスク名を入力',
+            name_placeholder: 'タスク名を入力してください',
             save: '保存',
-            total_time: '総使用時間：',
+            total_time: '使用した総時間:',
             import: 'データをインポート',
             export: 'データをエクスポート',
         }
     },
+    
     insights_screen:{
         layout:{
             title: 'インサイト',
@@ -1078,37 +1308,60 @@ const ja = {
         index:{
             no_data: '表示するデータがありません',
             duration: '期間',
-            select_duration: 'インサイトを表示する期間を選択',
-            select_duration_label: 'インサイトを表示する期間を選択',
+            select_duration: 'インサイトを見るために期間を選択してください',
+            select_duration_label: 'インサイトを見るために期間を選択してください',
             daily: '今日',
             weekly: '週間',
             monthly: '月間',
             yearly: '年間',
             all: 'すべて',
-            all_time: '全時間',
+            all_time: '全期間',
         },
     },
+
+    themes:{
+        title: 'システムテーマ',
+        dark_mode: 'ダークモード',
+        on: 'オン',
+        off: 'オフ',
+        colors: 'カラー',
+        orange: 'オレンジ',
+        yellow: 'イエロー',
+        green: 'グリーン',
+        blue: 'ブルー',
+        purple: 'パープル',
+        pink: 'ピンク',
+        red: 'レッド',
+    },
+
+    settings:{
+        title: '設定',
+        themes: 'テーマ',
+    },
+
     components:{
         task_card:{
-            no_time: '記録された時間がありません',
+            no_time: 'ログされた時間がありません',
             edit: '編集',
         },
         tag_stat:{
-            total_time: '総時間：',
+            total_time: '総時間: ',
             logs: 'ログ',
             log: 'ログ',
         },
         time_format:{
             today: '今日',
-            monday: '月曜日',
-            tuesday: '火曜日',
-            wednesday: '水曜日',
-            thursday: '木曜日',
-            friday: '金曜日',
-            saturday: '土曜日',
-            sunday: '日曜日',
+            monday: '月',
+            tuesday: '火',
+            wednesday: '水',
+            thursday: '木',
+            friday: '金',
+            saturday: '土',
+            sunday: '日',
         }
-    }
+    },
+
+    loading_db: 'データベースをロードしています...',
 }
 
 const de = {
@@ -1127,22 +1380,22 @@ const de = {
             tags: 'Tags',
             add_tag: 'Tag hinzufügen',
             save_btn: 'Speichern',
-            oops_alert: 'Ups!',
+            oops_alert: 'Hoppla!',
             error_alert: 'Fehler',
             success_alert: 'Erfolg',
             no_time: 'Keine Zeit zum Protokollieren',
             no_task: 'Bitte wähle eine Aufgabe aus',
-            task_create_failed: 'Aufgabe konnte nicht erstellt werden',
-            log_create_failed: 'Zeiterfassung konnte nicht erstellt werden',
-            log_create_success: 'Zeiterfassung erfolgreich erstellt',
-            tag_create_failed: 'Tag konnte nicht erstellt werden',
-            time_log: 'Zeiterfassung',
+            task_create_failed: 'Fehler beim Erstellen der Aufgabe',
+            log_create_failed: 'Fehler beim Erstellen des Zeitprotokolls',
+            log_create_success: 'Zeitprotokoll erfolgreich erstellt',
+            tag_create_failed: 'Fehler beim Erstellen des Tags für das Zeitprotokoll',
+            time_log: 'Zeitprotokoll',
         },
         poromodo:{
-            break_title: 'Fokussierungssitzung abgeschlossen',
+            break_title: 'Fokus-Sitzung abgeschlossen',
             break_msg: 'Zeit für eine Pause!',
-            break_complete: 'Pause abgeschlossen',
-            break_complete_msg: 'Zeit zum Fokussieren!',
+            break_complete: 'Pausensitzung abgeschlossen',
+            break_complete_msg: 'Zeit sich zu konzentrieren!',
             continue: 'Fortsetzen',
             end_pomodoro: 'Pomodoro beenden',
             stop_pomodoro: 'Pomodoro verlassen',
@@ -1172,18 +1425,22 @@ const de = {
             save_btn: 'Speichern',
             delete_btn: 'Löschen',
             delete_alert: 'Tag löschen',
-            delete_alert_msg: 'Sind Sie sicher, dass Sie diesen Tag löschen möchten?',
+            delete_alert_msg: 'Bist du sicher, dass du diesen Tag löschen möchtest?',
             cancel: 'Abbrechen',
             delete: 'Tag löschen',
-            tag_create_failed: 'Tag konnte nicht erstellt werden',
+            tag_create_failed: 'Fehler beim Erstellen des Tags',
             tag_create_success: 'Tag erfolgreich erstellt',
-            tag_update_failed: 'Tag konnte nicht aktualisiert werden',
+            tag_update_failed: 'Fehler beim Aktualisieren des Tags',
             tag_update_success: 'Tag erfolgreich aktualisiert',
-            tag_delete_failed: 'Tag konnte nicht gelöscht werden',
+            tag_delete_failed: 'Fehler beim Löschen des Tags',
             tag_delete_success: 'Tag erfolgreich gelöscht',
-            place_holder: 'z.B. Arbeit, privat, Studium usw.',
+            place_holder: 'z.B. Arbeit, persönlich, Studium usw.',
+            error: 'Fehler',
+            requires: 'Name und Farbe sind erforderlich',
+            no_time: 'Keine Zeit protokolliert',
         }
     },
+
     task_screen:{
         index:{
             title: 'Aufgaben',
@@ -1193,30 +1450,33 @@ const de = {
         },
         add:{
             desc_alert: 'Aufgabenbeschreibung ist erforderlich',
-            name_placeholder: 'Aufgabenname eingeben',
+            name_placeholder: 'Aufgabennamen eingeben',
             save: 'Speichern',
+            label: 'Aufgabenname',
         },
         edit:{
+            label: 'Aufgabenname',
             delete_alert_title: 'Aufgabe löschen',
-            delete_alert_msg: 'Dies wird alle zugehörigen Zeitprotokolle löschen. Möchten Sie diese Aufgabe wirklich löschen?',
+            delete_alert_msg: 'Dies löscht alle zugehörigen Zeitaufzeichnungen. Bist du sicher, dass du diese Aufgabe löschen möchtest?',
             cancel: 'Abbrechen',
             delete: 'Löschen',
             error: 'Fehler',
-            error_msg: 'Diese Zeitprotokolle gehören nicht zu dieser Aufgabe',
+            error_msg: 'Diese Zeitaufzeichnungen gehören nicht zu dieser Aufgabe',
             ok: 'OK',
-            name_placeholder: 'Aufgabenname eingeben',
+            name_placeholder: 'Aufgabennamen eingeben',
             save: 'Speichern',
-            total_time: 'Gesamte Zeit verwendet:',
+            total_time: 'Gesamte genutzte Zeit:',
             import: 'Daten importieren',
             export: 'Daten exportieren',
         }
     },
+    
     insights_screen:{
         layout:{
             title: 'Einblicke',
         },
         index:{
-            no_data: 'Keine Daten angezeigt',
+            no_data: 'Keine Daten zum Anzeigen',
             duration: 'Dauer',
             select_duration: 'Dauer auswählen, um Einblicke anzuzeigen',
             select_duration_label: 'Dauer auswählen, um Einblicke anzuzeigen',
@@ -1228,27 +1488,50 @@ const de = {
             all_time: 'Alle Zeiten',
         },
     },
+
+    themes:{
+        title: 'Systemthema',
+        dark_mode: 'Dunkelmodus',
+        on: 'Ein',
+        off: 'Aus',
+        colors: 'Farben',
+        orange: 'Orange',
+        yellow: 'Gelb',
+        green: 'Grün',
+        blue: 'Blau',
+        purple: 'Lila',
+        pink: 'Rosa',
+        red: 'Rot',
+    },
+
+    settings:{
+        title: 'Einstellungen',
+        themes: 'Themen',
+    },
+
     components:{
         task_card:{
-            no_time: 'Keine Zeit erfasst',
+            no_time: 'Keine Zeit protokolliert',
             edit: 'Bearbeiten',
         },
         tag_stat:{
             total_time: 'Gesamtzeit: ',
-            logs: 'Logs',
-            log: 'Log',
+            logs: 'Protokolle',
+            log: 'Protokoll',
         },
         time_format:{
             today: 'Heute',
-            monday: 'Montag',
-            tuesday: 'Dienstag',
-            wednesday: 'Mittwoch',
-            thursday: 'Donnerstag',
-            friday: 'Freitag',
-            saturday: 'Samstag',
-            sunday: 'Sonntag',
+            monday: 'Mo',
+            tuesday: 'Di',
+            wednesday: 'Mi',
+            thursday: 'Do',
+            friday: 'Fr',
+            saturday: 'Sa',
+            sunday: 'So',
         }
-    }
+    },
+
+    loading_db: 'Datenbank wird geladen...',
 }
 
 const ru = {
@@ -1261,8 +1544,8 @@ const ru = {
             home: 'Главная',
         },
         index:{
-            title: 'Логи',
-            no_logs: 'Логи не найдены',
+            title: 'Журналы',
+            no_logs: 'Журналы не найдены',
             questions: 'Что вы сделали?',
             tags: 'Теги',
             add_tag: 'Добавить тег',
@@ -1273,20 +1556,20 @@ const ru = {
             no_time: 'Нет времени для записи',
             no_task: 'Пожалуйста, выберите задачу',
             task_create_failed: 'Не удалось создать задачу',
-            log_create_failed: 'Не удалось создать временной лог',
-            log_create_success: 'Временной лог успешно создан',
-            tag_create_failed: 'Не удалось создать тег',
-            time_log: 'Временной лог',
+            log_create_failed: 'Не удалось создать запись времени',
+            log_create_success: 'Запись времени успешно создана',
+            tag_create_failed: 'Не удалось создать тег для записи времени',
+            time_log: 'Запись времени',
         },
         poromodo:{
-            break_title: 'Сеанс фокусировки завершен',
-            break_msg: 'Время сделать перерыв!',
-            break_complete: 'Сеанс перерыва завершен',
-            break_complete_msg: 'Время для фокусировки!',
+            break_title: 'Сессия фокуса завершена',
+            break_msg: 'Время для перерыва!',
+            break_complete: 'Сессия перерыва завершена',
+            break_complete_msg: 'Время сосредоточиться!',
             continue: 'Продолжить',
-            end_pomodoro: 'Закончить помодоро',
-            stop_pomodoro: 'Прекратить помодоро',
-            stop_pomodoro_msg: 'Это остановит таймер помодоро.',
+            end_pomodoro: 'Закончить Помодоро',
+            stop_pomodoro: 'Выйти из Помодоро',
+            stop_pomodoro_msg: 'Это остановит таймер Помодоро.',
             yes: 'Да',
             no: 'Нет',
             break: 'Перерыв',
@@ -1305,7 +1588,7 @@ const ru = {
             title: 'Добавить тег',
             edit_tag: 'Редактировать тег',
             create_tag: 'Создать новый тег',
-            tag_name: 'Имя тега',
+            tag_name: 'Название тега',
             tag_color: 'Цвет тега',
             name_required: 'Имя обязательно',
             color_required: 'Цвет обязателен',
@@ -1313,7 +1596,7 @@ const ru = {
             delete_btn: 'Удалить',
             delete_alert: 'Удалить тег',
             delete_alert_msg: 'Вы уверены, что хотите удалить этот тег?',
-            cancel: 'Отмена',
+            cancel: 'Отменить',
             delete: 'Удалить тег',
             tag_create_failed: 'Не удалось создать тег',
             tag_create_success: 'Тег успешно создан',
@@ -1321,9 +1604,13 @@ const ru = {
             tag_update_success: 'Тег успешно обновлен',
             tag_delete_failed: 'Не удалось удалить тег',
             tag_delete_success: 'Тег успешно удален',
-            place_holder: 'Например: работа, личное, учеба и т.д.',
+            place_holder: 'Например, работа, личное, учеба и т.д.',
+            error: 'Ошибка',
+            requires: 'Имя и цвет обязательны',
+            no_time: 'Время не записано',
         }
     },
+
     task_screen:{
         index:{
             title: 'Задачи',
@@ -1333,24 +1620,27 @@ const ru = {
         },
         add:{
             desc_alert: 'Описание задачи обязательно',
-            name_placeholder: 'Введите имя задачи',
+            name_placeholder: 'Введите название задачи',
             save: 'Сохранить',
+            label: 'Название задачи',
         },
         edit:{
+            label: 'Название задачи',
             delete_alert_title: 'Удалить задачу',
-            delete_alert_msg: 'Это удалит все связанные временные записи. Вы уверены, что хотите удалить эту задачу?',
-            cancel: 'Отмена',
+            delete_alert_msg: 'Это удалит все связанные записи времени. Вы уверены, что хотите удалить эту задачу?',
+            cancel: 'Отменить',
             delete: 'Удалить',
             error: 'Ошибка',
-            error_msg: 'Эти временные записи не относятся к этой задаче',
-            ok: 'ОК',
-            name_placeholder: 'Введите имя задачи',
+            error_msg: 'Эти записи времени не принадлежат этой задаче',
+            ok: 'OK',
+            name_placeholder: 'Введите название задачи',
             save: 'Сохранить',
-            total_time: 'Общее время использования:',
-            import: 'Импортировать данные',
-            export: 'Экспортировать данные',
+            total_time: 'Общее использованное время:',
+            import: 'Импорт данных',
+            export: 'Экспорт данных',
         }
     },
+    
     insights_screen:{
         layout:{
             title: 'Анализ',
@@ -1365,9 +1655,30 @@ const ru = {
             monthly: 'Ежемесячно',
             yearly: 'Ежегодно',
             all: 'Все',
-            all_time: 'Все время',
+            all_time: 'Всё время',
         },
     },
+
+    themes:{
+        title: 'Тема системы',
+        dark_mode: 'Тёмный режим',
+        on: 'Вкл',
+        off: 'Выкл',
+        colors: 'Цвета',
+        orange: 'Оранжевый',
+        yellow: 'Жёлтый',
+        green: 'Зелёный',
+        blue: 'Синий',
+        purple: 'Фиолетовый',
+        pink: 'Розовый',
+        red: 'Красный',
+    },
+
+    settings:{
+        title: 'Настройки',
+        themes: 'Темы',
+    },
+
     components:{
         task_card:{
             no_time: 'Время не записано',
@@ -1375,8 +1686,8 @@ const ru = {
         },
         tag_stat:{
             total_time: 'Общее время: ',
-            logs: 'логи',
-            log: 'лог',
+            logs: 'записи',
+            log: 'запись',
         },
         time_format:{
             today: 'Сегодня',
@@ -1388,8 +1699,11 @@ const ru = {
             saturday: 'Сб',
             sunday: 'Вс',
         }
-    }
+    },
+
+    loading_db: 'Загрузка базы данных...',
 }
+
 
 const translations = {
     en: en,

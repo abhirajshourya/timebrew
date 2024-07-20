@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, useColorScheme } from 'react-native'
-import {
-    View,
-    Text,
-    H3,
-    YStack,
-    ListItem,
-    YGroup,
-    Separator,
-    Switch,
-    XStack,
-    Label,
-    H4,
-    ListItemTitle,
-    ScrollView,
-    Square,
-} from 'tamagui'
+import { ThemesColors } from '@/constants/Themes'
+import i18n from '@/constants/translations'
 import { Theme } from '@/constants/types'
 import { Ionicons } from '@expo/vector-icons'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, useColorScheme } from 'react-native'
 import { useMMKVString } from 'react-native-mmkv'
-import { ThemesColors } from '@/constants/Themes'
-import { capitalizeFirstLetter } from '@/helpers/text-helpers'
+import {
+    H4,
+    ListItem,
+    ScrollView,
+    Square,
+    Switch,
+    XStack,
+    YGroup,
+    YStack
+} from 'tamagui'
 
 const Index = () => {
     const [themeSettings, setThemeSettings] = useMMKVString('settings.themes')
@@ -54,17 +48,17 @@ const Index = () => {
         <ScrollView>
             <YStack margin={20} gap={20}>
                 <YGroup>
-                    <H4>System Theme</H4>
+                    <H4>{i18n.t('themes.title')}</H4>
                 </YGroup>
                 <YGroup>
                     <YGroup.Item>
-                        <ListItem pressTheme title={`Dark Mode`}>
+                        <ListItem pressTheme title={i18n.t('themes.dark_mode')}>
                             <XStack
                                 gap={10}
                                 alignItems="center"
                                 justifyContent="space-between"
                             >
-                                <H4>{systemTheme ? 'On' : 'Off'}</H4>
+                                <H4>{systemTheme ? i18n.t('themes.on') : i18n.t('themes.off')}</H4>
                                 <Switch
                                     size={'$3'}
                                     checked={systemTheme}
@@ -109,7 +103,7 @@ const Index = () => {
                     </YGroup.Item>
                 </YGroup> */}
                 <YGroup>
-                    <H4>Colors</H4>
+                    <H4>{i18n.t('themes.colors')}</H4>
                 </YGroup>
                 <YGroup>
                     {ThemesColors.map((color, i) => (
@@ -117,7 +111,17 @@ const Index = () => {
                             <ListItem
                                 key={`${color}-${i}`}
                                 pressTheme
-                                title={capitalizeFirstLetter(color)}
+                                title={
+                                    // capitalizeFirstLetter(color)
+                                    color === 'red' ? i18n.t('themes.red') : 
+                                    color === 'blue' ? i18n.t('themes.blue') :
+                                    color === 'green' ? i18n.t('themes.green') :
+                                    color === 'yellow' ? i18n.t('themes.yellow') :
+                                    color === 'orange' ? i18n.t('themes.orange') :
+                                    color === 'purple' ? i18n.t('themes.purple') :
+                                    color === 'pink' ? i18n.t('themes.pink') :
+                                    i18n.t('themes.blue')
+                                }
                                 icon={
                                     <Square
                                         size={24}

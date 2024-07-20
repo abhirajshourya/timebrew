@@ -1,11 +1,7 @@
-import { PrimaryButton, RegularButton } from '@/components/Buttons'
-import TextInput from '@/components/form/TextInput'
 import i18n from '@/constants/translations'
 import { Task, Timelog } from '@/constants/types'
 import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
-import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
-import { X } from '@tamagui/lucide-icons'
 import * as DocumentPricker from 'expo-document-picker'
 import * as File from 'expo-file-system'
 import { useLocalSearchParams, useRouter } from 'expo-router'
@@ -13,20 +9,18 @@ import * as Sharing from 'expo-sharing'
 import React, { useEffect, useState } from 'react'
 import { Alert, Platform } from 'react-native'
 import {
+    Button,
+    H3,
+    Input,
+    Label,
+    ScrollView,
+    Separator,
     Text,
     View,
-    ScrollView,
-    Button,
-    Input,
-    YStack,
-    Label,
-    YGroup,
-    H2,
-    H3,
-    XStack,
-    Separator,
-    Group,
     XGroup,
+    XStack,
+    YGroup,
+    YStack
 } from 'tamagui'
 
 const EditTask = () => {
@@ -181,8 +175,9 @@ const EditTask = () => {
         >
             <YStack gap={20} margin={20}>
                 <YGroup>
-                    {/* TODO: i18n */}
-                    <Label>Task Name</Label>
+                    <Label>
+                        {i18n.t('task_screen.edit.label')}
+                    </Label>
                     <Input
                         placeholder={i18n.t('task_screen.add.name_placeholder')}
                         value={taskDesc}

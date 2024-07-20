@@ -1,16 +1,12 @@
-import { Ionicons } from '@expo/vector-icons'
+import i18n from '@/constants/translations'
 import { ChevronRight, Palette } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import {
-    View,
-    Text,
-    H1,
-    ScrollView,
-    YGroup,
-    Separator,
     ListItem,
+    ScrollView,
+    YGroup
 } from 'tamagui'
 
 const Settings = () => {
@@ -36,9 +32,8 @@ const Settings = () => {
                     />
                 </YGroup.Item> */}
                 <YGroup.Item>
-                    {/* TODO: i18n */}
                     <ListItem
-                        title="Themes"
+                        title={i18n.t('settings.themes')}
                         pressTheme
                         icon={<Palette size={24} />}
                         iconAfter={<ChevronRight size={24} />}
