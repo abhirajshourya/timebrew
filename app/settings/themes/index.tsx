@@ -49,6 +49,7 @@ const Index = () => {
         })
     }, [systemTheme, selectedColor])
 
+    /* TODO: i18n */
     return (
         <ScrollView>
             <YStack margin={20} gap={20}>
@@ -57,10 +58,7 @@ const Index = () => {
                 </YGroup>
                 <YGroup>
                     <YGroup.Item>
-                        <ListItem
-                            pressTheme
-                            title={`Dark Mode`}
-                        >
+                        <ListItem pressTheme title={`Dark Mode`}>
                             <XStack
                                 gap={10}
                                 alignItems="center"

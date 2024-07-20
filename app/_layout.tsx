@@ -145,6 +145,7 @@ export default function RootLayout() {
                                             title: i18n.t('tracker_screen.layout.tracker'),
                                         }}
                                     />
+                                    {/* TODO: i18n */}
                                     <Stack.Screen
                                         name="settings"
                                         options={{

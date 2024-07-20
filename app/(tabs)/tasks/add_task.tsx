@@ -43,6 +43,7 @@ const AddTask = () => {
     return (
         <YStack margin={20} gap={20}>
             <YGroup>
+                {/* TODO: i18n */}
                 <Label>Task Name</Label>
                 <Input
                     placeholder={i18n.t('task_screen.add.name_placeholder')}

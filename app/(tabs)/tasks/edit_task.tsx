@@ -181,6 +181,7 @@ const EditTask = () => {
         >
             <YStack gap={20} margin={20}>
                 <YGroup>
+                    {/* TODO: i18n */}
                     <Label>Task Name</Label>
                     <Input
                         placeholder={i18n.t('task_screen.add.name_placeholder')}

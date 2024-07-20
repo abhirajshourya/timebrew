@@ -36,6 +36,7 @@ const Settings = () => {
                     />
                 </YGroup.Item> */}
                 <YGroup.Item>
+                    {/* TODO: i18n */}
                     <ListItem
                         title="Themes"
                         pressTheme

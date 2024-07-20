@@ -35,6 +35,7 @@ const Add = () => {
         if (checkErrors()) {
             // console.error('Errors found', errors)
             if (errors.name && errors.color) {
+                /* TODO: i18n */
                 Alert.alert('Error', 'Name and Color are required')
             } else if (errors.name) {
                 Alert.alert('Error', i18n.t('tag_screen.add.name_required'))

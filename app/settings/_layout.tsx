@@ -10,6 +10,7 @@ export default function StackLayout() {
 
     return (
         <Stack>
+            {/* TODO: i18n */}
             <Stack.Screen
                 name="index"
                 options={{ headerShown: false, title: 'Settings'}}
