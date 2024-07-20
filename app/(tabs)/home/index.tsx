@@ -88,6 +88,7 @@ const Tracker = ({}) => {
     useEffect(() => {
         getTotalTimelogForToday().then((total) => {
             setTodayTime(total)
+            setReload(false)
         })
     }, [segments, reload])
 
@@ -130,6 +131,8 @@ const Tracker = ({}) => {
         if (
             !tasks.find((task) => task.description === cleanText(selectedTask))
         ) {
+            // Create a new task if it doesn't exist
+            // this is disabled for now
             createTask(cleanText(selectedTask))
                 .then((id) => {
                     taskId = id
@@ -149,9 +152,9 @@ const Tracker = ({}) => {
             )?.id as number
 
             stop()
-
             handleCreateTimelog(startTime, endTime, taskId, duration)
         }
+        setReload(true)
         // Reset the selected task state after saving
         setSelectedTask('')
         setIsModalVisible(false)
@@ -165,7 +168,7 @@ const Tracker = ({}) => {
     ) => {
         createTimelog(startTime, endTime, taskId, duration)
             .then((id) => {
-                getTimeLogs().then(setTimelogs)
+                // getTimeLogs().then(setTimelogs)
                 selectedTags.forEach((tag) => {
                     handleCreateTimelogTag(id, tag.id)
                 })
@@ -379,7 +382,11 @@ const Tracker = ({}) => {
                                         Today's Progress:{' '}
                                         {formatTime(todayTime)} /{' '}
                                         {formatTime(dailyGoalTime)} (
-                                        {(todayTime / dailyGoalTime) * 100}%)
+                                        {(
+                                            (todayTime / dailyGoalTime) *
+                                            100
+                                        ).toFixed(0)}
+                                        %)
                                     </Text>
                                     <Progress.Bar
                                         progress={todayTime / dailyGoalTime}
