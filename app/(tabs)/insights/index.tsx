@@ -188,7 +188,7 @@ const Index = () => {
                                 : ''}
                         </Text>
 
-                        <View>
+                        <YStack gap={10}>
                             {timelogs.data.length === 0 && (
                                 <Text>
                                     {i18n.t('insights_screen.index.no_data')}
@@ -204,7 +204,7 @@ const Index = () => {
                                             />
                                         )
                                 )}
-                        </View>
+                        </YStack>
                     </View>
                 </YStack>
             </ScrollView>
