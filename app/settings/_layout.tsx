@@ -19,6 +19,10 @@ export default function StackLayout() {
                 name="themes"
                 options={{ headerShown: true, title: i18n.t('settings.themes') }}
             />
+            <Stack.Screen
+                name="goal"
+                options={{ headerShown: true, title: 'Goals' }}
+            />
         </Stack>
     )
 }

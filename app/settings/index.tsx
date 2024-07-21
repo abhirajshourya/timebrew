@@ -1,13 +1,9 @@
+import { ChevronRight, Goal, Palette } from '@tamagui/lucide-icons'
 import i18n from '@/constants/translations'
-import { ChevronRight, Palette } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import {
-    ListItem,
-    ScrollView,
-    YGroup
-} from 'tamagui'
+import { ListItem, ScrollView, YGroup } from 'tamagui'
 
 const Settings = () => {
     const router = useRouter()
@@ -39,6 +35,17 @@ const Settings = () => {
                         iconAfter={<ChevronRight size={24} />}
                         onPress={() => {
                             router.push('settings/themes')
+                        }}
+                    />
+                </YGroup.Item>
+                <YGroup.Item>
+                    <ListItem
+                        title={i18n.t('settings.goals')}
+                        pressTheme
+                        icon={<Goal size={24} />}
+                        iconAfter={<ChevronRight size={24} />}
+                        onPress={() => {
+                            router.push('settings/goal')
                         }}
                     />
                 </YGroup.Item>

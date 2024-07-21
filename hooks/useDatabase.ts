@@ -696,8 +696,8 @@ export default function useDatabase() {
 
     /**
      * Get total timelog for a tag
-     * @param tagId 
-     * @returns 
+     * @param tagId
+     * @returns
      */
     const getTotalTimelogForTag = async (tagId: number) => {
         const timelogs = await db.getAllAsync<Timelog>(
@@ -705,6 +705,21 @@ export default function useDatabase() {
             {
                 $tagId: tagId,
             }
+        )
+
+        return timelogs.reduce((acc, curr) => acc + curr.duration, 0)
+    }
+
+    /**
+     * Get total timelog in seconds for today
+     * @returns
+     */
+    const getTotalTimelogForToday = async () => {
+        const today = new Date()
+        today.setHours(0, 0, 0, 0)
+
+        const timelogs = await db.getAllAsync<Timelog>(
+            `SELECT * FROM timelogs WHERE start_time >= ${today.getTime()}`
         )
 
         return timelogs.reduce((acc, curr) => acc + curr.duration, 0)
@@ -740,5 +755,6 @@ export default function useDatabase() {
         deleteTimelogTag,
         getTotalTimelogForTask,
         getTotalTimelogForTag,
+        getTotalTimelogForToday,
     }
 }

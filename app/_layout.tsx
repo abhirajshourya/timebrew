@@ -20,6 +20,7 @@ import { useMMKVString } from 'react-native-mmkv'
 import 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { PortalProvider } from 'tamagui'
+import { MMKV } from 'react-native-mmkv'
 
 // Override the default Tamagui config with your custom config
 // config.themes = {
@@ -38,6 +39,8 @@ declare module 'tamagui' {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
+
+export const mmkv_storage = new MMKV()
 
 export default function RootLayout() {
     const [themeSettings, setThemeSettings] = useMMKVString('settings.themes')

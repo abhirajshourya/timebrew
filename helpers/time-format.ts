@@ -17,6 +17,23 @@ export const formatTime = (time: number) => {
 }
 
 /**
+ * Return seconds from time string
+ * @param time Time String
+ */
+export const formatTimeToSeconds = (time: string) => {
+    //Check if time is in 1h 2m 30s format
+    const timeMatch = time.match(/(\d+h)?\s?(\d+m)?\s?(\d+s)?/)
+
+    if (!timeMatch) return 0
+
+    const hours = parseInt(time.match(/(\d+)h/)?.[1] || '0', 10)
+    const minutes = parseInt(time.match(/(\d+)m/)?.[1] || '0', 10)
+    const seconds = parseInt(time.match(/(\d+)s/)?.[1] || '0', 10)
+
+    return hours * 3600 + minutes * 60 + seconds
+}
+
+/**
  * Format time in seconds to hours
  * @param time - Time in seconds
  * @returns Formatted time string

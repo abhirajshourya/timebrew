@@ -35,12 +35,16 @@ import {
     ScrollView,
     Button,
     Spacer,
+    Label,
+    useTheme,
 } from 'tamagui'
 import Pomodoro from './pomodoro'
 import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import { useRouter, useSegments } from 'expo-router'
 import { Settings, Settings2, TimerReset } from '@tamagui/lucide-icons'
 import { set } from 'lodash'
+import { mmkv_storage } from '@/app/_layout'
+import * as Progress from 'react-native-progress'
 
 const Tracker = ({}) => {
     const {
@@ -62,6 +66,7 @@ const Tracker = ({}) => {
         createTask,
         getTags,
         createTimelogTag,
+        getTotalTimelogForToday,
     } = useDatabase()
     const [timelogs, setTimelogs] = useState<Timelog[]>([])
     const memoTimelogs = useMemo(() => timelogs, [timelogs])
@@ -74,6 +79,18 @@ const Tracker = ({}) => {
 
     const router = useRouter()
     const segments = useSegments()
+
+    const dailyGoal = mmkv_storage.getBoolean('goal.daily')
+    const dailyGoalTime = mmkv_storage.getNumber('goal.dailytime')
+
+    const [todayTime, setTodayTime] = useState(0)
+
+    useEffect(() => {
+        getTotalTimelogForToday().then((total) => {
+            setTodayTime(total)
+            setReload(false)
+        })
+    }, [segments, reload])
 
     useEffect(() => {
         getTimeLogs().then((timelogs) => {
@@ -114,6 +131,8 @@ const Tracker = ({}) => {
         if (
             !tasks.find((task) => task.description === cleanText(selectedTask))
         ) {
+            // Create a new task if it doesn't exist
+            // this is disabled for now
             createTask(cleanText(selectedTask))
                 .then((id) => {
                     taskId = id
@@ -133,9 +152,9 @@ const Tracker = ({}) => {
             )?.id as number
 
             stop()
-
             handleCreateTimelog(startTime, endTime, taskId, duration)
         }
+        setReload(true)
         // Reset the selected task state after saving
         setSelectedTask('')
         setIsModalVisible(false)
@@ -149,7 +168,7 @@ const Tracker = ({}) => {
     ) => {
         createTimelog(startTime, endTime, taskId, duration)
             .then((id) => {
-                getTimeLogs().then(setTimelogs)
+                // getTimeLogs().then(setTimelogs)
                 selectedTags.forEach((tag) => {
                     handleCreateTimelogTag(id, tag.id)
                 })
@@ -176,6 +195,8 @@ const Tracker = ({}) => {
             )
         })
     }
+
+    const theme = useTheme()
 
     return (
         <SafeAreaView>
@@ -342,6 +363,41 @@ const Tracker = ({}) => {
                         </View>
                     </View>
                     <View style={styles.logsContainer}>
+                        {dailyGoal && dailyGoalTime && (
+                            <View
+                                style={{
+                                    borderRadius: 10,
+                                    marginHorizontal: 10,
+                                    backgroundColor: theme.background075.get(),
+                                    padding: 20,
+                                }}
+                            >
+                                <YStack alignItems="center">
+                                    <Text
+                                        style={{
+                                            color: theme.color.get(),
+                                            marginBottom: 10,
+                                        }}
+                                    >
+                                        Today's Progress:{' '}
+                                        {formatTime(todayTime)} /{' '}
+                                        {formatTime(dailyGoalTime)} (
+                                        {(
+                                            (todayTime / dailyGoalTime) *
+                                            100
+                                        ).toFixed(0)}
+                                        %)
+                                    </Text>
+                                    <Progress.Bar
+                                        progress={todayTime / dailyGoalTime}
+                                        width={300}
+                                        animated
+                                        animationType="timing"
+                                        color={theme.color10.get()}
+                                    />
+                                </YStack>
+                            </View>
+                        )}
                         <Separator marginVertical={20} />
                         <H2
                             alignSelf="center"
