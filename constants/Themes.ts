@@ -6,10 +6,10 @@ import { Theme } from './types'
 import { useColorScheme } from 'react-native'
 
 export const ThemesColors = [
+    'blue',
     'orange',
     'yellow',
     'green',
-    'blue',
     'purple',
     'pink',
     'red',

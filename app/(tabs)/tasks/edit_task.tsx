@@ -60,15 +60,15 @@ const EditTask = () => {
 
     const handleDelete = async () => {
         Alert.alert(
-            i18n.t('task_screen.add.delete_alert_title'),
-            i18n.t('task_screen.add.delete_alert_msg'),
+            i18n.t('task_screen.edit.delete_alert_title'),
+            i18n.t('task_screen.edit.delete_alert_msg'),
             [
                 {
-                    text: i18n.t('task_screen.add.cancel'),
+                    text: i18n.t('task_screen.edit.cancel'),
                     style: 'cancel',
                 },
                 {
-                    text: i18n.t('task_screen.add.delete'),
+                    text: i18n.t('task_screen.edit.delete'),
                     onPress: async () => {
                         try {
                             await deleteTask(params.id)
