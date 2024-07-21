@@ -1,3 +1,4 @@
+import i18n from '@/constants/translations'
 import { Tag, Task, Timelog } from '@/constants/types'
 import { formatTime, isToday } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
@@ -31,26 +32,35 @@ const TimelogCard = ({ timelog, setReload }: TimelogCardProps) => {
     const handleDeleteTimelog = async () => {
         try {
             Alert.alert(
-                'Delete Timelog',
-                'Are you sure you want to delete this timelog?',
+                i18n.t('tracker_screen.index.delete_timelog'),
+                i18n.t('tracker_screen.index.delete_timelog_msg'),
                 [
                     {
-                        text: 'Cancel',
+                        text: i18n.t('tracker_screen.index.cancel'),
                         style: 'cancel',
                     },
                     {
-                        text: 'Delete',
+                        text: i18n.t('tracker_screen.index.delete'),
+                        style: 'destructive',
                         onPress: () => {
                             deleteTimelog(timelog.id)
                             setReload(true)
-                            Alert.alert('Success', 'Timelog deleted')
+                            Alert.alert(
+                                i18n.t('tracker_screen.index.delete_success'),
+                                i18n.t(
+                                    'tracker_screen.index.delete_timelog_success'
+                                )
+                            )
                         },
                     },
                 ]
             )
             // await deleteTimelog(timelog.id)
         } catch (error) {
-            Alert.alert('Error', 'Failed to delete timelog')
+            Alert.alert(
+                i18n.t('tracker_screen.index.delete_failed'),
+                i18n.t('tracker_screen.index.delete_timelog_failed')
+            )
         }
     }
 
