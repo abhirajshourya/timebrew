@@ -379,7 +379,7 @@ const Tracker = ({}) => {
                                             marginBottom: 10,
                                         }}
                                     >
-                                        Today's Progress:{' '}
+                                        {i18n.t('tracker_screen.index.daily_goal_title')}:{' '}
                                         {formatTime(todayTime)} /{' '}
                                         {formatTime(dailyGoalTime)} (
                                         {(
