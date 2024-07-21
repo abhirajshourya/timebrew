@@ -1,19 +1,19 @@
-import { getLocales } from 'expo-localization';
-import { I18n } from 'i18n-js';
+import { getLocales } from 'expo-localization'
+import { I18n } from 'i18n-js'
 
 const en = {
-    tracker_screen:{
-        layout:{
+    tracker_screen: {
+        layout: {
             tracker: 'Tracker',
             tasks: 'Tasks',
             tags: 'Tags',
             insights: 'Insights',
             home: 'Home',
         },
-        index:{
+        index: {
             title: 'Logs',
             no_logs: 'No logs found',
-            questions:'What did you do?',
+            questions: 'What did you do?',
             tags: 'Tags',
             add_tag: 'Add tag',
             save_btn: 'Save',
@@ -27,8 +27,17 @@ const en = {
             log_create_success: 'Time log created successfully',
             tag_create_failed: 'Failed to create timelog tag',
             time_log: 'Time Log',
+            daily_goal_title: "Today's Progress",
+            delete_timelog: 'Delete Timelog',
+            delete_timelog_msg: 'Are you sure you want to delete this timelog?',
+            cancel: 'Cancel',
+            delete: 'Delete',
+            delete_success: 'Success',
+            delete_timelog_success: 'Timelog deleted',
+            delete_failed: 'Error',
+            delete_timelog_failed: 'Failed to delete timelog',
         },
-        poromodo:{
+        poromodo: {
             break_title: 'Focus Session Completed',
             break_msg: 'Time to take a break!',
             break_complete: 'Break Session Completed',
@@ -43,15 +52,15 @@ const en = {
             pause: 'Pause',
         },
     },
-    tag_screen:{
-        layout:{
+    tag_screen: {
+        layout: {
             title: 'Tags',
-            add_tags: 'Add Tag'
+            add_tags: 'Add Tag',
         },
         index: {
             title: 'Tags',
         },
-        add:{
+        add: {
             title: 'Add Tag',
             edit_tag: 'Edit Tag',
             create_tag: 'Create New Tag',
@@ -75,26 +84,27 @@ const en = {
             error: 'Error',
             requires: 'Name and Color are required',
             no_time: 'No time logged',
-        }
+        },
     },
 
-    task_screen:{
-        index:{
+    task_screen: {
+        index: {
             title: 'Tasks',
             all_tasks: 'All Tasks',
             edit: 'Edit Task',
             add: 'Add Task',
         },
-        add:{
+        add: {
             desc_alert: 'Task description is required',
             name_placeholder: 'Enter Task Name',
             save: 'Save',
             label: 'Task Name',
         },
-        edit:{
+        edit: {
             label: 'Task Name',
             delete_alert_title: 'Delete Task',
-            delete_alert_msg: 'This will delete all related time records. Are you sure you want to delete this task?',
+            delete_alert_msg:
+                'This will delete all related time records. Are you sure you want to delete this task?',
             cancel: 'Cancel',
             delete: 'Delete',
             error: 'Error',
@@ -105,14 +115,14 @@ const en = {
             total_time: 'Total Time Used:',
             import: 'Import Data',
             export: 'Export Data',
-        }
+        },
     },
-    
-    insights_screen:{
-        layout:{
+
+    insights_screen: {
+        layout: {
             title: 'Insights',
         },
-        index:{
+        index: {
             no_data: 'No data to show',
             duration: 'Duration',
             select_duration: 'Select duration to view insights',
@@ -126,7 +136,7 @@ const en = {
         },
     },
 
-    themes:{
+    themes: {
         title: 'System Theme',
         dark_mode: 'Dark Mode',
         on: 'On',
@@ -141,23 +151,23 @@ const en = {
         red: 'Red',
     },
 
-    settings:{
+    settings: {
         title: 'Settings',
         themes: 'Themes',
         goals: 'Goals',
     },
 
-    components:{
-        task_card:{
+    components: {
+        task_card: {
             no_time: 'No time logged',
             edit: 'Edit',
         },
-        tag_stat:{
+        tag_stat: {
             total_time: 'Total time: ',
             logs: 'logs',
             log: 'log',
         },
-        time_format:{
+        time_format: {
             today: 'Today',
             monday: 'Mon',
             tuesday: 'Tue',
@@ -166,7 +176,7 @@ const en = {
             friday: 'Fri',
             saturday: 'Sat',
             sunday: 'Sun',
-        }
+        },
     },
 
     loading_db: 'Loading Database...',
@@ -185,22 +195,22 @@ const en = {
         goalSet: 'Goal Set',
         goalSetMessage: 'Your goal has been successfully set!',
         ok: 'OK',
-    }
+    },
 }
 
 const vi = {
-    tracker_screen:{
-        layout:{
+    tracker_screen: {
+        layout: {
             tracker: 'Theo dõi',
             tasks: 'Công Việc',
             tags: 'Thẻ',
             insights: 'Thông Tin Chi Tiết',
             home: 'Trang Chủ',
         },
-        index:{
+        index: {
             title: 'Nhật Ký',
             no_logs: 'Không tìm thấy nhật ký',
-            questions:'Bạn đã làm gì?',
+            questions: 'Bạn đã làm gì?',
             tags: 'Thẻ',
             add_tag: 'Thêm thẻ',
             save_btn: 'Lưu',
@@ -214,8 +224,18 @@ const vi = {
             log_create_success: 'Tạo nhật ký thời gian thành công',
             tag_create_failed: 'Không tạo được thẻ nhật ký thời gian',
             time_log: 'Nhật Ký Thời Gian',
+            daily_goal_title: 'Tiến độ hôm nay',
+            delete_timelog: 'Xóa nhật ký thời gian',
+            delete_timelog_msg:
+                'Bạn có chắc chắn muốn xóa nhật ký thời gian này?',
+            cancel: 'Hủy',
+            delete: 'Xóa',
+            delete_success: 'Thành công',
+            delete_timelog_success: 'Nhật ký thời gian đã được xóa',
+            delete_failed: 'Lỗi',
+            delete_timelog_failed: 'Không thể xóa nhật ký thời gian',
         },
-        poromodo:{
+        poromodo: {
             break_title: 'Hoàn Thành Phiên Tập Trung',
             break_msg: 'Đã đến lúc nghỉ ngơi!',
             break_complete: 'Hoàn Thành Phiên Nghỉ Ngơi',
@@ -230,15 +250,15 @@ const vi = {
             pause: 'Tạm Dừng',
         },
     },
-    tag_screen:{
-        layout:{
+    tag_screen: {
+        layout: {
             title: 'Thẻ',
-            add_tags: 'Thêm Thẻ'
+            add_tags: 'Thêm Thẻ',
         },
         index: {
             title: 'Thẻ',
         },
-        add:{
+        add: {
             title: 'Thêm Thẻ',
             edit_tag: 'Chỉnh Sửa Thẻ',
             create_tag: 'Tạo Thẻ Mới',
@@ -262,44 +282,46 @@ const vi = {
             error: 'Lỗi',
             requires: 'Cần có tên và màu',
             no_time: 'Không có thời gian được ghi nhận',
-        }
+        },
     },
 
-    task_screen:{
-        index:{
+    task_screen: {
+        index: {
             title: 'Công Việc',
             all_tasks: 'Tất Cả Công Việc',
             edit: 'Chỉnh Sửa Công Việc',
             add: 'Thêm Công Việc',
         },
-        add:{
+        add: {
             desc_alert: 'Cần mô tả công việc',
             name_placeholder: 'Nhập Tên Công Việc',
             save: 'Lưu',
             label: 'Tên Công Việc',
         },
-        edit:{
+        edit: {
             label: 'Tên Công Việc',
             delete_alert_title: 'Xóa Công Việc',
-            delete_alert_msg: 'Điều này sẽ xóa tất cả các ghi chép thời gian liên quan. Bạn có chắc chắn muốn xóa công việc này không?',
+            delete_alert_msg:
+                'Điều này sẽ xóa tất cả các ghi chép thời gian liên quan. Bạn có chắc chắn muốn xóa công việc này không?',
             cancel: 'Hủy',
             delete: 'Xóa',
             error: 'Lỗi',
-            error_msg: 'Những ghi chép thời gian này không thuộc về công việc này',
+            error_msg:
+                'Những ghi chép thời gian này không thuộc về công việc này',
             ok: 'OK',
             name_placeholder: 'Nhập Tên Công Việc',
             save: 'Lưu',
             total_time: 'Tổng Thời Gian Sử Dụng:',
             import: 'Nhập Dữ Liệu',
             export: 'Xuất Dữ Liệu',
-        }
+        },
     },
-    
-    insights_screen:{
-        layout:{
+
+    insights_screen: {
+        layout: {
             title: 'Thông Tin Chi Tiết',
         },
-        index:{
+        index: {
             no_data: 'Không có dữ liệu để hiển thị',
             duration: 'Thời Lượng',
             select_duration: 'Chọn thời lượng để xem thông tin chi tiết',
@@ -313,7 +335,7 @@ const vi = {
         },
     },
 
-    themes:{
+    themes: {
         title: 'Chủ Đề Hệ Thống',
         dark_mode: 'Chế Độ Tối',
         on: 'Bật',
@@ -328,23 +350,23 @@ const vi = {
         red: 'Đỏ',
     },
 
-    settings:{
+    settings: {
         title: 'Cài Đặt',
         themes: 'Chủ Đề',
-        goals: "Mục tiêu",
+        goals: 'Mục tiêu',
     },
 
-    components:{
-        task_card:{
+    components: {
+        task_card: {
             no_time: 'Không có thời gian được ghi nhận',
             edit: 'Chỉnh Sửa',
         },
-        tag_stat:{
+        tag_stat: {
             total_time: 'Tổng thời gian: ',
             logs: 'nhật ký',
             log: 'nhật ký',
         },
-        time_format:{
+        time_format: {
             today: 'Hôm Nay',
             monday: 'Thứ Hai',
             tuesday: 'Thứ Ba',
@@ -353,7 +375,7 @@ const vi = {
             friday: 'Thứ Sáu',
             saturday: 'Thứ Bảy',
             sunday: 'Chủ Nhật',
-        }
+        },
     },
 
     loading_db: 'Đang tải cơ sở dữ liệu...',
@@ -366,29 +388,28 @@ const vi = {
         inputPlaceholder: 'Nhập Mục tiêu thời gian, ví dụ: 1h 30m',
         setBtn: 'Đặt',
         prevGoalTime: 'Mục tiêu trước: ',
-  },
+    },
 
-  alert: {
-    goalSet: 'Mục tiêu đã đặt', // Alert Title
-    goalSetMessage: 'Mục tiêu của bạn đã được đặt thành công!', // Alert Message
-    ok: 'OK' // Alert Button
-  }
-
+    alert: {
+        goalSet: 'Mục tiêu đã đặt', // Alert Title
+        goalSetMessage: 'Mục tiêu của bạn đã được đặt thành công!', // Alert Message
+        ok: 'OK', // Alert Button
+    },
 }
 
 const fr = {
-    tracker_screen:{
-        layout:{
+    tracker_screen: {
+        layout: {
             tracker: 'Suivi',
             tasks: 'Tâches',
             tags: 'Étiquettes',
             insights: 'Aperçus',
             home: 'Accueil',
         },
-        index:{
+        index: {
             title: 'Journaux',
             no_logs: 'Aucun journal trouvé',
-            questions:'Qu\'avez-vous fait?',
+            questions: "Qu'avez-vous fait?",
             tags: 'Étiquettes',
             add_tag: 'Ajouter une étiquette',
             save_btn: 'Enregistrer',
@@ -400,10 +421,22 @@ const fr = {
             task_create_failed: 'Échec de la création de la tâche',
             log_create_failed: 'Échec de la création du journal de temps',
             log_create_success: 'Journal de temps créé avec succès',
-            tag_create_failed: 'Échec de la création de l\'étiquette de journal de temps',
+            tag_create_failed:
+                "Échec de la création de l'étiquette de journal de temps",
             time_log: 'Journal de Temps',
+            daily_goal_title: "Progrès d'aujourd'hui",
+            delete_timelog: 'Supprimer le journal de temps',
+            delete_timelog_msg:
+                'Êtes-vous sûr de vouloir supprimer ce journal de temps?',
+            cancel: 'Annuler',
+            delete: 'Supprimer',
+            delete_success: 'Succès',
+            delete_timelog_success: 'Journal de temps supprimé',
+            delete_failed: 'Erreur',
+            delete_timelog_failed:
+                'Échec de la suppression du journal de temps',
         },
-        poromodo:{
+        poromodo: {
             break_title: 'Session de Concentration Terminée',
             break_msg: 'Il est temps de faire une pause!',
             break_complete: 'Session de Pause Terminée',
@@ -418,81 +451,85 @@ const fr = {
             pause: 'Pause',
         },
     },
-    tag_screen:{
-        layout:{
+    tag_screen: {
+        layout: {
             title: 'Étiquettes',
-            add_tags: 'Ajouter une étiquette'
+            add_tags: 'Ajouter une étiquette',
         },
         index: {
             title: 'Étiquettes',
         },
-        add:{
+        add: {
             title: 'Ajouter une Étiquette',
-            edit_tag: 'Modifier l\'Étiquette',
+            edit_tag: "Modifier l'Étiquette",
             create_tag: 'Créer une Nouvelle Étiquette',
-            tag_name: 'Nom de l\'Étiquette',
-            tag_color: 'Couleur de l\'Étiquette',
+            tag_name: "Nom de l'Étiquette",
+            tag_color: "Couleur de l'Étiquette",
             name_required: 'Le nom est requis',
             color_required: 'La couleur est requise',
             save_btn: 'Enregistrer',
             delete_btn: 'Supprimer',
-            delete_alert: 'Supprimer l\'Étiquette',
-            delete_alert_msg: 'Êtes-vous sûr de vouloir supprimer cette étiquette?',
+            delete_alert: "Supprimer l'Étiquette",
+            delete_alert_msg:
+                'Êtes-vous sûr de vouloir supprimer cette étiquette?',
             cancel: 'Annuler',
-            delete: 'Supprimer l\'Étiquette',
-            tag_create_failed: 'Échec de la création de l\'étiquette',
+            delete: "Supprimer l'Étiquette",
+            tag_create_failed: "Échec de la création de l'étiquette",
             tag_create_success: 'Étiquette créée avec succès',
-            tag_update_failed: 'Échec de la mise à jour de l\'étiquette',
+            tag_update_failed: "Échec de la mise à jour de l'étiquette",
             tag_update_success: 'Étiquette mise à jour avec succès',
-            tag_delete_failed: 'Échec de la suppression de l\'étiquette',
+            tag_delete_failed: "Échec de la suppression de l'étiquette",
             tag_delete_success: 'Étiquette supprimée avec succès',
             place_holder: 'Par exemple: travail, personnel, étude, etc.',
             error: 'Erreur',
             requires: 'Le nom et la couleur sont requis',
             no_time: 'Aucun temps enregistré',
-        }
+        },
     },
 
-    task_screen:{
-        index:{
+    task_screen: {
+        index: {
             title: 'Tâches',
             all_tasks: 'Toutes les Tâches',
             edit: 'Modifier la Tâche',
             add: 'Ajouter une Tâche',
         },
-        add:{
+        add: {
             desc_alert: 'La description de la tâche est requise',
             name_placeholder: 'Entrez le nom de la tâche',
             save: 'Enregistrer',
             label: 'Nom de la Tâche',
         },
-        edit:{
+        edit: {
             label: 'Nom de la Tâche',
             delete_alert_title: 'Supprimer la Tâche',
-            delete_alert_msg: 'Cela supprimera tous les enregistrements de temps associés. Êtes-vous sûr de vouloir supprimer cette tâche?',
+            delete_alert_msg:
+                'Cela supprimera tous les enregistrements de temps associés. Êtes-vous sûr de vouloir supprimer cette tâche?',
             cancel: 'Annuler',
             delete: 'Supprimer',
             error: 'Erreur',
-            error_msg: 'Ces enregistrements de temps n\'appartiennent pas à cette tâche',
+            error_msg:
+                "Ces enregistrements de temps n'appartiennent pas à cette tâche",
             ok: 'OK',
             name_placeholder: 'Entrez le nom de la tâche',
             save: 'Enregistrer',
             total_time: 'Temps Total Utilisé:',
             import: 'Importer des Données',
             export: 'Exporter des Données',
-        }
+        },
     },
-    
-    insights_screen:{
-        layout:{
+
+    insights_screen: {
+        layout: {
             title: 'Aperçus',
         },
-        index:{
+        index: {
             no_data: 'Aucune donnée à afficher',
             duration: 'Durée',
             select_duration: 'Sélectionnez la durée pour voir les aperçus',
-            select_duration_label: 'Sélectionnez la durée pour voir les aperçus',
-            daily: 'Aujourd\'hui',
+            select_duration_label:
+                'Sélectionnez la durée pour voir les aperçus',
+            daily: "Aujourd'hui",
             weekly: 'Hebdomadaire',
             monthly: 'Mensuel',
             yearly: 'Annuel',
@@ -501,7 +538,7 @@ const fr = {
         },
     },
 
-    themes:{
+    themes: {
         title: 'Thème du Système',
         dark_mode: 'Mode Sombre',
         on: 'Activé',
@@ -516,24 +553,24 @@ const fr = {
         red: 'Rouge',
     },
 
-    settings:{
+    settings: {
         title: 'Paramètres',
         themes: 'Thèmes',
-        goals: "Objectifs",
+        goals: 'Objectifs',
     },
 
-    components:{
-        task_card:{
+    components: {
+        task_card: {
             no_time: 'Aucun temps enregistré',
             edit: 'Modifier',
         },
-        tag_stat:{
+        tag_stat: {
             total_time: 'Temps total: ',
             logs: 'journaux',
             log: 'journal',
         },
-        time_format:{
-            today: 'Aujourd\'hui',
+        time_format: {
+            today: "Aujourd'hui",
             monday: 'Lun',
             tuesday: 'Mar',
             wednesday: 'Mer',
@@ -541,7 +578,7 @@ const fr = {
             friday: 'Ven',
             saturday: 'Sam',
             sunday: 'Dim',
-        }
+        },
     },
 
     loading_db: 'Chargement de la base de données...',
@@ -551,31 +588,31 @@ const fr = {
         dailyGoalTitile: 'Objectif de temps quotidien',
         on: 'Allumé',
         off: 'Éteint',
-        inputPlaceholder: 'Entrez l\'objectif de temps, par ex. 1h 30m',
+        inputPlaceholder: "Entrez l'objectif de temps, par ex. 1h 30m",
         setBtn: 'Définir',
         prevGoalTime: 'Objectif précédent: ',
-      },
+    },
 
-      alert: {
+    alert: {
         goalSet: 'Objectif défini', // Alert Title
         goalSetMessage: 'Votre objectif a été défini avec succès!', // Alert Message
-        ok: 'OK' // Alert Button
-      }
+        ok: 'OK', // Alert Button
+    },
 }
 
 const hi = {
-    tracker_screen:{
-        layout:{
+    tracker_screen: {
+        layout: {
             tracker: 'ट्रैकर',
             tasks: 'कार्य',
             tags: 'टैग',
             insights: 'जानकारियाँ',
             home: 'मुख्य पृष्ठ',
         },
-        index:{
+        index: {
             title: 'लॉग्स',
             no_logs: 'कोई लॉग नहीं मिला',
-            questions:'आपने क्या किया?',
+            questions: 'आपने क्या किया?',
             tags: 'टैग',
             add_tag: 'टैग जोड़ें',
             save_btn: 'सहेजें',
@@ -589,8 +626,17 @@ const hi = {
             log_create_success: 'टाइमलॉग सफलतापूर्वक बनाया गया',
             tag_create_failed: 'टाइमलॉग टैग बनाने में विफल',
             time_log: 'समय लॉग',
+            daily_goal_title: 'आज की प्रगति',
+            delete_timelog: 'टाइमलॉग हटाएं',
+            delete_timelog_msg: 'क्या आप वाकई इस टाइमलॉग को हटाना चाहते हैं?',
+            cancel: 'रद्द करें',
+            delete: 'हटाएं',
+            delete_success: 'सफलता',
+            delete_timelog_success: 'टाइमलॉग हटाया गया',
+            delete_failed: 'त्रुटि',
+            delete_timelog_failed: 'टाइमलॉग हटाने में विफल',
         },
-        poromodo:{
+        poromodo: {
             break_title: 'फोकस सत्र पूरा हुआ',
             break_msg: 'आराम करने का समय!',
             break_complete: 'ब्रेक सत्र पूरा हुआ',
@@ -605,15 +651,15 @@ const hi = {
             pause: 'रोकें',
         },
     },
-    tag_screen:{
-        layout:{
+    tag_screen: {
+        layout: {
             title: 'टैग्स',
-            add_tags: 'टैग जोड़ें'
+            add_tags: 'टैग जोड़ें',
         },
         index: {
             title: 'टैग्स',
         },
-        add:{
+        add: {
             title: 'टैग जोड़ें',
             edit_tag: 'टैग संपादित करें',
             create_tag: 'नया टैग बनाएं',
@@ -637,26 +683,27 @@ const hi = {
             error: 'त्रुटि',
             requires: 'नाम और रंग आवश्यक हैं',
             no_time: 'कोई समय लॉग नहीं किया गया',
-        }
+        },
     },
 
-    task_screen:{
-        index:{
+    task_screen: {
+        index: {
             title: 'कार्य',
             all_tasks: 'सभी कार्य',
             edit: 'कार्य संपादित करें',
             add: 'कार्य जोड़ें',
         },
-        add:{
+        add: {
             desc_alert: 'कार्य विवरण आवश्यक है',
             name_placeholder: 'कार्य का नाम दर्ज करें',
             save: 'सहेजें',
             label: 'कार्य का नाम',
         },
-        edit:{
+        edit: {
             label: 'कार्य का नाम',
             delete_alert_title: 'कार्य हटाएं',
-            delete_alert_msg: 'यह सभी संबंधित समय रिकॉर्ड्स को हटा देगा। क्या आप इस कार्य को हटाना चाहते हैं?',
+            delete_alert_msg:
+                'यह सभी संबंधित समय रिकॉर्ड्स को हटा देगा। क्या आप इस कार्य को हटाना चाहते हैं?',
             cancel: 'रद्द करें',
             delete: 'हटाएं',
             error: 'त्रुटि',
@@ -667,14 +714,14 @@ const hi = {
             total_time: 'कुल उपयोग समय:',
             import: 'डेटा आयात करें',
             export: 'डेटा निर्यात करें',
-        }
+        },
     },
-    
-    insights_screen:{
-        layout:{
+
+    insights_screen: {
+        layout: {
             title: 'जानकारियाँ',
         },
-        index:{
+        index: {
             no_data: 'दिखाने के लिए कोई डेटा नहीं है',
             duration: 'अवधि',
             select_duration: 'जानकारियाँ देखने के लिए अवधि चुनें',
@@ -688,7 +735,7 @@ const hi = {
         },
     },
 
-    themes:{
+    themes: {
         title: 'सिस्टम थीम',
         dark_mode: 'डार्क मोड',
         on: 'चालू',
@@ -703,23 +750,23 @@ const hi = {
         red: 'लाल',
     },
 
-    settings:{
+    settings: {
         title: 'सेटिंग्स',
         themes: 'थीम्स',
         goals: 'लक्ष्य',
     },
 
-    components:{
-        task_card:{
+    components: {
+        task_card: {
             no_time: 'कोई समय लॉग नहीं किया गया',
             edit: 'संपादित करें',
         },
-        tag_stat:{
+        tag_stat: {
             total_time: 'कुल समय: ',
             logs: 'लॉग्स',
             log: 'लॉग',
         },
-        time_format:{
+        time_format: {
             today: 'आज',
             monday: 'सोम',
             tuesday: 'मंगल',
@@ -728,7 +775,7 @@ const hi = {
             friday: 'शुक्र',
             saturday: 'शनि',
             sunday: 'रवि',
-        }
+        },
     },
 
     loading_db: 'डेटाबेस लोड हो रहा है...',
@@ -741,29 +788,28 @@ const hi = {
         inputPlaceholder: 'समय लक्ष्य दर्ज करें, जैसे 1h 30m',
         setBtn: 'सेट करें',
         prevGoalTime: 'पिछला लक्ष्य: ',
-      },
-    
-      alert: {
+    },
+
+    alert: {
         goalSet: 'लक्ष्य सेट किया गया', // Alert Title
         goalSetMessage: 'आपका लक्ष्य सफलतापूर्वक सेट कर दिया गया है!', // Alert Message
-        ok: 'ठीक है' // Alert Button
-      }
-
+        ok: 'ठीक है', // Alert Button
+    },
 }
 
 const es = {
-    tracker_screen:{
-        layout:{
+    tracker_screen: {
+        layout: {
             tracker: 'Rastreador',
             tasks: 'Tareas',
             tags: 'Etiquetas',
             insights: 'Perspectivas',
             home: 'Inicio',
         },
-        index:{
+        index: {
             title: 'Registros',
             no_logs: 'No se encontraron registros',
-            questions:'¿Qué hiciste?',
+            questions: '¿Qué hiciste?',
             tags: 'Etiquetas',
             add_tag: 'Añadir etiqueta',
             save_btn: 'Guardar',
@@ -775,10 +821,21 @@ const es = {
             task_create_failed: 'Fallo al crear la tarea',
             log_create_failed: 'Fallo al crear el registro de tiempo',
             log_create_success: 'Registro de tiempo creado con éxito',
-            tag_create_failed: 'Fallo al crear la etiqueta de registro de tiempo',
+            tag_create_failed:
+                'Fallo al crear la etiqueta de registro de tiempo',
             time_log: 'Registro de tiempo',
+            daily_goal_title: 'Progreso de hoy',
+            delete_timelog: 'Eliminar registro de tiempo',
+            delete_timelog_msg:
+                '¿Estás seguro de que quieres eliminar este registro de tiempo?',
+            cancel: 'Cancelar',
+            delete: 'Eliminar',
+            delete_success: 'Éxito',
+            delete_timelog_success: 'Registro de tiempo eliminado',
+            delete_failed: 'Error',
+            delete_timelog_failed: 'No se pudo eliminar el registro de tiempo',
         },
-        poromodo:{
+        poromodo: {
             break_title: 'Sesión de enfoque completada',
             break_msg: '¡Es hora de tomar un descanso!',
             break_complete: 'Sesión de descanso completada',
@@ -793,15 +850,15 @@ const es = {
             pause: 'Pausa',
         },
     },
-    tag_screen:{
-        layout:{
+    tag_screen: {
+        layout: {
             title: 'Etiquetas',
-            add_tags: 'Añadir etiqueta'
+            add_tags: 'Añadir etiqueta',
         },
         index: {
             title: 'Etiquetas',
         },
-        add:{
+        add: {
             title: 'Añadir etiqueta',
             edit_tag: 'Editar etiqueta',
             create_tag: 'Crear nueva etiqueta',
@@ -812,7 +869,8 @@ const es = {
             save_btn: 'Guardar',
             delete_btn: 'Eliminar',
             delete_alert: 'Eliminar etiqueta',
-            delete_alert_msg: '¿Estás seguro de que quieres eliminar esta etiqueta?',
+            delete_alert_msg:
+                '¿Estás seguro de que quieres eliminar esta etiqueta?',
             cancel: 'Cancelar',
             delete: 'Eliminar etiqueta',
             tag_create_failed: 'Fallo al crear la etiqueta',
@@ -825,26 +883,27 @@ const es = {
             error: 'Error',
             requires: 'El nombre y el color son obligatorios',
             no_time: 'No hay tiempo registrado',
-        }
+        },
     },
 
-    task_screen:{
-        index:{
+    task_screen: {
+        index: {
             title: 'Tareas',
             all_tasks: 'Todas las tareas',
             edit: 'Editar tarea',
             add: 'Añadir tarea',
         },
-        add:{
+        add: {
             desc_alert: 'La descripción de la tarea es obligatoria',
             name_placeholder: 'Ingrese el nombre de la tarea',
             save: 'Guardar',
             label: 'Nombre de la tarea',
         },
-        edit:{
+        edit: {
             label: 'Nombre de la tarea',
             delete_alert_title: 'Eliminar tarea',
-            delete_alert_msg: 'Esto eliminará todos los registros de tiempo relacionados. ¿Estás seguro de que quieres eliminar esta tarea?',
+            delete_alert_msg:
+                'Esto eliminará todos los registros de tiempo relacionados. ¿Estás seguro de que quieres eliminar esta tarea?',
             cancel: 'Cancelar',
             delete: 'Eliminar',
             error: 'Error',
@@ -855,18 +914,19 @@ const es = {
             total_time: 'Tiempo total utilizado:',
             import: 'Importar datos',
             export: 'Exportar datos',
-        }
+        },
     },
-    
-    insights_screen:{
-        layout:{
+
+    insights_screen: {
+        layout: {
             title: 'Perspectivas',
         },
-        index:{
+        index: {
             no_data: 'No hay datos para mostrar',
             duration: 'Duración',
             select_duration: 'Seleccione la duración para ver las perspectivas',
-            select_duration_label: 'Seleccione la duración para ver las perspectivas',
+            select_duration_label:
+                'Seleccione la duración para ver las perspectivas',
             daily: 'Hoy',
             weekly: 'Semanal',
             monthly: 'Mensual',
@@ -876,7 +936,7 @@ const es = {
         },
     },
 
-    themes:{
+    themes: {
         title: 'Tema del sistema',
         dark_mode: 'Modo oscuro',
         on: 'Encendido',
@@ -891,23 +951,23 @@ const es = {
         red: 'Rojo',
     },
 
-    settings:{
+    settings: {
         title: 'Configuraciones',
         themes: 'Temas',
         goals: 'Metas',
     },
 
-    components:{
-        task_card:{
+    components: {
+        task_card: {
             no_time: 'No hay tiempo registrado',
             edit: 'Editar',
         },
-        tag_stat:{
+        tag_stat: {
             total_time: 'Tiempo total: ',
             logs: 'registros',
             log: 'registro',
         },
-        time_format:{
+        time_format: {
             today: 'Hoy',
             monday: 'Lun',
             tuesday: 'Mar',
@@ -916,7 +976,7 @@ const es = {
             friday: 'Vie',
             saturday: 'Sáb',
             sunday: 'Dom',
-        }
+        },
     },
 
     loading_db: 'Cargando base de datos...',
@@ -934,23 +994,23 @@ const es = {
     alert: {
         goalSet: 'Meta establecida', // Alert Title
         goalSetMessage: '¡Su meta ha sido establecida con éxito!', // Alert Message
-        ok: 'OK' // Alert Button
-      }
+        ok: 'OK', // Alert Button
+    },
 }
 
 const zh = {
-    tracker_screen:{
-        layout:{
+    tracker_screen: {
+        layout: {
             tracker: '追踪器',
             tasks: '任务',
             tags: '标签',
             insights: '洞察',
             home: '主页',
         },
-        index:{
+        index: {
             title: '日志',
             no_logs: '没有找到日志',
-            questions:'你做了什么?',
+            questions: '你做了什么?',
             tags: '标签',
             add_tag: '添加标签',
             save_btn: '保存',
@@ -964,8 +1024,17 @@ const zh = {
             log_create_success: '时间日志创建成功',
             tag_create_failed: '创建时间日志标签失败',
             time_log: '时间日志',
+            daily_goal_title: '今天的进度',
+            delete_timelog: '删除时间日志',
+            delete_timelog_msg: '您确定要删除此时间日志吗？',
+            cancel: '取消',
+            delete: '删除',
+            delete_success: '成功',
+            delete_timelog_success: '时间日志已删除',
+            delete_failed: '错误',
+            delete_timelog_failed: '删除时间日志失败',
         },
-        poromodo:{
+        poromodo: {
             break_title: '专注会话完成',
             break_msg: '是时候休息了!',
             break_complete: '休息会话完成',
@@ -980,15 +1049,15 @@ const zh = {
             pause: '暂停',
         },
     },
-    tag_screen:{
-        layout:{
+    tag_screen: {
+        layout: {
             title: '标签',
-            add_tags: '添加标签'
+            add_tags: '添加标签',
         },
         index: {
             title: '标签',
         },
-        add:{
+        add: {
             title: '添加标签',
             edit_tag: '编辑标签',
             create_tag: '创建新标签',
@@ -1012,26 +1081,27 @@ const zh = {
             error: '错误',
             requires: '名称和颜色是必需的',
             no_time: '没有时间记录',
-        }
+        },
     },
 
-    task_screen:{
-        index:{
+    task_screen: {
+        index: {
             title: '任务',
             all_tasks: '所有任务',
             edit: '编辑任务',
             add: '添加任务',
         },
-        add:{
+        add: {
             desc_alert: '任务描述是必需的',
             name_placeholder: '输入任务名称',
             save: '保存',
             label: '任务名称',
         },
-        edit:{
+        edit: {
             label: '任务名称',
             delete_alert_title: '删除任务',
-            delete_alert_msg: '这将删除所有相关的时间记录。你确定要删除这个任务吗?',
+            delete_alert_msg:
+                '这将删除所有相关的时间记录。你确定要删除这个任务吗?',
             cancel: '取消',
             delete: '删除',
             error: '错误',
@@ -1042,14 +1112,14 @@ const zh = {
             total_time: '使用的总时间:',
             import: '导入数据',
             export: '导出数据',
-        }
+        },
     },
-    
-    insights_screen:{
-        layout:{
+
+    insights_screen: {
+        layout: {
             title: '洞察',
         },
-        index:{
+        index: {
             no_data: '没有数据显示',
             duration: '持续时间',
             select_duration: '选择持续时间以查看洞察',
@@ -1063,7 +1133,7 @@ const zh = {
         },
     },
 
-    themes:{
+    themes: {
         title: '系统主题',
         dark_mode: '黑暗模式',
         on: '开启',
@@ -1078,23 +1148,23 @@ const zh = {
         red: '红色',
     },
 
-    settings:{
+    settings: {
         title: '设置',
         themes: '主题',
         goals: '目标',
     },
 
-    components:{
-        task_card:{
+    components: {
+        task_card: {
             no_time: '没有时间记录',
             edit: '编辑',
         },
-        tag_stat:{
+        tag_stat: {
             total_time: '总时间: ',
             logs: '日志',
             log: '日志',
         },
-        time_format:{
+        time_format: {
             today: '今天',
             monday: '周一',
             tuesday: '周二',
@@ -1103,7 +1173,7 @@ const zh = {
             friday: '周五',
             saturday: '周六',
             sunday: '周日',
-        }
+        },
     },
 
     loading_db: '加载数据库...',
@@ -1116,28 +1186,28 @@ const zh = {
         inputPlaceholder: '输入时间目标，例如 1小时 30分钟',
         setBtn: '设置',
         prevGoalTime: '上一个目标: ',
-      },
+    },
 
-      alert: {
+    alert: {
         goalSet: '目标已设置', // Alert Title
         goalSetMessage: '您的目标已成功设置!', // Alert Message
-        ok: 'OK' // Alert Button
-      }
+        ok: 'OK', // Alert Button
+    },
 }
 
 const ko = {
-    tracker_screen:{
-        layout:{
+    tracker_screen: {
+        layout: {
             tracker: '트래커',
             tasks: '작업',
             tags: '태그',
             insights: '인사이트',
             home: '홈',
         },
-        index:{
+        index: {
             title: '로그',
             no_logs: '로그가 없습니다',
-            questions:'무엇을 하셨나요?',
+            questions: '무엇을 하셨나요?',
             tags: '태그',
             add_tag: '태그 추가',
             save_btn: '저장',
@@ -1151,8 +1221,17 @@ const ko = {
             log_create_success: '타임로그가 성공적으로 생성되었습니다',
             tag_create_failed: '타임로그 태그 생성 실패',
             time_log: '시간 기록',
+            daily_goal_title: '오늘의 진행 상황',
+            delete_timelog: '타임로그 삭제',
+            delete_timelog_msg: '이 타임로그를 삭제하시겠습니까?',
+            cancel: '취소',
+            delete: '삭제',
+            delete_success: '성공',
+            delete_timelog_success: '타임로그가 삭제되었습니다',
+            delete_failed: '오류',
+            delete_timelog_failed: '타임로그 삭제 실패',
         },
-        poromodo:{
+        poromodo: {
             break_title: '포커스 세션 완료',
             break_msg: '쉬는 시간이 되었습니다!',
             break_complete: '쉬는 세션 완료',
@@ -1167,15 +1246,15 @@ const ko = {
             pause: '일시정지',
         },
     },
-    tag_screen:{
-        layout:{
+    tag_screen: {
+        layout: {
             title: '태그',
-            add_tags: '태그 추가'
+            add_tags: '태그 추가',
         },
         index: {
             title: '태그',
         },
-        add:{
+        add: {
             title: '태그 추가',
             edit_tag: '태그 편집',
             create_tag: '새 태그 생성',
@@ -1199,26 +1278,27 @@ const ko = {
             error: '오류',
             requires: '이름과 색상은 필수입니다',
             no_time: '기록된 시간이 없습니다',
-        }
+        },
     },
 
-    task_screen:{
-        index:{
+    task_screen: {
+        index: {
             title: '작업',
             all_tasks: '모든 작업',
             edit: '작업 편집',
             add: '작업 추가',
         },
-        add:{
+        add: {
             desc_alert: '작업 설명은 필수입니다',
             name_placeholder: '작업 이름을 입력하세요',
             save: '저장',
             label: '작업 이름',
         },
-        edit:{
+        edit: {
             label: '작업 이름',
             delete_alert_title: '작업 삭제',
-            delete_alert_msg: '이 작업을 삭제하면 모든 관련 시간 기록이 삭제됩니다. 이 작업을 삭제하시겠습니까?',
+            delete_alert_msg:
+                '이 작업을 삭제하면 모든 관련 시간 기록이 삭제됩니다. 이 작업을 삭제하시겠습니까?',
             cancel: '취소',
             delete: '삭제',
             error: '오류',
@@ -1229,14 +1309,14 @@ const ko = {
             total_time: '총 사용 시간:',
             import: '데이터 가져오기',
             export: '데이터 내보내기',
-        }
+        },
     },
-    
-    insights_screen:{
-        layout:{
+
+    insights_screen: {
+        layout: {
             title: '인사이트',
         },
-        index:{
+        index: {
             no_data: '표시할 데이터가 없습니다',
             duration: '기간',
             select_duration: '인사이트를 보려면 기간을 선택하세요',
@@ -1250,7 +1330,7 @@ const ko = {
         },
     },
 
-    themes:{
+    themes: {
         title: '시스템 테마',
         dark_mode: '다크 모드',
         on: '켜짐',
@@ -1265,23 +1345,23 @@ const ko = {
         red: '빨간색',
     },
 
-    settings:{
+    settings: {
         title: '설정',
         themes: '테마',
         goals: '목표',
     },
 
-    components:{
-        task_card:{
+    components: {
+        task_card: {
             no_time: '기록된 시간이 없습니다',
             edit: '편집',
         },
-        tag_stat:{
+        tag_stat: {
             total_time: '총 시간: ',
             logs: '로그',
             log: '로그',
         },
-        time_format:{
+        time_format: {
             today: '오늘',
             monday: '월',
             tuesday: '화',
@@ -1290,7 +1370,7 @@ const ko = {
             friday: '금',
             saturday: '토',
             sunday: '일',
-        }
+        },
     },
 
     loading_db: '데이터베이스 로드 중...',
@@ -1303,28 +1383,28 @@ const ko = {
         inputPlaceholder: '시간 목표 입력, 예: 1시간 30분',
         setBtn: '설정',
         prevGoalTime: '이전 목표: ',
-      },
+    },
 
-      alert: {
+    alert: {
         goalSet: '목표 설정됨', // Alert Title
         goalSetMessage: '목표가 성공적으로 설정되었습니다!', // Alert Message
-        ok: 'OK' // Alert Button
-      }
+        ok: 'OK', // Alert Button
+    },
 }
 
 const ja = {
-    tracker_screen:{
-        layout:{
+    tracker_screen: {
+        layout: {
             tracker: 'トラッカー',
             tasks: 'タスク',
             tags: 'タグ',
             insights: 'インサイト',
             home: 'ホーム',
         },
-        index:{
+        index: {
             title: 'ログ',
             no_logs: 'ログが見つかりません',
-            questions:'何をしましたか?',
+            questions: '何をしましたか?',
             tags: 'タグ',
             add_tag: 'タグを追加',
             save_btn: '保存',
@@ -1338,8 +1418,17 @@ const ja = {
             log_create_success: 'タイムログが正常に作成されました',
             tag_create_failed: 'タイムログタグの作成に失敗しました',
             time_log: 'タイムログ',
+            daily_goal_title: '今日の進捗',
+            delete_timelog: 'タイムログを削除',
+            delete_timelog_msg: 'このタイムログを削除してもよろしいですか？',
+            cancel: 'キャンセル',
+            delete: '削除',
+            delete_success: '成功',
+            delete_timelog_success: 'タイムログが削除されました',
+            delete_failed: 'エラー',
+            delete_timelog_failed: 'タイムログの削除に失敗しました',
         },
-        poromodo:{
+        poromodo: {
             break_title: 'フォーカスセッション完了',
             break_msg: '休憩の時間です！',
             break_complete: '休憩セッション完了',
@@ -1354,15 +1443,15 @@ const ja = {
             pause: '一時停止',
         },
     },
-    tag_screen:{
-        layout:{
+    tag_screen: {
+        layout: {
             title: 'タグ',
-            add_tags: 'タグを追加'
+            add_tags: 'タグを追加',
         },
         index: {
             title: 'タグ',
         },
-        add:{
+        add: {
             title: 'タグを追加',
             edit_tag: 'タグを編集',
             create_tag: '新しいタグを作成',
@@ -1386,26 +1475,27 @@ const ja = {
             error: 'エラー',
             requires: '名前とカラーは必須です',
             no_time: 'ログされた時間がありません',
-        }
+        },
     },
 
-    task_screen:{
-        index:{
+    task_screen: {
+        index: {
             title: 'タスク',
             all_tasks: 'すべてのタスク',
             edit: 'タスクを編集',
             add: 'タスクを追加',
         },
-        add:{
+        add: {
             desc_alert: 'タスクの説明は必須です',
             name_placeholder: 'タスク名を入力してください',
             save: '保存',
             label: 'タスク名',
         },
-        edit:{
+        edit: {
             label: 'タスク名',
             delete_alert_title: 'タスクを削除',
-            delete_alert_msg: 'これによりすべての関連する時間記録が削除されます。このタスクを削除してもよろしいですか？',
+            delete_alert_msg:
+                'これによりすべての関連する時間記録が削除されます。このタスクを削除してもよろしいですか？',
             cancel: 'キャンセル',
             delete: '削除',
             error: 'エラー',
@@ -1416,18 +1506,19 @@ const ja = {
             total_time: '使用した総時間:',
             import: 'データをインポート',
             export: 'データをエクスポート',
-        }
+        },
     },
-    
-    insights_screen:{
-        layout:{
+
+    insights_screen: {
+        layout: {
             title: 'インサイト',
         },
-        index:{
+        index: {
             no_data: '表示するデータがありません',
             duration: '期間',
             select_duration: 'インサイトを見るために期間を選択してください',
-            select_duration_label: 'インサイトを見るために期間を選択してください',
+            select_duration_label:
+                'インサイトを見るために期間を選択してください',
             daily: '今日',
             weekly: '週間',
             monthly: '月間',
@@ -1437,7 +1528,7 @@ const ja = {
         },
     },
 
-    themes:{
+    themes: {
         title: 'システムテーマ',
         dark_mode: 'ダークモード',
         on: 'オン',
@@ -1452,23 +1543,23 @@ const ja = {
         red: 'レッド',
     },
 
-    settings:{
+    settings: {
         title: '設定',
         themes: 'テーマ',
         goals: '目標',
     },
 
-    components:{
-        task_card:{
+    components: {
+        task_card: {
             no_time: 'ログされた時間がありません',
             edit: '編集',
         },
-        tag_stat:{
+        tag_stat: {
             total_time: '総時間: ',
             logs: 'ログ',
             log: 'ログ',
         },
-        time_format:{
+        time_format: {
             today: '今日',
             monday: '月',
             tuesday: '火',
@@ -1477,7 +1568,7 @@ const ja = {
             friday: '金',
             saturday: '土',
             sunday: '日',
-        }
+        },
     },
 
     loading_db: 'データベースをロードしています...',
@@ -1490,25 +1581,25 @@ const ja = {
         inputPlaceholder: '目標時間を入力してください, 例: 1時間 30分',
         setBtn: '設定',
         prevGoalTime: '前の目標: ',
-      },
+    },
 
-      alert: {
+    alert: {
         goalSet: '目標設定', // Alert Title
         goalSetMessage: '目標が正常に設定されました!', // Alert Message
-        ok: 'OK' // Alert Button
-      }
+        ok: 'OK', // Alert Button
+    },
 }
 
 const de = {
-    tracker_screen:{
-        layout:{
+    tracker_screen: {
+        layout: {
             tracker: 'Tracker',
             tasks: 'Aufgaben',
             tags: 'Tags',
             insights: 'Einblicke',
             home: 'Startseite',
         },
-        index:{
+        index: {
             title: 'Protokolle',
             no_logs: 'Keine Protokolle gefunden',
             questions: 'Was hast du gemacht?',
@@ -1523,10 +1614,21 @@ const de = {
             task_create_failed: 'Fehler beim Erstellen der Aufgabe',
             log_create_failed: 'Fehler beim Erstellen des Zeitprotokolls',
             log_create_success: 'Zeitprotokoll erfolgreich erstellt',
-            tag_create_failed: 'Fehler beim Erstellen des Tags für das Zeitprotokoll',
+            tag_create_failed:
+                'Fehler beim Erstellen des Tags für das Zeitprotokoll',
             time_log: 'Zeitprotokoll',
+            daily_goal_title: 'Heutiger Fortschritt',
+            delete_timelog: 'Zeitprotokoll löschen',
+            delete_timelog_msg:
+                'Sind Sie sicher, dass Sie dieses Zeitprotokoll löschen möchten?',
+            cancel: 'Abbrechen',
+            delete: 'Löschen',
+            delete_success: 'Erfolg',
+            delete_timelog_success: 'Zeitprotokoll gelöscht',
+            delete_failed: 'Fehler',
+            delete_timelog_failed: 'Zeitprotokoll konnte nicht gelöscht werden',
         },
-        poromodo:{
+        poromodo: {
             break_title: 'Fokus-Sitzung abgeschlossen',
             break_msg: 'Zeit für eine Pause!',
             break_complete: 'Pausensitzung abgeschlossen',
@@ -1541,15 +1643,15 @@ const de = {
             pause: 'Pause',
         },
     },
-    tag_screen:{
-        layout:{
+    tag_screen: {
+        layout: {
             title: 'Tags',
-            add_tags: 'Tag hinzufügen'
+            add_tags: 'Tag hinzufügen',
         },
         index: {
             title: 'Tags',
         },
-        add:{
+        add: {
             title: 'Tag hinzufügen',
             edit_tag: 'Tag bearbeiten',
             create_tag: 'Neuen Tag erstellen',
@@ -1560,7 +1662,8 @@ const de = {
             save_btn: 'Speichern',
             delete_btn: 'Löschen',
             delete_alert: 'Tag löschen',
-            delete_alert_msg: 'Bist du sicher, dass du diesen Tag löschen möchtest?',
+            delete_alert_msg:
+                'Bist du sicher, dass du diesen Tag löschen möchtest?',
             cancel: 'Abbrechen',
             delete: 'Tag löschen',
             tag_create_failed: 'Fehler beim Erstellen des Tags',
@@ -1573,44 +1676,46 @@ const de = {
             error: 'Fehler',
             requires: 'Name und Farbe sind erforderlich',
             no_time: 'Keine Zeit protokolliert',
-        }
+        },
     },
 
-    task_screen:{
-        index:{
+    task_screen: {
+        index: {
             title: 'Aufgaben',
             all_tasks: 'Alle Aufgaben',
             edit: 'Aufgabe bearbeiten',
             add: 'Aufgabe hinzufügen',
         },
-        add:{
+        add: {
             desc_alert: 'Aufgabenbeschreibung ist erforderlich',
             name_placeholder: 'Aufgabennamen eingeben',
             save: 'Speichern',
             label: 'Aufgabenname',
         },
-        edit:{
+        edit: {
             label: 'Aufgabenname',
             delete_alert_title: 'Aufgabe löschen',
-            delete_alert_msg: 'Dies löscht alle zugehörigen Zeitaufzeichnungen. Bist du sicher, dass du diese Aufgabe löschen möchtest?',
+            delete_alert_msg:
+                'Dies löscht alle zugehörigen Zeitaufzeichnungen. Bist du sicher, dass du diese Aufgabe löschen möchtest?',
             cancel: 'Abbrechen',
             delete: 'Löschen',
             error: 'Fehler',
-            error_msg: 'Diese Zeitaufzeichnungen gehören nicht zu dieser Aufgabe',
+            error_msg:
+                'Diese Zeitaufzeichnungen gehören nicht zu dieser Aufgabe',
             ok: 'OK',
             name_placeholder: 'Aufgabennamen eingeben',
             save: 'Speichern',
             total_time: 'Gesamte genutzte Zeit:',
             import: 'Daten importieren',
             export: 'Daten exportieren',
-        }
+        },
     },
-    
-    insights_screen:{
-        layout:{
+
+    insights_screen: {
+        layout: {
             title: 'Einblicke',
         },
-        index:{
+        index: {
             no_data: 'Keine Daten zum Anzeigen',
             duration: 'Dauer',
             select_duration: 'Dauer auswählen, um Einblicke anzuzeigen',
@@ -1624,7 +1729,7 @@ const de = {
         },
     },
 
-    themes:{
+    themes: {
         title: 'Systemthema',
         dark_mode: 'Dunkelmodus',
         on: 'Ein',
@@ -1639,23 +1744,23 @@ const de = {
         red: 'Rot',
     },
 
-    settings:{
+    settings: {
         title: 'Einstellungen',
         themes: 'Themen',
         goals: 'Ziele',
     },
 
-    components:{
-        task_card:{
+    components: {
+        task_card: {
             no_time: 'Keine Zeit protokolliert',
             edit: 'Bearbeiten',
         },
-        tag_stat:{
+        tag_stat: {
             total_time: 'Gesamtzeit: ',
             logs: 'Protokolle',
             log: 'Protokoll',
         },
-        time_format:{
+        time_format: {
             today: 'Heute',
             monday: 'Mo',
             tuesday: 'Di',
@@ -1664,7 +1769,7 @@ const de = {
             friday: 'Fr',
             saturday: 'Sa',
             sunday: 'So',
-        }
+        },
     },
 
     loading_db: 'Datenbank wird geladen...',
@@ -1677,25 +1782,25 @@ const de = {
         inputPlaceholder: 'Zeit-Ziel eingeben, z.B. 1h 30m',
         setBtn: 'Setzen',
         prevGoalTime: 'Vorheriges Ziel: ',
-      },
+    },
 
-      alert: {
+    alert: {
         goalSet: 'Ziel gesetzt', // Alert Title
         goalSetMessage: 'Ihr Ziel wurde erfolgreich gesetzt!', // Alert Message
-        ok: 'OK' // Alert Button
-      }
+        ok: 'OK', // Alert Button
+    },
 }
 
 const ru = {
-    tracker_screen:{
-        layout:{
+    tracker_screen: {
+        layout: {
             tracker: 'Трекер',
             tasks: 'Задачи',
             tags: 'Теги',
             insights: 'Анализ',
             home: 'Главная',
         },
-        index:{
+        index: {
             title: 'Журналы',
             no_logs: 'Журналы не найдены',
             questions: 'Что вы сделали?',
@@ -1712,8 +1817,18 @@ const ru = {
             log_create_success: 'Запись времени успешно создана',
             tag_create_failed: 'Не удалось создать тег для записи времени',
             time_log: 'Запись времени',
+            daily_goal_title: 'Прогресс на сегодня',
+            delete_timelog: 'Удалить журнал времени',
+            delete_timelog_msg:
+                'Вы уверены, что хотите удалить этот журнал времени?',
+            cancel: 'Отмена',
+            delete: 'Удалить',
+            delete_success: 'Успех',
+            delete_timelog_success: 'Журнал времени удален',
+            delete_failed: 'Ошибка',
+            delete_timelog_failed: 'Не удалось удалить журнал времени',
         },
-        poromodo:{
+        poromodo: {
             break_title: 'Сессия фокуса завершена',
             break_msg: 'Время для перерыва!',
             break_complete: 'Сессия перерыва завершена',
@@ -1728,15 +1843,15 @@ const ru = {
             pause: 'Пауза',
         },
     },
-    tag_screen:{
-        layout:{
+    tag_screen: {
+        layout: {
             title: 'Теги',
-            add_tags: 'Добавить тег'
+            add_tags: 'Добавить тег',
         },
         index: {
             title: 'Теги',
         },
-        add:{
+        add: {
             title: 'Добавить тег',
             edit_tag: 'Редактировать тег',
             create_tag: 'Создать новый тег',
@@ -1760,26 +1875,27 @@ const ru = {
             error: 'Ошибка',
             requires: 'Имя и цвет обязательны',
             no_time: 'Время не записано',
-        }
+        },
     },
 
-    task_screen:{
-        index:{
+    task_screen: {
+        index: {
             title: 'Задачи',
             all_tasks: 'Все задачи',
             edit: 'Редактировать задачу',
             add: 'Добавить задачу',
         },
-        add:{
+        add: {
             desc_alert: 'Описание задачи обязательно',
             name_placeholder: 'Введите название задачи',
             save: 'Сохранить',
             label: 'Название задачи',
         },
-        edit:{
+        edit: {
             label: 'Название задачи',
             delete_alert_title: 'Удалить задачу',
-            delete_alert_msg: 'Это удалит все связанные записи времени. Вы уверены, что хотите удалить эту задачу?',
+            delete_alert_msg:
+                'Это удалит все связанные записи времени. Вы уверены, что хотите удалить эту задачу?',
             cancel: 'Отменить',
             delete: 'Удалить',
             error: 'Ошибка',
@@ -1790,18 +1906,19 @@ const ru = {
             total_time: 'Общее использованное время:',
             import: 'Импорт данных',
             export: 'Экспорт данных',
-        }
+        },
     },
-    
-    insights_screen:{
-        layout:{
+
+    insights_screen: {
+        layout: {
             title: 'Анализ',
         },
-        index:{
+        index: {
             no_data: 'Нет данных для отображения',
             duration: 'Продолжительность',
             select_duration: 'Выберите продолжительность для просмотра анализа',
-            select_duration_label: 'Выберите продолжительность для просмотра анализа',
+            select_duration_label:
+                'Выберите продолжительность для просмотра анализа',
             daily: 'Сегодня',
             weekly: 'Еженедельно',
             monthly: 'Ежемесячно',
@@ -1811,7 +1928,7 @@ const ru = {
         },
     },
 
-    themes:{
+    themes: {
         title: 'Тема системы',
         dark_mode: 'Тёмный режим',
         on: 'Вкл',
@@ -1826,23 +1943,23 @@ const ru = {
         red: 'Красный',
     },
 
-    settings:{
+    settings: {
         title: 'Настройки',
         themes: 'Темы',
         goals: 'Цели',
     },
 
-    components:{
-        task_card:{
+    components: {
+        task_card: {
             no_time: 'Время не записано',
             edit: 'Редактировать',
         },
-        tag_stat:{
+        tag_stat: {
             total_time: 'Общее время: ',
             logs: 'записи',
             log: 'запись',
         },
-        time_format:{
+        time_format: {
             today: 'Сегодня',
             monday: 'Пн',
             tuesday: 'Вт',
@@ -1851,7 +1968,7 @@ const ru = {
             friday: 'Пт',
             saturday: 'Сб',
             sunday: 'Вс',
-        }
+        },
     },
 
     loading_db: 'Загрузка базы данных...',
@@ -1864,15 +1981,14 @@ const ru = {
         inputPlaceholder: 'Введите цель по времени, напр. 1ч 30м',
         setBtn: 'Установить',
         prevGoalTime: 'Предыдущая цель: ',
-      },
+    },
 
-      alert: {
+    alert: {
         goalSet: 'Цель установлена', // Alert Title
         goalSetMessage: 'Ваша цель успешно установлена!', // Alert Message
-        ok: 'OK' // Alert Button
-      }
+        ok: 'OK', // Alert Button
+    },
 }
-
 
 const translations = {
     en: en,
@@ -1890,9 +2006,9 @@ const translations = {
 const i18n = new I18n(translations)
 
 // Set the locale once at the beginning of your app.
-i18n.locale = getLocales()[0].languageCode ?? 'en';
+i18n.locale = getLocales()[0].languageCode ?? 'en'
 
 // When a value is missing from a language it'll fall back to another language with the key present.
-i18n.enableFallback = true;
+i18n.enableFallback = true
 
-export default i18n;
+export default i18n
