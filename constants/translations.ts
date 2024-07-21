@@ -1,7 +1,195 @@
 import { getLocales } from 'expo-localization'
 import { I18n } from 'i18n-js'
 
-const en = {
+type Translation = {
+    tracker_screen: {
+        layout: {
+            tracker: string
+            tasks: string
+            tags: string
+            insights: string
+            home: string
+        }
+        index: {
+            title: string
+            no_logs: string
+            questions: string
+            tags: string
+            add_tag: string
+            save_btn: string
+            oops_alert: string
+            error_alert: string
+            success_alert: string
+            no_time: string
+            no_task: string
+            task_create_failed: string
+            log_create_failed: string
+            log_create_success: string
+            tag_create_failed: string
+            time_log: string
+            daily_goal_title: string
+            delete_timelog: string
+            delete_timelog_msg: string
+            cancel: string
+            delete: string
+            delete_success: string
+            delete_timelog_success: string
+            delete_failed: string
+            delete_timelog_failed: string
+        }
+        poromodo: {
+            break_title: string
+            break_msg: string
+            break_complete: string
+            break_complete_msg: string
+            continue: string
+            end_pomodoro: string
+            stop_pomodoro: string
+            stop_pomodoro_msg: string
+            yes: string
+            no: string
+            break: string
+            pause: string
+        }
+    }
+    tag_screen: {
+        layout: {
+            title: string
+            add_tags: string
+        }
+        index: {
+            title: string
+        }
+        add: {
+            title: string
+            edit_tag: string
+            create_tag: string
+            tag_name: string
+            tag_color: string
+            name_required: string
+            color_required: string
+            save_btn: string
+            delete_btn: string
+            delete_alert: string
+            delete_alert_msg: string
+            cancel: string
+            delete: string
+            tag_create_failed: string
+            tag_create_success: string
+            tag_update_failed: string
+            tag_update_success: string
+            tag_delete_failed: string
+            tag_delete_success: string
+            place_holder: string
+            error: string
+            requires: string
+            no_time: string
+        }
+    }
+    task_screen: {
+        index: {
+            title: string
+            all_tasks: string
+            edit: string
+            add: string
+        }
+        add: {
+            desc_alert: string
+            name_placeholder: string
+            save: string
+            label: string
+        }
+        edit: {
+            label: string
+            delete_alert_title: string
+            delete_alert_msg: string
+            cancel: string
+            delete: string
+            error: string
+            error_msg: string
+            ok: string
+            name_placeholder: string
+            save: string
+            total_time: string
+            import: string
+            export: string
+        }
+    }
+    insights_screen: {
+        layout: {
+            title: string
+        }
+        index: {
+            no_data: string
+            duration: string
+            select_duration: string
+            select_duration_label: string
+            daily: string
+            weekly: string
+            monthly: string
+            yearly: string
+            all: string
+            all_time: string
+        }
+    }
+    themes: {
+        title: string
+        dark_mode: string
+        on: string
+        off: string
+        colors: string
+        orange: string
+        yellow: string
+        green: string
+        blue: string
+        purple: string
+        pink: string
+        red: string
+    }
+    settings: {
+        title: string
+        themes: string
+        goals: string
+    }
+    components: {
+        task_card: {
+            no_time: string
+            edit: string
+        }
+        tag_stat: {
+            total_time: string
+            logs: string
+            log: string
+        }
+        time_format: {
+            today: string
+            monday: string
+            tuesday: string
+            wednesday: string
+            thursday: string
+            friday: string
+            saturday: string
+            sunday: string
+        }
+    }
+    loading_db: string
+    goals_screen: {
+        title: string
+        dailyGoalTitile: string
+        on: string
+        off: string
+        inputPlaceholder: string
+        setBtn: string
+        prevGoalTime: string
+    }
+    alert: {
+        goalSet: string
+        goalSetMessage: string
+        ok: string
+    }
+}
+
+const en: Translation = {
     tracker_screen: {
         layout: {
             tracker: 'Tracker',
@@ -198,7 +386,7 @@ const en = {
     },
 }
 
-const vi = {
+const vi: Translation = {
     tracker_screen: {
         layout: {
             tracker: 'Theo dõi',
@@ -397,7 +585,7 @@ const vi = {
     },
 }
 
-const fr = {
+const fr: Translation = {
     tracker_screen: {
         layout: {
             tracker: 'Suivi',
@@ -600,7 +788,7 @@ const fr = {
     },
 }
 
-const hi = {
+const hi: Translation = {
     tracker_screen: {
         layout: {
             tracker: 'ट्रैकर',
@@ -797,7 +985,7 @@ const hi = {
     },
 }
 
-const es = {
+const es: Translation = {
     tracker_screen: {
         layout: {
             tracker: 'Rastreador',
@@ -998,7 +1186,7 @@ const es = {
     },
 }
 
-const zh = {
+const zh: Translation = {
     tracker_screen: {
         layout: {
             tracker: '追踪器',
@@ -1195,7 +1383,7 @@ const zh = {
     },
 }
 
-const ko = {
+const ko: Translation = {
     tracker_screen: {
         layout: {
             tracker: '트래커',
@@ -1392,7 +1580,7 @@ const ko = {
     },
 }
 
-const ja = {
+const ja: Translation = {
     tracker_screen: {
         layout: {
             tracker: 'トラッカー',
@@ -1590,7 +1778,7 @@ const ja = {
     },
 }
 
-const de = {
+const de: Translation = {
     tracker_screen: {
         layout: {
             tracker: 'Tracker',
@@ -1791,7 +1979,7 @@ const de = {
     },
 }
 
-const ru = {
+const ru: Translation = {
     tracker_screen: {
         layout: {
             tracker: 'Трекер',
