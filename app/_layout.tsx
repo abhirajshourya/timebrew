@@ -8,7 +8,7 @@ import {
 } from '@react-navigation/native'
 import { Theme as NavigationThemeType } from '@react-navigation/native/src/types'
 import { config } from '@tamagui/config/v3'
-import { TamaguiProvider, createTamagui } from '@tamagui/core'; // or 'tamagui'
+import { TamaguiProvider, createTamagui } from '@tamagui/core' // or 'tamagui'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
@@ -21,12 +21,6 @@ import 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { PortalProvider } from 'tamagui'
 import { MMKV } from 'react-native-mmkv'
-
-// Override the default Tamagui config with your custom config
-// config.themes = {
-//     ...config.themes,
-//     // ...CustomThemes,
-// }
 
 const tamaguiConfig = createTamagui(config)
 
@@ -56,33 +50,9 @@ export default function RootLayout() {
     LogBox.ignoreLogs(['Warning: Cannot update a component'])
 
     const colorScheme = useColorScheme()
-    // const usedTheme = useTheme()
-
-    // const NavigationTheme: NavigationThemeType = {
-    //     dark: theme.system && colorScheme === 'light' ? false : true,
-    //     colors: {
-    //         primary: usedTheme.accentColor.get(),
-    //         background: usedTheme.background.get(),
-    //         card: usedTheme.background.get(),
-    //         text: usedTheme.color.get(),
-    //         border: usedTheme.borderColor.get(),
-    //         notification: usedTheme.accentColor.get(),
-    //     },
-    // }
 
     useEffect(() => {
         setTheme(JSON.parse(themeSettings || '{}'))
-        // setNavigationTheme({
-        //     dark: theme.system && colorScheme === 'light' ? false : true,
-        //     colors: {
-        //         primary: usedTheme.accentColor.val ?? DefaultTheme.colors.primary,
-        //         background: usedTheme.background.val ?? DefaultTheme.colors.background,
-        //         card: usedTheme.background.val ?? DefaultTheme.colors.card,
-        //         text: usedTheme.color.val ?? DefaultTheme.colors.text,
-        //         border: usedTheme.borderColor.val ?? DefaultTheme.colors.border,
-        //         notification: usedTheme.accentColor.val ?? DefaultTheme.colors.notification,
-        //     },
-        // })
     }, [themeSettings])
 
     const [loaded] = useFonts({
@@ -99,28 +69,15 @@ export default function RootLayout() {
         return null
     }
 
-    // console.log(
-    //     'themeSettings',
-    //     `${theme.system && colorScheme === 'light' ? 'light' : 'dark'}_${
-    //         theme.color
-    //     }`,
-    //     usedTheme
-    // )
     return (
         <TamaguiProvider
             config={tamaguiConfig}
             defaultTheme={`${theme.system ? 'dark' : 'light'}_${
                 theme.color || 'blue'
             }`}
-            // defaultTheme={`${theme.system && colorScheme === 'light' ? 'light' : 'dark'}_${theme.color}`}
-            // defaultTheme={theme.system ? colorScheme : 'dark'}
         >
-            {/* <StatusBar style={theme.system ? colorScheme : 'dark'} /> */}
             <StatusBar style={colorScheme === 'light' ? 'light' : 'dark'} />
-            <ThemeProvider
-                value={theme.system ? DarkTheme : DefaultTheme}
-                // value={NavigationTheme}
-            >
+            <ThemeProvider value={theme.system ? DarkTheme : DefaultTheme}>
                 <PortalProvider>
                     <SafeAreaView style={{ flex: 1 }}>
                         <Suspense
@@ -145,7 +102,9 @@ export default function RootLayout() {
                                         name="(tabs)"
                                         options={{
                                             headerShown: false,
-                                            title: i18n.t('tracker_screen.layout.tracker'),
+                                            title: i18n.t(
+                                                'tracker_screen.layout.tracker'
+                                            ),
                                         }}
                                     />
                                     <Stack.Screen

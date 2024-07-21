@@ -1,13 +1,11 @@
-import FAB from '@/components/FAB'
-import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import TagCard from '@/components/TagCard'
 import i18n from '@/constants/translations'
 import { Tag as TagType } from '@/constants/types'
 import useDatabase from '@/hooks/useDatabase'
 import { useRouter, useSegments } from 'expo-router'
 import React, { useEffect, useMemo, useState } from 'react'
-import { SafeAreaView, StyleSheet, Pressable } from 'react-native'
-import { View, Text, ScrollView, XStack, Button, YStack } from 'tamagui'
+import { SafeAreaView, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, Button, YStack } from 'tamagui'
 import { Plus } from '@tamagui/lucide-icons'
 
 const Tags = () => {
@@ -42,7 +40,9 @@ const Tags = () => {
                         padding: 20,
                     }}
                 >
-                    <Text style={styles.heading}>{i18n.t('tag_screen.index.title')}</Text>
+                    <Text style={styles.heading}>
+                        {i18n.t('tag_screen.index.title')}
+                    </Text>
                     <Button
                         onPress={handleFABPress}
                         chromeless
@@ -64,9 +64,6 @@ const Tags = () => {
                     </YStack>
                 </ScrollView>
             </SafeAreaView>
-            {/* <FAB onPress={handleFABPress}>
-                <TabBarIcon name="add" color="white" />
-            </FAB> */}
         </>
     )
 }

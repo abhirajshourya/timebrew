@@ -5,7 +5,7 @@ import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import React from 'react'
-import { Alert, StyleSheet, TouchableOpacity } from 'react-native'
+import { Alert, StyleSheet } from 'react-native'
 import CircularProgress from 'react-native-circular-progress-indicator'
 import { View, Text, Button, styled, useTheme } from 'tamagui'
 import { X, TimerReset } from '@tamagui/lucide-icons'
@@ -19,7 +19,7 @@ const StyledCircularProgress = styled(CircularProgress, {
 
 const Pomodoro = () => {
     const theme = useTheme()
-    
+
     const {
         duration: countDown,
         isRunning,
@@ -41,30 +41,38 @@ const Pomodoro = () => {
         setPomoDuration(newDuration)
         setProgress(0)
         if (!isBreak) {
-            Alert.alert(i18n.t('tracker_screen.poromodo.break_title') , i18n.t('tracker_screen.poromodo.break_msg'), [
-                {
-                    text: i18n.t('tracker_screen.poromodo.continue'),
-                    onPress: () => {
-                        handleStart(newDuration)
+            Alert.alert(
+                i18n.t('tracker_screen.poromodo.break_title'),
+                i18n.t('tracker_screen.poromodo.break_msg'),
+                [
+                    {
+                        text: i18n.t('tracker_screen.poromodo.continue'),
+                        onPress: () => {
+                            handleStart(newDuration)
+                        },
                     },
-                },
-            ])
+                ]
+            )
         } else {
-            Alert.alert(i18n.t('tracker_screen.poromodo.end_pomodoro'), i18n.t('tracker_screen.poromodo.stop_pomodoro_msg'), [
-                {
-                    text: i18n.t('tracker_screen.poromodo.no'),
-                    onPress: () => {
-                        handleStart(newDuration)
+            Alert.alert(
+                i18n.t('tracker_screen.poromodo.end_pomodoro'),
+                i18n.t('tracker_screen.poromodo.stop_pomodoro_msg'),
+                [
+                    {
+                        text: i18n.t('tracker_screen.poromodo.no'),
+                        onPress: () => {
+                            handleStart(newDuration)
+                        },
                     },
-                },
-                {
-                    text: i18n.t('tracker_screen.poromodo.yes'),
-                    onPress: () => {
-                        handleStop()
-                        router.navigate('home')
+                    {
+                        text: i18n.t('tracker_screen.poromodo.yes'),
+                        onPress: () => {
+                            handleStop()
+                            router.navigate('home')
+                        },
                     },
-                },
-            ])
+                ]
+            )
         }
         setIsBreak(!isBreak)
     }
@@ -93,37 +101,6 @@ const Pomodoro = () => {
                     justifyContent: 'flex-end',
                 }}
             >
-                {/* <TouchableOpacity
-                    onPress={() => {
-                        if (isRunning) {
-                            Alert.alert(
-                                i18n.t('tracker_screen.poromodo.break_title'),
-                                i18n.t('tracker_screen.poromodo.break_title'),
-                                [
-                                    {
-                                        text: 'Yes',
-                                        onPress: () => {
-                                            handleStop()
-                                            router.navigate('home')
-                                        },
-                                    },
-                                    {
-                                        text: 'No',
-                                    },
-                                ]
-                            )
-                            return
-                        }
-                        router.navigate('home')
-                    }}
-                >
-                    <Ionicons
-                        name="close-sharp"
-                        size={30}
-                        color="#323232"
-                        style={{ margin: 20 }}
-                    />
-                </TouchableOpacity> */}
                 <Button
                     marginRight={20}
                     marginTop={20}
@@ -164,10 +141,11 @@ const Pomodoro = () => {
                     }}
                 >
                     <TimerReset size={30} />
-                    {/* <Ionicons name="timer" size={30}/> */}
                     <View>
                         <Text style={{ fontSize: 20 }}>
-                            {isBreak ? i18n.t('tracker_screen.poromodo.break') : 'Pomodoro'}
+                            {isBreak
+                                ? i18n.t('tracker_screen.poromodo.break')
+                                : 'Pomodoro'}
                         </Text>
                         <Text style={{ fontSize: 12 }}>
                             {formatTime(pomoDuration)}

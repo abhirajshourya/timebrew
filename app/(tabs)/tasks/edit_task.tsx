@@ -247,7 +247,6 @@ const EditTask = () => {
                             <Text>{i18n.t('task_screen.edit.import')}</Text>
                         </Button>
                     </XGroup.Item>
-                    {/* <Separator vertical /> */}
                     <XGroup.Item>
                         <Button
                             onPress={handleExport}
@@ -260,9 +259,6 @@ const EditTask = () => {
                         </Button>
                     </XGroup.Item>
                 </XGroup>
-
-                {/* <RegularButton onPress={handleImport}>Import</RegularButton>
-                <PrimaryButton onPress={handleExport}>Export</PrimaryButton> */}
             </XStack>
         </ScrollView>
     )

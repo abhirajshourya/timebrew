@@ -30,11 +30,20 @@ const Add = () => {
         if (checkErrors()) {
             // console.error('Errors found', errors)
             if (errors.name && errors.color) {
-                Alert.alert(i18n.t('tag_screen.add.error'), i18n.t('tag_screen.add.requires'))
+                Alert.alert(
+                    i18n.t('tag_screen.add.error'),
+                    i18n.t('tag_screen.add.requires')
+                )
             } else if (errors.name) {
-                Alert.alert(i18n.t('tag_screen.add.error'), i18n.t('tag_screen.add.name_required'))
+                Alert.alert(
+                    i18n.t('tag_screen.add.error'),
+                    i18n.t('tag_screen.add.name_required')
+                )
             } else if (errors.color) {
-                Alert.alert(i18n.t('tag_screen.add.error'), i18n.t('tag_screen.add.color_required'))
+                Alert.alert(
+                    i18n.t('tag_screen.add.error'),
+                    i18n.t('tag_screen.add.color_required')
+                )
             }
 
             return
@@ -45,37 +54,39 @@ const Add = () => {
                 id: params.id,
                 name: cleanText(name).toLowerCase(),
                 color: selectedColor,
-            }).catch((e) => {
-            })
+            }).catch((e) => {})
 
             router.dismiss()
             return
         } else {
-            createTag(cleanText(name).toLowerCase(), selectedColor).catch((e) => {
-            })
-
+            createTag(cleanText(name).toLowerCase(), selectedColor).catch(
+                (e) => {}
+            )
             router.dismiss()
             return
         }
     }
 
     const handleDelete = () => {
-        Alert.alert(i18n.t('tag_screen.add.delete_alert'), i18n.t('tag_screen.add.delete_alert_msg'), [
-            {
-                text: i18n.t('tag_screen.add.cancel'),
-                style: 'cancel',
-            },
-            {
-                text: i18n.t('tag_screen.add.delete_btn'),
-                onPress: () => {
-                    deleteTag(params.id).catch((e) => {
-                    })
-
-                    router.dismiss()
+        Alert.alert(
+            i18n.t('tag_screen.add.delete_alert'),
+            i18n.t('tag_screen.add.delete_alert_msg'),
+            [
+                {
+                    text: i18n.t('tag_screen.add.cancel'),
+                    style: 'cancel',
                 },
-                style: 'destructive',
-            },
-        ])
+                {
+                    text: i18n.t('tag_screen.add.delete_btn'),
+                    onPress: () => {
+                        deleteTag(params.id).catch((e) => {})
+
+                        router.dismiss()
+                    },
+                    style: 'destructive',
+                },
+            ]
+        )
     }
 
     const checkErrors = () => {
@@ -107,10 +118,6 @@ const Add = () => {
 
     return (
         <YStack margin={20} gap={20}>
-            {/* <Text style={styles.heading}>
-                    {params.id ? i18n.t('tag_screen.add.edit_tag') : i18n.t('tag_screen.add.create_tag')}
-                </Text> */}
-
             <YGroup>
                 <Label>{i18n.t('tag_screen.add.tag_name')}</Label>
                 <Input
@@ -119,15 +126,6 @@ const Add = () => {
                     placeholder={i18n.t('tag_screen.add.place_holder')}
                     placeholderTextColor={'$color'}
                 />
-                {/* <TextInput
-                        value={name}
-                        setValue={(text: string) => setName(text.toLowerCase())}
-                        placeholder="E.g. work, personal, study, etc."
-                        // onFocus={() => console.log('focus')}
-                        // onBlur={() => console.log('blur')}
-                    /> */}
-                {/* <ErrorText error={errors.name} /> */}
-                {/* <TextInput placeholder="Tag Description" /> */}
             </YGroup>
 
             <YGroup>
@@ -137,7 +135,6 @@ const Add = () => {
                     selectedColor={selectedColor}
                     setSelectedColor={setSelectedColor}
                 />
-                {/* <ErrorText error={errors.color} /> */}
             </YGroup>
 
             <YStack gap={10}>
@@ -146,18 +143,12 @@ const Add = () => {
                 </Button>
                 {params.id && (
                     <Button onPress={handleDelete} variant="outlined">
-                        <Text color={'red'}>{i18n.t('tag_screen.add.delete_btn')}</Text>
+                        <Text color={'red'}>
+                            {i18n.t('tag_screen.add.delete_btn')}
+                        </Text>
                     </Button>
                 )}
             </YStack>
-
-            {/* {params.id && (
-                <View style={styles.formActions}>
-                    <DangerButton onPress={handleDelete}>
-                        Delete Tag
-                    </DangerButton>
-                </View>
-            )} */}
         </YStack>
     )
 }

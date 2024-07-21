@@ -84,36 +84,11 @@ const Index = () => {
                             color="#005c99"
                             dataSet={timelogs}
                             duration={selectedDuration}
-                            // dataSet={{
-                            //     data: [
-                            //         12, 5, 9, 30, 20, 51, 20, 10, 10, 20, 15,
-                            //         10,
-                            //     ],
-                            //     labels: [
-                            //         'Jan',
-                            //         'Feb',
-                            //         'Mar',
-                            //         'Apr',
-                            //         'May',
-                            //         'Jun',
-                            //         'Jul',
-                            //         'Aug',
-                            //         'Sep',
-                            //         'Oct',
-                            //         'Nov',
-                            //         'Dec',
-                            //     ],
-                            // }}
                         />
                     </View>
                     <View style={{ marginBottom: 20 }}>
                         <View>
-                            <Label
-                            // style={[
-                            //     { marginBottom: 10 },
-                            //     styles.selectDurationLabel,
-                            // ]}
-                            >
+                            <Label>
                                 {i18n.t('insights_screen.index.duration')}
                             </Label>
                         </View>

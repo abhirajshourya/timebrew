@@ -8,12 +8,5 @@ export default function StackLayout() {
         },
     }
 
-    return (
-        <Stack>
-            {/* <Stack.Screen
-                name="index"
-                options={{ headerShown: true, title: 'Themes' }}
-            /> */}
-        </Stack>
-    )
+    return <Stack></Stack>
 }

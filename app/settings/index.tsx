@@ -11,22 +11,6 @@ const Settings = () => {
     return (
         <ScrollView margin={20}>
             <YGroup>
-                {/* <YGroup.Item>
-                    <ListItem
-                        title="Account"
-                        pressTheme
-                        icon={<Ionicons name="person" size={24} />}
-                        iconAfter={<Ionicons name="chevron-forward" size={24} />}
-                    />
-                </YGroup.Item>
-                <YGroup.Item>
-                    <ListItem
-                        title="Notifications"
-                        pressTheme
-                        icon={<Ionicons name="notifications" size={24} />}
-                        iconAfter={<Ionicons name="chevron-forward" size={24} />}
-                    />
-                </YGroup.Item> */}
                 <YGroup.Item>
                     <ListItem
                         title={i18n.t('settings.themes')}

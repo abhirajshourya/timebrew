@@ -13,7 +13,7 @@ import {
     Switch,
     XStack,
     YGroup,
-    YStack
+    YStack,
 } from 'tamagui'
 
 const Index = () => {
@@ -27,9 +27,6 @@ const Index = () => {
     const colorScheme = useColorScheme()
     const [systemTheme, setSystemTheme] = useState(theme.system)
 
-    // const [selectedTheme, setSelectedTheme] = React.useState(
-    //     theme.custom || ThemesColors[0].toLowerCase()
-    // )
     const [selectedColor, setSelectedColor] = useState(
         theme.color || ThemesColors[0].toLowerCase()
     )
@@ -38,12 +35,10 @@ const Index = () => {
         setTheme({
             ...theme,
             system: systemTheme,
-            // custom: selectedTheme,
             color: selectedColor,
         })
     }, [systemTheme, selectedColor])
 
-    /* TODO: i18n */
     return (
         <ScrollView>
             <YStack margin={20} gap={20}>
@@ -58,7 +53,11 @@ const Index = () => {
                                 alignItems="center"
                                 justifyContent="space-between"
                             >
-                                <H4>{systemTheme ? i18n.t('themes.on') : i18n.t('themes.off')}</H4>
+                                <H4>
+                                    {systemTheme
+                                        ? i18n.t('themes.on')
+                                        : i18n.t('themes.off')}
+                                </H4>
                                 <Switch
                                     size={'$3'}
                                     checked={systemTheme}
@@ -71,37 +70,6 @@ const Index = () => {
                         </ListItem>
                     </YGroup.Item>
                 </YGroup>
-                {/* <Separator /> */}
-                {/* <YGroup>
-                    <H4>Custom Color</H4>
-                </YGroup> */}
-                {/* <YGroup>
-                    {Themes.map((theme, i) => (
-                        <YGroup.Item key={i}>
-                            <ListItem
-                                key={theme.id}
-                                pressTheme
-                                title={theme.name}
-                                disabled={systemTheme}
-                                icon={
-                                    <Ionicons name="color-palette" size={24} />
-                                }
-                                iconAfter={
-                                    selectedTheme ===
-                                    theme.name.toLowerCase() ? (
-                                        <Ionicons name="checkmark" size={24} />
-                                    ) : null
-                                }
-                                onPress={() =>
-                                    setSelectedTheme(theme.name.toLowerCase())
-                                }
-                            />
-                        </YGroup.Item>
-                    ))}
-                    <YGroup.Item>
-                        <ListItem disabled title={Themes.length + ' Themes'} />
-                    </YGroup.Item>
-                </YGroup> */}
                 <YGroup>
                     <H4>{i18n.t('themes.colors')}</H4>
                 </YGroup>
@@ -113,14 +81,21 @@ const Index = () => {
                                 pressTheme
                                 title={
                                     // capitalizeFirstLetter(color)
-                                    color === 'red' ? i18n.t('themes.red') : 
-                                    color === 'blue' ? i18n.t('themes.blue') :
-                                    color === 'green' ? i18n.t('themes.green') :
-                                    color === 'yellow' ? i18n.t('themes.yellow') :
-                                    color === 'orange' ? i18n.t('themes.orange') :
-                                    color === 'purple' ? i18n.t('themes.purple') :
-                                    color === 'pink' ? i18n.t('themes.pink') :
-                                    i18n.t('themes.blue')
+                                    color === 'red'
+                                        ? i18n.t('themes.red')
+                                        : color === 'blue'
+                                        ? i18n.t('themes.blue')
+                                        : color === 'green'
+                                        ? i18n.t('themes.green')
+                                        : color === 'yellow'
+                                        ? i18n.t('themes.yellow')
+                                        : color === 'orange'
+                                        ? i18n.t('themes.orange')
+                                        : color === 'purple'
+                                        ? i18n.t('themes.purple')
+                                        : color === 'pink'
+                                        ? i18n.t('themes.pink')
+                                        : i18n.t('themes.blue')
                                 }
                                 icon={
                                     <Square

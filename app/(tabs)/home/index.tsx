@@ -1,4 +1,3 @@
-import { PrimaryButton } from '@/components/Buttons'
 import CircleButton from '@/components/CircleButton'
 import TimeLogModal from '@/components/Modals/TimeLogModal'
 import TimelogCard from '@/components/TimelogCard'
@@ -12,37 +11,22 @@ import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { useEffect, useMemo, useState } from 'react'
-import {
-    Alert,
-    SafeAreaView,
-    StyleSheet,
-    TouchableOpacity,
-    Vibration,
-    // Text,
-    // View,
-} from 'react-native'
+import { Alert, SafeAreaView, StyleSheet } from 'react-native'
 import {
     Separator,
     Text,
     View,
     H1,
     H2,
-    H3,
     XStack,
     YStack,
     ScrollView,
     Button,
-    Spacer,
-    Label,
     useTheme,
 } from 'tamagui'
-import Pomodoro from './pomodoro'
-import { NativeStackNavigationHelpers } from '@react-navigation/native-stack/lib/typescript/src/types'
 import { useRouter, useSegments } from 'expo-router'
-import { Settings, Settings2, TimerReset } from '@tamagui/lucide-icons'
-import { set } from 'lodash'
+import { Settings, TimerReset } from '@tamagui/lucide-icons'
 import { mmkv_storage } from '@/app/_layout'
 import * as Progress from 'react-native-progress'
 
@@ -220,28 +204,6 @@ const Tracker = ({}) => {
                     </H2>
 
                     <View>
-                        {/* <TouchableOpacity
-                        onPress={() => {
-                            router.push('home/pomodoro')
-                        }}
-                        style={{
-                            padding: 5,
-                            paddingHorizontal: 10,
-                            borderRadius: 50,
-                            backgroundColor: '#fff',
-                            borderColor: 'red',
-                            shadowColor: '#005c99',
-                            shadowOffset: {
-                                width: 0,
-                                height: 2,
-                            },
-                            shadowOpacity: 0.5,
-                            shadowRadius: 4.86,
-                            elevation: 10,
-                        }}
-                    >
-                        <Ionicons name="timer" size={30} color="#005c99" />
-                    </TouchableOpacity> */}
                         <Button
                             onPress={() => {
                                 router.push({ pathname: 'settings' })
@@ -265,35 +227,7 @@ const Tracker = ({}) => {
                                 alignItems="center"
                                 justifyContent="space-between"
                             >
-                                {/* <Spacer /> */}
                                 <H1>{formatTime(duration) || '0s'}</H1>
-                                {/* <TouchableOpacity
-                                    onPress={() => {
-                                        router.push('home/pomodoro')
-                                    }}
-                                    style={{
-                                        padding: 5,
-                                        paddingHorizontal: 10,
-                                        borderRadius: 50,
-                                        backgroundColor: '#fff',
-                                        borderColor: 'red',
-                                        shadowColor: '#005c99',
-                                        shadowOffset: {
-                                            width: 0,
-                                            height: 2,
-                                        },
-                                        shadowOpacity: 0.5,
-                                        shadowRadius: 4.86,
-                                        elevation: 10,
-                                        position: 'relative',
-                                    }}
-                                >
-                                    <Ionicons
-                                        name="timer"
-                                        size={30}
-                                        color="#005c99"
-                                    />
-                                </TouchableOpacity> */}
                                 <Button
                                     scale={0.7}
                                     borderRadius={50}
@@ -379,8 +313,10 @@ const Tracker = ({}) => {
                                             marginBottom: 10,
                                         }}
                                     >
-                                        {i18n.t('tracker_screen.index.daily_goal_title')}:{' '}
-                                        {formatTime(todayTime)} /{' '}
+                                        {i18n.t(
+                                            'tracker_screen.index.daily_goal_title'
+                                        )}
+                                        : {formatTime(todayTime)} /{' '}
                                         {formatTime(dailyGoalTime)} (
                                         {(
                                             (todayTime / dailyGoalTime) *
@@ -399,11 +335,7 @@ const Tracker = ({}) => {
                             </View>
                         )}
                         <Separator marginVertical={20} />
-                        <H2
-                            alignSelf="center"
-                            // color={'$accentBackground'}
-                            marginBottom={20}
-                        >
+                        <H2 alignSelf="center" marginBottom={20}>
                             {i18n.t('tracker_screen.index.title')}
                         </H2>
                         {memoTimelogs.map((timelog) => (
@@ -467,9 +399,6 @@ const Tracker = ({}) => {
                                 {i18n.t('tracker_screen.index.save_btn')}
                             </Text>
                         </Button>
-                        {/* <PrimaryButton onPress={handleSave}>
-                            <Text>{i18n.t('tracker_screen.index.save</Text>
-                        _btn')}</PrimaryButton> */}
                     </View>
                 </TimeLogModal>
             </YStack>
