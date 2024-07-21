@@ -1,4 +1,5 @@
 import { Tabs } from 'expo-router'
+import i18n from '@/constants/translations'
 import React from 'react'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import { Pressable } from 'react-native'
@@ -32,28 +33,28 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="home"
                 options={{
-                    title: 'Tracker',
+                    title: i18n.t('tracker_screen.layout.tracker'),
                     tabBarIcon: ({ color, focused }) => <Timer color={color} />,
                 }}
             />
             <Tabs.Screen
                 name="tasks"
                 options={{
-                    title: 'Tasks',
+                    title: i18n.t('tracker_screen.layout.tasks'),
                     tabBarIcon: ({ color, focused }) => <List color={color} />,
                 }}
             />
             <Tabs.Screen
                 name="tags"
                 options={{
-                    title: 'Tags',
+                    title: i18n.t('tracker_screen.layout.tags'),
                     tabBarIcon: ({ color, focused }) => <Tags color={color} />,
                 }}
             />
             <Tabs.Screen
                 name="insights"
                 options={{
-                    title: 'Insights',
+                    title: i18n.t('tracker_screen.layout.insights'),
                     tabBarIcon: ({ color, focused }) => (
                         <BarChartBig color={color} />
                     ),
