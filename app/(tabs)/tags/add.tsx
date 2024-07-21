@@ -43,7 +43,7 @@ const Add = () => {
         if (params.id) {
             updateTag({
                 id: params.id,
-                name: cleanText(name),
+                name: cleanText(name).toLowerCase(),
                 color: selectedColor,
             }).catch((e) => {
             })
@@ -51,7 +51,7 @@ const Add = () => {
             router.dismiss()
             return
         } else {
-            createTag(cleanText(name), selectedColor).catch((e) => {
+            createTag(cleanText(name).toLowerCase(), selectedColor).catch((e) => {
             })
 
             router.dismiss()
