@@ -19,7 +19,7 @@ import { LogBox, Text, View } from 'react-native'
 import { useMMKVString } from 'react-native-mmkv'
 import 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { PortalProvider } from 'tamagui'
+import { PortalProvider, Spinner } from 'tamagui'
 import { MMKV } from 'react-native-mmkv'
 
 const tamaguiConfig = createTamagui(config)
@@ -87,8 +87,10 @@ export default function RootLayout() {
                                         flex: 1,
                                         justifyContent: 'center',
                                         alignItems: 'center',
+                                        gap: 10,
                                     }}
                                 >
+                                    <Spinner size="large" color={'$color10'} />
                                     <Text>{i18n.t('loading_db')}</Text>
                                 </View>
                             }
