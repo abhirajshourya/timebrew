@@ -5,6 +5,7 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import { Platform, Pressable } from 'react-native'
 import { BarChartBig, List, Tags, Timer } from '@tamagui/lucide-icons'
 import { useTheme } from 'tamagui'
+import * as NavigationBar from 'expo-navigation-bar'
 
 export default function TabLayout() {
     const isDev = false
@@ -12,15 +13,18 @@ export default function TabLayout() {
 
     const tabBarStyle = () => {
         if (Platform.OS === 'android') {
+            NavigationBar.setBackgroundColorAsync(theme.background.get())
             return {
+                borderTopWidth: 1,
                 paddingBottom: 10,
                 paddingTop: 10,
                 minHeight: 60,
-                backgroundColor: theme.color12.get(),
+                backgroundColor: theme.background.get(),
             }
         } else {
             return {
-                backgroundColor: theme.color12.get(),
+                elevation: 10,
+                backgroundColor: theme.background.get(),
             }
         }
     }
@@ -30,9 +34,8 @@ export default function TabLayout() {
             // initialRouteName="home"
             screenOptions={{
                 tabBarActiveTintColor: theme.color10.get(),
-                tabBarInactiveTintColor: theme.color1.get(),
+                tabBarInactiveTintColor: theme.color.get(),
                 tabBarStyle: tabBarStyle(),
-
                 tabBarHideOnKeyboard: true,
                 headerShown: false,
             }}
