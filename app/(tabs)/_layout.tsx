@@ -15,7 +15,7 @@ export default function TabLayout() {
         if (Platform.OS === 'android') {
             NavigationBar.setBackgroundColorAsync(theme.background.get())
             return {
-                borderTopWidth: 1,
+                elevation: 10,
                 paddingBottom: 10,
                 paddingTop: 10,
                 minHeight: 60,
