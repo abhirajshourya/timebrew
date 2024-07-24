@@ -79,48 +79,45 @@ export default function RootLayout() {
             <StatusBar style={colorScheme === 'light' ? 'light' : 'dark'} />
             <ThemeProvider value={theme.system ? DarkTheme : DefaultTheme}>
                 <PortalProvider>
-                    <SafeAreaView style={{ flex: 1 }}>
-                        <Suspense
-                            fallback={
-                                <View
-                                    style={{
-                                        flex: 1,
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        gap: 10,
-                                    }}
-                                >
-                                    <Spinner size="large" color={'$color10'} />
-                                    <Text>{i18n.t('loading_db')}</Text>
-                                </View>
-                            }
-                        >
-                            <SQLiteProvider
-                                useSuspense
-                                databaseName="timebrew.db"
+                    {/* <SafeAreaView style={{ flex: 1 }}> */}
+                    <Suspense
+                        fallback={
+                            <View
+                                style={{
+                                    flex: 1,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    gap: 10,
+                                }}
                             >
-                                <Stack initialRouteName="Tracker">
-                                    <Stack.Screen
-                                        name="(tabs)"
-                                        options={{
-                                            headerShown: false,
-                                            title: i18n.t(
-                                                'tracker_screen.layout.tracker'
-                                            ),
-                                        }}
-                                    />
-                                    <Stack.Screen
-                                        name="settings"
-                                        options={{
-                                            headerShown: true,
-                                            title: i18n.t('settings.title'),
-                                        }}
-                                    />
-                                    <Stack.Screen name="+not-found" />
-                                </Stack>
-                            </SQLiteProvider>
-                        </Suspense>
-                    </SafeAreaView>
+                                <Spinner size="large" color={'$color10'} />
+                                <Text>{i18n.t('loading_db')}</Text>
+                            </View>
+                        }
+                    >
+                        <SQLiteProvider useSuspense databaseName="timebrew.db">
+                            <Stack initialRouteName="Tracker">
+                                <Stack.Screen
+                                    name="(tabs)"
+                                    options={{
+                                        headerShown: false,
+                                        title: i18n.t(
+                                            'tracker_screen.layout.tracker'
+                                        ),
+                                    }}
+                                />
+                                <Stack.Screen
+                                    name="settings"
+                                    options={{
+                                        headerShown: true,
+                                        title: i18n.t('settings.title'),
+                                    }}
+                                />
+                                <Stack.Screen name="+not-found" />
+                            </Stack>
+                        </SQLiteProvider>
+                    </Suspense>
+                    {/* </SafeAreaView> */}
                 </PortalProvider>
             </ThemeProvider>
         </TamaguiProvider>
