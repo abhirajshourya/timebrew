@@ -1,6 +1,5 @@
 import i18n from '@/constants/translations'
 import { type Theme } from '@/constants/types'
-import { useColorScheme } from '@/hooks/useColorScheme'
 import {
     DarkTheme,
     DefaultTheme,
@@ -18,7 +17,6 @@ import { Suspense, useEffect, useState } from 'react'
 import { LogBox, Text, View } from 'react-native'
 import { useMMKVString } from 'react-native-mmkv'
 import 'react-native-reanimated'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { PortalProvider, Spinner } from 'tamagui'
 import { MMKV } from 'react-native-mmkv'
 
@@ -49,8 +47,6 @@ export default function RootLayout() {
     // this is a workaround for a error which appears only once when changing the theme
     LogBox.ignoreLogs(['Warning: Cannot update a component'])
 
-    const colorScheme = useColorScheme()
-
     useEffect(() => {
         setTheme(JSON.parse(themeSettings || '{}'))
     }, [themeSettings])
@@ -76,48 +72,56 @@ export default function RootLayout() {
                 theme.color || 'blue'
             }`}
         >
-            <StatusBar style={colorScheme === 'light' ? 'light' : 'dark'} />
+            <StatusBar style={theme.system ? 'light' : 'dark'} />
             <ThemeProvider value={theme.system ? DarkTheme : DefaultTheme}>
                 <PortalProvider>
-                    {/* <SafeAreaView style={{ flex: 1 }}> */}
-                    <Suspense
-                        fallback={
-                            <View
-                                style={{
-                                    flex: 1,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    gap: 10,
-                                }}
+                    <View style={{ flex: 1 }}>
+                        <Suspense
+                            fallback={
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        gap: 10,
+                                    }}
+                                >
+                                    <Spinner size="large" color={'$color10'} />
+                                    <Text>{i18n.t('loading_db')}</Text>
+                                </View>
+                            }
+                        >
+                            <SQLiteProvider
+                                useSuspense
+                                databaseName="timebrew.db"
                             >
-                                <Spinner size="large" color={'$color10'} />
-                                <Text>{i18n.t('loading_db')}</Text>
-                            </View>
-                        }
-                    >
-                        <SQLiteProvider useSuspense databaseName="timebrew.db">
-                            <Stack initialRouteName="Tracker">
-                                <Stack.Screen
-                                    name="(tabs)"
-                                    options={{
+                                <Stack
+                                    initialRouteName="Tracker"
+                                    screenOptions={{
                                         headerShown: false,
-                                        title: i18n.t(
-                                            'tracker_screen.layout.tracker'
-                                        ),
                                     }}
-                                />
-                                <Stack.Screen
-                                    name="settings"
-                                    options={{
-                                        headerShown: true,
-                                        title: i18n.t('settings.title'),
-                                    }}
-                                />
-                                <Stack.Screen name="+not-found" />
-                            </Stack>
-                        </SQLiteProvider>
-                    </Suspense>
-                    {/* </SafeAreaView> */}
+                                >
+                                    <Stack.Screen
+                                        name="(tabs)"
+                                        options={{
+                                            headerShown: false,
+                                            title: i18n.t(
+                                                'tracker_screen.layout.tracker'
+                                            ),
+                                        }}
+                                    />
+                                    <Stack.Screen
+                                        name="settings"
+                                        options={{
+                                            headerShown: true,
+                                            title: i18n.t('settings.title'),
+                                        }}
+                                    />
+                                    <Stack.Screen name="+not-found" />
+                                </Stack>
+                            </SQLiteProvider>
+                        </Suspense>
+                    </View>
                 </PortalProvider>
             </ThemeProvider>
         </TamaguiProvider>
