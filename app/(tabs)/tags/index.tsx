@@ -7,8 +7,10 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { View, Text, ScrollView, Button, YStack } from 'tamagui'
 import { Plus } from '@tamagui/lucide-icons'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Tags = () => {
+    const insets = useSafeAreaInsets()
     const [tags, setTags] = useState<TagType[]>([])
     const memoTags = useMemo(() => tags, [tags])
     const { getTags } = useDatabase()
@@ -28,43 +30,41 @@ const Tags = () => {
     }, [segment])
 
     return (
-        <>
-            <SafeAreaView>
-                <View
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        // margin: 20,
-                        padding: 20,
-                    }}
+        <YStack backgroundColor={'$background025'} paddingTop={insets.top}>
+            <View
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginHorizontal: 20,
+                    paddingBottom: 20,
+                }}
+            >
+                <Text style={styles.heading}>
+                    {i18n.t('tag_screen.index.title')}
+                </Text>
+                <Button
+                    onPress={handleFABPress}
+                    chromeless
+                    marginEnd={-20}
+                    icon={<Plus size={24} />}
+                />
+            </View>
+            <ScrollView contentContainerStyle={styles.container}>
+                <YStack
+                    style={{ marginBottom: 200 }}
+                    gap={10}
+                    marginHorizontal={20}
                 >
-                    <Text style={styles.heading}>
-                        {i18n.t('tag_screen.index.title')}
-                    </Text>
-                    <Button
-                        onPress={handleFABPress}
-                        chromeless
-                        marginEnd={-20}
-                        icon={<Plus size={24} />}
-                    />
-                </View>
-                <ScrollView contentContainerStyle={styles.container}>
-                    <YStack
-                        style={{ marginBottom: 200 }}
-                        gap={10}
-                        marginHorizontal={20}
-                    >
-                        {memoTags.map((tag) => (
-                            <View key={tag.id}>
-                                <TagCard tag={tag} handleEdit={handleEdit} />
-                            </View>
-                        ))}
-                    </YStack>
-                </ScrollView>
-            </SafeAreaView>
-        </>
+                    {memoTags.map((tag) => (
+                        <View key={tag.id}>
+                            <TagCard tag={tag} handleEdit={handleEdit} />
+                        </View>
+                    ))}
+                </YStack>
+            </ScrollView>
+        </YStack>
     )
 }
 

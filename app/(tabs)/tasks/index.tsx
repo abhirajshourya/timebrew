@@ -7,8 +7,10 @@ import { SafeAreaView, TouchableOpacity } from 'react-native'
 import { Button, Text, View, ScrollView, YStack } from 'tamagui'
 import { useRouter, useSegments } from 'expo-router'
 import { Plus } from '@tamagui/lucide-icons'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const TasksPage = () => {
+    const insets = useSafeAreaInsets()
     const router = useRouter()
     const { getTasks } = useDatabase()
     const [tasks, setTasks] = useState<Task[]>([])
@@ -24,15 +26,15 @@ const TasksPage = () => {
     }, [segment])
 
     return (
-        <SafeAreaView>
+        <YStack backgroundColor={'$background025'} paddingTop={insets.top}>
             <View
                 style={{
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    // margin: 20,
-                    padding: 20,
+                    marginHorizontal: 20,
+                    paddingBottom: 20,
                 }}
             >
                 <Text
@@ -68,7 +70,7 @@ const TasksPage = () => {
                     ))}
                 </YStack>
             </ScrollView>
-        </SafeAreaView>
+        </YStack>
     )
 }
 

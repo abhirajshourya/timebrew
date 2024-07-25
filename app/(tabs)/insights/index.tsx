@@ -12,8 +12,10 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { useSegments } from 'expo-router'
 import { Text, ScrollView, View, Label, YStack, Button } from 'tamagui'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Index = () => {
+    const inset = useSafeAreaInsets()
     const { getTimeLogs, getTags, getTimelogByTag } = useDatabase()
     const [timelogs, setTimelogs] = useState<DataSet>({
         data: [],
@@ -46,15 +48,15 @@ const Index = () => {
     }, [selectedDuration, segment])
 
     return (
-        <SafeAreaView>
+        <YStack backgroundColor={'$background025'} paddingTop={inset.top}>
             <View
                 style={{
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    // margin: 20,
-                    padding: 20,
+                    marginHorizontal: 20,
+                    paddingBottom: 20,
                 }}
             >
                 <Text
@@ -183,7 +185,7 @@ const Index = () => {
                     </View>
                 </YStack>
             </ScrollView>
-        </SafeAreaView>
+        </YStack>
     )
 }
 
