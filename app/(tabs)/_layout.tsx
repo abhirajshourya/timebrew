@@ -31,7 +31,6 @@ export default function TabLayout() {
 
     return (
         <Tabs
-            // initialRouteName="home"
             screenOptions={{
                 tabBarActiveTintColor: theme.color10.get(),
                 tabBarInactiveTintColor: theme.color.get(),
@@ -39,7 +38,6 @@ export default function TabLayout() {
                 tabBarHideOnKeyboard: true,
                 headerShown: false,
             }}
-            // safeAreaInsets={{ top: 0, bottom: 0 }}
         >
             <Tabs.Screen
                 name="home"

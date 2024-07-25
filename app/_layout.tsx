@@ -19,6 +19,7 @@ import { useMMKVString } from 'react-native-mmkv'
 import 'react-native-reanimated'
 import { PortalProvider, Spinner } from 'tamagui'
 import { MMKV } from 'react-native-mmkv'
+import { CustomStyles } from '@/constants/Styles'
 
 const tamaguiConfig = createTamagui(config)
 
@@ -95,35 +96,42 @@ export default function RootLayout() {
                                 useSuspense
                                 databaseName="timebrew.db"
                             >
-                                <Stack
-                                    initialRouteName="Tracker"
-                                    screenOptions={{
-                                        headerShown: false,
-                                    }}
-                                >
-                                    <Stack.Screen
-                                        name="(tabs)"
-                                        options={{
-                                            headerShown: false,
-                                            title: i18n.t(
-                                                'tracker_screen.layout.tracker'
-                                            ),
-                                        }}
-                                    />
-                                    <Stack.Screen
-                                        name="settings"
-                                        options={{
-                                            headerShown: true,
-                                            title: i18n.t('settings.title'),
-                                        }}
-                                    />
-                                    <Stack.Screen name="+not-found" />
-                                </Stack>
+                                <StackLayout />
                             </SQLiteProvider>
                         </Suspense>
                     </View>
                 </PortalProvider>
             </ThemeProvider>
         </TamaguiProvider>
+    )
+}
+
+const StackLayout = () => {
+    const navStyle = CustomStyles().NavigationHeaderStyle()
+    Stack.defaultProps = {
+        initialRouteName: 'index',
+        screenOptions: {
+            headerShown: false,
+        },
+    }
+
+    return (
+        <Stack screenOptions={navStyle} initialRouteName="(tabs)">
+            <Stack.Screen
+                name="(tabs)"
+                options={{
+                    headerShown: false,
+                    title: i18n.t('tracker_screen.layout.tracker'),
+                }}
+            />
+            <Stack.Screen
+                name="settings"
+                options={{
+                    headerShown: true,
+                    title: i18n.t('settings.title'),
+                }}
+            />
+            <Stack.Screen name="+not-found" />
+        </Stack>
     )
 }
