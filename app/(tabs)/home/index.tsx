@@ -12,7 +12,7 @@ import useDatabase from '@/hooks/useDatabase'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useEffect, useMemo, useState } from 'react'
-import { Alert, StyleSheet } from 'react-native'
+import { Alert, RefreshControl, StyleSheet } from 'react-native'
 import {
     Separator,
     Text,
@@ -24,12 +24,13 @@ import {
     ScrollView,
     Button,
     useTheme,
+    Spinner,
 } from 'tamagui'
 import { useRouter, useSegments } from 'expo-router'
 import { Settings, TimerReset } from '@tamagui/lucide-icons'
 import { mmkv_storage } from '@/app/_layout'
 import * as Progress from 'react-native-progress'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Tracker = ({}) => {
     const inset = useSafeAreaInsets()
@@ -215,7 +216,18 @@ const Tracker = ({}) => {
                     </Button>
                 </View>
             </XStack>
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView
+                contentContainerStyle={styles.container}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={reload}
+                        onRefresh={() => setReload(true)}
+                        colors={[theme.color.get()]}
+                        progressBackgroundColor={theme.background.get()}
+                        tintColor={theme.color.get()}
+                    />
+                }
+            >
                 <View style={styles.mainTrackerContainer}>
                     <WavyRings
                         width={250}
@@ -338,14 +350,19 @@ const Tracker = ({}) => {
                     <H2 alignSelf="center" marginBottom={20}>
                         {i18n.t('tracker_screen.index.title')}
                     </H2>
-                    {memoTimelogs.map((timelog) => (
-                        <View key={timelog.id} style={{ marginBottom: 10 }}>
-                            <TimelogCard
-                                timelog={timelog}
-                                setReload={setReload}
-                            />
-                        </View>
-                    ))}
+                    {reload && (
+                        <Spinner size="large" color={theme.color.get()} />
+                    )}
+                    {!reload &&
+                        memoTimelogs.map((timelog) => (
+                            <View key={timelog.id} style={{ marginBottom: 10 }}>
+                                <TimelogCard
+                                    timelog={timelog}
+                                    reload={reload}
+                                    setReload={setReload}
+                                />
+                            </View>
+                        ))}
                 </View>
                 {!timelogs.length && (
                     <Text

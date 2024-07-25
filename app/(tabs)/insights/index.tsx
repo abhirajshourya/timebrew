@@ -9,14 +9,25 @@ import {
 } from '@/helpers/data-cleaner'
 import useDatabase from '@/hooks/useDatabase'
 import React, { useEffect, useMemo, useState } from 'react'
-import { SafeAreaView, StyleSheet } from 'react-native'
+import { RefreshControl, StyleSheet } from 'react-native'
 import { useSegments } from 'expo-router'
-import { Text, ScrollView, View, Label, YStack, Button } from 'tamagui'
+import {
+    Text,
+    ScrollView,
+    View,
+    Label,
+    YStack,
+    Button,
+    useTheme,
+    Spinner,
+} from 'tamagui'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Index = () => {
     const inset = useSafeAreaInsets()
+    const theme = useTheme()
     const { getTimeLogs, getTags, getTimelogByTag } = useDatabase()
+    const [reload, setReload] = useState(false)
     const [timelogs, setTimelogs] = useState<DataSet>({
         data: [],
         labels: [],
@@ -32,20 +43,22 @@ const Index = () => {
             setTimelogs(cleanTimelogsForChart(logs))
         })
 
-        getTags().then((tags) => {
-            setTagsStats([])
-            tags.forEach((tag) => {
-                let tagStat = {} as TagDataset
+        getTags()
+            .then((tags) => {
+                setTagsStats([])
+                tags.forEach((tag) => {
+                    let tagStat = {} as TagDataset
 
-                getTimelogByTag(tag.id, { forThis: selectedDuration }).then(
-                    (timelogs) => {
-                        tagStat = cleanTagsTimelogs(tag, timelogs)
-                        setTagsStats((prev) => [...prev, tagStat])
-                    }
-                )
+                    getTimelogByTag(tag.id, { forThis: selectedDuration }).then(
+                        (timelogs) => {
+                            tagStat = cleanTagsTimelogs(tag, timelogs)
+                            setTagsStats((prev) => [...prev, tagStat])
+                        }
+                    )
+                })
             })
-        })
-    }, [selectedDuration, segment])
+            .then(() => setReload(false))
+    }, [selectedDuration, segment, reload])
 
     return (
         <YStack backgroundColor={'$background025'} paddingTop={inset.top}>
@@ -69,13 +82,27 @@ const Index = () => {
                 </Text>
                 <Button chromeless marginEnd={-20} disabled />
             </View>
-            <ScrollView contentContainerStyle={styles.scrollView}>
+            <ScrollView
+                contentContainerStyle={styles.scrollView}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={reload}
+                        onRefresh={() => setReload(true)}
+                        colors={[theme.color.get()]}
+                        progressBackgroundColor={theme.background.get()}
+                        tintColor={theme.color.get()}
+                    />
+                }
+            >
                 <YStack
                     style={{ marginBottom: 200 }}
                     gap={20}
                     marginHorizontal={20}
                 >
                     <View style={{ marginBottom: 20 }}>
+                        {reload && (
+                            <Spinner size="large" color={'$color10'} />
+                        )}
                         {timelogs.data.length === 0 && (
                             <Text>
                                 {i18n.t('insights_screen.index.no_data')}
@@ -166,13 +193,16 @@ const Index = () => {
                         </Text>
 
                         <YStack gap={10}>
+                            {reload && (
+                                <Spinner size="large" color={'$color10'} />
+                            )}
                             {timelogs.data.length === 0 && (
                                 <Text>
                                     {i18n.t('insights_screen.index.no_data')}
                                 </Text>
                             )}
                             {timelogs.data.length > 0 &&
-                                tagsStats.map(
+                                memoTagsStats.map(
                                     (tagStat, i) =>
                                         tagStat.timeLogs.length > 0 && (
                                             <TagStat
