@@ -14,6 +14,8 @@ import {
 import { formatTime, formatTimeToSeconds } from '@/helpers/time-format'
 import { mmkv_storage } from '@/app/_layout'
 import i18n from '@/constants/translations'
+import * as Notifications from 'expo-notifications'
+import { router } from 'expo-router'
 
 const Index = () => {
     const [dailyGoal, setDailyGoal] = useState(true)
@@ -28,6 +30,7 @@ const Index = () => {
                 style: 'default',
             },
         ])
+        scheduleNotification()
     }
 
     useEffect(() => {
@@ -39,6 +42,49 @@ const Index = () => {
             setDailyGoalTime(goal_dailytime || 0)
         }
     }, [])
+
+    useEffect(() => {
+        const subscription = Notifications.addNotificationReceivedListener(
+            (notification) => {
+                console.log(
+                    'Notification received:',
+                    notification.request.content.title,
+                    notification.request.content.subtitle
+                )
+            }
+        )
+
+        const responseSubscription =
+            Notifications.addNotificationResponseReceivedListener(() => {
+                router.navigate('/home')
+            })
+
+        return () => {
+            subscription.remove()
+            responseSubscription.remove()
+        }
+    }, [])
+
+    async function scheduleNotification() {
+        await cancelAllNotifications()
+        await Notifications.requestPermissionsAsync().then(() => {
+            Notifications.scheduleNotificationAsync({
+                content: {
+                    title: '⏱️ Daily Goal',
+                    subtitle: 'Make sure to complete your daily goal!',
+                },
+                trigger: {
+                    repeats: true,
+                    hour: 16,
+                },
+            })
+        })
+    }
+
+    async function cancelAllNotifications() {
+        await Notifications.cancelAllScheduledNotificationsAsync()
+        console.log('All scheduled notifications have been canceled')
+    }
 
     return (
         <ScrollView>
