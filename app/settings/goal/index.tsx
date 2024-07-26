@@ -76,6 +76,7 @@ const Index = () => {
                 trigger: {
                     repeats: true,
                     hour: 16,
+                    minute: 0,
                 },
             })
         })
