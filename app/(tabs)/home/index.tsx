@@ -309,43 +309,45 @@ const Tracker = ({}) => {
                     </View>
                 </View>
                 <View style={styles.logsContainer}>
-                    {dailyGoal && dailyGoalTime && (
-                        <View
-                            style={{
-                                borderRadius: 10,
-                                marginHorizontal: 10,
-                                backgroundColor: theme.background075.get(),
-                                padding: 20,
-                            }}
-                        >
-                            <YStack alignItems="center">
-                                <Text
-                                    style={{
-                                        color: theme.color.get(),
-                                        marginBottom: 10,
-                                    }}
-                                >
-                                    {i18n.t(
-                                        'tracker_screen.index.daily_goal_title'
-                                    )}
-                                    : {formatTime(todayTime)} /{' '}
-                                    {formatTime(dailyGoalTime)} (
-                                    {(
-                                        (todayTime / dailyGoalTime) *
-                                        100
-                                    ).toFixed(0)}
-                                    %)
-                                </Text>
-                                <Progress.Bar
-                                    progress={todayTime / dailyGoalTime}
-                                    width={300}
-                                    animated
-                                    animationType="timing"
-                                    color={theme.color10.get()}
-                                />
-                            </YStack>
-                        </View>
-                    )}
+                    {dailyGoal &&
+                        dailyGoalTime != undefined &&
+                        dailyGoalTime != 0 && (
+                            <View
+                                style={{
+                                    borderRadius: 10,
+                                    marginHorizontal: 10,
+                                    backgroundColor: theme.background075.get(),
+                                    padding: 20,
+                                }}
+                            >
+                                <YStack alignItems="center">
+                                    <Text
+                                        style={{
+                                            color: theme.color.get(),
+                                            marginBottom: 10,
+                                        }}
+                                    >
+                                        {i18n.t(
+                                            'tracker_screen.index.daily_goal_title'
+                                        )}
+                                        : {formatTime(todayTime)} /{' '}
+                                        {formatTime(dailyGoalTime)} (
+                                        {(
+                                            (todayTime / dailyGoalTime) *
+                                            100
+                                        ).toFixed(0)}
+                                        %)
+                                    </Text>
+                                    <Progress.Bar
+                                        progress={todayTime / dailyGoalTime}
+                                        width={300}
+                                        animated
+                                        animationType="timing"
+                                        color={theme.color10.get()}
+                                    />
+                                </YStack>
+                            </View>
+                        )}
                     <Separator marginVertical={20} />
                     <H2 alignSelf="center" marginBottom={20}>
                         {i18n.t('tracker_screen.index.title')}

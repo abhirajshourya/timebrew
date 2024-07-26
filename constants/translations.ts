@@ -183,9 +183,11 @@ type Translation = {
         prevGoalTime: string
     }
     alert: {
+        error: string
         goalSet: string
         goalSetMessage: string
         ok: string
+        goalSetError: string
     }
 }
 
@@ -380,9 +382,11 @@ const en: Translation = {
     },
 
     alert: {
+        error: 'Error',
         goalSet: 'Goal Set',
         goalSetMessage: 'Your goal has been successfully set!',
         ok: 'OK',
+        goalSetError: 'Please set a valid goal',
     },
 }
 
@@ -579,9 +583,11 @@ const vi: Translation = {
     },
 
     alert: {
+        error: 'Lỗi',
         goalSet: 'Mục tiêu đã đặt', // Alert Title
         goalSetMessage: 'Mục tiêu của bạn đã được đặt thành công!', // Alert Message
         ok: 'OK', // Alert Button
+        goalSetError: 'Vui lòng đặt mục tiêu hợp lệ', // Alert Message
     },
 }
 
@@ -782,9 +788,11 @@ const fr: Translation = {
     },
 
     alert: {
+        error: 'Erreur',
         goalSet: 'Objectif défini', // Alert Title
         goalSetMessage: 'Votre objectif a été défini avec succès!', // Alert Message
         ok: 'OK', // Alert Button
+        goalSetError: 'Veuillez définir un objectif valide', // Alert Message
     },
 }
 
@@ -979,9 +987,11 @@ const hi: Translation = {
     },
 
     alert: {
+        error: 'त्रुटि',
         goalSet: 'लक्ष्य सेट किया गया', // Alert Title
         goalSetMessage: 'आपका लक्ष्य सफलतापूर्वक सेट कर दिया गया है!', // Alert Message
         ok: 'ठीक है', // Alert Button
+        goalSetError: 'कृपया एक वैध लक्ष्य सेट करें', // Alert Message
     },
 }
 
@@ -1180,9 +1190,11 @@ const es: Translation = {
     },
 
     alert: {
+        error: 'Error',
         goalSet: 'Meta establecida', // Alert Title
         goalSetMessage: '¡Su meta ha sido establecida con éxito!', // Alert Message
         ok: 'OK', // Alert Button
+        goalSetError: 'Por favor establezca una meta válida', // Alert Message
     },
 }
 
@@ -1377,9 +1389,11 @@ const zh: Translation = {
     },
 
     alert: {
+        error: '错误',
         goalSet: '目标已设置', // Alert Title
         goalSetMessage: '您的目标已成功设置!', // Alert Message
         ok: 'OK', // Alert Button
+        goalSetError: '请设置有效目标', // Alert Message
     },
 }
 
@@ -1574,9 +1588,11 @@ const ko: Translation = {
     },
 
     alert: {
+        error: '오류',
         goalSet: '목표 설정됨', // Alert Title
         goalSetMessage: '목표가 성공적으로 설정되었습니다!', // Alert Message
         ok: 'OK', // Alert Button
+        goalSetError: '유효한 목표를 설정하십시오', // Alert Message
     },
 }
 
@@ -1772,9 +1788,11 @@ const ja: Translation = {
     },
 
     alert: {
+        error: 'エラー',
         goalSet: '目標設定', // Alert Title
         goalSetMessage: '目標が正常に設定されました!', // Alert Message
         ok: 'OK', // Alert Button
+        goalSetError: '有効な目標を設定してください', // Alert Message
     },
 }
 
@@ -1973,9 +1991,11 @@ const de: Translation = {
     },
 
     alert: {
+        error: 'Fehler',
         goalSet: 'Ziel gesetzt', // Alert Title
         goalSetMessage: 'Ihr Ziel wurde erfolgreich gesetzt!', // Alert Message
         ok: 'OK', // Alert Button
+        goalSetError: 'Bitte setzen Sie ein gültiges Ziel', // Alert Message
     },
 }
 
@@ -2172,9 +2192,11 @@ const ru: Translation = {
     },
 
     alert: {
+        error: 'Ошибка',
         goalSet: 'Цель установлена', // Alert Title
         goalSetMessage: 'Ваша цель успешно установлена!', // Alert Message
         ok: 'OK', // Alert Button
+        goalSetError: 'Пожалуйста, установите действительную цель', // Alert Message
     },
 }
 
