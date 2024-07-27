@@ -31,6 +31,7 @@ import { Settings, TimerReset } from '@tamagui/lucide-icons'
 import { mmkv_storage } from '@/app/_layout'
 import * as Progress from 'react-native-progress'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { HomeTutorial } from '@/components/tutorials'
 
 const Tracker = ({}) => {
     const inset = useSafeAreaInsets()
@@ -71,6 +72,8 @@ const Tracker = ({}) => {
     const dailyGoalTime = mmkv_storage.getNumber('goal.dailytime')
 
     const [todayTime, setTodayTime] = useState(0)
+
+    const tutorialSetting = mmkv_storage.getString('settings.tutorial')
 
     useEffect(() => {
         getTotalTimelogForToday().then((total) => {
@@ -416,6 +419,7 @@ const Tracker = ({}) => {
                     </Button>
                 </View>
             </TimeLogModal>
+            <HomeTutorial />
         </YStack>
     )
 }
