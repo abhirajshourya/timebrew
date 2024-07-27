@@ -149,7 +149,11 @@ type Translation = {
     settings: {
         title: string
         themes: string
+        themes_subtitle: string
         goals: string
+        goals_subtitle: string
+        tutorial: string
+        tutorial_subtitle: string
     }
     components: {
         task_card: {
@@ -344,7 +348,11 @@ const en: Translation = {
     settings: {
         title: 'Settings',
         themes: 'Themes',
+        themes_subtitle: 'Personalize your app',
         goals: 'Goals',
+        goals_subtitle: 'Set your goals',
+        tutorial: 'Tutorial',
+        tutorial_subtitle: 'Learn how to use the app',
     },
 
     components: {
@@ -545,7 +553,11 @@ const vi: Translation = {
     settings: {
         title: 'Cài Đặt',
         themes: 'Chủ Đề',
+        themes_subtitle: 'Cá nhân hóa ứng dụng của bạn',
         goals: 'Mục tiêu',
+        goals_subtitle: 'Đặt mục tiêu của bạn',
+        tutorial: 'Hướng Dẫn',
+        tutorial_subtitle: 'Học cách sử dụng ứng dụng',
     },
 
     components: {
@@ -750,7 +762,11 @@ const fr: Translation = {
     settings: {
         title: 'Paramètres',
         themes: 'Thèmes',
+        themes_subtitle: 'Personnalisez votre application',
         goals: 'Objectifs',
+        goals_subtitle: 'Définissez vos objectifs',
+        tutorial: 'Tutoriel',
+        tutorial_subtitle: "Apprenez à utiliser l'application",
     },
 
     components: {
@@ -949,7 +965,11 @@ const hi: Translation = {
     settings: {
         title: 'सेटिंग्स',
         themes: 'थीम्स',
+        themes_subtitle: 'अपने ऐप को व्यक्तिगत बनाएं',
         goals: 'लक्ष्य',
+        goals_subtitle: 'अपने लक्ष्य निर्धारित करें',
+        tutorial: 'ट्यूटोरियल',
+        tutorial_subtitle: 'ऐप का उपयोग कैसे करें सीखें',
     },
 
     components: {
@@ -1152,7 +1172,11 @@ const es: Translation = {
     settings: {
         title: 'Configuraciones',
         themes: 'Temas',
+        themes_subtitle: 'Personaliza tu aplicación',
         goals: 'Metas',
+        goals_subtitle: 'Establece tus metas',
+        tutorial: 'Tutorial',
+        tutorial_subtitle: 'Aprende a usar la aplicación',
     },
 
     components: {
@@ -1351,7 +1375,11 @@ const zh: Translation = {
     settings: {
         title: '设置',
         themes: '主题',
+        themes_subtitle: '自定义您的应用程序',
         goals: '目标',
+        goals_subtitle: '设定您的目标',
+        tutorial: '教程',
+        tutorial_subtitle: '学习如何使用应用程序',
     },
 
     components: {
@@ -1550,7 +1578,11 @@ const ko: Translation = {
     settings: {
         title: '설정',
         themes: '테마',
+        themes_subtitle: '앱을 사용자 정의하세요',
         goals: '목표',
+        goals_subtitle: '목표 설정',
+        tutorial: '튜토리얼',
+        tutorial_subtitle: '앱 사용 방법 배우기',
     },
 
     components: {
@@ -1750,7 +1782,11 @@ const ja: Translation = {
     settings: {
         title: '設定',
         themes: 'テーマ',
+        themes_subtitle: 'アプリをカスタマイズする',
         goals: '目標',
+        goals_subtitle: '目標を設定する',
+        tutorial: 'チュートリアル',
+        tutorial_subtitle: 'アプリの使い方を学ぶ',
     },
 
     components: {
@@ -1953,7 +1989,11 @@ const de: Translation = {
     settings: {
         title: 'Einstellungen',
         themes: 'Themen',
+        themes_subtitle: 'Passen Sie Ihre App an',
         goals: 'Ziele',
+        goals_subtitle: 'Setzen Sie Ihre Ziele',
+        tutorial: 'Tutorial',
+        tutorial_subtitle: 'Lernen Sie, wie Sie die App verwenden',
     },
 
     components: {
@@ -2154,7 +2194,11 @@ const ru: Translation = {
     settings: {
         title: 'Настройки',
         themes: 'Темы',
+        themes_subtitle: 'Настройте свое приложение',
         goals: 'Цели',
+        goals_subtitle: 'Установите свои цели',
+        tutorial: 'Обучение',
+        tutorial_subtitle: 'Узнайте, как использовать приложение',
     },
 
     components: {
