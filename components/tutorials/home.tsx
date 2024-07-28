@@ -4,8 +4,18 @@ import { useState } from 'react'
 import { useMMKVString } from 'react-native-mmkv'
 import { Defs, Mask, Rect, Svg } from 'react-native-svg'
 import i18n from '@/constants/translations'
+import { Theme } from '@/constants/types'
 
 const Index = () => {
+    const [themeSettings, setThemeSettings] = useMMKVString('settings.themes')
+    const [themeSettingsJson, setTheme] = useState<Theme>(
+        JSON.parse(themeSettings || '{}')
+    )
+
+    const [backgroundFill, setBackgroundFill] = useState(
+        themeSettingsJson.system ? 'rgba(100,100,100,0.5)' : 'rgba(0,0,0,0.5)'
+    )
+
     const [tutorialStep, setTutorialStep] = useState(0)
     const [tutorialSetting, setTutorialSetting] =
         useMMKVString('settings.tutorial')
@@ -27,14 +37,14 @@ const Index = () => {
                         flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center',
-                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        backgroundColor: backgroundFill,
                     }}
                 >
                     <Card
                         padding={20}
                         margin={20}
                         gap={20}
-                        backgroundColor={'#fff'}
+                        backgroundColor={'$background'}
                     >
                         <H2>{i18n.t('tutorial.step1.title')}</H2>
                         <Paragraph>
@@ -78,7 +88,8 @@ const Index = () => {
                         <Rect
                             height="100%"
                             width="100%"
-                            fill={'rgba(0,0,0,0.5)'}
+                            // fill={'rgba(0,0,0,0.5)'}
+                            fill={backgroundFill}
                             mask="url(#mask)"
                             // fillOpacity={0.5}
                         />
@@ -92,7 +103,7 @@ const Index = () => {
                         padding={20}
                         margin={20}
                         gap={20}
-                        backgroundColor={'#fff'}
+                        backgroundColor={'$background'}
                         marginTop={50}
                     >
                         <H2>{i18n.t('tutorial.step2.title')}</H2>
@@ -137,7 +148,7 @@ const Index = () => {
                         <Rect
                             height="100%"
                             width="100%"
-                            fill={'rgba(0,0,0,0.5)'}
+                            fill={backgroundFill}
                             mask="url(#mask)"
                             // fillOpacity={0.5}
                         />
@@ -151,7 +162,7 @@ const Index = () => {
                         padding={20}
                         margin={20}
                         gap={20}
-                        backgroundColor={'#fff'}
+                        backgroundColor={'$background'}
                         marginTop={50}
                     >
                         <H2>{i18n.t('tutorial.step3.title')}</H2>
@@ -195,7 +206,7 @@ const Index = () => {
                         <Rect
                             height="100%"
                             width="100%"
-                            fill={'rgba(0,0,0,0.5)'}
+                            fill={backgroundFill}
                             mask="url(#mask)"
                             // fillOpacity={0.5}
                         />
@@ -209,7 +220,7 @@ const Index = () => {
                         padding={20}
                         margin={20}
                         gap={20}
-                        backgroundColor={'#fff'}
+                        backgroundColor={'$background'}
                         marginTop={50}
                     >
                         <H2>{i18n.t('tutorial.step4.title')}</H2>
@@ -253,7 +264,7 @@ const Index = () => {
                         <Rect
                             height="100%"
                             width="100%"
-                            fill={'rgba(0,0,0,0.5)'}
+                            fill={backgroundFill}
                             mask="url(#mask)"
                             // fillOpacity={0.5}
                         />
@@ -267,7 +278,7 @@ const Index = () => {
                         padding={20}
                         margin={20}
                         gap={20}
-                        backgroundColor={'#fff'}
+                        backgroundColor={'$background'}
                         marginTop={50}
                     >
                         <H2>{i18n.t('tutorial.step5.title')}</H2>
@@ -311,7 +322,7 @@ const Index = () => {
                         <Rect
                             height="100%"
                             width="100%"
-                            fill={'rgba(0,0,0,0.5)'}
+                            fill={backgroundFill}
                             mask="url(#mask)"
                             // fillOpacity={0.5}
                         />
@@ -325,7 +336,7 @@ const Index = () => {
                         padding={20}
                         margin={20}
                         gap={20}
-                        backgroundColor={'#fff'}
+                        backgroundColor={'$background'}
                         marginTop={50}
                     >
                         <H2>{i18n.t('tutorial.step6.title')}</H2>
