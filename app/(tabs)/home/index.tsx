@@ -73,8 +73,6 @@ const Tracker = ({}) => {
 
     const [todayTime, setTodayTime] = useState(0)
 
-    const tutorialSetting = mmkv_storage.getString('settings.tutorial')
-
     useEffect(() => {
         getTotalTimelogForToday().then((total) => {
             setTodayTime(total)
