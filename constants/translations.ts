@@ -193,6 +193,36 @@ type Translation = {
         ok: string
         goalSetError: string
     }
+    tutorial: {
+        skip_btn: string
+        next_btn: string
+        back_btn: string
+        finish_btn: string
+        step1: {
+            title: string
+            description: string
+        }
+        step2: {
+            title: string
+            description: string
+        }
+        step3: {
+            title: string
+            description: string
+        }
+        step4: {
+            title: string
+            description: string
+        }
+        step5: {
+            title: string
+            description: string
+        }
+        step6: {
+            title: string
+            description: string
+        }
+    }
 }
 
 const en: Translation = {
@@ -395,6 +425,41 @@ const en: Translation = {
         goalSetMessage: 'Your goal has been successfully set!',
         ok: 'OK',
         goalSetError: 'Please set a valid goal',
+    },
+
+    tutorial: {
+        skip_btn: 'Skip Tutorial',
+        next_btn: 'Next',
+        back_btn: 'Back',
+        finish_btn: 'Finish',
+        step1: {
+            title: 'Welcome to Timebrew!',
+            description:
+                'Timebrew is a time tracking app that helps you keep track of your time spent on different tasks.',
+        },
+        step2: {
+            title: 'Track your time',
+            description: 'Use the timer to track your time spent on tasks.',
+        },
+        step3: {
+            title: 'View your timelogs',
+            description: 'View your recent timelogs in the home screen.',
+        },
+        step4: {
+            title: 'Manage your Tasks & Tags',
+            description:
+                'You can manage your tasks and tags in their respective sections.',
+        },
+        step5: {
+            title: 'Get Insights',
+            description:
+                'You can view insights on your time usage in the insights section.',
+        },
+        step6: {
+            title: 'Themes, Goals & More',
+            description:
+                'You can set themes, goals and more in the settings section.',
+        },
     },
 }
 
@@ -600,6 +665,41 @@ const vi: Translation = {
         goalSetMessage: 'Mục tiêu của bạn đã được đặt thành công!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: 'Vui lòng đặt mục tiêu hợp lệ', // Alert Message
+    },
+
+    tutorial: {
+        skip_btn: 'Bỏ qua Hướng Dẫn',
+        next_btn: 'Tiếp',
+        back_btn: 'Quay lại',
+        finish_btn: 'Hoàn Thành',
+        step1: {
+            title: 'Chào mừng đến với Timebrew!',
+            description:
+                'Timebrew là ứng dụng theo dõi thời gian giúp bạn theo dõi thời gian bạn đã dành cho các công việc khác nhau.',
+        },
+        step2: {
+            title: 'Theo dõi thời gian của bạn',
+            description: 'Sử dụng bộ đếm để theo dõi thời gian bạn đã dành cho các công việc.',
+        },
+        step3: {
+            title: 'Xem nhật ký thời gian của bạn',
+            description: 'Xem nhật ký thời gian gần đây của bạn trên màn hình chính.',
+        },
+        step4: {
+            title: 'Quản lý Công Việc & Thẻ của bạn',
+            description:
+                'Bạn có thể quản lý công việc và thẻ của mình trong các phần tương ứng.',
+        },
+        step5: {
+            title: 'Nhận thông tin chi tiết',
+            description:
+                'Bạn có thể xem thông tin chi tiết về việc sử dụng thời gian của mình trong phần thông tin chi tiết.',
+        },
+        step6: {
+            title: 'Chủ Đề, Mục Tiêu & Nhiều Hơn Nữa',
+            description:
+                'Bạn có thể đặt chủ đề, mục tiêu và nhiều hơn nữa trong phần cài đặt.',
+        },
     },
 }
 
@@ -810,6 +910,41 @@ const fr: Translation = {
         ok: 'OK', // Alert Button
         goalSetError: 'Veuillez définir un objectif valide', // Alert Message
     },
+
+    tutorial: {
+        skip_btn: 'Passer le Tutoriel',
+        next_btn: 'Suivant',
+        back_btn: 'Retour',
+        finish_btn: 'Terminer',
+        step1: {
+            title: 'Bienvenue dans Timebrew!',
+            description:
+                'Timebrew est une application de suivi du temps qui vous aide à suivre le temps passé sur différentes tâches.',
+        },
+        step2: {
+            title: 'Suivez votre temps',
+            description: 'Utilisez le minuteur pour suivre le temps passé sur les tâches.',
+        },
+        step3: {
+            title: 'Consultez vos journaux de temps',
+            description: 'Consultez vos journaux de temps récents sur l’écran d’accueil.',
+        },
+        step4: {
+            title: 'Gérez vos Tâches & Étiquettes',
+            description:
+                'Vous pouvez gérer vos tâches et étiquettes dans leurs sections respectives.',
+        },
+        step5: {
+            title: 'Obtenez des Aperçus',
+            description:
+                'Vous pouvez consulter des aperçus sur votre utilisation du temps dans la section Aperçus.',
+        },
+        step6: {
+            title: 'Thèmes, Objectifs & Plus',
+            description:
+                'Vous pouvez définir des thèmes, des objectifs et plus encore dans la section Paramètres.',
+        },
+    },
 }
 
 const hi: Translation = {
@@ -1012,6 +1147,40 @@ const hi: Translation = {
         goalSetMessage: 'आपका लक्ष्य सफलतापूर्वक सेट कर दिया गया है!', // Alert Message
         ok: 'ठीक है', // Alert Button
         goalSetError: 'कृपया एक वैध लक्ष्य सेट करें', // Alert Message
+    },
+
+    tutorial: {
+        skip_btn: 'ट्यूटोरियल छोड़ें',
+        next_btn: 'आगे',
+        back_btn: 'पीछे',
+        finish_btn: 'समाप्त',
+        step1: {
+            title: 'Timebrew में आपका स्वागत है!',
+            description:
+                'टाइमब्रू एक समय ट्रैकिंग ऐप है जो आपको विभिन्न कार्यों पर बिताए गए समय का पालन करने में मदद करता है।',
+        },
+        step2: {
+            title: 'अपना समय ट्रैक करें',
+            description: 'कार्यों पर बिताए गए समय को ट्रैक करने के लिए टाइमर का उपयोग करें।',
+        },
+        step3: {
+            title: 'अपने समय लॉग देखें',
+            description: 'मुख्य पृष्ठ पर अपने हाल के समय लॉग देखें।',
+        },
+        step4: {
+            title: 'अपने कार्य और टैग प्रबंधित करें',
+            description:
+                'आप अपने कार्य और टैग को उनके संबंधित खंडों में प्रबंधित कर सकते हैं।',
+        },
+        step5: {
+            title: 'विस्तृत जानकारी प्राप्त करें',
+            description: 'अपने समय उपयोग के बारे में विस्तृत जानकारी प्राप्त करें।',
+        },
+        step6: {
+            title: 'थीम, लक्ष्य और अधिक',
+            description:
+                'आप सेटिंग्स खंड में थीम, लक्ष्य और अधिक को सेट कर सकते हैं।',
+        },
     },
 }
 
@@ -1220,6 +1389,42 @@ const es: Translation = {
         ok: 'OK', // Alert Button
         goalSetError: 'Por favor establezca una meta válida', // Alert Message
     },
+
+    tutorial: {
+        skip_btn: 'Saltar Tutorial',
+        next_btn: 'Siguiente',
+        back_btn: 'Atrás',
+        finish_btn: 'Finalizar',
+        step1: {
+            title: '¡Bienvenido a Timebrew!',
+            description:
+                'Timebrew es una aplicación de seguimiento del tiempo que te ayuda a rastrear el tiempo dedicado a diferentes tareas.',
+        },
+        step2: {
+            title: 'Rastrea tu tiempo',
+            description:
+                'Utiliza el temporizador para rastrear el tiempo dedicado a las tareas.',
+        },
+        step3: {
+            title: 'Consulta tus registros de tiempo',
+            description: 'Consulta tus registros de tiempo recientes en la pantalla de inicio.',
+        },
+        step4: {
+            title: 'Administra tus Tareas y Etiquetas',
+            description:
+                'Puedes administrar tus tareas y etiquetas en sus respectivas secciones.',
+        },
+        step5: {
+            title: 'Obtén Perspectivas',
+            description:
+                'Puedes consultar perspectivas sobre tu uso del tiempo en la sección de Perspectivas.',
+        },
+        step6: {
+            title: 'Temas, Metas y Más',
+            description:
+                'Puedes configurar temas, metas y más en la sección de Configuración.',
+        },
+    },
 }
 
 const zh: Translation = {
@@ -1422,6 +1627,37 @@ const zh: Translation = {
         goalSetMessage: '您的目标已成功设置!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: '请设置有效目标', // Alert Message
+    },
+
+    tutorial: {
+        skip_btn: '跳过教程',
+        next_btn: '下一个',
+        back_btn: '返回',
+        finish_btn: '完成',
+        step1: {
+            title: '欢迎来到 Timebrew!',
+            description: 'Timebrew 是一个时间跟踪应用，可以帮助您跟踪不同任务所花费的时间。',
+        },
+        step2: {
+            title: '跟踪您的时间',
+            description: '使用计时器跟踪用于任务的时间。',
+        },
+        step3: {
+            title: '查看您的时间记录',
+            description: '在主屏幕上查看您最近的时间记录。',
+        },
+        step4: {
+            title: '管理您的任务和标签',
+            description: '您可以在各自的部分中管理您的任务和标签。',
+        },
+        step5: {
+            title: '获取洞察',
+            description: '在洞察部分查看关于您时间使用情况的洞察。',
+        },
+        step6: {
+            title: '主题、目标和更多',
+            description: '您可以在设置部分设置主题、目标和更多。',
+        },
     },
 }
 
@@ -1626,6 +1862,38 @@ const ko: Translation = {
         ok: 'OK', // Alert Button
         goalSetError: '유효한 목표를 설정하십시오', // Alert Message
     },
+
+    tutorial: {
+        skip_btn: '튜토리얼 건너뛰기',
+        next_btn: '다음',
+        back_btn: '뒤로',
+        finish_btn: '완료',
+        step1: {
+            title: 'Timebrew에 오신 것을 환영합니다!',
+            description:
+                'Timebrew는 다양한 작업에 사용된 시간을 추적하는 데 도움이 되는 시간 추적 앱입니다.',
+        },
+        step2: {
+            title: '시간 추적',
+            description: '작업에 사용된 시간을 추적하려면 타이머를 사용하십시오.',
+        },
+        step3: {
+            title: '시간 기록 확인',
+            description: '홈 화면에서 최근 시간 기록을 확인하십시오.',
+        },
+        step4: {
+            title: '작업 및 태그 관리',
+            description: '각 섹션에서 작업 및 태그를 관리할 수 있습니다.',
+        },
+        step5: {
+            title: '인사이트 얻기',
+            description: '인사이트 섹션에서 시간 사용에 대한 인사이트를 확인할 수 있습니다.',
+        },
+        step6: {
+            title: '테마, 목표 및 기타',
+            description: '설정 섹션에서 테마, 목표 및 기타를 설정할 수 있습니다.',
+        },
+    },
 }
 
 const ja: Translation = {
@@ -1829,6 +2097,38 @@ const ja: Translation = {
         goalSetMessage: '目標が正常に設定されました!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: '有効な目標を設定してください', // Alert Message
+    },
+
+    tutorial: {
+        skip_btn: 'チュートリアルをスキップ',
+        next_btn: '次へ',
+        back_btn: '戻る',
+        finish_btn: '完了',
+        step1: {
+            title: 'Timebrewへようこそ!',
+            description:
+                'Timebrewは、さまざまなタスクに費やされた時間を追跡するのに役立つタイムトラッキングアプリです。',
+        },
+        step2: {
+            title: '時間を追跡する',
+            description: 'タイマーを使用してタスクに費やされた時間を追跡します。',
+        },
+        step3: {
+            title: '時間記録を確認する',
+            description: 'ホーム画面で最近の時間記録を確認します。',
+        },
+        step4: {
+            title: 'タスクとタグを管理する',
+            description: '各セクションでタスクとタグを管理できます。',
+        },
+        step5: {
+            title: 'インサイトを得る',
+            description: 'インサイトセクションで時間の使用に関するインサイトを確認できます。',
+        },
+        step6: {
+            title: 'テーマ、目標、その他',
+            description: '設定セクションでテーマ、目標、その他を設定できます。',
+        },
     },
 }
 
@@ -2037,6 +2337,38 @@ const de: Translation = {
         ok: 'OK', // Alert Button
         goalSetError: 'Bitte setzen Sie ein gültiges Ziel', // Alert Message
     },
+
+    tutorial: {
+        skip_btn: 'Tutorial überspringen',
+        next_btn: 'Weiter',
+        back_btn: 'Zurück',
+        finish_btn: 'Fertig',
+        step1: {
+            title: 'Willkommen bei Timebrew!',
+            description:
+                'Timebrew ist eine Zeitverfolgungs-App, mit der Sie die Zeit verfolgen können, die für verschiedene Aufgaben aufgewendet wird.',
+        },
+        step2: {
+            title: 'Verfolgen Sie Ihre Zeit',
+            description: 'Verwenden Sie den Timer, um die Zeit für Aufgaben zu verfolgen.',
+        },
+        step3: {
+            title: 'Überprüfen Sie Ihre Zeitprotokolle',
+            description: 'Überprüfen Sie auf der Startseite Ihre neuesten Zeitprotokolle.',
+        },
+        step4: {
+            title: 'Verwalten Sie Ihre Aufgaben und Tags',
+            description: 'Sie können Ihre Aufgaben und Tags in den jeweiligen Abschnitten verwalten.',
+        },
+        step5: {
+            title: 'Erhalten Sie Einblicke',
+            description: 'Sehen Sie sich im Abschnitt Einblicke Einblicke in Ihre Zeitnutzung an.',
+        },
+        step6: {
+            title: 'Themen, Ziele und mehr',
+            description: 'In den Einstellungen können Sie Themen, Ziele und mehr einstellen.',
+        },
+    },
 }
 
 const ru: Translation = {
@@ -2241,6 +2573,38 @@ const ru: Translation = {
         goalSetMessage: 'Ваша цель успешно установлена!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: 'Пожалуйста, установите действительную цель', // Alert Message
+    },
+
+    tutorial: {
+        skip_btn: 'Пропустить обучение',
+        next_btn: 'Далее',
+        back_btn: 'Назад',
+        finish_btn: 'Завершить',
+        step1: {
+            title: 'Добро пожаловать в Timebrew!',
+            description:
+                'Timebrew - это приложение для отслеживания времени, которое поможет вам отслеживать время, затраченное на различные задачи.',
+        },
+        step2: {
+            title: 'Отслеживание времени',
+            description: 'Используйте таймер для отслеживания времени, затраченного на задачи.',
+        },
+        step3: {
+            title: 'Просмотр записей времени',
+            description: 'Просматривайте свои последние записи времени на главной странице.',
+        },
+        step4: {
+            title: 'Управление задачами и тегами',
+            description: 'Вы можете управлять задачами и тегами в соответствующих разделах.',
+        },
+        step5: {
+            title: 'Получение аналитики',
+            description: 'Просматривайте аналитику использования времени в разделе Аналитика.',
+        },
+        step6: {
+            title: 'Темы, цели и другое',
+            description: 'В разделе Настройки вы можете установить темы, цели и многое другое.',
+        },
     },
 }
 

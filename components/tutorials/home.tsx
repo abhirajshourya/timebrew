@@ -3,6 +3,7 @@ import TutorialOverlay from './TutorialOverlay'
 import { useState } from 'react'
 import { useMMKVString } from 'react-native-mmkv'
 import { Defs, Mask, Rect, Svg } from 'react-native-svg'
+import i18n from '@/constants/translations'
 
 const Index = () => {
     const [tutorialStep, setTutorialStep] = useState(0)
@@ -35,17 +36,16 @@ const Index = () => {
                         gap={20}
                         backgroundColor={'#fff'}
                     >
-                        <H2>Welcome to Timebrew!</H2>
+                        <H2>{i18n.t('tutorial.step1.title')}</H2>
                         <Paragraph>
-                            Timebrew is a time tracking app that helps you keep
-                            track of your time spent on different tasks.
+                            {i18n.t('tutorial.step1.description')}
                         </Paragraph>
                         <XStack gap={20} justifyContent="flex-end">
                             <Button chromeless onPress={handleSkipTutorial}>
-                                Skip Tutorial
+                                {i18n.t('tutorial.skip_btn')}
                             </Button>
                             <Button onPress={() => setTutorialStep(1)}>
-                                Next
+                                {i18n.t('tutorial.next_btn')}
                             </Button>
                         </XStack>
                     </Card>
@@ -98,19 +98,19 @@ const Index = () => {
                         backgroundColor={'#fff'}
                         marginTop={50}
                     >
-                        <H2>Track your time</H2>
+                        <H2>{i18n.t('tutorial.step2.title')}</H2>
                         <Paragraph>
-                            Use the timer to track your time spent on tasks.
+                            {i18n.t('tutorial.step2.description')}
                         </Paragraph>
                         <XStack gap={20} justifyContent="flex-end">
                             <Button chromeless onPress={handleSkipTutorial}>
-                                Skip Tutorial
+                                {i18n.t('tutorial.skip_btn')}
                             </Button>
                             <Button onPress={() => setTutorialStep(0)}>
-                                Back
+                                {i18n.t('tutorial.back_btn')}
                             </Button>
                             <Button onPress={() => setTutorialStep(2)}>
-                                Next
+                                {i18n.t('tutorial.next_btn')}
                             </Button>
                         </XStack>
                     </Card>
@@ -163,19 +163,19 @@ const Index = () => {
                         backgroundColor={'#fff'}
                         marginTop={50}
                     >
-                        <H2>View your timelogs</H2>
+                        <H2>{i18n.t('tutorial.step3.title')}</H2>
                         <Paragraph>
-                            View your recent timelogs in the home screen.
+                            {i18n.t('tutorial.step3.description')}
                         </Paragraph>
                         <XStack gap={20} justifyContent="flex-end">
                             <Button chromeless onPress={handleSkipTutorial}>
-                                Skip Tutorial
+                                {i18n.t('tutorial.skip_btn')}
                             </Button>
                             <Button onPress={() => setTutorialStep(1)}>
-                                Back
+                                {i18n.t('tutorial.back_btn')}
                             </Button>
                             <Button onPress={() => setTutorialStep(3)}>
-                                Next
+                                {i18n.t('tutorial.next_btn')}
                             </Button>
                         </XStack>
                     </Card>
@@ -227,20 +227,19 @@ const Index = () => {
                         backgroundColor={'#fff'}
                         marginTop={50}
                     >
-                        <H2>Manage your Tasks & Tags</H2>
+                        <H2>{i18n.t('tutorial.step4.title')}</H2>
                         <Paragraph>
-                            You can manage your tasks and tags in their
-                            respective sections.
+                            {i18n.t('tutorial.step4.description')}
                         </Paragraph>
                         <XStack gap={20} justifyContent="flex-end">
                             <Button chromeless onPress={handleSkipTutorial}>
-                                Skip Tutorial
+                                {i18n.t('tutorial.skip_btn')}
                             </Button>
                             <Button onPress={() => setTutorialStep(2)}>
-                                Back
+                                {i18n.t('tutorial.back_btn')}
                             </Button>
                             <Button onPress={() => setTutorialStep(4)}>
-                                Next
+                                {i18n.t('tutorial.next_btn')}
                             </Button>
                         </XStack>
                     </Card>
@@ -292,20 +291,19 @@ const Index = () => {
                         backgroundColor={'#fff'}
                         marginTop={50}
                     >
-                        <H2>Get Insights</H2>
+                        <H2>{i18n.t('tutorial.step5.title')}</H2>
                         <Paragraph>
-                            You can view insights on your time usage in the
-                            insights section.
+                            {i18n.t('tutorial.step5.description')}
                         </Paragraph>
                         <XStack gap={20} justifyContent="flex-end">
                             <Button chromeless onPress={handleSkipTutorial}>
-                                Skip Tutorial
+                                {i18n.t('tutorial.skip_btn')}
                             </Button>
                             <Button onPress={() => setTutorialStep(3)}>
-                                Back
+                                {i18n.t('tutorial.back_btn')}
                             </Button>
                             <Button onPress={() => setTutorialStep(5)}>
-                                Next
+                                {i18n.t('tutorial.next_btn')}
                             </Button>
                         </XStack>
                     </Card>
@@ -357,20 +355,19 @@ const Index = () => {
                         backgroundColor={'#fff'}
                         marginTop={50}
                     >
-                        <H2>Themes, Goals & More</H2>
+                        <H2>{i18n.t('tutorial.step6.title')}</H2>
                         <Paragraph>
-                            You can set themes, goals and more in the settings
-                            section.
+                            {i18n.t('tutorial.step6.description')}
                         </Paragraph>
                         <XStack gap={20} justifyContent="flex-end">
                             <Button chromeless onPress={handleSkipTutorial}>
-                                Skip Tutorial
+                                {i18n.t('tutorial.skip_btn')}
                             </Button>
                             <Button onPress={() => setTutorialStep(4)}>
-                                Back
+                                {i18n.t('tutorial.back_btn')}
                             </Button>
                             <Button onPress={() => handleSkipTutorial()}>
-                                Finish
+                                {i18n.t('tutorial.finish_btn')}
                             </Button>
                         </XStack>
                     </Card>
