@@ -40,14 +40,11 @@ const Index = () => {
                         <Paragraph>
                             {i18n.t('tutorial.step1.description')}
                         </Paragraph>
-                        <XStack gap={20} justifyContent="flex-end">
-                            <Button chromeless onPress={handleSkipTutorial}>
-                                {i18n.t('tutorial.skip_btn')}
-                            </Button>
-                            <Button onPress={() => setTutorialStep(1)}>
-                                {i18n.t('tutorial.next_btn')}
-                            </Button>
-                        </XStack>
+                        <TutorialControls
+                            currentStep={tutorialStep}
+                            setTutorialStep={setTutorialStep}
+                            handleSkipTutorial={handleSkipTutorial}
+                        />
                     </Card>
                 </View>
             )}
@@ -102,17 +99,11 @@ const Index = () => {
                         <Paragraph>
                             {i18n.t('tutorial.step2.description')}
                         </Paragraph>
-                        <XStack gap={20} justifyContent="flex-end">
-                            <Button chromeless onPress={handleSkipTutorial}>
-                                {i18n.t('tutorial.skip_btn')}
-                            </Button>
-                            <Button onPress={() => setTutorialStep(0)}>
-                                {i18n.t('tutorial.back_btn')}
-                            </Button>
-                            <Button onPress={() => setTutorialStep(2)}>
-                                {i18n.t('tutorial.next_btn')}
-                            </Button>
-                        </XStack>
+                        <TutorialControls
+                            currentStep={tutorialStep}
+                            setTutorialStep={setTutorialStep}
+                            handleSkipTutorial={handleSkipTutorial}
+                        />
                     </Card>
                 </View>
             )}
@@ -167,17 +158,11 @@ const Index = () => {
                         <Paragraph>
                             {i18n.t('tutorial.step3.description')}
                         </Paragraph>
-                        <XStack gap={20} justifyContent="flex-end">
-                            <Button chromeless onPress={handleSkipTutorial}>
-                                {i18n.t('tutorial.skip_btn')}
-                            </Button>
-                            <Button onPress={() => setTutorialStep(1)}>
-                                {i18n.t('tutorial.back_btn')}
-                            </Button>
-                            <Button onPress={() => setTutorialStep(3)}>
-                                {i18n.t('tutorial.next_btn')}
-                            </Button>
-                        </XStack>
+                        <TutorialControls
+                            currentStep={tutorialStep}
+                            setTutorialStep={setTutorialStep}
+                            handleSkipTutorial={handleSkipTutorial}
+                        />
                     </Card>
                 </View>
             )}
@@ -231,17 +216,11 @@ const Index = () => {
                         <Paragraph>
                             {i18n.t('tutorial.step4.description')}
                         </Paragraph>
-                        <XStack gap={20} justifyContent="flex-end">
-                            <Button chromeless onPress={handleSkipTutorial}>
-                                {i18n.t('tutorial.skip_btn')}
-                            </Button>
-                            <Button onPress={() => setTutorialStep(2)}>
-                                {i18n.t('tutorial.back_btn')}
-                            </Button>
-                            <Button onPress={() => setTutorialStep(4)}>
-                                {i18n.t('tutorial.next_btn')}
-                            </Button>
-                        </XStack>
+                        <TutorialControls
+                            currentStep={tutorialStep}
+                            setTutorialStep={setTutorialStep}
+                            handleSkipTutorial={handleSkipTutorial}
+                        />
                     </Card>
                 </View>
             )}
@@ -295,17 +274,11 @@ const Index = () => {
                         <Paragraph>
                             {i18n.t('tutorial.step5.description')}
                         </Paragraph>
-                        <XStack gap={20} justifyContent="flex-end">
-                            <Button chromeless onPress={handleSkipTutorial}>
-                                {i18n.t('tutorial.skip_btn')}
-                            </Button>
-                            <Button onPress={() => setTutorialStep(3)}>
-                                {i18n.t('tutorial.back_btn')}
-                            </Button>
-                            <Button onPress={() => setTutorialStep(5)}>
-                                {i18n.t('tutorial.next_btn')}
-                            </Button>
-                        </XStack>
+                        <TutorialControls
+                            currentStep={tutorialStep}
+                            setTutorialStep={setTutorialStep}
+                            handleSkipTutorial={handleSkipTutorial}
+                        />
                     </Card>
                 </View>
             )}
@@ -359,21 +332,53 @@ const Index = () => {
                         <Paragraph>
                             {i18n.t('tutorial.step6.description')}
                         </Paragraph>
-                        <XStack gap={20} justifyContent="flex-end">
-                            <Button chromeless onPress={handleSkipTutorial}>
-                                {i18n.t('tutorial.skip_btn')}
-                            </Button>
-                            <Button onPress={() => setTutorialStep(4)}>
-                                {i18n.t('tutorial.back_btn')}
-                            </Button>
-                            <Button onPress={() => handleSkipTutorial()}>
-                                {i18n.t('tutorial.finish_btn')}
-                            </Button>
-                        </XStack>
+                        <TutorialControls
+                            currentStep={tutorialStep}
+                            setTutorialStep={setTutorialStep}
+                            handleSkipTutorial={handleSkipTutorial}
+                            isFinalStep={true}
+                        />
                     </Card>
                 </View>
             )}
         </TutorialOverlay>
+    )
+}
+
+type tutorialControlProps = {
+    currentStep: number
+    setTutorialStep: (step: number) => void
+    handleSkipTutorial: () => void
+    isFinalStep?: boolean
+}
+
+const TutorialControls = ({
+    currentStep,
+    setTutorialStep,
+    handleSkipTutorial,
+    isFinalStep = false,
+}: tutorialControlProps) => {
+    return (
+        <XStack gap={20} justifyContent="flex-end">
+            <Button chromeless onPress={handleSkipTutorial}>
+                {i18n.t('tutorial.skip_btn')}
+            </Button>
+            {currentStep > 0 && (
+                <Button onPress={() => setTutorialStep(currentStep - 1)}>
+                    {i18n.t('tutorial.back_btn')}
+                </Button>
+            )}
+            {!isFinalStep && (
+                <Button onPress={() => setTutorialStep(currentStep + 1)}>
+                    {i18n.t('tutorial.next_btn')}
+                </Button>
+            )}
+            {isFinalStep && (
+                <Button onPress={() => handleSkipTutorial()}>
+                    {i18n.t('tutorial.finish_btn')}
+                </Button>
+            )}
+        </XStack>
     )
 }
 
