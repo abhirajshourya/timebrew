@@ -1,3 +1,4 @@
+import { mmkv_storage } from '@/app/_layout'
 import CircleButton from '@/components/CircleButton'
 import TimeLogModal from '@/components/Modals/TimeLogModal'
 import TimelogCard from '@/components/TimelogCard'
@@ -11,24 +12,23 @@ import { formatTime } from '@/helpers/time-format'
 import useDatabase from '@/hooks/useDatabase'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
+import { Settings, TimerReset } from '@tamagui/lucide-icons'
+import { useRouter, useSegments } from 'expo-router'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Alert, SafeAreaView, StyleSheet } from 'react-native'
+import * as Progress from 'react-native-progress'
 import {
-    Separator,
-    Text,
-    View,
+    Button,
     H1,
     H2,
+    ScrollView,
+    Separator,
+    Text,
+    useTheme,
+    View,
     XStack,
     YStack,
-    ScrollView,
-    Button,
-    useTheme,
 } from 'tamagui'
-import { useRouter, useSegments } from 'expo-router'
-import { Settings, TimerReset } from '@tamagui/lucide-icons'
-import { mmkv_storage } from '@/app/_layout'
-import * as Progress from 'react-native-progress'
 
 const Tracker = ({}) => {
     const {

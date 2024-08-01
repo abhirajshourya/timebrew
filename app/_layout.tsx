@@ -8,19 +8,19 @@ import {
 } from '@react-navigation/native'
 import { Theme as NavigationThemeType } from '@react-navigation/native/src/types'
 import { config } from '@tamagui/config/v3'
-import { TamaguiProvider, createTamagui } from '@tamagui/core' // or 'tamagui'
+import { TamaguiProvider, createTamagui } from '@tamagui/core'; // or 'tamagui'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { SQLiteProvider } from 'expo-sqlite/next'
 import { StatusBar } from 'expo-status-bar'
-import { Suspense, useEffect, useState } from 'react'
-import { LogBox, Text, View } from 'react-native'
-import { useMMKVString } from 'react-native-mmkv'
+import React, { useEffect, useState } from 'react'
+import { LogBox, View } from 'react-native'
+import AnimatedSplashScreen from 'react-native-animated-splash-screen'
+import { MMKV, useMMKVString } from 'react-native-mmkv'
 import 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { PortalProvider, Spinner } from 'tamagui'
-import { MMKV } from 'react-native-mmkv'
+import { PortalProvider } from 'tamagui'
 
 const tamaguiConfig = createTamagui(config)
 
@@ -50,6 +50,7 @@ export default function RootLayout() {
     LogBox.ignoreLogs(['Warning: Cannot update a component'])
 
     const colorScheme = useColorScheme()
+    const [splashScreen, setSplashScreen] = useState(false)
 
     useEffect(() => {
         setTheme(JSON.parse(themeSettings || '{}'))
@@ -60,10 +61,11 @@ export default function RootLayout() {
     })
 
     useEffect(() => {
-        if (loaded) {
-            SplashScreen.hideAsync()
+        setTimeout(() => {
+            setSplashScreen(true)
         }
-    }, [loaded])
+        , 1000)
+    }, [])
 
     if (!loaded) {
         return null
@@ -77,49 +79,47 @@ export default function RootLayout() {
             }`}
         >
             <StatusBar style={colorScheme === 'light' ? 'light' : 'dark'} />
+            
             <ThemeProvider value={theme.system ? DarkTheme : DefaultTheme}>
                 <PortalProvider>
+
+                    {!splashScreen && loaded && <View style={{ width: '100%', height: '100%' }}>
+                        <AnimatedSplashScreen
+                                    translucent={false}
+                                    isLoaded={splashScreen && loaded}
+                                    logoImage={require("../assets/images/logoTimebrew.png")}
+                                    backgroundColor={"#ffffff"}
+                                    logoHeight={0}
+                                    logoWidth={0}
+                >
+                        </AnimatedSplashScreen>
+                    </View>}
+
                     <SafeAreaView style={{ flex: 1 }}>
-                        <Suspense
-                            fallback={
-                                <View
-                                    style={{
-                                        flex: 1,
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        gap: 10,
-                                    }}
-                                >
-                                    <Spinner size="large" color={'$color10'} />
-                                    <Text>{i18n.t('loading_db')}</Text>
-                                </View>
-                            }
+                        <SQLiteProvider
+                            useSuspense
+                            databaseName="timebrew.db"
                         >
-                            <SQLiteProvider
-                                useSuspense
-                                databaseName="timebrew.db"
-                            >
-                                <Stack initialRouteName="Tracker">
-                                    <Stack.Screen
-                                        name="(tabs)"
-                                        options={{
-                                            headerShown: false,
-                                            title: i18n.t(
-                                                'tracker_screen.layout.tracker'
-                                            ),
-                                        }}
-                                    />
-                                    <Stack.Screen
-                                        name="settings"
-                                        options={{
-                                            headerShown: true,
-                                            title: i18n.t('settings.title'),
-                                        }}
-                                    />
-                                    <Stack.Screen name="+not-found" />
-                                </Stack>
-                            </SQLiteProvider>
-                        </Suspense>
+                            <Stack initialRouteName="Tracker">
+                                <Stack.Screen
+                                    name="(tabs)"
+                                    options={{
+                                        headerShown: false,
+                                        title: i18n.t(
+                                            'tracker_screen.layout.tracker'
+                                        ),
+                                    }}
+                                />
+                                <Stack.Screen
+                                    name="settings"
+                                    options={{
+                                        headerShown: true,
+                                        title: i18n.t('settings.title'),
+                                    }}
+                                />
+                                <Stack.Screen name="+not-found" />
+                            </Stack>
+                        </SQLiteProvider>
                     </SafeAreaView>
                 </PortalProvider>
             </ThemeProvider>
