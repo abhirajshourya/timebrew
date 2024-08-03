@@ -181,6 +181,10 @@ type Translation = {
         inputPlaceholder: string
         setBtn: string
         prevGoalTime: string
+        notificationTitle: string
+        notificationMessage: string
+        notificationLabel: string
+        notificationTimeLabel: string
     }
     alert: {
         goalSet: string
@@ -377,6 +381,10 @@ const en: Translation = {
         inputPlaceholder: 'Enter Time Goal, e.g. 1h 30m',
         setBtn: 'Set',
         prevGoalTime: 'Previous Goal: ',
+        notificationTitle: '⏱️ Daily Goal',
+        notificationMessage: 'Make sure to complete your daily goal!',
+        notificationLabel: 'Notification',
+        notificationTimeLabel: 'Notification Time',
     },
 
     alert: {
@@ -576,6 +584,11 @@ const vi: Translation = {
         inputPlaceholder: 'Nhập Mục tiêu thời gian, ví dụ: 1h 30m',
         setBtn: 'Đặt',
         prevGoalTime: 'Mục tiêu trước: ',
+        notificationTitle: '⏱️ Mục tiêu hàng ngày',
+        notificationMessage:
+            'Hãy chắc chắn hoàn thành mục tiêu hàng ngày của bạn!',
+        notificationLabel: 'Thông Báo',
+        notificationTimeLabel: 'Thời Gian Thông Báo',
     },
 
     alert: {
@@ -779,6 +792,11 @@ const fr: Translation = {
         inputPlaceholder: "Entrez l'objectif de temps, par ex. 1h 30m",
         setBtn: 'Définir',
         prevGoalTime: 'Objectif précédent: ',
+        notificationTitle: '⏱️ Objectif quotidien',
+        notificationMessage:
+            'Assurez-vous de compléter votre objectif quotidien!',
+        notificationLabel: 'Notification',
+        notificationTimeLabel: 'Heure de la notification',
     },
 
     alert: {
@@ -976,6 +994,11 @@ const hi: Translation = {
         inputPlaceholder: 'समय लक्ष्य दर्ज करें, जैसे 1h 30m',
         setBtn: 'सेट करें',
         prevGoalTime: 'पिछला लक्ष्य: ',
+        notificationTitle: '⏱️ दैनिक लक्ष्य',
+        notificationMessage:
+            'कृपया अपने दैनिक लक्ष्य को पूरा करने की सुनिश्चित करें!',
+        notificationLabel: 'सूचना',
+        notificationTimeLabel: 'सूचना समय',
     },
 
     alert: {
@@ -1177,6 +1200,10 @@ const es: Translation = {
         inputPlaceholder: 'Ingrese el objetivo de tiempo, ej. 1h 30m',
         setBtn: 'Establecer',
         prevGoalTime: 'Meta anterior: ',
+        notificationTitle: '⏱️ Meta diaria',
+        notificationMessage: '¡Asegúrese de completar su meta diaria!',
+        notificationLabel: 'Notificación',
+        notificationTimeLabel: 'Hora de la notificación',
     },
 
     alert: {
@@ -1374,6 +1401,10 @@ const zh: Translation = {
         inputPlaceholder: '输入时间目标，例如 1小时 30分钟',
         setBtn: '设置',
         prevGoalTime: '上一个目标: ',
+        notificationTitle: '⏱️ 每日目标',
+        notificationMessage: '确保完成您的每日目标!',
+        notificationLabel: '通知',
+        notificationTimeLabel: '通知时间',
     },
 
     alert: {
@@ -1571,6 +1602,10 @@ const ko: Translation = {
         inputPlaceholder: '시간 목표 입력, 예: 1시간 30분',
         setBtn: '설정',
         prevGoalTime: '이전 목표: ',
+        notificationTitle: '⏱️ 일일 목표',
+        notificationMessage: '일일 목표를 달성하도록 확인하세요!',
+        notificationLabel: '알림',
+        notificationTimeLabel: '알림 시간',
     },
 
     alert: {
@@ -1769,6 +1804,10 @@ const ja: Translation = {
         inputPlaceholder: '目標時間を入力してください, 例: 1時間 30分',
         setBtn: '設定',
         prevGoalTime: '前の目標: ',
+        notificationTitle: '⏱️ 毎日の目標',
+        notificationMessage: '毎日の目標を達成するようにしてください！',
+        notificationLabel: '通知',
+        notificationTimeLabel: '通知時間',
     },
 
     alert: {
@@ -1970,6 +2009,11 @@ const de: Translation = {
         inputPlaceholder: 'Zeit-Ziel eingeben, z.B. 1h 30m',
         setBtn: 'Setzen',
         prevGoalTime: 'Vorheriges Ziel: ',
+        notificationTitle: '⏱️ Tägliches Ziel',
+        notificationMessage:
+            'Stellen Sie sicher, dass Sie Ihr tägliches Ziel erreichen!',
+        notificationLabel: 'Benachrichtigung',
+        notificationTimeLabel: 'Benachrichtigungszeit',
     },
 
     alert: {
@@ -2169,6 +2213,11 @@ const ru: Translation = {
         inputPlaceholder: 'Введите цель по времени, напр. 1ч 30м',
         setBtn: 'Установить',
         prevGoalTime: 'Предыдущая цель: ',
+        notificationTitle: '⏱️ Ежедневная цель',
+        notificationMessage:
+            'Убедитесь, что вы достигли своей ежедневной цели!',
+        notificationLabel: 'Уведомление',
+        notificationTimeLabel: 'Время уведомления',
     },
 
     alert: {

@@ -96,8 +96,8 @@ const Index = () => {
         await Notifications.requestPermissionsAsync().then(() => {
             Notifications.scheduleNotificationAsync({
                 content: {
-                    title: '⏱️ Daily Goal',
-                    subtitle: 'Make sure to complete your daily goal!',
+                    title: i18n.t('goals_screen.notificationTitle'),
+                    subtitle: i18n.t('goals_screen.notificationMessage'),
                 },
                 trigger: {
                     repeats: true,
@@ -192,7 +192,10 @@ const Index = () => {
                     )}
                     {dailyGoal && (
                         <YGroup.Item>
-                            <ListItem pressTheme title={'Notification'}>
+                            <ListItem
+                                pressTheme
+                                title={i18n.t('goals_screen.notificationLabel')}
+                            >
                                 <XStack
                                     gap={10}
                                     alignItems="center"
@@ -225,7 +228,12 @@ const Index = () => {
                     )}
                     {dailyGoal && notification && (
                         <YGroup.Item>
-                            <ListItem pressTheme title={'Notification Time'}>
+                            <ListItem
+                                pressTheme
+                                title={i18n.t(
+                                    'goals_screen.notificationTimeLabel'
+                                )}
+                            >
                                 <XStack
                                     gap={10}
                                     justifyContent="space-between"
@@ -279,7 +287,5 @@ const Index = () => {
         </ScrollView>
     )
 }
-
-const styles = StyleSheet.create({})
 
 export default Index
