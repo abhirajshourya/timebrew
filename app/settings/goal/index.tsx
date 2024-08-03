@@ -10,17 +10,24 @@ import {
     ScrollView,
     Input,
     Button,
+    XGroup,
 } from 'tamagui'
 import { formatTime, formatTimeToSeconds } from '@/helpers/time-format'
 import { mmkv_storage } from '@/app/_layout'
 import i18n from '@/constants/translations'
 import * as Notifications from 'expo-notifications'
 import { router } from 'expo-router'
+import { Clock } from '@tamagui/lucide-icons'
+import DatePicker from 'react-native-date-picker'
 
 const Index = () => {
     const [dailyGoal, setDailyGoal] = useState(true)
 
     const [dailyGoalTime, setDailyGoalTime] = useState(0)
+
+    const [notification, setNotification] = useState(false)
+    const [notificationTime, setNotificationTime] = useState(new Date())
+    const [timePickerVisible, setTimePickerVisible] = useState(false)
 
     function onSetDailyGoalTimeHandler() {
         mmkv_storage.set('goal.dailytime', dailyGoalTime)
@@ -40,8 +47,27 @@ const Index = () => {
         if (goal_daily) {
             const goal_dailytime = mmkv_storage.getNumber('goal.dailytime')
             setDailyGoalTime(goal_dailytime || 0)
+
+            const notification = mmkv_storage.getBoolean('goal.notification')
+            setNotification(notification || false)
+
+            if (notification) {
+                const notificationTime = new Date(
+                    mmkv_storage.getString('goal.notificationTime') ||
+                        new Date()
+                )
+                setNotificationTime(notificationTime)
+            }
         }
     }, [])
+
+    useEffect(() => {
+        if (dailyGoal && notification) {
+            scheduleNotification()
+        } else {
+            cancelAllNotifications()
+        }
+    }, [dailyGoal, notification])
 
     useEffect(() => {
         const subscription = Notifications.addNotificationReceivedListener(
@@ -75,8 +101,8 @@ const Index = () => {
                 },
                 trigger: {
                     repeats: true,
-                    hour: 16,
-                    minute: 0,
+                    hour: notificationTime.getHours(),
+                    minute: notificationTime.getMinutes(),
                 },
             })
         })
@@ -162,6 +188,90 @@ const Index = () => {
                                         dailyGoalTime
                                 )}`}
                             />
+                        </YGroup.Item>
+                    )}
+                    {dailyGoal && (
+                        <YGroup.Item>
+                            <ListItem pressTheme title={'Notification'}>
+                                <XStack
+                                    gap={10}
+                                    alignItems="center"
+                                    justifyContent="space-between"
+                                >
+                                    <H4>
+                                        {notification
+                                            ? i18n.t('goals_screen.on')
+                                            : i18n.t('goals_screen.off')}
+                                    </H4>
+                                    <Switch
+                                        size={'$3'}
+                                        checked={notification}
+                                        onCheckedChange={async (checked) => {
+                                            setNotification(checked)
+                                            mmkv_storage.set(
+                                                'goal.notification',
+                                                checked
+                                            )
+                                        }}
+                                        native
+                                    >
+                                        <Switch.Thumb
+                                            animation={'superBouncy'}
+                                        />
+                                    </Switch>
+                                </XStack>
+                            </ListItem>
+                        </YGroup.Item>
+                    )}
+                    {dailyGoal && notification && (
+                        <YGroup.Item>
+                            <ListItem pressTheme title={'Notification Time'}>
+                                <XStack
+                                    gap={10}
+                                    justifyContent="space-between"
+                                    width={'100%'}
+                                >
+                                    <XGroup gap={10} alignItems="center">
+                                        <XGroup.Item>
+                                            <Button
+                                                variant="outlined"
+                                                onPress={() =>
+                                                    setTimePickerVisible(true)
+                                                }
+                                                icon={<Clock />}
+                                            >
+                                                {notificationTime.toLocaleTimeString(
+                                                    'en-US',
+                                                    {
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                    }
+                                                )}
+                                            </Button>
+                                        </XGroup.Item>
+                                    </XGroup>
+                                    <DatePicker
+                                        modal
+                                        mode="time"
+                                        open={timePickerVisible}
+                                        date={notificationTime}
+                                        onConfirm={(date) => {
+                                            setTimePickerVisible(false)
+                                            setNotificationTime(date)
+                                            mmkv_storage.set(
+                                                'goal.notificationTime',
+                                                notificationTime.toString()
+                                            )
+                                        }}
+                                        onCancel={() =>
+                                            setTimePickerVisible(false)
+                                        }
+                                    />
+                                    <Button onPress={scheduleNotification}>
+                                        {i18n.t('goals_screen.setBtn')}
+                                    </Button>
+                                </XStack>
+                            </ListItem>
                         </YGroup.Item>
                     )}
                 </YGroup>
