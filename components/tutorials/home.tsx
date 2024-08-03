@@ -375,7 +375,12 @@ const TutorialControls = ({
                 {i18n.t('tutorial.skip_btn')}
             </Button>
             {currentStep > 0 && (
-                <Button onPress={() => setTutorialStep(currentStep - 1)}>
+                <Button
+                    variant="outlined"
+                    borderColor={'$color5'}
+                    // chromeless
+                    onPress={() => setTutorialStep(currentStep - 1)}
+                >
                     {i18n.t('tutorial.back_btn')}
                 </Button>
             )}
