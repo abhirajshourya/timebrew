@@ -32,7 +32,7 @@ declare module 'tamagui' {
 }
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync()
+SplashScreen.hideAsync()
 
 export const mmkv_storage = new MMKV()
 
@@ -90,8 +90,7 @@ export default function RootLayout() {
                                     logoImage={require("../assets/images/logoTimebrew.png")}
                                     backgroundColor={"#ffffff"}
                                     logoHeight={0}
-                                    logoWidth={0}
-                >
+                                    logoWidth={0}>
                         </AnimatedSplashScreen>
                     </View>}
 
