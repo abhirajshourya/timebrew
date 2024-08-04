@@ -1,6 +1,6 @@
 import { View, Card, H2, Paragraph, XStack, Button, useTheme } from 'tamagui'
 import TutorialOverlay from './TutorialOverlay'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMMKVString } from 'react-native-mmkv'
 import { Defs, Mask, Rect, Svg } from 'react-native-svg'
 import i18n from '@/constants/translations'
@@ -11,6 +11,10 @@ const Index = () => {
     const [themeSettingsJson, setTheme] = useState<Theme>(
         JSON.parse(themeSettings || '{}')
     )
+
+    useEffect(() => {
+        setTheme(JSON.parse(themeSettings || '{}'))
+    }, [themeSettings])
 
     const [backgroundFill, setBackgroundFill] = useState(
         themeSettingsJson.system ? 'rgba(100,100,100,0.5)' : 'rgba(0,0,0,0.5)'
