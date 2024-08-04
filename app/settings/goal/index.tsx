@@ -115,6 +115,17 @@ const Index = () => {
                 },
             })
         })
+
+        Alert.alert(
+            i18n.t('alert.notificationSet'),
+            i18n.t('alert.notificationSetMessage'),
+            [
+                {
+                    text: i18n.t('alert.ok'),
+                    style: 'default',
+                },
+            ]
+        )
     }
 
     async function cancelAllNotifications() {

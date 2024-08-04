@@ -196,6 +196,8 @@ type Translation = {
         goalSetMessage: string
         ok: string
         goalSetError: string
+        notificationSet: string
+        notificationSetMessage: string
     }
     tutorial: {
         skip_btn: string
@@ -433,6 +435,8 @@ const en: Translation = {
         goalSetMessage: 'Your goal has been successfully set!',
         ok: 'OK',
         goalSetError: 'Please set a valid goal',
+        notificationSet: 'Notification Set',
+        notificationSetMessage: 'Your notification has been successfully set!',
     },
 
     tutorial: {
@@ -678,6 +682,8 @@ const vi: Translation = {
         goalSetMessage: 'Mục tiêu của bạn đã được đặt thành công!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: 'Vui lòng đặt mục tiêu hợp lệ', // Alert Message
+        notificationSet: 'Thông báo đã đặt', // Alert Title
+        notificationSetMessage: 'Thông báo của bạn đã được đặt thành công!', // Alert
     },
 
     tutorial: {
@@ -692,11 +698,13 @@ const vi: Translation = {
         },
         step2: {
             title: 'Theo dõi thời gian của bạn',
-            description: 'Sử dụng bộ đếm để theo dõi thời gian bạn đã dành cho các công việc.',
+            description:
+                'Sử dụng bộ đếm để theo dõi thời gian bạn đã dành cho các công việc.',
         },
         step3: {
             title: 'Xem nhật ký thời gian của bạn',
-            description: 'Xem nhật ký thời gian gần đây của bạn trên màn hình chính.',
+            description:
+                'Xem nhật ký thời gian gần đây của bạn trên màn hình chính.',
         },
         step4: {
             title: 'Quản lý Công Việc & Thẻ của bạn',
@@ -927,6 +935,8 @@ const fr: Translation = {
         goalSetMessage: 'Votre objectif a été défini avec succès!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: 'Veuillez définir un objectif valide', // Alert Message
+        notificationSet: 'Notification définie', // Alert Title
+        notificationSetMessage: 'Votre notification a été définie avec succès!', // Alert
     },
 
     tutorial: {
@@ -941,11 +951,13 @@ const fr: Translation = {
         },
         step2: {
             title: 'Suivez votre temps',
-            description: 'Utilisez le minuteur pour suivre le temps passé sur les tâches.',
+            description:
+                'Utilisez le minuteur pour suivre le temps passé sur les tâches.',
         },
         step3: {
             title: 'Consultez vos journaux de temps',
-            description: 'Consultez vos journaux de temps récents sur l’écran d’accueil.',
+            description:
+                'Consultez vos journaux de temps récents sur l’écran d’accueil.',
         },
         step4: {
             title: 'Gérez vos Tâches & Étiquettes',
@@ -1170,6 +1182,8 @@ const hi: Translation = {
         goalSetMessage: 'आपका लक्ष्य सफलतापूर्वक सेट कर दिया गया है!', // Alert Message
         ok: 'ठीक है', // Alert Button
         goalSetError: 'कृपया एक वैध लक्ष्य सेट करें', // Alert Message
+        notificationSet: 'सूचना सेट की गई', // Alert Title
+        notificationSetMessage: 'आपकी सूचना सफलतापूर्वक सेट की गई है!', // Alert
     },
 
     tutorial: {
@@ -1184,7 +1198,8 @@ const hi: Translation = {
         },
         step2: {
             title: 'अपना समय ट्रैक करें',
-            description: 'कार्यों पर बिताए गए समय को ट्रैक करने के लिए टाइमर का उपयोग करें।',
+            description:
+                'कार्यों पर बिताए गए समय को ट्रैक करने के लिए टाइमर का उपयोग करें।',
         },
         step3: {
             title: 'अपने समय लॉग देखें',
@@ -1197,7 +1212,8 @@ const hi: Translation = {
         },
         step5: {
             title: 'विस्तृत जानकारी प्राप्त करें',
-            description: 'अपने समय उपयोग के बारे में विस्तृत जानकारी प्राप्त करें।',
+            description:
+                'अपने समय उपयोग के बारे में विस्तृत जानकारी प्राप्त करें।',
         },
         step6: {
             title: 'थीम, लक्ष्य और अधिक',
@@ -1415,6 +1431,8 @@ const es: Translation = {
         goalSetMessage: '¡Su meta ha sido establecida con éxito!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: 'Por favor establezca una meta válida', // Alert Message
+        notificationSet: 'Notificación establecida', // Alert Title
+        notificationSetMessage: '¡Su notificación ha sido establecida con éxito!', // Alert
     },
 
     tutorial: {
@@ -1434,7 +1452,8 @@ const es: Translation = {
         },
         step3: {
             title: 'Consulta tus registros de tiempo',
-            description: 'Consulta tus registros de tiempo recientes en la pantalla de inicio.',
+            description:
+                'Consulta tus registros de tiempo recientes en la pantalla de inicio.',
         },
         step4: {
             title: 'Administra tus Tareas y Etiquetas',
@@ -1658,6 +1677,8 @@ const zh: Translation = {
         goalSetMessage: '您的目标已成功设置!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: '请设置有效目标', // Alert Message
+        notificationSet: '通知设置', // Alert Title
+        notificationSetMessage: '您的通知已成功设置!', // Alert
     },
 
     tutorial: {
@@ -1667,7 +1688,8 @@ const zh: Translation = {
         finish_btn: '完成',
         step1: {
             title: '欢迎来到 Timebrew!',
-            description: 'Timebrew 是一个时间跟踪应用，可以帮助您跟踪不同任务所花费的时间。',
+            description:
+                'Timebrew 是一个时间跟踪应用，可以帮助您跟踪不同任务所花费的时间。',
         },
         step2: {
             title: '跟踪您的时间',
@@ -1896,6 +1918,8 @@ const ko: Translation = {
         goalSetMessage: '목표가 성공적으로 설정되었습니다!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: '유효한 목표를 설정하십시오', // Alert Message
+        notificationSet: '알림 설정됨', // Alert Title
+        notificationSetMessage: '알림이 성공적으로 설정되었습니다!', // Alert
     },
 
     tutorial: {
@@ -1910,7 +1934,8 @@ const ko: Translation = {
         },
         step2: {
             title: '시간 추적',
-            description: '작업에 사용된 시간을 추적하려면 타이머를 사용하십시오.',
+            description:
+                '작업에 사용된 시간을 추적하려면 타이머를 사용하십시오.',
         },
         step3: {
             title: '시간 기록 확인',
@@ -1922,11 +1947,13 @@ const ko: Translation = {
         },
         step5: {
             title: '인사이트 얻기',
-            description: '인사이트 섹션에서 시간 사용에 대한 인사이트를 확인할 수 있습니다.',
+            description:
+                '인사이트 섹션에서 시간 사용에 대한 인사이트를 확인할 수 있습니다.',
         },
         step6: {
             title: '테마, 목표 및 기타',
-            description: '설정 섹션에서 테마, 목표 및 기타를 설정할 수 있습니다.',
+            description:
+                '설정 섹션에서 테마, 목표 및 기타를 설정할 수 있습니다.',
         },
     },
 }
@@ -2136,6 +2163,8 @@ const ja: Translation = {
         goalSetMessage: '目標が正常に設定されました!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: '有効な目標を設定してください', // Alert Message
+        notificationSet: '通知設定', // Alert Title
+        notificationSetMessage: '通知が正常に設定されました!', // Alert
     },
 
     tutorial: {
@@ -2150,7 +2179,8 @@ const ja: Translation = {
         },
         step2: {
             title: '時間を追跡する',
-            description: 'タイマーを使用してタスクに費やされた時間を追跡します。',
+            description:
+                'タイマーを使用してタスクに費やされた時間を追跡します。',
         },
         step3: {
             title: '時間記録を確認する',
@@ -2162,7 +2192,8 @@ const ja: Translation = {
         },
         step5: {
             title: 'インサイトを得る',
-            description: 'インサイトセクションで時間の使用に関するインサイトを確認できます。',
+            description:
+                'インサイトセクションで時間の使用に関するインサイトを確認できます。',
         },
         step6: {
             title: 'テーマ、目標、その他',
@@ -2380,6 +2411,8 @@ const de: Translation = {
         goalSetMessage: 'Ihr Ziel wurde erfolgreich gesetzt!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: 'Bitte setzen Sie ein gültiges Ziel', // Alert Message
+        notificationSet: 'Benachrichtigung gesetzt', // Alert Title
+        notificationSetMessage: 'Ihre Benachrichtigung wurde erfolgreich gesetzt!', // Alert
     },
 
     tutorial: {
@@ -2394,23 +2427,28 @@ const de: Translation = {
         },
         step2: {
             title: 'Verfolgen Sie Ihre Zeit',
-            description: 'Verwenden Sie den Timer, um die Zeit für Aufgaben zu verfolgen.',
+            description:
+                'Verwenden Sie den Timer, um die Zeit für Aufgaben zu verfolgen.',
         },
         step3: {
             title: 'Überprüfen Sie Ihre Zeitprotokolle',
-            description: 'Überprüfen Sie auf der Startseite Ihre neuesten Zeitprotokolle.',
+            description:
+                'Überprüfen Sie auf der Startseite Ihre neuesten Zeitprotokolle.',
         },
         step4: {
             title: 'Verwalten Sie Ihre Aufgaben und Tags',
-            description: 'Sie können Ihre Aufgaben und Tags in den jeweiligen Abschnitten verwalten.',
+            description:
+                'Sie können Ihre Aufgaben und Tags in den jeweiligen Abschnitten verwalten.',
         },
         step5: {
             title: 'Erhalten Sie Einblicke',
-            description: 'Sehen Sie sich im Abschnitt Einblicke Einblicke in Ihre Zeitnutzung an.',
+            description:
+                'Sehen Sie sich im Abschnitt Einblicke Einblicke in Ihre Zeitnutzung an.',
         },
         step6: {
             title: 'Themen, Ziele und mehr',
-            description: 'In den Einstellungen können Sie Themen, Ziele und mehr einstellen.',
+            description:
+                'In den Einstellungen können Sie Themen, Ziele und mehr einstellen.',
         },
     },
 }
@@ -2622,6 +2660,8 @@ const ru: Translation = {
         goalSetMessage: 'Ваша цель успешно установлена!', // Alert Message
         ok: 'OK', // Alert Button
         goalSetError: 'Пожалуйста, установите действительную цель', // Alert Message
+        notificationSet: 'Уведомление установлено', // Alert Title
+        notificationSetMessage: 'Ваше уведомление успешно установлено!', // Alert
     },
 
     tutorial: {
@@ -2636,23 +2676,28 @@ const ru: Translation = {
         },
         step2: {
             title: 'Отслеживание времени',
-            description: 'Используйте таймер для отслеживания времени, затраченного на задачи.',
+            description:
+                'Используйте таймер для отслеживания времени, затраченного на задачи.',
         },
         step3: {
             title: 'Просмотр записей времени',
-            description: 'Просматривайте свои последние записи времени на главной странице.',
+            description:
+                'Просматривайте свои последние записи времени на главной странице.',
         },
         step4: {
             title: 'Управление задачами и тегами',
-            description: 'Вы можете управлять задачами и тегами в соответствующих разделах.',
+            description:
+                'Вы можете управлять задачами и тегами в соответствующих разделах.',
         },
         step5: {
             title: 'Получение аналитики',
-            description: 'Просматривайте аналитику использования времени в разделе Аналитика.',
+            description:
+                'Просматривайте аналитику использования времени в разделе Аналитика.',
         },
         step6: {
             title: 'Темы, цели и другое',
-            description: 'В разделе Настройки вы можете установить темы, цели и многое другое.',
+            description:
+                'В разделе Настройки вы можете установить темы, цели и многое другое.',
         },
     },
 }
