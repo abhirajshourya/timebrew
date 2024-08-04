@@ -46,7 +46,6 @@ const Index = () => {
                 style: 'default',
             },
         ])
-        scheduleNotification()
     }
 
     useEffect(() => {
@@ -76,7 +75,7 @@ const Index = () => {
         } else {
             cancelAllNotifications()
         }
-    }, [dailyGoal, notification])
+    }, [notification])
 
     useEffect(() => {
         const subscription = Notifications.addNotificationReceivedListener(
@@ -113,19 +112,19 @@ const Index = () => {
                     hour: notificationTime.getHours(),
                     minute: notificationTime.getMinutes(),
                 },
+            }).then(() => {
+                Alert.alert(
+                    i18n.t('alert.notificationSet'),
+                    i18n.t('alert.notificationSetMessage'),
+                    [
+                        {
+                            text: i18n.t('alert.ok'),
+                            style: 'default',
+                        },
+                    ]
+                )
             })
         })
-
-        Alert.alert(
-            i18n.t('alert.notificationSet'),
-            i18n.t('alert.notificationSetMessage'),
-            [
-                {
-                    text: i18n.t('alert.ok'),
-                    style: 'default',
-                },
-            ]
-        )
     }
 
     async function cancelAllNotifications() {
