@@ -7,7 +7,7 @@ import {
 } from '@react-navigation/native'
 import { Theme as NavigationThemeType } from '@react-navigation/native/src/types'
 import { config } from '@tamagui/config/v3'
-import { TamaguiProvider, createTamagui } from '@tamagui/core'; // or 'tamagui'
+import { TamaguiProvider, createTamagui } from '@tamagui/core' // or 'tamagui'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
@@ -60,8 +60,7 @@ export default function RootLayout() {
     useEffect(() => {
         setTimeout(() => {
             setSplashScreen(true)
-        }
-        , 1000)
+        }, 1000)
     }, [])
 
     if (!loaded) {
@@ -78,44 +77,40 @@ export default function RootLayout() {
             <StatusBar style={theme.system ? 'light' : 'dark'} />
             <ThemeProvider value={theme.system ? DarkTheme : DefaultTheme}>
                 <PortalProvider>
+                    {!splashScreen && loaded && (
+                        <View style={{ width: '100%', height: '100%' }}>
+                            <AnimatedSplashScreen
+                                translucent={false}
+                                isLoaded={splashScreen && loaded}
+                                logoImage={require('../assets/images/logoTimebrew.png')}
+                                backgroundColor={'#ffffff'}
+                                logoHeight={0}
+                                logoWidth={0}
+                            ></AnimatedSplashScreen>
+                        </View>
+                    )}
 
-                    {!splashScreen && loaded && <View style={{ width: '100%', height: '100%' }}>
-                        <AnimatedSplashScreen
-                                    translucent={false}
-                                    isLoaded={splashScreen && loaded}
-                                    logoImage={require("../assets/images/logoTimebrew.png")}
-                                    backgroundColor={"#ffffff"}
-                                    logoHeight={0}
-                                    logoWidth={0}>
-                        </AnimatedSplashScreen>
-                    </View>}
-
-                    <SafeAreaView style={{ flex: 1 }}>
-                        <SQLiteProvider
-                            useSuspense
-                            databaseName="timebrew.db"
-                        >
-                            <Stack initialRouteName="Tracker">
-                                <Stack.Screen
-                                    name="(tabs)"
-                                    options={{
-                                        headerShown: false,
-                                        title: i18n.t(
-                                            'tracker_screen.layout.tracker'
-                                        ),
-                                    }}
-                                />
-                                <Stack.Screen
-                                    name="settings"
-                                    options={{
-                                        headerShown: true,
-                                        title: i18n.t('settings.title'),
-                                    }}
-                                />
-                                <Stack.Screen name="+not-found" />
-                            </Stack>
-                        </SQLiteProvider>
-                    </SafeAreaView>
+                    <SQLiteProvider useSuspense databaseName="timebrew.db">
+                        <Stack initialRouteName="Tracker">
+                            <Stack.Screen
+                                name="(tabs)"
+                                options={{
+                                    headerShown: false,
+                                    title: i18n.t(
+                                        'tracker_screen.layout.tracker'
+                                    ),
+                                }}
+                            />
+                            <Stack.Screen
+                                name="settings"
+                                options={{
+                                    headerShown: true,
+                                    title: i18n.t('settings.title'),
+                                }}
+                            />
+                            <Stack.Screen name="+not-found" />
+                        </Stack>
+                    </SQLiteProvider>
                 </PortalProvider>
             </ThemeProvider>
         </TamaguiProvider>
