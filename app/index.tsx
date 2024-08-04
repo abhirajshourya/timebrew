@@ -1,6 +1,7 @@
 import { useFocusEffect, useRouter } from 'expo-router'
 import React from 'react'
 import { Text, View } from 'react-native'
+import { Spinner, YStack } from 'tamagui'
 
 const App = () => {
     const router = useRouter()
@@ -10,18 +11,10 @@ const App = () => {
     })
 
     return (
-        // <AnimatedSplashScreen
-        //     translucent={true}
-        //     // isLoaded={this.state.isLoaded}
-        //     logoImage={require("../assets/images/logoTimebrew.png")}
-        //     backgroundColor={"#262626"}
-        //     logoHeight={150}
-        //     logoWidth={150}
-        // >
-            <View>
-                <Text>Loading...</Text>
-            </View>
-        // {/* </AnimatedSplashScreen>         */}
+        <YStack>
+            <Spinner />
+            <Text>Loading...</Text>
+        </YStack>
     )
 }
 

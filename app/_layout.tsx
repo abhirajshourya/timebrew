@@ -1,6 +1,5 @@
 import i18n from '@/constants/translations'
 import { type Theme } from '@/constants/types'
-import { useColorScheme } from '@/hooks/useColorScheme'
 import {
     DarkTheme,
     DefaultTheme,
@@ -48,8 +47,6 @@ export default function RootLayout() {
     ])
     // this is a workaround for a error which appears only once when changing the theme
     LogBox.ignoreLogs(['Warning: Cannot update a component'])
-
-    const colorScheme = useColorScheme()
     const [splashScreen, setSplashScreen] = useState(false)
 
     useEffect(() => {
@@ -78,8 +75,7 @@ export default function RootLayout() {
                 theme.color || 'blue'
             }`}
         >
-            <StatusBar style={colorScheme === 'light' ? 'light' : 'dark'} />
-            
+            <StatusBar style={theme.system ? 'light' : 'dark'} />
             <ThemeProvider value={theme.system ? DarkTheme : DefaultTheme}>
                 <PortalProvider>
 
