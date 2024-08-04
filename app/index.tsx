@@ -1,5 +1,5 @@
 import { useFocusEffect, useRouter } from 'expo-router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Text, View } from 'react-native'
 import { Spinner, YStack } from 'tamagui'
 
