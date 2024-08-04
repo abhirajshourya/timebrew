@@ -30,6 +30,15 @@ const Index = () => {
     const [timePickerVisible, setTimePickerVisible] = useState(false)
 
     function onSetDailyGoalTimeHandler() {
+        if (dailyGoalTime === 0) {
+            Alert.alert(i18n.t('alert.error'), i18n.t('alert.goalSetError'), [
+                {
+                    text: i18n.t('alert.ok'),
+                    style: 'default',
+                },
+            ])
+            return
+        }
         mmkv_storage.set('goal.dailytime', dailyGoalTime)
         Alert.alert(i18n.t('alert.goalSet'), i18n.t('alert.goalSetMessage'), [
             {
@@ -152,23 +161,18 @@ const Index = () => {
                     {dailyGoal && (
                         <YGroup.Item>
                             <ListItem pressTheme>
-                                <XStack
-                                    gap={10}
-                                    justifyContent="space-between"
-                                    width={'100%'}
-                                >
+                                <XStack gap={10} justifyContent="space-between">
                                     <Input
                                         placeholder={i18n.t(
                                             'goals_screen.inputPlaceholder'
                                         )}
-                                        keyboardType="number-pad"
                                         enterKeyHint="done"
                                         onChangeText={(text) => {
                                             setDailyGoalTime(
                                                 formatTimeToSeconds(text)
                                             )
                                         }}
-                                        width={'70%'}
+                                        flex={1}
                                     />
                                     <Button onPress={onSetDailyGoalTimeHandler}>
                                         {i18n.t('goals_screen.setBtn')}

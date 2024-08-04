@@ -2,33 +2,42 @@ import { Tabs } from 'expo-router'
 import i18n from '@/constants/translations'
 import React from 'react'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
-import { Pressable } from 'react-native'
+import { Platform, Pressable } from 'react-native'
 import { BarChartBig, List, Tags, Timer } from '@tamagui/lucide-icons'
 import { useTheme } from 'tamagui'
+import * as NavigationBar from 'expo-navigation-bar'
 
 export default function TabLayout() {
     const isDev = false
     const theme = useTheme()
 
+    const tabBarStyle = () => {
+        if (Platform.OS === 'android') {
+            NavigationBar.setBackgroundColorAsync(theme.background.get())
+            return {
+                elevation: 10,
+                paddingBottom: 10,
+                paddingTop: 10,
+                minHeight: 60,
+                backgroundColor: theme.background.get(),
+            }
+        } else {
+            return {
+                elevation: 10,
+                backgroundColor: theme.background.get(),
+            }
+        }
+    }
+
     return (
         <Tabs
-            initialRouteName="home"
             screenOptions={{
                 tabBarActiveTintColor: theme.color10.get(),
                 tabBarInactiveTintColor: theme.color.get(),
-                tabBarActiveBackgroundColor: theme.background.get(),
-                tabBarInactiveBackgroundColor: theme.background025.get(),
-                tabBarStyle: {
-                    shadowColor: 'transparent',
-                    elevation: 0,
-                    paddingBottom: 10,
-                    paddingTop: 10,
-                    minHeight: 60,
-                },
+                tabBarStyle: tabBarStyle(),
                 tabBarHideOnKeyboard: true,
                 headerShown: false,
             }}
-            safeAreaInsets={{ top: 0, bottom: 0 }}
         >
             <Tabs.Screen
                 name="home"

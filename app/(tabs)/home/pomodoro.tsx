@@ -9,6 +9,7 @@ import { Alert, StyleSheet } from 'react-native'
 import CircularProgress from 'react-native-circular-progress-indicator'
 import { View, Text, Button, styled, useTheme } from 'tamagui'
 import { X, TimerReset } from '@tamagui/lucide-icons'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const DEFAULT_POMO_DURATION = 25 * 60 // 25 minutes
 const DEFAULT_BREAK_DURATION = 5 * 60 // 5 minutes
@@ -18,6 +19,7 @@ const StyledCircularProgress = styled(CircularProgress, {
 })
 
 const Pomodoro = () => {
+    const inset = useSafeAreaInsets()
     const theme = useTheme()
 
     const {
@@ -100,10 +102,10 @@ const Pomodoro = () => {
                     flexDirection: 'row',
                     justifyContent: 'flex-end',
                 }}
+                paddingTop={inset.top}
             >
                 <Button
                     marginRight={20}
-                    marginTop={20}
                     onPress={() => {
                         if (isRunning) {
                             Alert.alert(
