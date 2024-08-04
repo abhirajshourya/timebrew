@@ -1,3 +1,4 @@
+import { CustomStyles } from '@/constants/Styles'
 import i18n from '@/constants/translations'
 import { type Theme } from '@/constants/types'
 import {
@@ -100,28 +101,34 @@ export default function RootLayout() {
                     )}
 
                     <SQLiteProvider useSuspense databaseName="timebrew.db">
-                        <Stack initialRouteName="Tracker">
-                            <Stack.Screen
-                                name="(tabs)"
-                                options={{
-                                    headerShown: false,
-                                    title: i18n.t(
-                                        'tracker_screen.layout.tracker'
-                                    ),
-                                }}
-                            />
-                            <Stack.Screen
-                                name="settings"
-                                options={{
-                                    headerShown: true,
-                                    title: i18n.t('settings.title'),
-                                }}
-                            />
-                            <Stack.Screen name="+not-found" />
-                        </Stack>
+                        <StackLayout />
                     </SQLiteProvider>
                 </PortalProvider>
             </ThemeProvider>
         </TamaguiProvider>
+    )
+}
+
+const StackLayout = () => {
+    const navStyle = CustomStyles().NavigationHeaderStyle()
+
+    return (
+        <Stack initialRouteName="Tracker" screenOptions={navStyle}>
+            <Stack.Screen
+                name="(tabs)"
+                options={{
+                    headerShown: false,
+                    title: i18n.t('tracker_screen.layout.tracker'),
+                }}
+            />
+            <Stack.Screen
+                name="settings"
+                options={{
+                    headerShown: true,
+                    title: i18n.t('settings.title'),
+                }}
+            />
+            <Stack.Screen name="+not-found" />
+        </Stack>
     )
 }
