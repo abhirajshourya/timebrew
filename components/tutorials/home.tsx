@@ -5,15 +5,23 @@ import { useMMKVString } from 'react-native-mmkv'
 import { Defs, Mask, Rect, Svg } from 'react-native-svg'
 import i18n from '@/constants/translations'
 import { Theme } from '@/constants/types'
+import { mmkv_storage } from '@/app/_layout'
 
 const Index = () => {
-    const [themeSettings, setThemeSettings] = useMMKVString('settings.themes')
+    const themeSettings = mmkv_storage.getString('settings.themes')
     const [themeSettingsJson, setTheme] = useState<Theme>(
         JSON.parse(themeSettings || '{}')
     )
 
     useEffect(() => {
         setTheme(JSON.parse(themeSettings || '{}'))
+        console.log('themeSettingsJson', themeSettingsJson)
+
+        setBackgroundFill(
+            themeSettingsJson.system
+                ? 'rgba(100,100,100,0.5)'
+                : 'rgba(0,0,0,0.5)'
+        )
     }, [themeSettings])
 
     const [backgroundFill, setBackgroundFill] = useState(
