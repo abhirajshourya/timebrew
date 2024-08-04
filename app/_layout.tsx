@@ -63,6 +63,15 @@ export default function RootLayout() {
         }, 1000)
     }, [])
 
+    const [tutorialSetting, setTutorialSetting] =
+        useMMKVString('settings.tutorial')
+
+    useEffect(() => {
+        if (tutorialSetting === null) {
+            setTutorialSetting('true')
+        }
+    }, [])
+
     if (!loaded) {
         return null
     }
