@@ -1,6 +1,5 @@
 import i18n from '@/constants/translations'
 import { type Theme } from '@/constants/types'
-import { useColorScheme } from '@/hooks/useColorScheme'
 import {
     DarkTheme,
     DefaultTheme,
@@ -18,9 +17,9 @@ import { Suspense, useEffect, useState } from 'react'
 import { LogBox, Text, View } from 'react-native'
 import { useMMKVString } from 'react-native-mmkv'
 import 'react-native-reanimated'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { PortalProvider, Spinner } from 'tamagui'
 import { MMKV } from 'react-native-mmkv'
+import { CustomStyles } from '@/constants/Styles'
 
 const tamaguiConfig = createTamagui(config)
 
@@ -49,8 +48,6 @@ export default function RootLayout() {
     // this is a workaround for a error which appears only once when changing the theme
     LogBox.ignoreLogs(['Warning: Cannot update a component'])
 
-    const colorScheme = useColorScheme()
-
     useEffect(() => {
         setTheme(JSON.parse(themeSettings || '{}'))
     }, [themeSettings])
@@ -76,10 +73,10 @@ export default function RootLayout() {
                 theme.color || 'blue'
             }`}
         >
-            <StatusBar style={colorScheme === 'light' ? 'light' : 'dark'} />
+            <StatusBar style={theme.system ? 'light' : 'dark'} />
             <ThemeProvider value={theme.system ? DarkTheme : DefaultTheme}>
                 <PortalProvider>
-                    <SafeAreaView style={{ flex: 1 }}>
+                    <View style={{ flex: 1 }}>
                         <Suspense
                             fallback={
                                 <View
@@ -99,30 +96,42 @@ export default function RootLayout() {
                                 useSuspense
                                 databaseName="timebrew.db"
                             >
-                                <Stack initialRouteName="Tracker">
-                                    <Stack.Screen
-                                        name="(tabs)"
-                                        options={{
-                                            headerShown: false,
-                                            title: i18n.t(
-                                                'tracker_screen.layout.tracker'
-                                            ),
-                                        }}
-                                    />
-                                    <Stack.Screen
-                                        name="settings"
-                                        options={{
-                                            headerShown: true,
-                                            title: i18n.t('settings.title'),
-                                        }}
-                                    />
-                                    <Stack.Screen name="+not-found" />
-                                </Stack>
+                                <StackLayout />
                             </SQLiteProvider>
                         </Suspense>
-                    </SafeAreaView>
+                    </View>
                 </PortalProvider>
             </ThemeProvider>
         </TamaguiProvider>
+    )
+}
+
+const StackLayout = () => {
+    const navStyle = CustomStyles().NavigationHeaderStyle()
+    Stack.defaultProps = {
+        initialRouteName: 'index',
+        screenOptions: {
+            headerShown: false,
+        },
+    }
+
+    return (
+        <Stack screenOptions={navStyle} initialRouteName="(tabs)">
+            <Stack.Screen
+                name="(tabs)"
+                options={{
+                    headerShown: false,
+                    title: i18n.t('tracker_screen.layout.tracker'),
+                }}
+            />
+            <Stack.Screen
+                name="settings"
+                options={{
+                    headerShown: true,
+                    title: i18n.t('settings.title'),
+                }}
+            />
+            <Stack.Screen name="+not-found" />
+        </Stack>
     )
 }

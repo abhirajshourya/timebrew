@@ -1,12 +1,21 @@
-import { ChevronRight, Goal, Palette } from '@tamagui/lucide-icons'
+import { ChevronRight, Goal, MonitorPlay, Palette } from '@tamagui/lucide-icons'
 import i18n from '@/constants/translations'
 import { useRouter } from 'expo-router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
-import { ListItem, ScrollView, YGroup } from 'tamagui'
+import { ListItem, ScrollView, Switch, YGroup } from 'tamagui'
+import { useMMKVString } from 'react-native-mmkv'
 
 const Settings = () => {
     const router = useRouter()
+    const [tutorialSetting, setTutorialSetting] =
+        useMMKVString('settings.tutorial')
+
+    useEffect(() => {
+        if (tutorialSetting === null) {
+            setTutorialSetting('true')
+        }
+    }, [])
 
     return (
         <ScrollView margin={20}>
@@ -20,7 +29,11 @@ const Settings = () => {
                         onPress={() => {
                             router.push('settings/themes')
                         }}
-                    />
+                    >
+                        <ListItem.Subtitle>
+                            {i18n.t('settings.themes_subtitle')}
+                        </ListItem.Subtitle>
+                    </ListItem>
                 </YGroup.Item>
                 <YGroup.Item>
                     <ListItem
@@ -31,7 +44,31 @@ const Settings = () => {
                         onPress={() => {
                             router.push('settings/goal')
                         }}
-                    />
+                    >
+                        <ListItem.Subtitle>
+                            {i18n.t('settings.goals_subtitle')}
+                        </ListItem.Subtitle>
+                    </ListItem>
+                </YGroup.Item>
+                <YGroup.Item>
+                    <ListItem
+                        title={i18n.t('settings.tutorial')}
+                        pressTheme
+                        icon={<MonitorPlay size={24} />}
+                        iconAfter={
+                            <Switch
+                                defaultChecked={tutorialSetting === 'true'}
+                                onCheckedChange={(value) => {
+                                    setTutorialSetting(value.toString())
+                                }}
+                                native
+                            />
+                        }
+                    >
+                        <ListItem.Subtitle>
+                            {i18n.t('settings.tutorial_subtitle')}
+                        </ListItem.Subtitle>
+                    </ListItem>
                 </YGroup.Item>
             </YGroup>
         </ScrollView>

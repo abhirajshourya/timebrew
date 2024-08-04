@@ -12,7 +12,7 @@ import useDatabase from '@/hooks/useDatabase'
 import useTimeTracker from '@/hooks/useTimeTracker'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useEffect, useMemo, useState } from 'react'
-import { Alert, SafeAreaView, StyleSheet } from 'react-native'
+import { Alert, RefreshControl, StyleSheet } from 'react-native'
 import {
     Separator,
     Text,
@@ -24,13 +24,17 @@ import {
     ScrollView,
     Button,
     useTheme,
+    Spinner,
 } from 'tamagui'
 import { useRouter, useSegments } from 'expo-router'
 import { Settings, TimerReset } from '@tamagui/lucide-icons'
 import { mmkv_storage } from '@/app/_layout'
 import * as Progress from 'react-native-progress'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { HomeTutorial } from '@/components/tutorials'
 
 const Tracker = ({}) => {
+    const inset = useSafeAreaInsets()
     const {
         duration,
         start,
@@ -183,121 +187,132 @@ const Tracker = ({}) => {
     const theme = useTheme()
 
     return (
-        <SafeAreaView>
-            <YStack>
-                <XStack
-                    paddingTop={20}
-                    paddingBottom={10}
-                    marginHorizontal={20}
-                    alignItems="center"
-                    justifyContent="space-between"
+        <YStack paddingTop={inset.top} backgroundColor={'$background025'}>
+            <XStack
+                paddingBottom={10}
+                marginHorizontal={20}
+                alignItems="center"
+                justifyContent="space-between"
+            >
+                <H2
+                    style={{
+                        // fontSize: 24,
+                        fontWeight: '600',
+                        margin: 20,
+                    }}
+                    color={'$color10'}
                 >
-                    <H2
-                        style={{
-                            // fontSize: 24,
-                            fontWeight: '600',
-                            margin: 20,
-                        }}
-                        color={'$color10'}
-                    >
-                        timebrew
-                    </H2>
+                    timebrew
+                </H2>
 
-                    <View>
-                        <Button
-                            onPress={() => {
-                                router.push({ pathname: 'settings' })
-                            }}
-                            chromeless
-                            marginEnd={-20}
+                <View>
+                    <Button
+                        onPress={() => {
+                            router.push({ pathname: 'settings' })
+                        }}
+                        chromeless
+                        marginEnd={-20}
+                    >
+                        <Settings size={24} />
+                    </Button>
+                </View>
+            </XStack>
+            <ScrollView
+                contentContainerStyle={styles.container}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={reload}
+                        onRefresh={() => setReload(true)}
+                        colors={[theme.color.get()]}
+                        progressBackgroundColor={theme.background.get()}
+                        tintColor={theme.color.get()}
+                    />
+                }
+            >
+                <View style={styles.mainTrackerContainer}>
+                    <WavyRings
+                        width={250}
+                        rings={3}
+                        delay={900}
+                        isRunning={isRunning}
+                    >
+                        <YStack
+                            alignItems="center"
+                            justifyContent="space-between"
                         >
-                            <Settings size={24} />
-                        </Button>
-                    </View>
-                </XStack>
-                <ScrollView contentContainerStyle={styles.container}>
-                    <View style={styles.mainTrackerContainer}>
-                        <WavyRings
-                            width={250}
-                            rings={3}
-                            delay={900}
-                            isRunning={isRunning}
-                        >
-                            <YStack
-                                alignItems="center"
-                                justifyContent="space-between"
+                            <H1>{formatTime(duration) || '0s'}</H1>
+                            <Button
+                                scale={0.7}
+                                borderRadius={50}
+                                variant="outlined"
+                                borderColor={'$borderColor'}
+                                onPress={() => router.push('home/pomodoro')}
+                                icon={<TimerReset size={24} />}
                             >
-                                <H1>{formatTime(duration) || '0s'}</H1>
-                                <Button
-                                    scale={0.7}
-                                    borderRadius={50}
-                                    variant="outlined"
-                                    borderColor={'$borderColor'}
-                                    onPress={() => router.push('home/pomodoro')}
-                                    icon={<TimerReset size={24} />}
+                                <Text fontSize={'$6'}>Pomodoro</Text>
+                            </Button>
+                        </YStack>
+                    </WavyRings>
+                    <View style={styles.controlsContainer}>
+                        <View>
+                            {(status === 'paused' || isRunning) && (
+                                <CircleButton
+                                    onPress={() => reset()}
+                                    style={styles.button}
                                 >
-                                    <Text fontSize={'$6'}>Pomodoro</Text>
-                                </Button>
-                            </YStack>
-                        </WavyRings>
-                        <View style={styles.controlsContainer}>
-                            <View>
-                                {(status === 'paused' || isRunning) && (
-                                    <CircleButton
-                                        onPress={() => reset()}
-                                        style={styles.button}
-                                    >
-                                        <Ionicons
-                                            name="refresh"
-                                            size={24}
-                                            color="white"
-                                        />
-                                    </CircleButton>
-                                )}
-                            </View>
-                            <View>
-                                {isRunning ? (
-                                    <CircleButton
-                                        onPress={pause}
-                                        style={styles.playPauseButton}
-                                    >
-                                        <Ionicons
-                                            name="pause"
-                                            size={35}
-                                            color="white"
-                                        />
-                                    </CircleButton>
-                                ) : (
-                                    <CircleButton
-                                        onPress={start}
-                                        style={styles.playPauseButton}
-                                    >
-                                        <Ionicons
-                                            name="play"
-                                            size={35}
-                                            color="white"
-                                        />
-                                    </CircleButton>
-                                )}
-                            </View>
-                            <View>
-                                {(status === 'paused' || isRunning) && (
-                                    <CircleButton
-                                        onPress={handleOnStop}
-                                        style={styles.button}
-                                    >
-                                        <Ionicons
-                                            name="stop"
-                                            size={24}
-                                            color="white"
-                                        />
-                                    </CircleButton>
-                                )}
-                            </View>
+                                    <Ionicons
+                                        name="refresh"
+                                        size={24}
+                                        color="white"
+                                    />
+                                </CircleButton>
+                            )}
+                        </View>
+                        <View>
+                            {isRunning ? (
+                                <CircleButton
+                                    onPress={pause}
+                                    style={styles.playPauseButton}
+                                >
+                                    <Ionicons
+                                        name="pause"
+                                        size={35}
+                                        color="white"
+                                    />
+                                </CircleButton>
+                            ) : (
+                                <CircleButton
+                                    onPress={start}
+                                    style={styles.playPauseButton}
+                                >
+                                    <Ionicons
+                                        name="play"
+                                        size={35}
+                                        color="white"
+                                    />
+                                </CircleButton>
+                            )}
+                        </View>
+                        <View>
+                            {(status === 'paused' || isRunning) && (
+                                <CircleButton
+                                    onPress={handleOnStop}
+                                    style={styles.button}
+                                >
+                                    <Ionicons
+                                        name="stop"
+                                        size={24}
+                                        color="white"
+                                    />
+                                </CircleButton>
+                            )}
                         </View>
                     </View>
-                    <View style={styles.logsContainer}>
-                        {dailyGoal && dailyGoalTime && (
+                </View>
+                <View style={styles.logsContainer}>
+                    {dailyGoal &&
+                        dailyGoalTime != undefined &&
+                        dailyGoalTime != 0 && (
                             <View
                                 style={{
                                     borderRadius: 10,
@@ -334,75 +349,76 @@ const Tracker = ({}) => {
                                 </YStack>
                             </View>
                         )}
-                        <Separator marginVertical={20} />
-                        <H2 alignSelf="center" marginBottom={20}>
-                            {i18n.t('tracker_screen.index.title')}
-                        </H2>
-                        {memoTimelogs.map((timelog) => (
+                    <Separator marginVertical={20} />
+                    <H2 alignSelf="center" marginBottom={20}>
+                        {i18n.t('tracker_screen.index.title')}
+                    </H2>
+                    {reload && (
+                        <Spinner size="large" color={theme.color.get()} />
+                    )}
+                    {!reload &&
+                        memoTimelogs.map((timelog) => (
                             <View key={timelog.id} style={{ marginBottom: 10 }}>
                                 <TimelogCard
                                     timelog={timelog}
+                                    reload={reload}
                                     setReload={setReload}
                                 />
                             </View>
                         ))}
-                    </View>
-                    {!timelogs.length && (
-                        <Text
-                            style={{
-                                fontSize: 16,
-                                color: 'grey',
-                                textAlign: 'center',
-                            }}
-                        >
-                            {i18n.t('tracker_screen.index.no_logs')}
-                        </Text>
-                    )}
-                </ScrollView>
+                </View>
+                {!timelogs.length && (
+                    <Text
+                        style={{
+                            fontSize: 16,
+                            color: 'grey',
+                            textAlign: 'center',
+                        }}
+                    >
+                        {i18n.t('tracker_screen.index.no_logs')}
+                    </Text>
+                )}
+            </ScrollView>
 
-                <TimeLogModal
-                    isVisible={isModalVisible}
-                    onClose={() => setIsModalVisible(false)}
-                    title={i18n.t('tracker_screen.index.time_log')}
-                >
-                    <View>
-                        <Text style={styles.label}>
-                            {i18n.t('tracker_screen.index.questions')}
-                        </Text>
-                        <DropDownPicker
-                            items={tasks.map((task) => task.description)}
-                            selectedValue={selectedTask}
-                            setValue={(value) => setSelectedTask(value)}
-                            placeholder={i18n.t(
-                                'tracker_screen.index.questions'
-                            )}
-                        />
-                    </View>
+            <TimeLogModal
+                isVisible={isModalVisible}
+                onClose={() => setIsModalVisible(false)}
+                title={i18n.t('tracker_screen.index.time_log')}
+            >
+                <View>
+                    <Text style={styles.label}>
+                        {i18n.t('tracker_screen.index.questions')}
+                    </Text>
+                    <DropDownPicker
+                        items={tasks.map((task) => task.description)}
+                        selectedValue={selectedTask}
+                        setValue={(value) => setSelectedTask(value)}
+                        placeholder={i18n.t('tracker_screen.index.questions')}
+                    />
+                </View>
 
-                    <View>
-                        <Text style={styles.label}>
-                            {i18n.t('tracker_screen.index.tags')}
-                        </Text>
-                        <MultiDropDownPicker
-                            items={tags}
-                            selectedValues={selectedTags}
-                            setValues={(values) => setSelectedTags(values)}
-                            placeholder={i18n.t('tracker_screen.index.add_tag')}
-                        />
-                    </View>
-                    <View style={{ marginBottom: 20 }}>
-                        <Button
-                            onPress={handleSave}
-                            backgroundColor={'$borderColor'}
-                        >
-                            <Text>
-                                {i18n.t('tracker_screen.index.save_btn')}
-                            </Text>
-                        </Button>
-                    </View>
-                </TimeLogModal>
-            </YStack>
-        </SafeAreaView>
+                <View>
+                    <Text style={styles.label}>
+                        {i18n.t('tracker_screen.index.tags')}
+                    </Text>
+                    <MultiDropDownPicker
+                        items={tags}
+                        selectedValues={selectedTags}
+                        setValues={(values) => setSelectedTags(values)}
+                        placeholder={i18n.t('tracker_screen.index.add_tag')}
+                    />
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                    <Button
+                        onPress={handleSave}
+                        backgroundColor={'$borderColor'}
+                    >
+                        <Text>{i18n.t('tracker_screen.index.save_btn')}</Text>
+                    </Button>
+                </View>
+            </TimeLogModal>
+            <HomeTutorial />
+        </YStack>
     )
 }
 

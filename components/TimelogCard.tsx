@@ -13,10 +13,11 @@ import { Edit3, Trash, Trash2, X } from '@tamagui/lucide-icons'
 
 interface TimelogCardProps {
     timelog: Timelog
+    reload: React.SetStateAction<boolean>
     setReload: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const TimelogCard = ({ timelog, setReload }: TimelogCardProps) => {
+const TimelogCard = ({ timelog, reload, setReload }: TimelogCardProps) => {
     const [isEditing, setIsEditing] = useState(false)
     const { getTask, deleteTimelog, getTagsForTimelog } = useDatabase()
     const segment = useSegments()
@@ -27,7 +28,7 @@ const TimelogCard = ({ timelog, setReload }: TimelogCardProps) => {
     useEffect(() => {
         getTask(timelog.task_id).then(setTask)
         getTagsForTimelog(timelog.id).then(setTags)
-    }, [])
+    }, [reload])
 
     const handleDeleteTimelog = async () => {
         try {

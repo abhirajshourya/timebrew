@@ -3,15 +3,27 @@ import i18n from '@/constants/translations'
 import { Task } from '@/constants/types'
 import useDatabase from '@/hooks/useDatabase'
 import React, { useEffect, useMemo, useState } from 'react'
-import { SafeAreaView, TouchableOpacity } from 'react-native'
-import { Button, Text, View, ScrollView, YStack } from 'tamagui'
+import { RefreshControl, SafeAreaView, TouchableOpacity } from 'react-native'
+import {
+    Button,
+    Text,
+    View,
+    ScrollView,
+    YStack,
+    useTheme,
+    Spinner,
+} from 'tamagui'
 import { useRouter, useSegments } from 'expo-router'
 import { Plus } from '@tamagui/lucide-icons'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const TasksPage = () => {
+    const insets = useSafeAreaInsets()
+    const theme = useTheme()
     const router = useRouter()
     const { getTasks } = useDatabase()
     const [tasks, setTasks] = useState<Task[]>([])
+    const [reload, setReload] = useState(false)
     const memoTasks = useMemo(() => tasks, [tasks])
     const segment = useSegments()
 
@@ -20,19 +32,21 @@ const TasksPage = () => {
     }
 
     useEffect(() => {
-        getTasks().then(setTasks)
-    }, [segment])
+        getTasks()
+            .then(setTasks)
+            .then(() => setReload(false))
+    }, [segment, reload])
 
     return (
-        <SafeAreaView>
+        <YStack backgroundColor={'$background025'} paddingTop={insets.top}>
             <View
                 style={{
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    // margin: 20,
-                    padding: 20,
+                    marginHorizontal: 20,
+                    paddingBottom: 20,
                 }}
             >
                 <Text
@@ -55,6 +69,15 @@ const TasksPage = () => {
                     display: 'flex',
                     flexDirection: 'column',
                 }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={reload}
+                        onRefresh={() => setReload(true)}
+                        colors={[theme.color.get()]}
+                        progressBackgroundColor={theme.background.get()}
+                        tintColor={theme.color.get()}
+                    />
+                }
             >
                 <YStack
                     style={{
@@ -63,12 +86,16 @@ const TasksPage = () => {
                     gap={10}
                     marginHorizontal={20}
                 >
-                    {memoTasks.map((task) => (
-                        <TaskCard key={task.id} task={task} />
-                    ))}
+                    {reload && (
+                        <Spinner size="large" color={theme.color.get()} />
+                    )}
+                    {!reload &&
+                        memoTasks.map((task) => (
+                            <TaskCard key={task.id} task={task} />
+                        ))}
                 </YStack>
             </ScrollView>
-        </SafeAreaView>
+        </YStack>
     )
 }
 
