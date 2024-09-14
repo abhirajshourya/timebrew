@@ -2,6 +2,9 @@
 
 Cross platform Mobile app for tracking time, managing logs and time analysis with beautiful visualizations.
 
+# Final Demo
+[![Demo Video](https://img.youtube.com/vi/7KwNbz0woRg/0.jpg)](https://youtu.be/7KwNbz0woRg)
+
 # Group S2G1
 
 -   [Abhiraj Shourya](https://github.com/abhirajshourya)
