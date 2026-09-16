@@ -7,6 +7,8 @@ name: dependabot-auto-merge
 permissions:
   pull-requests: write
   contents: write
+  checks: read
+  statuses: read
 
 jobs:
   auto-merge:
