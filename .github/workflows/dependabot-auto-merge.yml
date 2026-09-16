@@ -15,11 +15,33 @@ jobs:
     steps:
       - uses: dependabot/fetch-metadata@v2
         id: metadata
+      # Poll only our own named CI check(s) rather than `gh pr checks --watch`,
+      # which waits on every context - a third-party status stuck pending
+      # forever (seen on other repos in this same setup) would hang the job.
       - if: steps.metadata.outputs.update-type != 'version-update:semver-major'
         run: |
-          gh pr checks "$PR_URL" --watch --fail-fast
+          for i in $(seq 1 90); do
+            checks_json=$(gh pr checks "$PR_URL" --json name,bucket)
+            all_pass=true
+            any_fail=false
+            for name in $REQUIRED_CHECKS; do
+              bucket=$(echo "$checks_json" | jq -r --arg n "$name" '[.[] | select(.name==$n)][0].bucket // "missing"')
+              case "$bucket" in
+                pass) ;;
+                fail|cancel) any_fail=true ;;
+                *) all_pass=false ;;
+              esac
+            done
+            if $any_fail; then echo "a required check failed"; exit 1; fi
+            if $all_pass; then break; fi
+            sleep 10
+          done
+          if [ "$all_pass" != true ]; then
+            echo "timed out waiting for required checks: $REQUIRED_CHECKS"; exit 1
+          fi
           gh pr review --approve "$PR_URL"
           gh pr merge --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REQUIRED_CHECKS: "test"
