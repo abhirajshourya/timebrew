@@ -15,7 +15,7 @@ jobs:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - uses: dependabot/fetch-metadata@v2
+      - uses: dependabot/fetch-metadata@v3
         id: metadata
       # Poll only our own named CI check(s) rather than `gh pr checks --watch`,
       # which waits on every context - a third-party status stuck pending
